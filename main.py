@@ -8,6 +8,7 @@ import torch
 from src.controllers import (
     ZeroAtOriginController,
     make_nn_controller,
+    make_saturated_controller,
     train_controller,
 )
 from src.lyapunov import grid_check
@@ -15,6 +16,7 @@ from src.metrics import calculate_metrics
 from src.plotting import (
     save_multiple_initial_conditions_plot,
     save_plots,
+    save_saturation_comparison_plot,
 )
 from src.simulation import simulate
 from src.system import (
@@ -24,6 +26,7 @@ from src.system import (
 )
 
 SEED = 7
+CONTROL_LIMIT = 2.0
 
 
 def set_seed() -> None:
@@ -45,6 +48,7 @@ def save_metrics_csv(
         "initial_position",
         "initial_velocity",
         "controller",
+        "control_limit",
         "final_state_norm",
         "settling_time_s",
         "quadratic_cost",
@@ -52,15 +56,8 @@ def save_metrics_csv(
         "max_abs_control",
     ]
 
-    with output_path.open(
-        "w",
-        newline="",
-        encoding="utf-8",
-    ) as csv_file:
-        writer = csv.DictWriter(
-            csv_file,
-            fieldnames=fieldnames,
-        )
+    with output_path.open("w", newline="", encoding="utf-8") as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(rows)
 
@@ -73,6 +70,7 @@ def main() -> None:
 
     print("LQR gain K:", K)
     print("Closed-loop eigenvalues:", CLOSED_LOOP_EIGENVALUES)
+    print(f"Actuator saturation limit: +/-{CONTROL_LIMIT}")
 
     model = ZeroAtOriginController()
 
@@ -84,6 +82,23 @@ def main() -> None:
 
     nn_controller = make_nn_controller(model)
 
+    saturated_lqr_controller = make_saturated_controller(
+        lqr_controller,
+        limit=CONTROL_LIMIT,
+    )
+
+    saturated_nn_controller = make_saturated_controller(
+        nn_controller,
+        limit=CONTROL_LIMIT,
+    )
+
+    controllers = {
+        "LQR": (lqr_controller, "none"),
+        "Neural network": (nn_controller, "none"),
+        "Saturated LQR": (saturated_lqr_controller, CONTROL_LIMIT),
+        "Saturated neural network": (saturated_nn_controller, CONTROL_LIMIT),
+    }
+
     initial_states = [
         np.array([1.5, 0.0]),
         np.array([-1.5, 0.0]),
@@ -92,59 +107,40 @@ def main() -> None:
         np.array([0.5, -2.0]),
     ]
 
-    lqr_solutions = [
-        simulate(lqr_controller, initial_state)
-        for initial_state in initial_states
+    solutions: dict[str, list] = {
+        controller_name: [
+            simulate(controller, initial_state)
+            for initial_state in initial_states
+        ]
+        for controller_name, (controller, _limit) in controllers.items()
+    }
+
+    all_solutions = [
+        solution
+        for controller_solutions in solutions.values()
+        for solution in controller_solutions
     ]
 
-    nn_solutions = [
-        simulate(nn_controller, initial_state)
-        for initial_state in initial_states
-    ]
-
-    all_solutions = lqr_solutions + nn_solutions
-
-    if not all(
-        solution.success
-        for solution in all_solutions
-    ):
-        raise RuntimeError(
-            "At least one simulation failed."
-        )
+    if not all(solution.success for solution in all_solutions):
+        raise RuntimeError("At least one simulation failed.")
 
     metric_rows: list[dict[str, float | str]] = []
 
     print()
     print("Quantitative performance metrics:")
 
-    for initial_state, lqr_solution, nn_solution in zip(
-        initial_states,
-        lqr_solutions,
-        nn_solutions,
-    ):
-        controller_cases = [
-            (
-                "LQR",
-                lqr_solution,
-                lqr_controller,
-            ),
-            (
-                "Neural network",
-                nn_solution,
-                nn_controller,
-            ),
-        ]
-
-        for controller_name, solution, controller in controller_cases:
-            metrics = calculate_metrics(
-                solution,
-                controller,
-            )
+    for controller_name, (controller, control_limit) in controllers.items():
+        for initial_state, solution in zip(
+            initial_states,
+            solutions[controller_name],
+        ):
+            metrics = calculate_metrics(solution, controller)
 
             row = {
                 "initial_position": float(initial_state[0]),
                 "initial_velocity": float(initial_state[1]),
                 "controller": controller_name,
+                "control_limit": control_limit,
                 **metrics,
             }
 
@@ -156,6 +152,7 @@ def main() -> None:
                 f"settling={metrics['settling_time_s']:.3f} s, "
                 f"cost={metrics['quadratic_cost']:.4f}, "
                 f"energy={metrics['control_energy']:.4f}, "
+                f"max |u|={metrics['max_abs_control']:.4f}, "
                 f"final norm={metrics['final_state_norm']:.3e}"
             )
 
@@ -166,30 +163,34 @@ def main() -> None:
     print("LQR grid check:", grid_check(lqr_controller))
     print("NN grid check:", grid_check(nn_controller))
 
-    torch.save(
-        model.state_dict(),
-        output_dir / "nn_controller.pt",
-    )
+    torch.save(model.state_dict(), output_dir / "nn_controller.pt")
 
     save_plots(
         training_history,
-        lqr_solutions[0],
-        nn_solutions[0],
+        solutions["LQR"][0],
+        solutions["Neural network"][0],
         output_dir,
     )
 
     save_multiple_initial_conditions_plot(
-        nn_solutions,
+        solutions["Neural network"],
         initial_states,
+        output_dir,
+    )
+
+    first_initial_condition_solutions = {
+        controller_name: controller_solutions[0]
+        for controller_name, controller_solutions in solutions.items()
+    }
+
+    save_saturation_comparison_plot(
+        first_initial_condition_solutions,
         output_dir,
     )
 
     print()
     print(f"Metrics saved to: {metrics_path.resolve()}")
-    print(
-        f"Model and figures saved in: "
-        f"{output_dir.resolve()}"
-    )
+    print(f"Model and figures saved in: {output_dir.resolve()}")
 
 
 if __name__ == "__main__":

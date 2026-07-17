@@ -13,32 +13,15 @@ def save_plots(
     """Save trajectory and training-loss figures."""
 
     plt.figure(figsize=(8, 5))
-
-    plt.plot(
-        lqr_solution.t,
-        lqr_solution.y[0],
-        label="LQR position",
-    )
-
-    plt.plot(
-        nn_solution.t,
-        nn_solution.y[0],
-        "--",
-        label="NN position",
-    )
-
+    plt.plot(lqr_solution.t, lqr_solution.y[0], label="LQR position")
+    plt.plot(nn_solution.t, nn_solution.y[0], "--", label="NN position")
     plt.xlabel("Time [s]")
     plt.ylabel("Position")
     plt.title("LQR and neural-controller comparison")
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
-
-    plt.savefig(
-        output_dir / "position_comparison.png",
-        dpi=180,
-    )
-
+    plt.savefig(output_dir / "position_comparison.png", dpi=180)
     plt.close()
 
     plt.figure(figsize=(8, 5))
@@ -50,18 +33,9 @@ def save_plots(
     }
 
     for key, label in loss_labels.items():
-        values = np.asarray(
-            training_history[key],
-            dtype=float,
-        )
-
-        # Logarithmic plots cannot display zero.
+        values = np.asarray(training_history[key], dtype=float)
         values = np.maximum(values, 1e-12)
-
-        plt.semilogy(
-            values,
-            label=label,
-        )
+        plt.semilogy(values, label=label)
 
     plt.xlabel("Epoch")
     plt.ylabel("Loss")
@@ -69,12 +43,7 @@ def save_plots(
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
-
-    plt.savefig(
-        output_dir / "training_loss.png",
-        dpi=180,
-    )
-
+    plt.savefig(output_dir / "training_loss.png", dpi=180)
     plt.close()
 
 
@@ -87,43 +56,46 @@ def save_multiple_initial_conditions_plot(
 
     plt.figure(figsize=(9, 6))
 
-    for initial_state, solution in zip(
-        initial_states,
-        nn_solutions,
-    ):
-        state_norm = np.linalg.norm(
-            solution.y,
-            axis=0,
-        )
+    for initial_state, solution in zip(initial_states, nn_solutions):
+        state_norm = np.linalg.norm(solution.y, axis=0)
+        state_norm = np.maximum(state_norm, 1e-12)
 
-        state_norm = np.maximum(
-            state_norm,
-            1e-12,
-        )
+        label = f"x0 = [{initial_state[0]:.1f}, {initial_state[1]:.1f}]"
+        plt.semilogy(solution.t, state_norm, label=label)
 
-        label = (
-            f"x0 = [{initial_state[0]:.1f}, "
-            f"{initial_state[1]:.1f}]"
-        )
+    plt.xlabel("Time [s]")
+    plt.ylabel("State norm ||x||")
+    plt.title("NN controller from multiple initial conditions")
+    plt.grid(True)
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(output_dir / "multiple_initial_conditions.png", dpi=180)
+    plt.close()
+
+
+def save_saturation_comparison_plot(
+    solutions_by_controller: dict[str, object],
+    output_dir: Path,
+) -> None:
+    """Compare state norms for saturated and unsaturated controllers."""
+
+    plt.figure(figsize=(9, 6))
+
+    for controller_name, solution in solutions_by_controller.items():
+        state_norm = np.linalg.norm(solution.y, axis=0)
+        state_norm = np.maximum(state_norm, 1e-12)
 
         plt.semilogy(
             solution.t,
             state_norm,
-            label=label,
+            label=controller_name,
         )
 
     plt.xlabel("Time [s]")
     plt.ylabel("State norm ||x||")
-    plt.title(
-        "NN controller from multiple initial conditions"
-    )
+    plt.title("Effect of actuator saturation")
     plt.grid(True)
     plt.legend()
     plt.tight_layout()
-
-    plt.savefig(
-        output_dir / "multiple_initial_conditions.png",
-        dpi=180,
-    )
-
+    plt.savefig(output_dir / "saturation_comparison.png", dpi=180)
     plt.close()

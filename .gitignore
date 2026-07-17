@@ -9,3 +9,4 @@ results/*
 .DS_Store
 !results/multiple_initial_conditions.png
 !results/performance_metrics.csv
+!results/saturation_comparison.png
