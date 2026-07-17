@@ -23,6 +23,49 @@ A Python and PyTorch experiment that trains a neural-network controller to imita
 | Stability-weight ablation | Tests whether stronger Lyapunov penalties improve stability metrics | `results/stability_weight_ablation.png`, `results/stability_weight_ablation.csv` |
 | Automatic experiment report | Summarizes generated plots, metrics, and ablation results | `results/experiment_report.md` |
 
+## Results gallery
+
+### Controller comparison
+
+![Position comparison](results/position_comparison.png)
+
+### Training loss
+
+![Training loss](results/training_loss.png)
+
+### Multiple initial conditions
+
+![Multiple initial conditions](results/multiple_initial_conditions.png)
+
+### Actuator saturation
+
+![Saturation comparison](results/saturation_comparison.png)
+
+### Noise robustness
+
+![Noise robustness](results/noise_robustness.png)
+
+### Parameter robustness
+
+![Parameter robustness](results/parameter_robustness.png)
+
+### Phase portrait
+
+![Phase portrait](results/phase_portrait.png)
+
+### Lyapunov contour analysis
+
+![Lyapunov contours](results/lyapunov_contours.png)
+
+### Region of attraction
+
+![Region of attraction](results/region_of_attraction.png)
+
+### Stability-weight ablation
+
+![Stability-weight ablation](results/stability_weight_ablation.png)
+
+
 ## Project overview
 
 This project combines:
