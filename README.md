@@ -21,6 +21,7 @@ A Python and PyTorch experiment that trains a neural-network controller to imita
 | Lyapunov contours | Visualizes quadratic Lyapunov level sets with trajectories | `results/lyapunov_contours.png` |
 | Region of attraction | Tests convergence from a grid of initial states | `results/region_of_attraction.png` |
 | Stability-weight ablation | Tests whether stronger Lyapunov penalties improve stability metrics | `results/stability_weight_ablation.png`, `results/stability_weight_ablation.csv` |
+| Automatic experiment report | Summarizes generated plots, metrics, and ablation results | `results/experiment_report.md` |
 
 ## Project overview
 
@@ -271,3 +272,11 @@ This checks whether the Lyapunov-aware training term improves closed-loop stabil
 The ablation results are stored in [`results/stability_weight_ablation.csv`](results/stability_weight_ablation.csv).
 
 The ablation figure is stored in [`results/stability_weight_ablation.png`](results/stability_weight_ablation.png).
+
+## Automatic experiment report
+
+The project automatically generates a Markdown experiment report after running `main.py`.
+
+The report summarizes available plots, performance metrics, and stability-weight ablation results.
+
+The generated report is stored in [`results/experiment_report.md`](results/experiment_report.md).
