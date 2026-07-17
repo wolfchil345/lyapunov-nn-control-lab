@@ -226,3 +226,26 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+## Results
+
+### Closed-loop position comparison
+
+![LQR and neural-network position comparison](results/position_comparison.png)
+
+The neural-network controller produces a trajectory close to the LQR baseline and drives the position toward the equilibrium.
+
+### Training loss
+
+![Neural-controller training loss](results/training_loss.png)
+
+The decreasing loss shows that the neural controller gradually learns the LQR control law.
+
+## Lyapunov grid-check results
+
+| Controller | Maximum V-dot | Violation fraction |
+|---|---:|---:|
+| LQR | -0.0221 | 0.0 |
+| Neural network | -0.0192 | 0.0 |
+
+All tested nonzero grid points had a negative Lyapunov derivative. This provides empirical stability evidence inside the sampled region, but it is not a formal proof over the continuous state space.
