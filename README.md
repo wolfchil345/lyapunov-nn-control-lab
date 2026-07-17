@@ -184,3 +184,17 @@ The comparison includes:
 - saturated neural-network controller.
 
 The saturation comparison figure is stored in [`results/saturation_comparison.png`](results/saturation_comparison.png).
+
+## Noise robustness experiment
+
+The project evaluates the saturated neural-network controller under noisy state measurements:
+
+```text
+x_measured = x + noise
+```
+
+This simulates sensor noise, which is common in real control systems.
+
+The experiment compares several Gaussian noise levels and checks whether the closed-loop state still converges toward the equilibrium.
+
+The noise robustness figure is stored in [`results/noise_robustness.png`](results/noise_robustness.png).
