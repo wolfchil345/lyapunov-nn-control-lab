@@ -133,3 +133,7 @@ The trained model file is ignored by Git, while the two result figures are inclu
 
 Sirichet Sriamontham  
 Mechanical Engineering student interested in control engineering, neural networks, and stability analysis.
+
+## License
+
+This project is released under the MIT License. See `LICENSE` for details.
