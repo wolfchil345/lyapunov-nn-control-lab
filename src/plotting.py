@@ -262,3 +262,60 @@ def save_lyapunov_contour_plot(
     plt.tight_layout()
     plt.savefig(output_dir / "lyapunov_contours.png", dpi=180)
     plt.close()
+
+
+def save_region_of_attraction_plot(
+    positions: np.ndarray,
+    velocities: np.ndarray,
+    convergence_map: np.ndarray,
+    final_norm_map: np.ndarray,
+    output_dir: Path,
+) -> None:
+    """Plot estimated region of attraction for a controller."""
+
+    plt.figure(figsize=(8, 7))
+
+    image = plt.imshow(
+        convergence_map.astype(float),
+        origin="lower",
+        extent=[
+            positions[0],
+            positions[-1],
+            velocities[0],
+            velocities[-1],
+        ],
+        aspect="auto",
+        interpolation="nearest",
+    )
+
+    colorbar = plt.colorbar(image, ticks=[0.0, 1.0])
+    colorbar.ax.set_yticklabels(
+        [
+            "not converged",
+            "converged",
+        ],
+    )
+
+    plt.contour(
+        positions,
+        velocities,
+        final_norm_map,
+        levels=8,
+    )
+
+    plt.scatter(
+        0.0,
+        0.0,
+        marker="x",
+        s=90,
+        label="equilibrium",
+    )
+
+    plt.xlabel("Initial position")
+    plt.ylabel("Initial velocity")
+    plt.title("Estimated region of attraction")
+    plt.grid(True)
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(output_dir / "region_of_attraction.png", dpi=180)
+    plt.close()
