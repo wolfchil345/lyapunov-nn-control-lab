@@ -1,4 +1,5 @@
 from pathlib import Path
+import csv
 import random
 
 import numpy as np
@@ -10,12 +11,17 @@ from src.controllers import (
     train_controller,
 )
 from src.lyapunov import grid_check
+from src.metrics import calculate_metrics
 from src.plotting import (
     save_multiple_initial_conditions_plot,
     save_plots,
 )
 from src.simulation import simulate
-from src.system import CLOSED_LOOP_EIGENVALUES, K, lqr_controller
+from src.system import (
+    CLOSED_LOOP_EIGENVALUES,
+    K,
+    lqr_controller,
+)
 
 SEED = 7
 
@@ -29,6 +35,36 @@ def set_seed() -> None:
     torch.set_num_threads(1)
 
 
+def save_metrics_csv(
+    rows: list[dict[str, float | str]],
+    output_path: Path,
+) -> None:
+    """Save controller metrics as a CSV file."""
+
+    fieldnames = [
+        "initial_position",
+        "initial_velocity",
+        "controller",
+        "final_state_norm",
+        "settling_time_s",
+        "quadratic_cost",
+        "control_energy",
+        "max_abs_control",
+    ]
+
+    with output_path.open(
+        "w",
+        newline="",
+        encoding="utf-8",
+    ) as csv_file:
+        writer = csv.DictWriter(
+            csv_file,
+            fieldnames=fieldnames,
+        )
+        writer.writeheader()
+        writer.writerows(rows)
+
+
 def main() -> None:
     set_seed()
 
@@ -39,7 +75,6 @@ def main() -> None:
     print("Closed-loop eigenvalues:", CLOSED_LOOP_EIGENVALUES)
 
     model = ZeroAtOriginController()
-
     losses = train_controller(model)
     nn_controller = make_nn_controller(model)
 
@@ -63,25 +98,63 @@ def main() -> None:
 
     all_solutions = lqr_solutions + nn_solutions
 
-    if not all(solution.success for solution in all_solutions):
-        raise RuntimeError("At least one simulation failed.")
+    if not all(
+        solution.success
+        for solution in all_solutions
+    ):
+        raise RuntimeError(
+            "At least one simulation failed."
+        )
+
+    metric_rows: list[dict[str, float | str]] = []
 
     print()
-    print("Multiple initial-condition results:")
+    print("Quantitative performance metrics:")
 
     for initial_state, lqr_solution, nn_solution in zip(
         initial_states,
         lqr_solutions,
         nn_solutions,
     ):
-        lqr_final_norm = np.linalg.norm(lqr_solution.y[:, -1])
-        nn_final_norm = np.linalg.norm(nn_solution.y[:, -1])
+        controller_cases = [
+            (
+                "LQR",
+                lqr_solution,
+                lqr_controller,
+            ),
+            (
+                "Neural network",
+                nn_solution,
+                nn_controller,
+            ),
+        ]
 
-        print(
-            f"x0={initial_state}: "
-            f"LQR final norm={lqr_final_norm:.6e}, "
-            f"NN final norm={nn_final_norm:.6e}"
-        )
+        for controller_name, solution, controller in controller_cases:
+            metrics = calculate_metrics(
+                solution,
+                controller,
+            )
+
+            row = {
+                "initial_position": float(initial_state[0]),
+                "initial_velocity": float(initial_state[1]),
+                "controller": controller_name,
+                **metrics,
+            }
+
+            metric_rows.append(row)
+
+            print(
+                f"x0={initial_state}, "
+                f"{controller_name}: "
+                f"settling={metrics['settling_time_s']:.3f} s, "
+                f"cost={metrics['quadratic_cost']:.4f}, "
+                f"energy={metrics['control_energy']:.4f}, "
+                f"final norm={metrics['final_state_norm']:.3e}"
+            )
+
+    metrics_path = output_dir / "performance_metrics.csv"
+    save_metrics_csv(metric_rows, metrics_path)
 
     print()
     print("LQR grid check:", grid_check(lqr_controller))
@@ -92,7 +165,6 @@ def main() -> None:
         output_dir / "nn_controller.pt",
     )
 
-    # Keep the original one-condition comparison.
     save_plots(
         losses,
         lqr_solutions[0],
@@ -100,7 +172,6 @@ def main() -> None:
         output_dir,
     )
 
-    # Add the new multiple-condition experiment.
     save_multiple_initial_conditions_plot(
         nn_solutions,
         initial_states,
@@ -108,7 +179,11 @@ def main() -> None:
     )
 
     print()
-    print(f"Saved model and figures in: {output_dir.resolve()}")
+    print(f"Metrics saved to: {metrics_path.resolve()}")
+    print(
+        f"Model and figures saved in: "
+        f"{output_dir.resolve()}"
+    )
 
 
 if __name__ == "__main__":

@@ -137,3 +137,15 @@ Mechanical Engineering student interested in control engineering, neural network
 ## License
 
 This project is released under the MIT License. See `LICENSE` for details.
+
+## Quantitative performance evaluation
+
+The experiment compares the LQR and neural-network controllers using:
+
+- final state norm;
+- settling time;
+- quadratic control cost;
+- control energy;
+- maximum absolute control input.
+
+The full results for all tested initial conditions are stored in [`results/performance_metrics.csv`](results/performance_metrics.csv).
