@@ -237,3 +237,11 @@ The plot shows position on the horizontal axis and velocity on the vertical axis
 Multiple closed-loop trajectories are drawn from different initial conditions to show whether the controller drives the state toward the equilibrium at the origin.
 
 The phase portrait figure is stored in [`results/phase_portrait.png`](results/phase_portrait.png).
+
+## Lyapunov contour plot
+
+The project visualizes Lyapunov level sets together with neural-network closed-loop trajectories.
+
+The contour lines represent values of the quadratic Lyapunov function, while the trajectories show how the neural-network controller moves the system state toward the equilibrium.
+
+The Lyapunov contour figure is stored in [`results/lyapunov_contours.png`](results/lyapunov_contours.png).

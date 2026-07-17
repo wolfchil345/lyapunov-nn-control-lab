@@ -13,3 +13,4 @@ results/*
 !results/noise_robustness.png
 !results/parameter_robustness.png
 !results/phase_portrait.png
+!results/lyapunov_contours.png

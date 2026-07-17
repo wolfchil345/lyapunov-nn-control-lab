@@ -21,12 +21,14 @@ from src.plotting import (
     save_saturation_comparison_plot,
     save_noise_robustness_plot,
     save_parameter_robustness_plot,    save_phase_portrait_plot,
+    save_lyapunov_contour_plot,
 
 )
 from src.simulation import simulate
 from src.system import (
     CLOSED_LOOP_EIGENVALUES,
     K,
+    P,
     lqr_controller,
 )
 
@@ -185,6 +187,12 @@ def main() -> None:
     save_phase_portrait_plot(
         solutions["Neural network"],
         initial_states,
+        output_dir,
+    )
+    save_lyapunov_contour_plot(
+        solutions["Neural network"],
+        initial_states,
+        P,
         output_dir,
     )
 
