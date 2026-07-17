@@ -11,3 +11,4 @@ results/*
 !results/performance_metrics.csv
 !results/saturation_comparison.png
 !results/noise_robustness.png
+!results/parameter_robustness.png

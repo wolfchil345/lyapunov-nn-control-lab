@@ -14,11 +14,13 @@ from src.controllers import (
 from src.lyapunov import grid_check
 from src.metrics import calculate_metrics
 from src.noise import simulate_with_measurement_noise
+from src.parameter_variation import simulate_parameter_variation
 from src.plotting import (
     save_multiple_initial_conditions_plot,
     save_plots,
     save_saturation_comparison_plot,
     save_noise_robustness_plot,
+    save_parameter_robustness_plot,
 )
 from src.simulation import simulate
 from src.system import (
@@ -218,6 +220,68 @@ def main() -> None:
 
     save_noise_robustness_plot(
         noise_solutions,
+        output_dir,
+    )
+
+    parameter_initial_state = np.array([1.5, 0.0])
+
+    parameter_scenarios = {
+        "nominal": {
+            "mass": 1.0,
+            "damping": 0.4,
+            "stiffness": 2.0,
+        },
+        "mass +20%": {
+            "mass": 1.2,
+            "damping": 0.4,
+            "stiffness": 2.0,
+        },
+        "mass -20%": {
+            "mass": 0.8,
+            "damping": 0.4,
+            "stiffness": 2.0,
+        },
+        "damping -30%": {
+            "mass": 1.0,
+            "damping": 0.28,
+            "stiffness": 2.0,
+        },
+        "stiffness +20%": {
+            "mass": 1.0,
+            "damping": 0.4,
+            "stiffness": 2.4,
+        },
+        "combined variation": {
+            "mass": 1.2,
+            "damping": 0.28,
+            "stiffness": 2.4,
+        },
+    }
+
+    parameter_solutions = {
+        scenario_name: simulate_parameter_variation(
+            saturated_nn_controller,
+            parameter_initial_state,
+            **parameters,
+        )
+        for scenario_name, parameters in parameter_scenarios.items()
+    }
+
+    if not all(solution.success for solution in parameter_solutions.values()):
+        raise RuntimeError("At least one parameter-variation simulation failed.")
+
+    print()
+    print("Parameter robustness results:")
+
+    for scenario_name, solution in parameter_solutions.items():
+        final_norm = np.linalg.norm(solution.y[:, -1])
+        print(
+            f"{scenario_name}: "
+            f"final norm={final_norm:.3e}"
+        )
+
+    save_parameter_robustness_plot(
+        parameter_solutions,
         output_dir,
     )
 

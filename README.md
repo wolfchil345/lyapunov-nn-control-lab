@@ -198,3 +198,18 @@ This simulates sensor noise, which is common in real control systems.
 The experiment compares several Gaussian noise levels and checks whether the closed-loop state still converges toward the equilibrium.
 
 The noise robustness figure is stored in [`results/noise_robustness.png`](results/noise_robustness.png).
+
+## Parameter robustness experiment
+
+The project tests whether the saturated neural-network controller remains stable when the plant parameters differ from the nominal model.
+
+The tested variations include:
+
+- increased and decreased mass;
+- reduced damping;
+- increased stiffness;
+- combined parameter variation.
+
+This evaluates robustness to modelling error, which is important because real mechanical systems rarely match their mathematical model exactly.
+
+The parameter robustness figure is stored in [`results/parameter_robustness.png`](results/parameter_robustness.png).

@@ -127,3 +127,31 @@ def save_noise_robustness_plot(
     plt.tight_layout()
     plt.savefig(output_dir / "noise_robustness.png", dpi=180)
     plt.close()
+
+
+def save_parameter_robustness_plot(
+    parameter_solutions: dict[str, object],
+    output_dir: Path,
+) -> None:
+    """Compare trajectories under plant-parameter variations."""
+
+    plt.figure(figsize=(9, 6))
+
+    for scenario_name, solution in parameter_solutions.items():
+        state_norm = np.linalg.norm(solution.y, axis=0)
+        state_norm = np.maximum(state_norm, 1e-12)
+
+        plt.semilogy(
+            solution.t,
+            state_norm,
+            label=scenario_name,
+        )
+
+    plt.xlabel("Time [s]")
+    plt.ylabel("State norm ||x||")
+    plt.title("Parameter robustness of saturated NN controller")
+    plt.grid(True)
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(output_dir / "parameter_robustness.png", dpi=180)
+    plt.close()
