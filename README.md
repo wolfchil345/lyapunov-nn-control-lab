@@ -227,3 +227,13 @@ The tested variations include:
 This evaluates robustness to modelling error, which is important because real mechanical systems rarely match their mathematical model exactly.
 
 The parameter robustness figure is stored in [`results/parameter_robustness.png`](results/parameter_robustness.png).
+
+## Phase portrait
+
+The project includes a phase portrait of the neural-network controller.
+
+The plot shows position on the horizontal axis and velocity on the vertical axis.
+
+Multiple closed-loop trajectories are drawn from different initial conditions to show whether the controller drives the state toward the equilibrium at the origin.
+
+The phase portrait figure is stored in [`results/phase_portrait.png`](results/phase_portrait.png).

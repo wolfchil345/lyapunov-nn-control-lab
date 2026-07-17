@@ -155,3 +155,44 @@ def save_parameter_robustness_plot(
     plt.tight_layout()
     plt.savefig(output_dir / "parameter_robustness.png", dpi=180)
     plt.close()
+
+
+def save_phase_portrait_plot(
+    nn_solutions: list,
+    initial_states: list[np.ndarray],
+    output_dir: Path,
+) -> None:
+    """Plot NN closed-loop trajectories in phase space."""
+
+    plt.figure(figsize=(7, 7))
+
+    for initial_state, solution in zip(initial_states, nn_solutions):
+        plt.plot(
+            solution.y[0],
+            solution.y[1],
+            label=f"x0 = [{initial_state[0]:.1f}, {initial_state[1]:.1f}]",
+        )
+        plt.scatter(
+            solution.y[0, 0],
+            solution.y[1, 0],
+            marker="o",
+            s=30,
+        )
+
+    plt.scatter(
+        0.0,
+        0.0,
+        marker="x",
+        s=80,
+        label="equilibrium",
+    )
+
+    plt.xlabel("Position")
+    plt.ylabel("Velocity")
+    plt.title("Phase portrait of NN closed-loop trajectories")
+    plt.grid(True)
+    plt.legend()
+    plt.axis("equal")
+    plt.tight_layout()
+    plt.savefig(output_dir / "phase_portrait.png", dpi=180)
+    plt.close()

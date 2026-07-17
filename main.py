@@ -20,7 +20,8 @@ from src.plotting import (
     save_plots,
     save_saturation_comparison_plot,
     save_noise_robustness_plot,
-    save_parameter_robustness_plot,
+    save_parameter_robustness_plot,    save_phase_portrait_plot,
+
 )
 from src.simulation import simulate
 from src.system import (
@@ -177,6 +178,11 @@ def main() -> None:
     )
 
     save_multiple_initial_conditions_plot(
+        solutions["Neural network"],
+        initial_states,
+        output_dir,
+    )
+    save_phase_portrait_plot(
         solutions["Neural network"],
         initial_states,
         output_dir,
