@@ -179,6 +179,34 @@ def train_controller(
     return history
 
 
+
+DEFAULT_CONTROL_LIMIT = 5.0
+
+
+def saturate_control(
+    control: float,
+    limit: float = DEFAULT_CONTROL_LIMIT,
+) -> float:
+    """Clip the control input to actuator limits."""
+
+    if limit <= 0.0:
+        raise ValueError("Control limit must be positive.")
+
+    return float(np.clip(control, -limit, limit))
+
+
+def make_saturated_controller(
+    controller: Callable[[np.ndarray], float],
+    limit: float = DEFAULT_CONTROL_LIMIT,
+) -> Callable[[np.ndarray], float]:
+    """Wrap a controller with actuator saturation."""
+
+    def saturated_controller(x: np.ndarray) -> float:
+        raw_control = controller(x)
+        return saturate_control(raw_control, limit)
+
+    return saturated_controller
+
 def make_nn_controller(
     model: nn.Module,
 ) -> Callable[[np.ndarray], float]:
