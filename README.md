@@ -165,3 +165,22 @@ V-dot(x) <= -alpha * ||x||^2
 ```
 
 This encourages stability-related behaviour during training. The sampled Lyapunov evaluation remains empirical and does not constitute formal verification over the full continuous state space.
+
+## Actuator saturation comparison
+
+The project also compares saturated and unsaturated controllers using a fixed actuator limit:
+
+```text
+u = clip(u, -u_max, u_max)
+```
+
+This models the fact that real actuators cannot apply unlimited control force.
+
+The comparison includes:
+
+- LQR;
+- neural-network controller;
+- saturated LQR;
+- saturated neural-network controller.
+
+The saturation comparison figure is stored in [`results/saturation_comparison.png`](results/saturation_comparison.png).
