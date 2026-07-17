@@ -196,3 +196,69 @@ def save_phase_portrait_plot(
     plt.tight_layout()
     plt.savefig(output_dir / "phase_portrait.png", dpi=180)
     plt.close()
+
+
+def save_lyapunov_contour_plot(
+    nn_solutions: list,
+    initial_states: list[np.ndarray],
+    lyapunov_matrix: np.ndarray,
+    output_dir: Path,
+) -> None:
+    """Plot Lyapunov level sets with NN closed-loop trajectories."""
+
+    position_values = np.linspace(-2.5, 2.5, 200)
+    velocity_values = np.linspace(-2.5, 2.5, 200)
+
+    position_grid, velocity_grid = np.meshgrid(
+        position_values,
+        velocity_values,
+    )
+
+    lyapunov_values = (
+        lyapunov_matrix[0, 0] * position_grid**2
+        + (lyapunov_matrix[0, 1] + lyapunov_matrix[1, 0])
+        * position_grid
+        * velocity_grid
+        + lyapunov_matrix[1, 1] * velocity_grid**2
+    )
+
+    plt.figure(figsize=(8, 7))
+
+    contour = plt.contour(
+        position_grid,
+        velocity_grid,
+        lyapunov_values,
+        levels=15,
+    )
+    plt.clabel(contour, inline=True, fontsize=8)
+
+    for initial_state, solution in zip(initial_states, nn_solutions):
+        plt.plot(
+            solution.y[0],
+            solution.y[1],
+            label=f"x0 = [{initial_state[0]:.1f}, {initial_state[1]:.1f}]",
+        )
+        plt.scatter(
+            solution.y[0, 0],
+            solution.y[1, 0],
+            marker="o",
+            s=25,
+        )
+
+    plt.scatter(
+        0.0,
+        0.0,
+        marker="x",
+        s=90,
+        label="equilibrium",
+    )
+
+    plt.xlabel("Position")
+    plt.ylabel("Velocity")
+    plt.title("Lyapunov contours and NN closed-loop trajectories")
+    plt.grid(True)
+    plt.legend()
+    plt.axis("equal")
+    plt.tight_layout()
+    plt.savefig(output_dir / "lyapunov_contours.png", dpi=180)
+    plt.close()
