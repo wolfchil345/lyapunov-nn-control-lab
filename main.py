@@ -15,8 +15,10 @@ from src.lyapunov import grid_check
 from src.metrics import calculate_metrics
 from src.noise import simulate_with_measurement_noise
 from src.parameter_variation import simulate_parameter_variation
+from src.region_of_attraction import evaluate_region_of_attraction
 from src.plotting import (
     save_multiple_initial_conditions_plot,
+    save_region_of_attraction_plot,
     save_plots,
     save_saturation_comparison_plot,
     save_noise_robustness_plot,
@@ -193,6 +195,30 @@ def main() -> None:
         solutions["Neural network"],
         initial_states,
         P,
+        output_dir,
+    )
+    roa_positions, roa_velocities, roa_convergence_map, roa_final_norm_map = evaluate_region_of_attraction(
+        saturated_nn_controller,
+        position_range=(-2.5, 2.5),
+        velocity_range=(-2.5, 2.5),
+        num_points=15,
+        convergence_threshold=0.1,
+        duration=8.0,
+    )
+
+    convergence_fraction = np.mean(roa_convergence_map)
+
+    print()
+    print(
+        "Region of attraction convergence rate: "
+        f"{100.0 * convergence_fraction:.1f}%"
+    )
+
+    save_region_of_attraction_plot(
+        roa_positions,
+        roa_velocities,
+        roa_convergence_map,
+        roa_final_norm_map,
         output_dir,
     )
 

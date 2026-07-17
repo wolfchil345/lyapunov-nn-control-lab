@@ -17,6 +17,9 @@ A Python and PyTorch experiment that trains a neural-network controller to imita
 | Actuator saturation | Tests controllers with limited control force | `results/saturation_comparison.png` |
 | Noise robustness | Tests the controller under noisy state measurements | `results/noise_robustness.png` |
 | Parameter robustness | Tests mass, damping, and stiffness variations | `results/parameter_robustness.png` |
+| Phase portrait | Visualizes closed-loop trajectories in state space | `results/phase_portrait.png` |
+| Lyapunov contours | Visualizes quadratic Lyapunov level sets with trajectories | `results/lyapunov_contours.png` |
+| Region of attraction | Tests convergence from a grid of initial states | `results/region_of_attraction.png` |
 
 ## Project overview
 
@@ -245,3 +248,13 @@ The project visualizes Lyapunov level sets together with neural-network closed-l
 The contour lines represent values of the quadratic Lyapunov function, while the trajectories show how the neural-network controller moves the system state toward the equilibrium.
 
 The Lyapunov contour figure is stored in [`results/lyapunov_contours.png`](results/lyapunov_contours.png).
+
+## Region of attraction map
+
+The project estimates the region of attraction of the saturated neural-network controller.
+
+A grid of initial position and velocity values is simulated, and each initial state is classified as converged or not converged.
+
+This helps identify which initial conditions are successfully stabilized by the learned controller.
+
+The region of attraction figure is stored in [`results/region_of_attraction.png`](results/region_of_attraction.png).

@@ -14,3 +14,4 @@ results/*
 !results/parameter_robustness.png
 !results/phase_portrait.png
 !results/lyapunov_contours.png
+!results/region_of_attraction.png
