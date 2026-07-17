@@ -20,6 +20,7 @@ A Python and PyTorch experiment that trains a neural-network controller to imita
 | Phase portrait | Visualizes closed-loop trajectories in state space | `results/phase_portrait.png` |
 | Lyapunov contours | Visualizes quadratic Lyapunov level sets with trajectories | `results/lyapunov_contours.png` |
 | Region of attraction | Tests convergence from a grid of initial states | `results/region_of_attraction.png` |
+| Stability-weight ablation | Tests whether stronger Lyapunov penalties improve stability metrics | `results/stability_weight_ablation.png`, `results/stability_weight_ablation.csv` |
 
 ## Project overview
 
@@ -258,3 +259,15 @@ A grid of initial position and velocity values is simulated, and each initial st
 This helps identify which initial conditions are successfully stabilized by the learned controller.
 
 The region of attraction figure is stored in [`results/region_of_attraction.png`](results/region_of_attraction.png).
+
+## Stability-weight ablation study
+
+The project includes an ablation study for the Lyapunov penalty weight used during neural-controller training.
+
+Several controllers are trained with different stability weights, then compared using Lyapunov violation fraction, final state norm, settling time, quadratic cost, and control energy.
+
+This checks whether the Lyapunov-aware training term improves closed-loop stability behavior instead of acting as a decorative loss term.
+
+The ablation results are stored in [`results/stability_weight_ablation.csv`](results/stability_weight_ablation.csv).
+
+The ablation figure is stored in [`results/stability_weight_ablation.png`](results/stability_weight_ablation.png).

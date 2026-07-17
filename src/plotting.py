@@ -319,3 +319,59 @@ def save_region_of_attraction_plot(
     plt.tight_layout()
     plt.savefig(output_dir / "region_of_attraction.png", dpi=180)
     plt.close()
+
+
+def save_stability_weight_ablation_plot(
+    rows: list[dict[str, float]],
+    output_dir: Path,
+) -> None:
+    """Plot stability metrics for different Lyapunov penalty weights."""
+
+    x_values = np.arange(len(rows))
+    labels = [
+        f"{float(row['stability_weight']):g}"
+        for row in rows
+    ]
+
+    violation_fraction = np.maximum(
+        [row["lyapunov_violation_fraction"] for row in rows],
+        1e-12,
+    )
+    final_state_norm = np.maximum(
+        [row["final_state_norm"] for row in rows],
+        1e-12,
+    )
+    control_energy = np.maximum(
+        [row["control_energy"] for row in rows],
+        1e-12,
+    )
+
+    plt.figure(figsize=(9, 6))
+    plt.semilogy(
+        x_values,
+        violation_fraction,
+        marker="o",
+        label="Lyapunov violation fraction",
+    )
+    plt.semilogy(
+        x_values,
+        final_state_norm,
+        marker="s",
+        label="Final state norm",
+    )
+    plt.semilogy(
+        x_values,
+        control_energy,
+        marker="^",
+        label="Control energy",
+    )
+
+    plt.xticks(x_values, labels)
+    plt.xlabel("Stability weight")
+    plt.ylabel("Metric value")
+    plt.title("Stability-weight ablation study")
+    plt.grid(True)
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(output_dir / "stability_weight_ablation.png", dpi=180)
+    plt.close()

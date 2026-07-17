@@ -16,9 +16,14 @@ from src.metrics import calculate_metrics
 from src.noise import simulate_with_measurement_noise
 from src.parameter_variation import simulate_parameter_variation
 from src.region_of_attraction import evaluate_region_of_attraction
+from src.stability_ablation import (
+    run_stability_weight_ablation,
+    save_ablation_results_csv,
+)
 from src.plotting import (
     save_multiple_initial_conditions_plot,
     save_region_of_attraction_plot,
+    save_stability_weight_ablation_plot,
     save_plots,
     save_saturation_comparison_plot,
     save_noise_robustness_plot,
@@ -221,6 +226,38 @@ def main() -> None:
         roa_final_norm_map,
         output_dir,
     )
+
+    ablation_weights = [0.0, 1.0, 10.0, 50.0]
+    ablation_initial_state = np.array([1.5, 0.0])
+
+    ablation_rows = run_stability_weight_ablation(
+        stability_weights=ablation_weights,
+        initial_state=ablation_initial_state,
+        epochs=300,
+        stability_margin=0.05,
+    )
+
+    ablation_csv_path = output_dir / "stability_weight_ablation.csv"
+    save_ablation_results_csv(
+        ablation_rows,
+        ablation_csv_path,
+    )
+
+    save_stability_weight_ablation_plot(
+        ablation_rows,
+        output_dir,
+    )
+
+    print()
+    print("Stability-weight ablation results:")
+
+    for row in ablation_rows:
+        print(
+            f"weight={row['stability_weight']:g}: "
+            f"violation={row['lyapunov_violation_fraction']:.3f}, "
+            f"final norm={row['final_state_norm']:.3e}, "
+            f"energy={row['control_energy']:.3e}"
+        )
 
     first_initial_condition_solutions = {
         controller_name: controller_solutions[0]
