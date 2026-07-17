@@ -99,3 +99,31 @@ def save_saturation_comparison_plot(
     plt.tight_layout()
     plt.savefig(output_dir / "saturation_comparison.png", dpi=180)
     plt.close()
+
+
+def save_noise_robustness_plot(
+    noise_solutions_by_std: dict[float, object],
+    output_dir: Path,
+) -> None:
+    """Compare trajectories under different measurement-noise levels."""
+
+    plt.figure(figsize=(9, 6))
+
+    for noise_std, solution in noise_solutions_by_std.items():
+        state_norm = np.linalg.norm(solution.y, axis=0)
+        state_norm = np.maximum(state_norm, 1e-12)
+
+        plt.semilogy(
+            solution.t,
+            state_norm,
+            label=f"noise std = {noise_std:g}",
+        )
+
+    plt.xlabel("Time [s]")
+    plt.ylabel("State norm ||x||")
+    plt.title("Noise robustness of saturated NN controller")
+    plt.grid(True)
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(output_dir / "noise_robustness.png", dpi=180)
+    plt.close()

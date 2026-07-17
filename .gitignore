@@ -10,3 +10,4 @@ results/*
 !results/multiple_initial_conditions.png
 !results/performance_metrics.csv
 !results/saturation_comparison.png
+!results/noise_robustness.png

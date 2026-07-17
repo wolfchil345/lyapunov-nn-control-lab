@@ -13,10 +13,12 @@ from src.controllers import (
 )
 from src.lyapunov import grid_check
 from src.metrics import calculate_metrics
+from src.noise import simulate_with_measurement_noise
 from src.plotting import (
     save_multiple_initial_conditions_plot,
     save_plots,
     save_saturation_comparison_plot,
+    save_noise_robustness_plot,
 )
 from src.simulation import simulate
 from src.system import (
@@ -185,6 +187,37 @@ def main() -> None:
 
     save_saturation_comparison_plot(
         first_initial_condition_solutions,
+        output_dir,
+    )
+
+    noise_levels = [0.0, 0.01, 0.05, 0.1]
+    noise_initial_state = np.array([1.5, 0.0])
+
+    noise_solutions = {
+        noise_std: simulate_with_measurement_noise(
+            saturated_nn_controller,
+            noise_initial_state,
+            noise_std=noise_std,
+            seed=SEED + int(noise_std * 1000),
+        )
+        for noise_std in noise_levels
+    }
+
+    if not all(solution.success for solution in noise_solutions.values()):
+        raise RuntimeError("At least one noisy simulation failed.")
+
+    print()
+    print("Noise robustness results:")
+
+    for noise_std, solution in noise_solutions.items():
+        final_norm = np.linalg.norm(solution.y[:, -1])
+        print(
+            f"noise std={noise_std:g}: "
+            f"final norm={final_norm:.3e}"
+        )
+
+    save_noise_robustness_plot(
+        noise_solutions,
         output_dir,
     )
 
