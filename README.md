@@ -4,6 +4,20 @@
 
 A Python and PyTorch experiment that trains a neural-network controller to imitate an LQR controller and evaluates the closed-loop system using a quadratic Lyapunov function.
 
+## Experiment summary
+
+| Experiment | Purpose | Main output |
+|---|---|---|
+| LQR baseline | Creates a classical optimal-control reference controller | `results/position_comparison.png` |
+| Neural-network controller | Trains a neural controller to imitate the LQR law | `results/training_loss.png` |
+| Lyapunov grid check | Empirically checks whether V-dot is negative on sampled states | Printed terminal results |
+| Stability-aware training | Adds a Lyapunov penalty during NN training | `results/training_loss.png` |
+| Multiple initial conditions | Tests convergence from several starting states | `results/multiple_initial_conditions.png` |
+| Quantitative metrics | Compares final norm, settling time, cost, energy, and max control | `results/performance_metrics.csv` |
+| Actuator saturation | Tests controllers with limited control force | `results/saturation_comparison.png` |
+| Noise robustness | Tests the controller under noisy state measurements | `results/noise_robustness.png` |
+| Parameter robustness | Tests mass, damping, and stiffness variations | `results/parameter_robustness.png` |
+
 ## Project overview
 
 This project combines:
