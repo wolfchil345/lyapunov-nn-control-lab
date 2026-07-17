@@ -7,3 +7,4 @@ results/*
 *.pt
 *.pth
 .DS_Store
+!results/multiple_initial_conditions.png
