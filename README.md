@@ -149,3 +149,19 @@ The experiment compares the LQR and neural-network controllers using:
 - maximum absolute control input.
 
 The full results for all tested initial conditions are stored in [`results/performance_metrics.csv`](results/performance_metrics.csv).
+
+## Stability-aware training
+
+The neural controller is trained using a combined objective:
+
+```text
+total loss = imitation loss + lambda * Lyapunov penalty
+```
+
+The imitation term encourages the neural network to reproduce the LQR control law. The Lyapunov term penalizes sampled states that violate the desired decay condition:
+
+```text
+V-dot(x) <= -alpha * ||x||^2
+```
+
+This encourages stability-related behaviour during training. The sampled Lyapunov evaluation remains empirical and does not constitute formal verification over the full continuous state space.

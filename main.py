@@ -75,7 +75,13 @@ def main() -> None:
     print("Closed-loop eigenvalues:", CLOSED_LOOP_EIGENVALUES)
 
     model = ZeroAtOriginController()
-    losses = train_controller(model)
+
+    training_history = train_controller(
+        model,
+        stability_weight=10.0,
+        stability_margin=0.05,
+    )
+
     nn_controller = make_nn_controller(model)
 
     initial_states = [
@@ -166,7 +172,7 @@ def main() -> None:
     )
 
     save_plots(
-        losses,
+        training_history,
         lqr_solutions[0],
         nn_solutions[0],
         output_dir,
