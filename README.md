@@ -363,3 +363,7 @@ This repository includes citation metadata in [`CITATION.cff`](CITATION.cff).
 ## Project summary
 
 A concise portfolio-style summary is available in [`docs/project_summary.md`](docs/project_summary.md).
+
+## Reproducibility
+
+Instructions for reproducing the experiments are available in [`docs/reproducibility.md`](docs/reproducibility.md).
