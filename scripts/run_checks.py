@@ -1,4 +1,4 @@
-"""Run basic local project checks."""
+"""Run local project checks."""
 
 from __future__ import annotations
 
@@ -16,7 +16,9 @@ def run_command(command: list[str]) -> None:
 
 
 def main() -> None:
-    """Run the project health checks."""
+    """Run documentation checks, tests, and quick-start example."""
+    print("Running local checks...")
+    run_command([sys.executable, "scripts/check_docs_links.py"])
     run_command([sys.executable, "-m", "pytest"])
     run_command([sys.executable, "examples/quick_start.py"])
     print()
