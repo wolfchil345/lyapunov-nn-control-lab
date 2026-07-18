@@ -56,6 +56,7 @@ def generate_experiment_report(
     )
 
     plot_files = [
+        "model_architecture.png",
         "position_comparison.png",
         "training_loss.png",
         "multiple_initial_conditions.png",
@@ -65,6 +66,7 @@ def generate_experiment_report(
         "phase_portrait.png",
         "lyapunov_contours.png",
         "region_of_attraction.png",
+        "region_of_attraction_comparison.png",
         "stability_weight_ablation.png",
     ]
 
@@ -83,6 +85,7 @@ def generate_experiment_report(
         "",
         "| Experiment | Output |",
         "|---|---|",
+        "| Model architecture | `model_architecture.png` |",
         "| LQR and neural-network comparison | `position_comparison.png` |",
         "| Stability-aware training loss | `training_loss.png` |",
         "| Multiple initial conditions | `multiple_initial_conditions.png` |",
@@ -92,6 +95,7 @@ def generate_experiment_report(
         "| Phase portrait | `phase_portrait.png` |",
         "| Lyapunov contour plot | `lyapunov_contours.png` |",
         "| Region of attraction map | `region_of_attraction.png` |",
+        "| Region of attraction controller comparison | `region_of_attraction_comparison.png` |",
         "| Stability-weight ablation study | `stability_weight_ablation.png` |",
         "",
         "## Available plots",

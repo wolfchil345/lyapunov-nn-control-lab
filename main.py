@@ -30,6 +30,7 @@ from src.plotting import (
     save_noise_robustness_plot,
     save_parameter_robustness_plot,    save_phase_portrait_plot,
     save_lyapunov_contour_plot,
+    save_model_architecture_diagram,
 
 )
 from src.reporting import generate_experiment_report
@@ -187,6 +188,7 @@ def main() -> None:
         solutions["Neural network"][0],
         output_dir,
     )
+    save_model_architecture_diagram(output_dir)
 
     save_multiple_initial_conditions_plot(
         solutions["Neural network"],
