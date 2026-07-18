@@ -503,3 +503,7 @@ The local check command validates documentation links, tests, and the quick-star
 ```bash
 python scripts/run_checks.py
 ```
+
+## Continuous integration
+
+GitHub Actions runs local checks automatically on pushes and pull requests using [`scripts/run_checks.py`](scripts/run_checks.py).
