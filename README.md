@@ -507,3 +507,7 @@ python scripts/run_checks.py
 ## Continuous integration
 
 GitHub Actions runs local checks automatically on pushes and pull requests using [`scripts/run_checks.py`](scripts/run_checks.py).
+
+## Build status
+
+[![Local checks](https://github.com/wolfchil345/lyapunov-nn-control-lab/actions/workflows/local-checks.yml/badge.svg)](https://github.com/wolfchil345/lyapunov-nn-control-lab/actions/workflows/local-checks.yml)
