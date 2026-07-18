@@ -497,3 +497,9 @@ Check local Markdown links in the README and documentation files with:
 ```bash
 python scripts/check_docs_links.py
 ```
+
+The local check command validates documentation links, tests, and the quick-start example:
+
+```bash
+python scripts/run_checks.py
+```
