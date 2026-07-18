@@ -511,3 +511,7 @@ GitHub Actions runs local checks automatically on pushes and pull requests using
 ## Build status
 
 [![Local checks](https://github.com/wolfchil345/lyapunov-nn-control-lab/actions/workflows/local-checks.yml/badge.svg)](https://github.com/wolfchil345/lyapunov-nn-control-lab/actions/workflows/local-checks.yml)
+
+## Editor configuration
+
+The repository includes `.editorconfig` to keep indentation, line endings, and whitespace consistent across editors.
