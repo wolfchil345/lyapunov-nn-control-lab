@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this project, please cite it using the metadata in this file."
+title: "Lyapunov Neural-Network Control Lab"
+authors:
+  - family-names: "Sriamontham"
+    given-names: "Sirichet"
+repository-code: "https://github.com/wolfchil345/lyapunov-nn-control-lab"
+license: "MIT"
+keywords:
+  - "Lyapunov stability"
+  - "neural-network control"
+  - "LQR"
+  - "mass-spring-damper"
+  - "control systems"
+  - "robustness"
+abstract: "A Python research lab for training and evaluating neural-network controllers with Lyapunov-inspired stability checks, LQR baselines, actuator saturation, noise robustness, parameter robustness, region-of-attraction analysis, and automatic experiment reports."
