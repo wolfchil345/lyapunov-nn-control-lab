@@ -1,0 +1,20 @@
+[project]
+name = "lyapunov-nn-control-lab"
+version = "1.0.0"
+description = "A Lyapunov-aware neural network control lab for a mass-spring-damper system."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  { name = "Sirichet Sriamontham" }
+]
+dependencies = [
+  "matplotlib",
+  "numpy",
+  "pytest",
+  "scipy",
+  "torch"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

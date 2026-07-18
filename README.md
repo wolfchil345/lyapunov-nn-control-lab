@@ -519,3 +519,7 @@ The repository includes `.editorconfig` to keep indentation, line endings, and w
 ## Git attributes
 
 The repository includes `.gitattributes` to keep text line endings and binary files handled consistently by Git.
+
+## Python project metadata
+
+The repository includes `pyproject.toml` with basic project metadata and pytest configuration.
