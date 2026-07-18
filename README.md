@@ -367,3 +367,13 @@ A concise portfolio-style summary is available in [`docs/project_summary.md`](do
 ## Reproducibility
 
 Instructions for reproducing the experiments are available in [`docs/reproducibility.md`](docs/reproducibility.md).
+
+## Quick-start example
+
+A minimal runnable example is available in [`examples/quick_start.py`](examples/quick_start.py).
+
+Run it with:
+
+```bash
+python examples/quick_start.py
+```
