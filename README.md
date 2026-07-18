@@ -351,3 +351,7 @@ The project includes a block diagram of the neural-network closed-loop control a
 The diagram shows how the system state is passed into the neural-network controller, converted into a control input, applied to the mass-spring-damper plant, and fed back as the next state.
 
 The architecture diagram is stored in [`results/model_architecture.png`](results/model_architecture.png).
+
+## Methodology documentation
+
+For a paper-style explanation of the control theory, neural-network controller, Lyapunov stability checks, robustness experiments, and region-of-attraction analysis, see [`docs/methodology.md`](docs/methodology.md).
