@@ -489,3 +489,11 @@ Possible presentation and thesis-defense questions are collected in [`docs/defen
 ## Documentation index
 
 A map of the documentation files is available in [`docs/index.md`](docs/index.md).
+
+## Documentation link checker
+
+Check local Markdown links in the README and documentation files with:
+
+```bash
+python scripts/check_docs_links.py
+```
