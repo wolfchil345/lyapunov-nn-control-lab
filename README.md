@@ -8,6 +8,7 @@ A Python and PyTorch experiment that trains a neural-network controller to imita
 
 | Experiment | Purpose | Main output |
 |---|---|---|
+| Model architecture | Explains the closed-loop NN control structure | `results/model_architecture.png` |
 | LQR baseline | Creates a classical optimal-control reference controller | `results/position_comparison.png` |
 | Neural-network controller | Trains a neural controller to imitate the LQR law | `results/training_loss.png` |
 | Lyapunov grid check | Empirically checks whether V-dot is negative on sampled states | Printed terminal results |
@@ -25,6 +26,10 @@ A Python and PyTorch experiment that trains a neural-network controller to imita
 | Automatic experiment report | Summarizes generated plots, metrics, and ablation results | `results/experiment_report.md` |
 
 ## Results gallery
+
+### Model architecture
+
+![Model architecture](results/model_architecture.png)
 
 ### Controller comparison
 
@@ -338,3 +343,11 @@ Each controller is tested over a grid of initial position and velocity values.
 This shows how controller design and actuator limits affect the set of initial states that can be stabilized.
 
 The comparison figure is stored in [`results/region_of_attraction_comparison.png`](results/region_of_attraction_comparison.png).
+
+## Model architecture diagram
+
+The project includes a block diagram of the neural-network closed-loop control architecture.
+
+The diagram shows how the system state is passed into the neural-network controller, converted into a control input, applied to the mass-spring-damper plant, and fed back as the next state.
+
+The architecture diagram is stored in [`results/model_architecture.png`](results/model_architecture.png).

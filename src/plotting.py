@@ -453,3 +453,81 @@ def save_region_of_attraction_comparison_plot(
     fig.subplots_adjust(wspace=0.35, top=0.82, right=0.90)
     fig.savefig(output_dir / "region_of_attraction_comparison.png", dpi=180)
     plt.close(fig)
+
+
+def save_model_architecture_diagram(output_dir: Path) -> None:
+    """Save a simple block diagram of the neural-network control loop."""
+
+    fig, axis = plt.subplots(figsize=(11, 4))
+    axis.axis("off")
+
+    nodes = [
+        ("State\nx = [position, velocity]", 0.10, 0.55),
+        ("Neural-network\ncontroller", 0.34, 0.55),
+        ("Control input\nu", 0.55, 0.55),
+        ("Mass-spring-damper\nplant", 0.76, 0.55),
+        ("Next state\nx(t + dt)", 0.95, 0.55),
+    ]
+
+    for label, x_position, y_position in nodes:
+        axis.text(
+            x_position,
+            y_position,
+            label,
+            ha="center",
+            va="center",
+            fontsize=11,
+            bbox={
+                "boxstyle": "round,pad=0.45",
+                "linewidth": 1.5,
+                "facecolor": "white",
+            },
+        )
+
+    arrow_pairs = [
+        (nodes[0], nodes[1]),
+        (nodes[1], nodes[2]),
+        (nodes[2], nodes[3]),
+        (nodes[3], nodes[4]),
+    ]
+
+    for start_node, end_node in arrow_pairs:
+        _start_label, start_x, start_y = start_node
+        _end_label, end_x, end_y = end_node
+
+        axis.annotate(
+            "",
+            xy=(end_x - 0.08, end_y),
+            xytext=(start_x + 0.08, start_y),
+            arrowprops={
+                "arrowstyle": "->",
+                "linewidth": 1.8,
+            },
+        )
+
+    axis.annotate(
+        "feedback",
+        xy=(0.12, 0.35),
+        xytext=(0.88, 0.35),
+        ha="center",
+        va="center",
+        arrowprops={
+            "arrowstyle": "->",
+            "linewidth": 1.4,
+            "connectionstyle": "arc3,rad=-0.25",
+        },
+    )
+
+    axis.text(
+        0.5,
+        0.88,
+        "Closed-loop neural-network control architecture",
+        ha="center",
+        va="center",
+        fontsize=14,
+        fontweight="bold",
+    )
+
+    fig.tight_layout()
+    fig.savefig(output_dir / "model_architecture.png", dpi=180)
+    plt.close(fig)

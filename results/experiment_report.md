@@ -6,6 +6,7 @@ This report summarizes the generated results for the Lyapunov neural-network con
 
 | Experiment | Output |
 |---|---|
+| Model architecture | `model_architecture.png` |
 | LQR and neural-network comparison | `position_comparison.png` |
 | Stability-aware training loss | `training_loss.png` |
 | Multiple initial conditions | `multiple_initial_conditions.png` |
@@ -15,10 +16,12 @@ This report summarizes the generated results for the Lyapunov neural-network con
 | Phase portrait | `phase_portrait.png` |
 | Lyapunov contour plot | `lyapunov_contours.png` |
 | Region of attraction map | `region_of_attraction.png` |
+| Region of attraction controller comparison | `region_of_attraction_comparison.png` |
 | Stability-weight ablation study | `stability_weight_ablation.png` |
 
 ## Available plots
 
+- [`model_architecture.png`](model_architecture.png)
 - [`position_comparison.png`](position_comparison.png)
 - [`training_loss.png`](training_loss.png)
 - [`multiple_initial_conditions.png`](multiple_initial_conditions.png)
@@ -28,6 +31,7 @@ This report summarizes the generated results for the Lyapunov neural-network con
 - [`phase_portrait.png`](phase_portrait.png)
 - [`lyapunov_contours.png`](lyapunov_contours.png)
 - [`region_of_attraction.png`](region_of_attraction.png)
+- [`region_of_attraction_comparison.png`](region_of_attraction_comparison.png)
 - [`stability_weight_ablation.png`](stability_weight_ablation.png)
 
 ## Performance metrics preview
