@@ -473,3 +473,7 @@ Ideas for extending the project toward KAN-based controller experiments are desc
 ## Model card
 
 A model card for the neural-network controller is available in [`docs/model_card.md`](docs/model_card.md).
+
+## Research questions
+
+Possible research questions and thesis directions are listed in [`docs/research_questions.md`](docs/research_questions.md).
