@@ -445,3 +445,7 @@ Useful setup, testing, experiment, and Git commands are listed in [`docs/command
 ## Results interpretation
 
 Guidance for reading metrics, plots, Lyapunov checks, and robustness results is available in [`docs/results_interpretation.md`](docs/results_interpretation.md).
+
+## Limitations
+
+Important assumptions and limitations are described in [`docs/limitations.md`](docs/limitations.md).
