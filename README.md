@@ -409,3 +409,11 @@ Generated plots and result files are explained in [`docs/figures.md`](docs/figur
 ## Project structure
 
 The repository layout is explained in [`docs/project_structure.md`](docs/project_structure.md).
+
+## Local checks
+
+Run tests and the quick-start example with:
+
+```bash
+python scripts/run_checks.py
+```
