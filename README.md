@@ -485,3 +485,7 @@ A possible graduation thesis plan based on this repository is available in [`doc
 ## Defense questions
 
 Possible presentation and thesis-defense questions are collected in [`docs/defense_questions.md`](docs/defense_questions.md).
+
+## Documentation index
+
+A map of the documentation files is available in [`docs/index.md`](docs/index.md).
