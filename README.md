@@ -389,3 +389,7 @@ Contribution guidelines are available in [`CONTRIBUTING.md`](CONTRIBUTING.md).
 ## Security
 
 Security reporting guidance is available in [`SECURITY.md`](SECURITY.md).
+
+## Code of conduct
+
+Community guidelines are available in [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).
