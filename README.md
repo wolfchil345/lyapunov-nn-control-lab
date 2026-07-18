@@ -523,3 +523,7 @@ The repository includes `.gitattributes` to keep text line endings and binary fi
 ## Python project metadata
 
 The repository includes `pyproject.toml` with basic project metadata and pytest configuration.
+
+## Environment setup
+
+See the [environment setup guide](docs/environment.md) for Python version, virtual environment, dependency installation, and local checks.

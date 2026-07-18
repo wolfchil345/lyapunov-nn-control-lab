@@ -50,3 +50,7 @@ This page is a map of the main documentation files in the Lyapunov Neural-Networ
 6. `research_questions.md`
 7. `thesis_plan.md`
 8. `defense_questions.md`
+
+## Environment
+
+- [Environment setup](environment.md): Python version, virtual environment, dependencies, and local checks.
