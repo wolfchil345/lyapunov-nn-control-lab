@@ -481,3 +481,7 @@ Possible research questions and thesis directions are listed in [`docs/research_
 ## Thesis plan
 
 A possible graduation thesis plan based on this repository is available in [`docs/thesis_plan.md`](docs/thesis_plan.md).
+
+## Defense questions
+
+Possible presentation and thesis-defense questions are collected in [`docs/defense_questions.md`](docs/defense_questions.md).
