@@ -397,3 +397,7 @@ Community guidelines are available in [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)
 ## Glossary
 
 Important control and machine-learning terms are explained in [`docs/glossary.md`](docs/glossary.md).
+
+## References
+
+Suggested topics and further reading are listed in [`docs/references.md`](docs/references.md).
