@@ -425,3 +425,11 @@ Remove generated files from `results/` with:
 ```bash
 python scripts/clean_results.py
 ```
+
+## Summarizing results
+
+Print a quick terminal summary of generated CSV results with:
+
+```bash
+python scripts/summarize_results.py
+```
