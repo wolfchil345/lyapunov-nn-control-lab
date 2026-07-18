@@ -515,3 +515,7 @@ GitHub Actions runs local checks automatically on pushes and pull requests using
 ## Editor configuration
 
 The repository includes `.editorconfig` to keep indentation, line endings, and whitespace consistent across editors.
+
+## Git attributes
+
+The repository includes `.gitattributes` to keep text line endings and binary files handled consistently by Git.
