@@ -401,3 +401,7 @@ Important control and machine-learning terms are explained in [`docs/glossary.md
 ## References
 
 Suggested topics and further reading are listed in [`docs/references.md`](docs/references.md).
+
+## Figures guide
+
+Generated plots and result files are explained in [`docs/figures.md`](docs/figures.md).
