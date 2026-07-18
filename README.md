@@ -417,3 +417,11 @@ Run tests and the quick-start example with:
 ```bash
 python scripts/run_checks.py
 ```
+
+## Cleaning results
+
+Remove generated files from `results/` with:
+
+```bash
+python scripts/clean_results.py
+```
