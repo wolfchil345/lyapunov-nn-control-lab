@@ -437,3 +437,7 @@ python scripts/summarize_results.py
 ## Troubleshooting
 
 Common setup and runtime issues are explained in [`docs/troubleshooting.md`](docs/troubleshooting.md).
+
+## Command cheat sheet
+
+Useful setup, testing, experiment, and Git commands are listed in [`docs/commands.md`](docs/commands.md).
