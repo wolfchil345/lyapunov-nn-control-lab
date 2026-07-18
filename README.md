@@ -469,3 +469,7 @@ A ready-to-use presentation structure is available in [`docs/presentation_outlin
 ## KAN extension
 
 Ideas for extending the project toward KAN-based controller experiments are described in [`docs/kan_extension.md`](docs/kan_extension.md).
+
+## Model card
+
+A model card for the neural-network controller is available in [`docs/model_card.md`](docs/model_card.md).
