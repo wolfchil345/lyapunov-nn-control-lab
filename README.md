@@ -441,3 +441,7 @@ Common setup and runtime issues are explained in [`docs/troubleshooting.md`](doc
 ## Command cheat sheet
 
 Useful setup, testing, experiment, and Git commands are listed in [`docs/commands.md`](docs/commands.md).
+
+## Results interpretation
+
+Guidance for reading metrics, plots, Lyapunov checks, and robustness results is available in [`docs/results_interpretation.md`](docs/results_interpretation.md).
