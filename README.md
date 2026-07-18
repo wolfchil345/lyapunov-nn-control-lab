@@ -477,3 +477,7 @@ A model card for the neural-network controller is available in [`docs/model_card
 ## Research questions
 
 Possible research questions and thesis directions are listed in [`docs/research_questions.md`](docs/research_questions.md).
+
+## Thesis plan
+
+A possible graduation thesis plan based on this repository is available in [`docs/thesis_plan.md`](docs/thesis_plan.md).
