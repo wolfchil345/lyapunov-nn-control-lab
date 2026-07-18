@@ -18,3 +18,4 @@ results/*
 !results/stability_weight_ablation.csv
 !results/stability_weight_ablation.png
 !results/experiment_report.md
+!results/region_of_attraction_comparison.png

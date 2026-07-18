@@ -20,6 +20,7 @@ A Python and PyTorch experiment that trains a neural-network controller to imita
 | Phase portrait | Visualizes closed-loop trajectories in state space | `results/phase_portrait.png` |
 | Lyapunov contours | Visualizes quadratic Lyapunov level sets with trajectories | `results/lyapunov_contours.png` |
 | Region of attraction | Tests convergence from a grid of initial states | `results/region_of_attraction.png` |
+| Region of attraction comparison | Compares stabilizable initial states for LQR, NN, and saturated NN | `results/region_of_attraction_comparison.png` |
 | Stability-weight ablation | Tests whether stronger Lyapunov penalties improve stability metrics | `results/stability_weight_ablation.png`, `results/stability_weight_ablation.csv` |
 | Automatic experiment report | Summarizes generated plots, metrics, and ablation results | `results/experiment_report.md` |
 
@@ -60,6 +61,10 @@ A Python and PyTorch experiment that trains a neural-network controller to imita
 ### Region of attraction
 
 ![Region of attraction](results/region_of_attraction.png)
+
+### Region of attraction comparison
+
+![Region of attraction comparison](results/region_of_attraction_comparison.png)
 
 ### Stability-weight ablation
 
@@ -323,3 +328,13 @@ The project automatically generates a Markdown experiment report after running `
 The report summarizes available plots, performance metrics, and stability-weight ablation results.
 
 The generated report is stored in [`results/experiment_report.md`](results/experiment_report.md).
+
+## Region of attraction controller comparison
+
+The project compares estimated regions of attraction for the LQR controller, the neural-network controller, and the saturated neural-network controller.
+
+Each controller is tested over a grid of initial position and velocity values.
+
+This shows how controller design and actuator limits affect the set of initial states that can be stabilized.
+
+The comparison figure is stored in [`results/region_of_attraction_comparison.png`](results/region_of_attraction_comparison.png).
