@@ -461,3 +461,7 @@ Clean old results, run the main experiment, and summarize outputs with:
 ```bash
 python scripts/run_full_experiment.py
 ```
+
+## Presentation outline
+
+A ready-to-use presentation structure is available in [`docs/presentation_outline.md`](docs/presentation_outline.md).
