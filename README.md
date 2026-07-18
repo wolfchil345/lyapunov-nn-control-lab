@@ -377,3 +377,7 @@ Run it with:
 ```bash
 python examples/quick_start.py
 ```
+
+## Roadmap
+
+Future research directions are listed in [`ROADMAP.md`](ROADMAP.md).
