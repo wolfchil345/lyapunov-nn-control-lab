@@ -375,3 +375,81 @@ def save_stability_weight_ablation_plot(
     plt.tight_layout()
     plt.savefig(output_dir / "stability_weight_ablation.png", dpi=180)
     plt.close()
+
+
+def save_region_of_attraction_comparison_plot(
+    comparison_results: dict[str, tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]],
+    output_dir: Path,
+) -> None:
+    """Compare estimated regions of attraction for multiple controllers."""
+
+    num_controllers = len(comparison_results)
+
+    fig, axes = plt.subplots(
+        1,
+        num_controllers,
+        figsize=(5 * num_controllers, 5),
+        squeeze=False,
+    )
+
+    for axis, (controller_name, result) in zip(
+        axes[0],
+        comparison_results.items(),
+    ):
+        positions, velocities, convergence_map, final_norm_map = result
+
+        image = axis.imshow(
+            convergence_map.astype(float),
+            origin="lower",
+            extent=[
+                positions[0],
+                positions[-1],
+                velocities[0],
+                velocities[-1],
+            ],
+            aspect="auto",
+            interpolation="nearest",
+        )
+
+        axis.contour(
+            positions,
+            velocities,
+            final_norm_map,
+            levels=8,
+        )
+
+        axis.scatter(
+            0.0,
+            0.0,
+            marker="x",
+            s=80,
+            label="equilibrium",
+        )
+
+        convergence_rate = 100.0 * np.mean(convergence_map)
+
+        axis.set_title(
+            f"{controller_name}\nconverged: {convergence_rate:.1f}%"
+        )
+        axis.set_xlabel("Initial position")
+        axis.set_ylabel("Initial velocity")
+        axis.grid(True)
+        axis.legend()
+
+    colorbar = fig.colorbar(
+        image,
+        ax=axes.ravel().tolist(),
+        ticks=[0.0, 1.0],
+        shrink=0.85,
+    )
+    colorbar.ax.set_yticklabels(
+        [
+            "not converged",
+            "converged",
+        ],
+    )
+
+    fig.suptitle("Region of attraction comparison")
+    fig.subplots_adjust(wspace=0.35, top=0.82, right=0.90)
+    fig.savefig(output_dir / "region_of_attraction_comparison.png", dpi=180)
+    plt.close(fig)

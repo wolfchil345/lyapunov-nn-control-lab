@@ -23,6 +23,7 @@ from src.stability_ablation import (
 from src.plotting import (
     save_multiple_initial_conditions_plot,
     save_region_of_attraction_plot,
+    save_region_of_attraction_comparison_plot,
     save_stability_weight_ablation_plot,
     save_plots,
     save_saturation_comparison_plot,
@@ -225,6 +226,37 @@ def main() -> None:
         roa_velocities,
         roa_convergence_map,
         roa_final_norm_map,
+        output_dir,
+    )
+
+    roa_comparison_controllers = {
+        "LQR": lqr_controller,
+        "Neural network": nn_controller,
+        "Saturated NN": saturated_nn_controller,
+    }
+
+    roa_comparison_results = {
+        controller_name: evaluate_region_of_attraction(
+            controller,
+            position_range=(-2.5, 2.5),
+            velocity_range=(-2.5, 2.5),
+            num_points=11,
+            convergence_threshold=0.1,
+            duration=8.0,
+        )
+        for controller_name, controller in roa_comparison_controllers.items()
+    }
+
+    print()
+    print("Region of attraction comparison:")
+
+    for controller_name, result in roa_comparison_results.items():
+        _positions, _velocities, convergence_map, _final_norm_map = result
+        convergence_rate = 100.0 * np.mean(convergence_map)
+        print(f"{controller_name}: convergence rate={convergence_rate:.1f}%")
+
+    save_region_of_attraction_comparison_plot(
+        roa_comparison_results,
         output_dir,
     )
 
