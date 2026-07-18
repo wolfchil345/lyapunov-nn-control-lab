@@ -381,3 +381,7 @@ python examples/quick_start.py
 ## Roadmap
 
 Future research directions are listed in [`ROADMAP.md`](ROADMAP.md).
+
+## Contributing
+
+Contribution guidelines are available in [`CONTRIBUTING.md`](CONTRIBUTING.md).
