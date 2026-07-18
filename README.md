@@ -453,3 +453,11 @@ Important assumptions and limitations are described in [`docs/limitations.md`](d
 ## Experiment workflow
 
 A recommended experiment workflow is available in [`docs/experiment_workflow.md`](docs/experiment_workflow.md).
+
+## Full experiment pipeline
+
+Clean old results, run the main experiment, and summarize outputs with:
+
+```bash
+python scripts/run_full_experiment.py
+```
