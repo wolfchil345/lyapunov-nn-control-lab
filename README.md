@@ -405,3 +405,7 @@ Suggested topics and further reading are listed in [`docs/references.md`](docs/r
 ## Figures guide
 
 Generated plots and result files are explained in [`docs/figures.md`](docs/figures.md).
+
+## Project structure
+
+The repository layout is explained in [`docs/project_structure.md`](docs/project_structure.md).
