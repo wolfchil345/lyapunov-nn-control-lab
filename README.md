@@ -393,3 +393,7 @@ Security reporting guidance is available in [`SECURITY.md`](SECURITY.md).
 ## Code of conduct
 
 Community guidelines are available in [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).
+
+## Glossary
+
+Important control and machine-learning terms are explained in [`docs/glossary.md`](docs/glossary.md).
