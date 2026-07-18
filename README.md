@@ -385,3 +385,7 @@ Future research directions are listed in [`ROADMAP.md`](ROADMAP.md).
 ## Contributing
 
 Contribution guidelines are available in [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+## Security
+
+Security reporting guidance is available in [`SECURITY.md`](SECURITY.md).
