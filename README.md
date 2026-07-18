@@ -449,3 +449,7 @@ Guidance for reading metrics, plots, Lyapunov checks, and robustness results is 
 ## Limitations
 
 Important assumptions and limitations are described in [`docs/limitations.md`](docs/limitations.md).
+
+## Experiment workflow
+
+A recommended experiment workflow is available in [`docs/experiment_workflow.md`](docs/experiment_workflow.md).
