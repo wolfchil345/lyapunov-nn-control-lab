@@ -433,3 +433,7 @@ Print a quick terminal summary of generated CSV results with:
 ```bash
 python scripts/summarize_results.py
 ```
+
+## Troubleshooting
+
+Common setup and runtime issues are explained in [`docs/troubleshooting.md`](docs/troubleshooting.md).
