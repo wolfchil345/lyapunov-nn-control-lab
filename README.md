@@ -465,3 +465,7 @@ python scripts/run_full_experiment.py
 ## Presentation outline
 
 A ready-to-use presentation structure is available in [`docs/presentation_outline.md`](docs/presentation_outline.md).
+
+## KAN extension
+
+Ideas for extending the project toward KAN-based controller experiments are described in [`docs/kan_extension.md`](docs/kan_extension.md).
