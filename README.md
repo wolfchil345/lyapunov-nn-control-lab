@@ -531,3 +531,7 @@ See the [environment setup guide](docs/environment.md) for Python version, virtu
 ## Artifact manifest
 
 See the [artifact manifest](docs/artifact_manifest.md) for an overview of source files, scripts, generated plots, reports, and result summaries.
+
+## VS Code setup
+
+See the [VS Code setup guide](docs/vscode.md) for recommended extensions, pytest settings, Codespaces notes, and common terminal workflow.
