@@ -587,3 +587,7 @@ See the [FAQ](docs/faq.md) for quick answers about the project goal, LQR referen
 ## Experiment parameters
 
 See the [experiment parameters guide](docs/experiment_parameters.md) for the main settings that affect training, simulation, Lyapunov checks, robustness tests, and results.
+
+## Experiment log template
+
+See the [experiment log template](docs/experiment_log_template.md) for recording experiment settings, results, comparisons, and observations.
