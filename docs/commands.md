@@ -82,3 +82,17 @@ git merge --no-ff feature/my-new-feature
 python scripts/run_checks.py
 git push origin main
 ```
+
+## Makefile shortcuts
+
+The repository includes a `Makefile` with common command shortcuts:
+
+```bash
+make check-env
+make checks
+make test
+make quickstart
+make experiment
+make clean
+make summarize
+```
