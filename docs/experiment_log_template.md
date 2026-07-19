@@ -76,3 +76,17 @@ python scripts/summarize_results.py
 ## Safety note
 
 Do not describe sampled Lyapunov grid results as a complete formal proof of global stability.
+
+## Create a new log file
+
+Use the helper script to create a timestamped copy of this template:
+
+```bash
+python scripts/new_experiment_log.py "baseline seed 0"
+```
+
+Or use the Makefile shortcut:
+
+```bash
+make new-log
+```
