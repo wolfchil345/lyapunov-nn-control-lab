@@ -40,13 +40,19 @@ def main() -> int:
             missing += 1
         print(f"- {label}: {file_name}")
 
+    docs_count = count_files(Path("docs"), "*.md")
+    scripts_count = count_files(Path("scripts"), "*.py")
+    tests_count = count_files(Path("tests"), "test_*.py")
+    workflows_count = count_files(Path(".github/workflows"), "*.yml")
+    results_count = count_files(Path("results"))
+
     print("")
     print("Inventory:")
-    print(f"- Documentation files: {count_files(Path(\"docs\"), \"*.md\")}")
-    print(f"- Script files: {count_files(Path(\"scripts\"), \"*.py\")}")
-    print(f"- Test files: {count_files(Path(\"tests\"), \"test_*.py\")}")
-    print(f"- Workflow files: {count_files(Path(\".github/workflows\"), \"*.yml\")}")
-    print(f"- Result files: {count_files(Path(\"results\"))}")
+    print(f"- Documentation files: {docs_count}")
+    print(f"- Script files: {scripts_count}")
+    print(f"- Test files: {tests_count}")
+    print(f"- Workflow files: {workflows_count}")
+    print(f"- Result files: {results_count}")
 
     print("")
     if missing:
