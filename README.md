@@ -559,3 +559,7 @@ See the [dependency updates guide](docs/dependency_updates.md) for Dependabot be
 ## Security scanning
 
 See the [security scanning guide](docs/security_scanning.md) for CodeQL workflow behavior and review notes.
+
+## Branch protection
+
+See the [branch protection guide](docs/branch_protection.md) for recommended `main` branch rules and required checks.
