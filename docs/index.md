@@ -98,3 +98,7 @@ This page is a map of the main documentation files in the Lyapunov Neural-Networ
 ## Portfolio pitch
 
 - [Portfolio pitch](portfolio_pitch.md): concise project explanation for CV, interviews, professor visits, and graduate applications.
+
+## FAQ
+
+- [Frequently asked questions](faq.md): quick answers about goals, LQR, Lyapunov checks, limitations, and project usage.
