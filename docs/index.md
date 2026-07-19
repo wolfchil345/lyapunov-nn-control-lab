@@ -90,3 +90,7 @@ This page is a map of the main documentation files in the Lyapunov Neural-Networ
 ## Release process
 
 - [Release checklist](release_checklist.md): steps for checks, regenerated results, documentation review, and tagging.
+
+## Demo guide
+
+- [Five minute demo script](demo_script.md): quick presentation flow for professors, reviewers, interviews, and lab discussions.

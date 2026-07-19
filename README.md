@@ -571,3 +571,7 @@ See the [pull request review guide](docs/pull_request_review.md) for the recomme
 ## Release checklist
 
 See the [release checklist](docs/release_checklist.md) before tagging a release or submitting the project for review.
+
+## Demo guide
+
+See the [five minute demo script](docs/demo_script.md) for a quick explanation flow for professors, reviewers, interviews, and lab discussions.
