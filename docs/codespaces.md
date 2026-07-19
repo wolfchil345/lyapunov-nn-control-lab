@@ -34,3 +34,7 @@ git switch -c feature/my-change
 python scripts/run_checks.py
 git status
 ```
+
+## Git LFS note
+
+Git LFS is installed automatically by the dev container so push hooks can run correctly in Codespaces.
