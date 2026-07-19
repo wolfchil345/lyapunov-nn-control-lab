@@ -643,3 +643,7 @@ Or use:
 ```bash
 make quality-gate
 ```
+
+## Automated quality gate
+
+GitHub Actions runs the quality gate automatically with `.github/workflows/quality-gate.yml` on pushes and pull requests to `main`.
