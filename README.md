@@ -551,3 +551,7 @@ See the [dependency troubleshooting guide](docs/dependency_troubleshooting.md) f
 ## Command shortcuts
 
 The repository includes a `Makefile` for common shortcuts such as `make check-env`, `make checks`, `make test`, and `make experiment`.
+
+## Dependency updates
+
+See the [dependency updates guide](docs/dependency_updates.md) for Dependabot behavior and the update review checklist.
