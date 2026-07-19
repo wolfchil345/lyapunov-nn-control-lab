@@ -543,3 +543,7 @@ See the [Codespaces setup guide](docs/codespaces.md) for the dev container, auto
 ## Environment checker
 
 Run `python scripts/check_environment.py` to diagnose Python, Git LFS, project files, and PyTorch import status.
+
+## Dependency troubleshooting
+
+See the [dependency troubleshooting guide](docs/dependency_troubleshooting.md) for Git LFS, PyTorch import errors, virtual environment resets, and Codespaces recovery.

@@ -66,3 +66,7 @@ This page is a map of the main documentation files in the Lyapunov Neural-Networ
 ## Codespaces
 
 - [GitHub Codespaces setup](codespaces.md): dev container, automatic dependency installation, extensions, and workflow notes.
+
+## Dependency troubleshooting
+
+- [Dependency troubleshooting](dependency_troubleshooting.md): fixes for Git LFS, PyTorch import errors, broken virtual environments, and Codespaces resets.
