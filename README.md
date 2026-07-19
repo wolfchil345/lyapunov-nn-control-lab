@@ -535,3 +535,7 @@ See the [artifact manifest](docs/artifact_manifest.md) for an overview of source
 ## VS Code setup
 
 See the [VS Code setup guide](docs/vscode.md) for recommended extensions, pytest settings, Codespaces notes, and common terminal workflow.
+
+## Codespaces setup
+
+See the [Codespaces setup guide](docs/codespaces.md) for the dev container, automatic dependency installation, extensions, and workflow notes.
