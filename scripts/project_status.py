@@ -9,6 +9,7 @@ KEY_FILES = [
     "pyproject.toml",
     "docs/index.md",
     "docs/ci_workflows.md",
+    "docs/project_status.md",
     "scripts/run_checks.py",
     "scripts/check_environment.py",
     "scripts/list_results.py",
