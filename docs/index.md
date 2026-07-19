@@ -62,3 +62,7 @@ This page is a map of the main documentation files in the Lyapunov Neural-Networ
 ## Editor setup
 
 - [VS Code setup](vscode.md): recommended extensions, pytest discovery, Codespaces notes, and terminal workflow.
+
+## Codespaces
+
+- [GitHub Codespaces setup](codespaces.md): dev container, automatic dependency installation, extensions, and workflow notes.
