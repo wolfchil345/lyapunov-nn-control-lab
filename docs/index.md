@@ -86,3 +86,7 @@ This page is a map of the main documentation files in the Lyapunov Neural-Networ
 ## Pull request review
 
 - [Pull request review guide](pull_request_review.md): review checklist for feature branches, tests, docs, and research result safety.
+
+## Release process
+
+- [Release checklist](release_checklist.md): steps for checks, regenerated results, documentation review, and tagging.
