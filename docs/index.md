@@ -126,3 +126,7 @@ This page is a map of the main documentation files in the Lyapunov Neural-Networ
 ## CI workflows
 
 - [CI workflows guide](ci_workflows.md): explains GitHub Actions workflows, badges, and failure recovery.
+
+## Project status
+
+- [Project status guide](project_status.md): explains how to inspect repository health and tracked files.
