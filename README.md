@@ -660,3 +660,7 @@ See the [CI workflows guide](docs/ci_workflows.md) for how GitHub Actions, badge
 ## Project status guide
 
 See the [project status guide](docs/project_status.md) for how repository health is checked.
+
+## Maintenance guide
+
+See the [maintenance guide](docs/maintenance.md) for routine checks before merges, demos, and repository updates.

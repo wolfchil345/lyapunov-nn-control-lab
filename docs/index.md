@@ -130,3 +130,7 @@ This page is a map of the main documentation files in the Lyapunov Neural-Networ
 ## Project status
 
 - [Project status guide](project_status.md): explains how to inspect repository health and tracked files.
+
+## Maintenance
+
+- [Maintenance guide](maintenance.md): explains routine checks, workflow upkeep, and pre-demo review steps.
