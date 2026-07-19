@@ -36,3 +36,7 @@ status:
 .PHONY: quality-gate
 quality-gate:
 	python scripts/quality_gate.py
+
+.PHONY: workflow-badges
+workflow-badges:
+	python scripts/check_workflow_badges.py

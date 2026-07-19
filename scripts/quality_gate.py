@@ -6,6 +6,7 @@ import sys
 
 COMMANDS = [
     ["python", "scripts/project_status.py"],
+    ["python", "scripts/check_workflow_badges.py"],
     ["python", "scripts/check_environment.py"],
     ["python", "scripts/list_results.py"],
     ["python", "scripts/run_checks.py"],
