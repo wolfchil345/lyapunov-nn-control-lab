@@ -8,6 +8,7 @@ The quality gate runs:
 
 ```bash
 python scripts/project_status.py
+python scripts/check_workflow_badges.py
 python scripts/check_environment.py
 python scripts/list_results.py
 python scripts/run_checks.py
@@ -100,3 +101,13 @@ The workflow `.github/workflows/quality-gate.yml` runs the quality gate automati
 ## Final rule
 
 Do not merge important changes until the quality gate passes locally.
+
+## Workflow badge failure
+
+Run:
+
+```bash
+python scripts/check_workflow_badges.py
+```
+
+Make sure README includes badges for `tests.yml` and `quality-gate.yml`.
