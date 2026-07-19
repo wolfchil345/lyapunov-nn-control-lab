@@ -8,6 +8,7 @@ KEY_FILES = [
     "Makefile",
     "pyproject.toml",
     "docs/index.md",
+    "docs/ci_workflows.md",
     "scripts/run_checks.py",
     "scripts/check_environment.py",
     "scripts/list_results.py",
