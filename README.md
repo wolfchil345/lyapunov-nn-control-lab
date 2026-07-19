@@ -656,3 +656,7 @@ See the [quality gate guide](docs/quality_gate.md) for how to run the full readi
 ## CI workflows guide
 
 See the [CI workflows guide](docs/ci_workflows.md) for how GitHub Actions, badges, and quality checks are organized.
+
+## Project status guide
+
+See the [project status guide](docs/project_status.md) for how repository health is checked.
