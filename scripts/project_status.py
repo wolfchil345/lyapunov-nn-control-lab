@@ -12,7 +12,9 @@ KEY_FILES = [
     "scripts/check_environment.py",
     "scripts/list_results.py",
     "scripts/new_experiment_log.py",
+    "scripts/quality_gate.py",
     ".github/workflows/local-checks.yml",
+    ".github/workflows/quality-gate.yml",
 ]
 
 
