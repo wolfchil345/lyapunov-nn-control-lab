@@ -122,3 +122,7 @@ This page is a map of the main documentation files in the Lyapunov Neural-Networ
 ## Quality gate
 
 - [Quality gate guide](quality_gate.md): how to run the project readiness check, understand failures, and use the automated workflow.
+
+## CI workflows
+
+- [CI workflows guide](ci_workflows.md): explains GitHub Actions workflows, badges, and failure recovery.
