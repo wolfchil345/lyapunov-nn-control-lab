@@ -647,3 +647,7 @@ make quality-gate
 ## Automated quality gate
 
 GitHub Actions runs the quality gate automatically with `.github/workflows/quality-gate.yml` on pushes and pull requests to `main`.
+
+## Quality gate guide
+
+See the [quality gate guide](docs/quality_gate.md) for how to run the full readiness check and fix common failures.
