@@ -595,3 +595,11 @@ See the [experiment log template](docs/experiment_log_template.md) for recording
 ## Result file naming
 
 See the [result file naming guide](docs/result_naming.md) for organizing plots, metrics, reports, robustness outputs, and experiment comparisons.
+
+## Experiment log generator
+
+Create a timestamped experiment log from the template with:
+
+```bash
+python scripts/new_experiment_log.py "baseline seed 0"
+```

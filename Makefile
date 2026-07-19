@@ -20,3 +20,7 @@ clean:
 
 summarize:
 	python scripts/summarize_results.py
+
+.PHONY: new-log
+new-log:
+	python scripts/new_experiment_log.py
