@@ -547,3 +547,7 @@ Run `python scripts/check_environment.py` to diagnose Python, Git LFS, project f
 ## Dependency troubleshooting
 
 See the [dependency troubleshooting guide](docs/dependency_troubleshooting.md) for Git LFS, PyTorch import errors, virtual environment resets, and Codespaces recovery.
+
+## Command shortcuts
+
+The repository includes a `Makefile` for common shortcuts such as `make check-env`, `make checks`, `make test`, and `make experiment`.
