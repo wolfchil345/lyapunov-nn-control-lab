@@ -652,3 +652,7 @@ GitHub Actions runs the quality gate automatically with `.github/workflows/quali
 ## Quality gate guide
 
 See the [quality gate guide](docs/quality_gate.md) for how to run the full readiness check and fix common failures.
+
+## CI workflows guide
+
+See the [CI workflows guide](docs/ci_workflows.md) for how GitHub Actions, badges, and quality checks are organized.
