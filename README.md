@@ -575,3 +575,7 @@ See the [release checklist](docs/release_checklist.md) before tagging a release 
 ## Demo guide
 
 See the [five minute demo script](docs/demo_script.md) for a quick explanation flow for professors, reviewers, interviews, and lab discussions.
+
+## Portfolio pitch
+
+See the [portfolio pitch](docs/portfolio_pitch.md) for a concise explanation for CVs, interviews, professor visits, and graduate applications.

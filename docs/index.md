@@ -94,3 +94,7 @@ This page is a map of the main documentation files in the Lyapunov Neural-Networ
 ## Demo guide
 
 - [Five minute demo script](demo_script.md): quick presentation flow for professors, reviewers, interviews, and lab discussions.
+
+## Portfolio pitch
+
+- [Portfolio pitch](portfolio_pitch.md): concise project explanation for CV, interviews, professor visits, and graduate applications.
