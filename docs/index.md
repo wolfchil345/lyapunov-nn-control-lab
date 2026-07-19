@@ -114,3 +114,7 @@ This page is a map of the main documentation files in the Lyapunov Neural-Networ
 ## Result file naming
 
 - [Result file naming guide](result_naming.md): naming rules for plots, metrics, reports, robustness outputs, and experiment comparisons.
+
+## Result review
+
+- [Result review checklist](result_review_checklist.md): checklist for reviewing plots, metrics, Lyapunov outputs, robustness outputs, and report-ready artifacts.

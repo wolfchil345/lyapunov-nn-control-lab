@@ -611,3 +611,7 @@ List generated result files with:
 ```bash
 python scripts/list_results.py
 ```
+
+## Result review checklist
+
+See the [result review checklist](docs/result_review_checklist.md) before using generated plots, metrics, Lyapunov outputs, robustness outputs, or reports.
