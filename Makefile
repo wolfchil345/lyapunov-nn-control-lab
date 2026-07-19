@@ -28,3 +28,7 @@ new-log:
 .PHONY: list-results
 list-results:
 	python scripts/list_results.py
+
+.PHONY: status
+status:
+	python scripts/project_status.py

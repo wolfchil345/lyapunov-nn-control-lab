@@ -615,3 +615,17 @@ python scripts/list_results.py
 ## Result review checklist
 
 See the [result review checklist](docs/result_review_checklist.md) before using generated plots, metrics, Lyapunov outputs, robustness outputs, or reports.
+
+## Project status
+
+Check important project files, documentation, scripts, tests, workflows, and result files with:
+
+```bash
+python scripts/project_status.py
+```
+
+Or use:
+
+```bash
+make status
+```
