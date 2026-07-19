@@ -21,4 +21,4 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run local checks
-        run: python scripts/run_checks.py
+        run: make checks

@@ -96,3 +96,7 @@ make experiment
 make clean
 make summarize
 ```
+
+## CI command
+
+GitHub Actions uses `make checks` to run the same local checks used during development.
