@@ -567,3 +567,7 @@ See the [branch protection guide](docs/branch_protection.md) for recommended `ma
 ## Pull request review
 
 See the [pull request review guide](docs/pull_request_review.md) for the recommended checklist before merging feature branches.
+
+## Release checklist
+
+See the [release checklist](docs/release_checklist.md) before tagging a release or submitting the project for review.
