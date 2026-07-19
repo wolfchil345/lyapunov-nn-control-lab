@@ -603,3 +603,11 @@ Create a timestamped experiment log from the template with:
 ```bash
 python scripts/new_experiment_log.py "baseline seed 0"
 ```
+
+## Result inventory
+
+List generated result files with:
+
+```bash
+python scripts/list_results.py
+```

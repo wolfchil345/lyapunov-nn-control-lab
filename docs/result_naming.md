@@ -54,3 +54,17 @@ When comparing two runs, make sure the file names show what changed between them
 ## Documentation rule
 
 If a result is important enough to keep, record it in the experiment log template.
+
+## List current result files
+
+Use the result inventory script before reports, demos, or release review:
+
+```bash
+python scripts/list_results.py
+```
+
+Or use the Makefile shortcut:
+
+```bash
+make list-results
+```
