@@ -44,3 +44,13 @@ python main.py
 - If imports fail, make sure you are running commands from the repository root.
 - If packages are missing, run `pip install -r requirements.txt` again.
 - If generated results look old, clean the results directory before rerunning experiments.
+
+## Check the environment
+
+Use the environment checker when Codespaces or a local machine has dependency problems:
+
+```bash
+python scripts/check_environment.py
+```
+
+This checks Python, Git, Git LFS, required project files, and PyTorch import status.
