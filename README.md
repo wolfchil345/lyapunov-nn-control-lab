@@ -539,3 +539,7 @@ See the [VS Code setup guide](docs/vscode.md) for recommended extensions, pytest
 ## Codespaces setup
 
 See the [Codespaces setup guide](docs/codespaces.md) for the dev container, automatic dependency installation, extensions, and workflow notes.
+
+## Environment checker
+
+Run `python scripts/check_environment.py` to diagnose Python, Git LFS, project files, and PyTorch import status.
