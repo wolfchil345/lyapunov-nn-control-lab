@@ -106,3 +106,7 @@ This page is a map of the main documentation files in the Lyapunov Neural-Networ
 ## Experiment parameters
 
 - [Experiment parameters guide](experiment_parameters.md): main settings that affect training, simulation, Lyapunov checks, robustness tests, and results.
+
+## Experiment log
+
+- [Experiment log template](experiment_log_template.md): reusable template for recording settings, results, comparisons, and observations.
