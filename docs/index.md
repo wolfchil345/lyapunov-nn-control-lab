@@ -78,3 +78,7 @@ This page is a map of the main documentation files in the Lyapunov Neural-Networ
 ## Security scanning
 
 - [Security scanning](security_scanning.md): CodeQL workflow, schedule, and review notes.
+
+## Branch protection
+
+- [Branch protection guide](branch_protection.md): recommended rules for protecting `main` and requiring checks.
