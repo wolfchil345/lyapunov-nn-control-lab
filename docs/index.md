@@ -102,3 +102,7 @@ This page is a map of the main documentation files in the Lyapunov Neural-Networ
 ## FAQ
 
 - [Frequently asked questions](faq.md): quick answers about goals, LQR, Lyapunov checks, limitations, and project usage.
+
+## Experiment parameters
+
+- [Experiment parameters guide](experiment_parameters.md): main settings that affect training, simulation, Lyapunov checks, robustness tests, and results.

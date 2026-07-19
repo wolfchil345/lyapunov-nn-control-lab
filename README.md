@@ -583,3 +583,7 @@ See the [portfolio pitch](docs/portfolio_pitch.md) for a concise explanation for
 ## FAQ
 
 See the [FAQ](docs/faq.md) for quick answers about the project goal, LQR reference controller, Lyapunov-style checks, and limitations.
+
+## Experiment parameters
+
+See the [experiment parameters guide](docs/experiment_parameters.md) for the main settings that affect training, simulation, Lyapunov checks, robustness tests, and results.
