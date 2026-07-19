@@ -591,3 +591,7 @@ See the [experiment parameters guide](docs/experiment_parameters.md) for the mai
 ## Experiment log template
 
 See the [experiment log template](docs/experiment_log_template.md) for recording experiment settings, results, comparisons, and observations.
+
+## Result file naming
+
+See the [result file naming guide](docs/result_naming.md) for organizing plots, metrics, reports, robustness outputs, and experiment comparisons.

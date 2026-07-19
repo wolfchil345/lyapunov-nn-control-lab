@@ -110,3 +110,7 @@ This page is a map of the main documentation files in the Lyapunov Neural-Networ
 ## Experiment log
 
 - [Experiment log template](experiment_log_template.md): reusable template for recording settings, results, comparisons, and observations.
+
+## Result file naming
+
+- [Result file naming guide](result_naming.md): naming rules for plots, metrics, reports, robustness outputs, and experiment comparisons.
