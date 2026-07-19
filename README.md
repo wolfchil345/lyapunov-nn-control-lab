@@ -629,3 +629,17 @@ Or use:
 ```bash
 make status
 ```
+
+## Quality gate
+
+Run the full project readiness check with:
+
+```bash
+python scripts/quality_gate.py
+```
+
+Or use:
+
+```bash
+make quality-gate
+```
