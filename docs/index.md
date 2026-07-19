@@ -82,3 +82,7 @@ This page is a map of the main documentation files in the Lyapunov Neural-Networ
 ## Branch protection
 
 - [Branch protection guide](branch_protection.md): recommended rules for protecting `main` and requiring checks.
+
+## Pull request review
+
+- [Pull request review guide](pull_request_review.md): review checklist for feature branches, tests, docs, and research result safety.

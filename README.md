@@ -563,3 +563,7 @@ See the [security scanning guide](docs/security_scanning.md) for CodeQL workflow
 ## Branch protection
 
 See the [branch protection guide](docs/branch_protection.md) for recommended `main` branch rules and required checks.
+
+## Pull request review
+
+See the [pull request review guide](docs/pull_request_review.md) for the recommended checklist before merging feature branches.
