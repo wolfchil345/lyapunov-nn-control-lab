@@ -58,3 +58,7 @@ This page is a map of the main documentation files in the Lyapunov Neural-Networ
 ## Artifacts
 
 - [Artifact manifest](artifact_manifest.md): explanation of source files, scripts, plots, summaries, and generated results.
+
+## Editor setup
+
+- [VS Code setup](vscode.md): recommended extensions, pytest discovery, Codespaces notes, and terminal workflow.
