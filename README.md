@@ -527,3 +527,7 @@ The repository includes `pyproject.toml` with basic project metadata and pytest 
 ## Environment setup
 
 See the [environment setup guide](docs/environment.md) for Python version, virtual environment, dependency installation, and local checks.
+
+## Artifact manifest
+
+See the [artifact manifest](docs/artifact_manifest.md) for an overview of source files, scripts, generated plots, reports, and result summaries.

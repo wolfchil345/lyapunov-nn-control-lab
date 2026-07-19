@@ -54,3 +54,7 @@ This page is a map of the main documentation files in the Lyapunov Neural-Networ
 ## Environment
 
 - [Environment setup](environment.md): Python version, virtual environment, dependencies, and local checks.
+
+## Artifacts
+
+- [Artifact manifest](artifact_manifest.md): explanation of source files, scripts, plots, summaries, and generated results.
