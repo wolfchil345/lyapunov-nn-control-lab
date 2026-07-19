@@ -24,3 +24,7 @@ summarize:
 .PHONY: new-log
 new-log:
 	python scripts/new_experiment_log.py
+
+.PHONY: list-results
+list-results:
+	python scripts/list_results.py
