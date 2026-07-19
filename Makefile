@@ -32,3 +32,7 @@ list-results:
 .PHONY: status
 status:
 	python scripts/project_status.py
+
+.PHONY: quality-gate
+quality-gate:
+	python scripts/quality_gate.py
