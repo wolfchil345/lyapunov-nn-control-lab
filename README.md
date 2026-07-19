@@ -579,3 +579,7 @@ See the [five minute demo script](docs/demo_script.md) for a quick explanation f
 ## Portfolio pitch
 
 See the [portfolio pitch](docs/portfolio_pitch.md) for a concise explanation for CVs, interviews, professor visits, and graduate applications.
+
+## FAQ
+
+See the [FAQ](docs/faq.md) for quick answers about the project goal, LQR reference controller, Lyapunov-style checks, and limitations.
