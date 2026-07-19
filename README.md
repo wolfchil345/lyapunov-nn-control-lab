@@ -555,3 +555,7 @@ The repository includes a `Makefile` for common shortcuts such as `make check-en
 ## Dependency updates
 
 See the [dependency updates guide](docs/dependency_updates.md) for Dependabot behavior and the update review checklist.
+
+## Security scanning
+
+See the [security scanning guide](docs/security_scanning.md) for CodeQL workflow behavior and review notes.

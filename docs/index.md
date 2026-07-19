@@ -74,3 +74,7 @@ This page is a map of the main documentation files in the Lyapunov Neural-Networ
 ## Dependency updates
 
 - [Dependency updates](dependency_updates.md): Dependabot configuration, update schedule, and review checklist.
+
+## Security scanning
+
+- [Security scanning](security_scanning.md): CodeQL workflow, schedule, and review notes.
