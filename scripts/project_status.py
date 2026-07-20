@@ -10,6 +10,7 @@ KEY_FILES = [
     "docs/index.md",
     "docs/ci_workflows.md",
     "docs/project_status.md",
+    "docs/maintenance.md",
     "scripts/run_checks.py",
     "scripts/check_environment.py",
     "scripts/list_results.py",
