@@ -491,7 +491,7 @@ Possible presentation and thesis-defense questions are collected in [`docs/defen
 
 ## Documentation index
 
-A map of the documentation files is available in [`docs/index.md`](docs/index.md).
+A map of the documentation files is available in [`docs/en/index.md`](docs/en/index.md).
 
 ## Documentation link checker
 
