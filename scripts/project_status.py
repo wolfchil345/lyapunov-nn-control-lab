@@ -5,6 +5,9 @@ from pathlib import Path
 
 KEY_FILES = [
     "README.md",
+    "README.ja.md",
+    "README.ko.md",
+    "README.th.md",
     "Makefile",
     "pyproject.toml",
     "docs/index.md",
