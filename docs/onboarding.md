@@ -68,7 +68,7 @@ The quality gate checks repository status, workflow badges, environment health, 
 Recommended first documents:
 
 - `docs/project_summary.md` for the project overview.
-- `docs/methodology.md` for the control and learning method.
+- `docs/en/methodology.md` for the control and learning method.
 - `docs/experiment_workflow.md` for the experiment process.
 - `docs/results_interpretation.md` for reading outputs.
 - `docs/git_workflow.md` for branch and merge rules.

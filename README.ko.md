@@ -25,7 +25,7 @@ python scripts/quality_gate.py
 ## 주요 문서
 
 - [Project summary](docs/ko/project_summary.md)
-- [Methodology](docs/methodology.md)
+- [Methodology](docs/ko/methodology.md)
 - [Experiment workflow](docs/experiment_workflow.md)
 - [Results interpretation](docs/results_interpretation.md)
 - [Onboarding guide](docs/onboarding.md)

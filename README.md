@@ -357,7 +357,7 @@ The architecture diagram is stored in [`results/model_architecture.png`](results
 
 ## Methodology documentation
 
-For a paper-style explanation of the control theory, neural-network controller, Lyapunov stability checks, robustness experiments, and region-of-attraction analysis, see [`docs/methodology.md`](docs/methodology.md).
+For a paper-style explanation of the control theory, neural-network controller, Lyapunov stability checks, robustness experiments, and region-of-attraction analysis, see [`docs/en/methodology.md`](docs/en/methodology.md).
 
 ## Citation
 
