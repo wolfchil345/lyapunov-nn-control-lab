@@ -134,3 +134,7 @@ This page is a map of the main documentation files in the Lyapunov Neural-Networ
 ## Maintenance
 
 - [Maintenance guide](maintenance.md): explains routine checks, workflow upkeep, and pre-demo review steps.
+
+## Git workflow
+
+- [Git workflow guide](git_workflow.md): explains feature branches, commits, merges, and branch cleanup.

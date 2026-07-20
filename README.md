@@ -664,3 +664,7 @@ See the [project status guide](docs/project_status.md) for how repository health
 ## Maintenance guide
 
 See the [maintenance guide](docs/maintenance.md) for routine checks before merges, demos, and repository updates.
+
+## Git workflow guide
+
+See the [Git workflow guide](docs/git_workflow.md) for the project branch, commit, merge, and cleanup process.
