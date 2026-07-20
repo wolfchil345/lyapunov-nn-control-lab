@@ -24,6 +24,7 @@ python scripts/quality_gate.py
 
 ## เอกสารสำคัญ
 
+- [ดัชนีเอกสาร](docs/th/index.md)
 - [Project summary](docs/th/project_summary.md)
 - [Methodology](docs/th/methodology.md)
 - [Experiment workflow](docs/experiment_workflow.md)
