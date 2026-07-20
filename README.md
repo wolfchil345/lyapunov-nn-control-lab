@@ -365,7 +365,7 @@ This repository includes citation metadata in [`CITATION.cff`](CITATION.cff).
 
 ## Project summary
 
-A concise portfolio-style summary is available in [`docs/project_summary.md`](docs/project_summary.md).
+A concise portfolio-style summary is available in [`docs/en/project_summary.md`](docs/en/project_summary.md).
 
 ## Reproducibility
 
