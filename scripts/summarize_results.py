@@ -46,7 +46,10 @@ def print_ablation_metrics() -> None:
     for row in rows:
         weight = row.get("stability_weight", "n/a")
         final_norm = row.get("final_state_norm", "n/a")
-        violation = row.get("violation_fraction", row.get("violation_ratio", "n/a"))
+        violation = row.get(
+            "lyapunov_violation_fraction",
+            row.get("violation_fraction", row.get("violation_ratio", "n/a")),
+        )
         print(f"- weight={weight}: final_norm={final_norm}, violation={violation}")
 
 
