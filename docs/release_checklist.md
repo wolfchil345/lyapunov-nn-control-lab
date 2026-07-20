@@ -44,8 +44,9 @@ git log --oneline -10
 ## 7. Tag release only after checks pass
 
 ```bash
-git tag v1.0.0
-git push origin v1.0.0
+VERSION=vX.Y.Z
+git tag -a "$VERSION" -m "Release $VERSION"
+git push origin "$VERSION"
 ```
 
 Update the version number when creating later releases.
