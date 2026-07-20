@@ -12,6 +12,7 @@ KEY_FILES = [
     "docs/project_status.md",
     "docs/maintenance.md",
     "docs/git_workflow.md",
+    "docs/onboarding.md",
     "scripts/run_checks.py",
     "scripts/check_environment.py",
     "scripts/list_results.py",
