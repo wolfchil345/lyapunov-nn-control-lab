@@ -20,3 +20,4 @@ results/*
 !results/experiment_report.md
 !results/region_of_attraction_comparison.png
 !results/model_architecture.png
+*.egg-info/
