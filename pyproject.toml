@@ -8,6 +8,7 @@ authors = [
   { name = "Sirichet Sriamontham" }
 ]
 dependencies = [
+  "control",
   "matplotlib",
   "numpy",
   "pytest",
