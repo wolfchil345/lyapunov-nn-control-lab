@@ -25,7 +25,7 @@ python scripts/quality_gate.py
 ## 重要ドキュメント
 
 - [プロジェクト概要](docs/ja/project_summary.md)
-- [手法説明](docs/methodology.md)
+- [手法説明](docs/ja/methodology.md)
 - [実験ワークフロー](docs/experiment_workflow.md)
 - [結果の読み方](docs/results_interpretation.md)
 - [オンボーディングガイド](docs/onboarding.md)
