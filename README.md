@@ -674,3 +674,7 @@ See the [Git workflow guide](docs/git_workflow.md) for the project branch, commi
 ## Onboarding guide
 
 See the [onboarding guide](docs/onboarding.md) for the first steps to run, test, and understand this project.
+
+## Multilingual documentation
+
+This project is being organized for English, Japanese, Korean, and Thai readers. See the [internationalization guide](docs/en/i18n.md).

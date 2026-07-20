@@ -142,3 +142,7 @@ This page is a map of the main documentation files in the Lyapunov Neural-Networ
 ## Onboarding
 
 - [Onboarding guide](onboarding.md): explains how new users can open, test, and understand the project.
+
+## Multilingual documentation
+
+- [Internationalization guide](en/i18n.md): explains the four-language documentation structure.
