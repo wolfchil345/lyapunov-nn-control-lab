@@ -1,3 +1,34 @@
+# v1.0.1 - Documentation and Release Polish
+
+This patch release improves installation reliability, multilingual documentation, and result-summary reporting without changing the core control experiments.
+
+## Highlights
+
+- add the missing `python-control` runtime dependency
+- ignore generated virtual-environment and package-metadata files
+- add English, Japanese, Korean, and Thai documentation foundations
+- add localized documentation indexes for all four languages
+- update each README to link to its localized documentation index
+- remove obsolete and nonexistent documentation links
+- fix the ablation summary to read `lyapunov_violation_fraction`
+- generalize the release checklist for future version tags
+
+## Validation
+
+- 57 tests pass
+- quick-start example passes
+- quality gate passes
+- experiment results regenerate successfully with fixed random seeds
+- regenerated result figures are pixel-identical to the previous tracked figures
+- Lyapunov grid checks report zero violations
+- region-of-attraction checks report 100% convergence for the tested controllers
+
+## Compatibility
+
+The core simulation, controller architecture, and tracked experimental results remain unchanged from `v1.0.0`.
+
+---
+
 # v1.0.0 - First Complete Release
 
 This is the first complete release of the Lyapunov Neural-Network Control Lab.

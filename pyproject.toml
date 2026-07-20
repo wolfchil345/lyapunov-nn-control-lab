@@ -1,6 +1,6 @@
 [project]
 name = "lyapunov-nn-control-lab"
-version = "1.0.0"
+version = "1.0.1"
 description = "A Lyapunov-aware neural network control lab for a mass-spring-damper system."
 readme = "README.md"
 requires-python = ">=3.10"
