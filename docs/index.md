@@ -138,3 +138,7 @@ This page is a map of the main documentation files in the Lyapunov Neural-Networ
 ## Git workflow
 
 - [Git workflow guide](git_workflow.md): explains feature branches, commits, merges, and branch cleanup.
+
+## Onboarding
+
+- [Onboarding guide](onboarding.md): explains how new users can open, test, and understand the project.

@@ -668,3 +668,7 @@ See the [maintenance guide](docs/maintenance.md) for routine checks before merge
 ## Git workflow guide
 
 See the [Git workflow guide](docs/git_workflow.md) for the project branch, commit, merge, and cleanup process.
+
+## Onboarding guide
+
+See the [onboarding guide](docs/onboarding.md) for the first steps to run, test, and understand this project.
