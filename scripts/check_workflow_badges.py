@@ -8,17 +8,24 @@ REQUIRED_WORKFLOW_BADGES = [
     "quality-gate.yml",
 ]
 
+README_FILES = [
+    Path("README.md"),
+    Path("README.ja.md"),
+    Path("README.ko.md"),
+    Path("README.th.md"),
+]
+
 
 def main() -> int:
-    readme = Path("README.md")
     workflows_dir = Path(".github/workflows")
-
-    if not readme.exists():
-        print("Missing README.md")
-        return 1
-
-    text = readme.read_text(encoding="utf-8")
     missing = []
+
+    readme_text: dict[Path, str] = {}
+    for readme in README_FILES:
+        if not readme.exists():
+            missing.append(f"Missing {readme}")
+            continue
+        readme_text[readme] = readme.read_text(encoding="utf-8")
 
     for workflow_name in REQUIRED_WORKFLOW_BADGES:
         workflow_path = workflows_dir / workflow_name
@@ -27,8 +34,11 @@ def main() -> int:
         if not workflow_path.exists():
             missing.append(f"Missing workflow file: {workflow_path}")
 
-        if badge_text not in text:
-            missing.append(f"Missing README badge for: {workflow_name}")
+        for readme, text in readme_text.items():
+            if badge_text not in text:
+                missing.append(
+                    f"{readme}: Missing README badge for: {workflow_name}"
+                )
 
     if missing:
         print("Workflow badge check failed:")

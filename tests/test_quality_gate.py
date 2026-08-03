@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import sys
 from pathlib import Path
 
 
@@ -15,12 +16,16 @@ spec.loader.exec_module(quality_gate)
 
 
 def test_run_command_returns_zero_for_success():
-    result = quality_gate.run_command(["python", "-c", "import sys; sys.exit(0)"])
+    result = quality_gate.run_command(
+        [sys.executable, "-c", "import sys; sys.exit(0)"],
+    )
     assert result == 0
 
 
 def test_run_command_returns_nonzero_for_failure():
-    result = quality_gate.run_command(["python", "-c", "import sys; sys.exit(3)"])
+    result = quality_gate.run_command(
+        [sys.executable, "-c", "import sys; sys.exit(3)"],
+    )
     assert result == 3
 
 
@@ -29,7 +34,7 @@ def test_main_returns_zero_when_all_commands_pass(monkeypatch):
         quality_gate,
         "COMMANDS",
         [[
-            "python",
+            sys.executable,
             "-c",
             "import sys; sys.exit(0)",
         ]],
@@ -43,9 +48,9 @@ def test_main_stops_when_command_fails(monkeypatch):
         quality_gate,
         "COMMANDS",
         [
-            ["python", "-c", "import sys; sys.exit(0)"],
-            ["python", "-c", "import sys; sys.exit(4)"],
-            ["python", "-c", "raise RuntimeError(\"should not run\")"],
+            [sys.executable, "-c", "import sys; sys.exit(0)"],
+            [sys.executable, "-c", "import sys; sys.exit(4)"],
+            [sys.executable, "-c", "raise RuntimeError(\"should not run\")"],
         ],
     )
 

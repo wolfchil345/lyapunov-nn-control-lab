@@ -1,5 +1,9 @@
 from pathlib import Path
 
+import matplotlib
+# Plot generation runs in CI and other environments without a display server.
+matplotlib.use("Agg")
+
 import matplotlib.pyplot as plt
 import numpy as np
 
