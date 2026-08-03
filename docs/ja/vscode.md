@@ -8,7 +8,7 @@
 - Pylance
 - GitHub Actions
 
-リポジトリのフォルダを開き、`.venv` のinterpreterを選択し、統合terminalでリポジトリのルートからコマンドを実行します。
+リポジトリのフォルダを開き、`.venv` のPythonインタープリタを選択して、統合ターミナルでリポジトリのルートからコマンドを実行します。
 
 ## 通常のワークフロー
 
@@ -19,4 +19,4 @@ python main.py
 make quality-gate
 ```
 
-Pytest discoveryは `tests/` に設定されています。別のinterpreterが使われている場合は `.venv` を再選択し、windowをreloadします。
+Pytestのテスト検出先は `tests/` に設定されています。別のインタープリタが使われている場合は `.venv` を再選択し、ウィンドウを再読み込みします。

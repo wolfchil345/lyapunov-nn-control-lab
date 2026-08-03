@@ -13,7 +13,7 @@ python scripts/project_status.py
 ## 使用するタイミング
 
 - ファイル構成を変更した後。
-- pull request、デモ、リリースの前。
+- プルリクエスト、デモ、リリースの前。
 - ドキュメント、スクリプト、テスト、ワークフローを追加した後。
 
 新しいファイルが必須になった場合は、`scripts/project_status.py` の `KEY_FILES` を更新します。[品質ゲート](quality_gate.md)は、より広範な検証の一部としてこの状態確認を実行します。

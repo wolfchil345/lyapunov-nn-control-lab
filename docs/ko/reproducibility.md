@@ -18,7 +18,7 @@ make quality-gate
 python scripts/run_full_experiment.py
 ```
 
-Code는 Python, NumPy, PyTorch 시드를 설정합니다. 모든 결과에 커밋, Python 버전, 의존성 버전, 실험 설정을 기록하십시오.
+코드는 Python, NumPy, PyTorch의 난수 시드를 설정합니다. 모든 결과에 커밋, Python 버전, 의존성 버전, 실험 설정을 기록하십시오.
 
 ## 예상 차이
 

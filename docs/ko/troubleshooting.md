@@ -4,7 +4,7 @@
 
 ## 모듈 불러오기 또는 테스트 실패
 
-terminal이 저장소 루트인지 확인하고 `.venv`를 활성화한 뒤 `python -m pip install -e .`와 `python -m pytest`를 실행합니다.
+터미널이 저장소 루트인지 확인하고 `.venv`를 활성화한 뒤 `python -m pip install -e .`와 `python -m pytest`를 실행합니다.
 
 ## 그래프 또는 CSV가 오래됨
 

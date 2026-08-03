@@ -186,7 +186,7 @@ lyapunov-nn-control-lab/
 - [한국어 문서](docs/ko/index.md)
 - [เอกสารภาษาไทย](docs/th/index.md)
 
-เอกสารสำคัญได้แก่ [ระเบียบวิธี](docs/th/methodology.md), [ขั้นตอนการทดลอง](docs/th/experiment_workflow.md), [แบบจำลอง card](docs/th/model_card.md) และ [คำถามวิจัย](docs/th/research_questions.md)
+เอกสารสำคัญได้แก่ [ระเบียบวิธี](docs/th/methodology.md), [ขั้นตอนการทดลอง](docs/th/experiment_workflow.md), [การ์ดแบบจำลอง](docs/th/model_card.md) และ [คำถามวิจัย](docs/th/research_questions.md)
 
 ## ชุมชนและข้อมูลโครงการ
 

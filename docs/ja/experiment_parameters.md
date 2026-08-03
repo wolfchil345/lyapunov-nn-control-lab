@@ -9,7 +9,7 @@
 | プラント | 質量、減衰係数、ばね定数 | `src/system.py`, `src/parameter_variation.py` |
 | 制御器 | `Q`, `R`, ネットワークサイズ、飽和限界 | `src/system.py`, `src/controllers.py`, `main.py` |
 | 学習 | シード、エポック数、学習率、データセットサイズ、損失の重み | `src/controllers.py`, `main.py` |
-| シミュレーション | 初期状態, シミュレーション時間, 評価 評価時刻 | `src/simulation.py`, `main.py` |
+| シミュレーション | 初期状態、シミュレーション時間、評価時刻 | `src/simulation.py`, `main.py` |
 | 安定性 | 状態範囲、グリッド密度、減少余裕 | `src/lyapunov.py`, `main.py` |
 | ロバスト性 | ノイズ, パラメータ ケース, アブレーション 重み | `src/noise.py`, `src/parameter_variation.py`, `src/stability_ablation.py` |
 

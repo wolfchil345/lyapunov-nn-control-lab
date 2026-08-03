@@ -2,7 +2,7 @@
 
 # 結果ファイルの命名
 
-小文字英語identifierとunderscoreを使用します。
+小文字の英数字とアンダースコアを使用します。
 
 ```text
 YYYYMMDD_controller_experiment_setting.ext
@@ -18,4 +18,4 @@ YYYYMMDD_controller_experiment_setting.ext
 
 日付、制御器、実験の種類、結果を区別できる設定を名前に含めます。空白や `final.png`、`new_result.csv`、`really_final_plot.png` のような曖昧な名前は避けてください。
 
-`main.py` が使う追跡参照 成果物は安定したfilenameを維持します。追加実行には拡張patternを使用し、重要な出力を実験 ログからリンクします。
+`main.py` が使う追跡対象の参照成果物は、安定したファイル名を維持します。追加実行には拡張した命名パターンを使用し、重要な出力は実験ログからリンクします。

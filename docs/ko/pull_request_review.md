@@ -1,10 +1,10 @@
 🌐 언어: [English](../en/pull_request_review.md) | [日本語](../ja/pull_request_review.md) | [한국어](../ko/pull_request_review.md) | [ไทย](../th/pull_request_review.md)
 
-# Pull Request 검토
+# 풀 리퀘스트 검토
 
 ## 일반 검토
 
-- [ ] Title과 요약가 하나의 집중된 변경을 설명한다.
+- [ ] 제목과 요약이 범위를 명확히 한 하나의 변경을 설명한다.
 - [ ] 테스트와 필수 검사가 통과한다.
 - [ ] 사용자가 보는 동작이 바뀌면 문서를 4개 언어 모두에서 업데이트한다.
 - [ ] 생성 파일을 추적할지 무시할지 의도적으로 결정한다.
