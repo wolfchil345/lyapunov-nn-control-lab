@@ -18,6 +18,9 @@ results/*
 !results/stability_weight_ablation.csv
 !results/stability_weight_ablation.png
 !results/experiment_report.md
+!results/experiment_report.ja.md
+!results/experiment_report.ko.md
+!results/experiment_report.th.md
 !results/region_of_attraction_comparison.png
 !results/model_architecture.png
 *.egg-info/

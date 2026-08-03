@@ -1,37 +1,14 @@
-# Branch Protection Guide
+# Documentation languages / ドキュメント言語 / 문서 언어 / ภาษาเอกสาร
 
-This guide explains recommended branch protection settings for the repository.
+This compatibility page preserves a former documentation URL. Choose a language.
 
-## Goal
+この互換ページは以前のドキュメントURLを維持します。言語を選択してください。
 
-Protect `main` so important research code is reviewed and checked before changes are merged.
+이 호환 페이지는 이전 문서 URL을 유지합니다. 언어를 선택하세요.
 
-## Recommended settings
+หน้านี้เก็บ URL เอกสารเดิมไว้ โปรดเลือกภาษา
 
-- Require a pull request before merging.
-- Require status checks to pass before merging.
-- Require branches to be up to date before merging.
-- Include administrators if this is used for final thesis or portfolio work.
-- Restrict force pushes to `main`.
-- Restrict branch deletion for `main`.
-
-## Recommended required checks
-
-- Local checks
-- CodeQL
-
-## Local checklist before merging
-
-```bash
-python scripts/check_environment.py
-make checks
-git status
-```
-
-## Suggested workflow
-
-Create feature branches for each change, run checks locally, then merge only after GitHub checks pass.
-
-## Note
-
-This document is only a recommendation. Actual branch protection must be configured in the GitHub repository settings.
+- [English](en/branch_protection.md)
+- [日本語](ja/branch_protection.md)
+- [한국어](ko/branch_protection.md)
+- [ไทย](th/branch_protection.md)

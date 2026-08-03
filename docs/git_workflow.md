@@ -1,91 +1,14 @@
-# Git Workflow Guide
+# Documentation languages / ドキュメント言語 / 문서 언어 / ภาษาเอกสาร
 
-This guide explains the branch workflow used in this project.
+This compatibility page preserves a former documentation URL. Choose a language.
 
-## Basic rule
+この互換ページは以前のドキュメントURLを維持します。言語を選択してください。
 
-Do not work directly on `main`.
+이 호환 페이지는 이전 문서 URL을 유지합니다. 언어를 선택하세요.
 
-Create a feature branch, make one focused improvement, test it, then merge it into `main`.
+หน้านี้เก็บ URL เอกสารเดิมไว้ โปรดเลือกภาษา
 
-## Standard branch flow
-
-```bash
-git switch main
-git pull origin main
-git switch -c feature/example-name
-```
-
-After editing files, run checks:
-
-```bash
-python scripts/check_environment.py
-python scripts/project_status.py
-python scripts/check_workflow_badges.py
-python scripts/quality_gate.py
-make checks
-```
-
-Commit and push:
-
-```bash
-git add path/to/changed_file.md
-git commit -m "Describe the focused change"
-git push -u origin feature/example-name
-```
-
-Merge into `main`:
-
-```bash
-git switch main
-git pull origin main
-git merge --no-ff feature/example-name
-python scripts/quality_gate.py
-make checks
-git push origin main
-```
-
-Delete the feature branch:
-
-```bash
-git branch -d feature/example-name
-git push origin --delete feature/example-name
-```
-
-## Branch naming style
-
-Use short names that explain the purpose:
-
-- `feature/add-new-guide`
-- `feature/test-new-script`
-- `feature/status-new-file`
-- `feature/update-quality-gate`
-
-## Commit message style
-
-Use a clear action phrase:
-
-- `Add maintenance guide`
-- `Track maintenance guide in project status`
-- `Add workflow badge checker tests`
-
-## When Git says nothing to commit
-
-If Git says there is nothing to commit, the change may already be committed.
-
-Run:
-
-```bash
-git status
-git log --oneline -5
-```
-
-If the correct commit exists, push the branch:
-
-```bash
-git push -u origin feature/example-name
-```
-
-## Portfolio note
-
-This workflow shows that the project is maintained with careful version control, isolated changes, and repeatable checks.
+- [English](en/git_workflow.md)
+- [日本語](ja/git_workflow.md)
+- [한국어](ko/git_workflow.md)
+- [ไทย](th/git_workflow.md)

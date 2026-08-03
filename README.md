@@ -1,680 +1,204 @@
 🌐 Language: [English](README.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [ไทย](README.th.md)
 
-![Python tests](https://github.com/wolfchil345/lyapunov-nn-control-lab/actions/workflows/tests.yml/badge.svg)
-![Quality gate](https://github.com/wolfchil345/lyapunov-nn-control-lab/actions/workflows/quality-gate.yml/badge.svg)
+[![Python tests](https://github.com/wolfchil345/lyapunov-nn-control-lab/actions/workflows/tests.yml/badge.svg)](https://github.com/wolfchil345/lyapunov-nn-control-lab/actions/workflows/tests.yml)
+[![Local checks](https://github.com/wolfchil345/lyapunov-nn-control-lab/actions/workflows/local-checks.yml/badge.svg)](https://github.com/wolfchil345/lyapunov-nn-control-lab/actions/workflows/local-checks.yml)
+[![Quality gate](https://github.com/wolfchil345/lyapunov-nn-control-lab/actions/workflows/quality-gate.yml/badge.svg)](https://github.com/wolfchil345/lyapunov-nn-control-lab/actions/workflows/quality-gate.yml)
+[![Release](https://img.shields.io/github/v/release/wolfchil345/lyapunov-nn-control-lab)](https://github.com/wolfchil345/lyapunov-nn-control-lab/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 # Lyapunov NN Control Lab
 
-A Python and PyTorch experiment that trains a neural-network controller to imitate an LQR controller and evaluates the closed-loop system using a quadratic Lyapunov function.
+A reproducible Python and PyTorch control experiment that trains a neural-network controller to imitate an LQR controller, then evaluates closed-loop behavior with sampled Lyapunov analysis, robustness tests, and region-of-attraction estimates.
 
-## Experiment summary
+The project uses a mass-spring-damper system as an understandable testbed for the intersection of mechanical engineering, control theory, and machine learning.
 
-| Experiment | Purpose | Main output |
-|---|---|---|
-| Model architecture | Explains the closed-loop NN control structure | `results/model_architecture.png` |
-| LQR baseline | Creates a classical optimal-control reference controller | `results/position_comparison.png` |
-| Neural-network controller | Trains a neural controller to imitate the LQR law | `results/training_loss.png` |
-| Lyapunov grid check | Empirically checks whether V-dot is negative on sampled states | Printed terminal results |
-| Stability-aware training | Adds a Lyapunov penalty during NN training | `results/training_loss.png` |
-| Multiple initial conditions | Tests convergence from several starting states | `results/multiple_initial_conditions.png` |
-| Quantitative metrics | Compares final norm, settling time, cost, energy, and max control | `results/performance_metrics.csv` |
-| Actuator saturation | Tests controllers with limited control force | `results/saturation_comparison.png` |
-| Noise robustness | Tests the controller under noisy state measurements | `results/noise_robustness.png` |
-| Parameter robustness | Tests mass, damping, and stiffness variations | `results/parameter_robustness.png` |
-| Phase portrait | Visualizes closed-loop trajectories in state space | `results/phase_portrait.png` |
-| Lyapunov contours | Visualizes quadratic Lyapunov level sets with trajectories | `results/lyapunov_contours.png` |
-| Region of attraction | Tests convergence from a grid of initial states | `results/region_of_attraction.png` |
-| Region of attraction comparison | Compares stabilizable initial states for LQR, NN, and saturated NN | `results/region_of_attraction_comparison.png` |
-| Stability-weight ablation | Tests whether stronger Lyapunov penalties improve stability metrics | `results/stability_weight_ablation.png`, `results/stability_weight_ablation.csv` |
-| Automatic experiment report | Summarizes generated plots, metrics, and ablation results | `results/experiment_report.md` |
+## Highlights
 
-## Results gallery
+- LQR baseline and neural-network imitation controller.
+- Stability-aware training with a sampled Lyapunov penalty.
+- Multiple initial-condition and quantitative performance evaluation.
+- Actuator saturation, measurement-noise, and parameter-variation tests.
+- Phase portraits, Lyapunov contours, and region-of-attraction comparisons.
+- Reproducible scripts, automated tests, CI workflows, and generated reports.
+- Documentation in English, Japanese, Korean, and Thai.
 
-### Model architecture
+## Control loop
 
-![Model architecture](results/model_architecture.png)
+```text
+state x = [position, velocity]
+            │
+            ▼
+ neural-network controller ──► control force u
+            ▲                         │
+            │                         ▼
+            └──── mass-spring-damper plant
+```
 
-### Controller comparison
+The controller is constrained so that the origin remains an equilibrium: `u(0) = 0`.
 
-![Position comparison](results/position_comparison.png)
+## System and stability model
 
-### Training loss
-
-![Training loss](results/training_loss.png)
-
-### Multiple initial conditions
-
-![Multiple initial conditions](results/multiple_initial_conditions.png)
-
-### Actuator saturation
-
-![Saturation comparison](results/saturation_comparison.png)
-
-### Noise robustness
-
-![Noise robustness](results/noise_robustness.png)
-
-### Parameter robustness
-
-![Parameter robustness](results/parameter_robustness.png)
-
-### Phase portrait
-
-![Phase portrait](results/phase_portrait.png)
-
-### Lyapunov contour analysis
-
-![Lyapunov contours](results/lyapunov_contours.png)
-
-### Region of attraction
-
-![Region of attraction](results/region_of_attraction.png)
-
-### Region of attraction comparison
-
-![Region of attraction comparison](results/region_of_attraction_comparison.png)
-
-### Stability-weight ablation
-
-![Stability-weight ablation](results/stability_weight_ablation.png)
-
-
-## Project overview
-
-This project combines:
-
-- mechanical system modelling;
-- linear quadratic regulator control;
-- neural-network controller training;
-- closed-loop simulation;
-- sampled Lyapunov stability analysis.
-
-The first controlled system is a mass-spring-damper model.
-
-## System model
-
-The physical system is:
+The plant is
 
 ```text
 m q'' + c q' + k q = u
 ```
 
-The state vector is:
-
-```text
-x = [position, velocity]
-```
-
-The state-space model is:
+with state-space dynamics
 
 ```text
 x_dot = A x + B u
 ```
 
+The LQR controller supplies the imitation target `u = -Kx`. For the quadratic Lyapunov candidate `V(x) = x^T P x`, the project samples
+
+```text
+V_dot(x) = 2 x^T P (A x + B u)
+```
+
+and penalizes sampled violations of
+
+```text
+V_dot(x) <= -alpha * ||x||^2
+```
+
+These sampled checks provide empirical evidence only; they are not a formal proof over the continuous state space.
+
 ## Method
 
-1. Define the mass-spring-damper system.
-2. design an LQR baseline controller.
-3. Generate state and control training data from the LQR controller.
-4. Train a neural network to imitate the LQR control law.
-5. Simulate the LQR and neural-network controllers.
-6. Evaluate the Lyapunov derivative over a sampled state-space grid.
+1. Define the nominal mass-spring-damper plant and design an LQR baseline.
+2. Sample states and label them with the LQR control law.
+3. Train a neural controller with imitation loss plus a Lyapunov penalty.
+4. Simulate LQR, neural, and saturated controllers from several initial states.
+5. Measure final state norm, settling time, quadratic cost, control energy, and maximum control input.
+6. Evaluate sampled Lyapunov behavior, robustness, and estimated regions of attraction.
+7. Save figures, CSV metrics, the trained model, and an experiment report.
 
-## Results
+## Experiments and outputs
 
-### Closed-loop position comparison
+| Experiment | Purpose | Output |
+|---|---|---|
+| Architecture | Explain the closed-loop neural control structure | `results/model_architecture.png` |
+| Controller comparison | Compare LQR and neural trajectories | `results/position_comparison.png` |
+| Stability-aware training | Track total, imitation, and Lyapunov losses | `results/training_loss.png` |
+| Initial conditions | Check convergence from several states | `results/multiple_initial_conditions.png` |
+| Actuator saturation | Evaluate limited control force | `results/saturation_comparison.png` |
+| Noise robustness | Evaluate noisy state measurements | `results/noise_robustness.png` |
+| Parameter robustness | Vary mass, damping, and stiffness | `results/parameter_robustness.png` |
+| State-space analysis | Show phase trajectories and Lyapunov contours | `results/phase_portrait.png`, `results/lyapunov_contours.png` |
+| Region of attraction | Compare convergence over initial-state grids | `results/region_of_attraction_comparison.png` |
+| Stability ablation | Compare Lyapunov-penalty weights | `results/stability_weight_ablation.csv` |
+| Automatic report | Summarize generated evidence | `results/experiment_report.md` |
 
-![LQR and neural-network position comparison](results/position_comparison.png)
+Full numerical metrics are available in [`results/performance_metrics.csv`](results/performance_metrics.csv).
 
-The neural-network controller produces a response close to the LQR baseline and drives the position toward the equilibrium.
+## Results snapshot
 
-### Neural-network training loss
+The tracked results were generated with the repository's fixed random seed and current experiment settings.
 
-![Neural-network training loss](results/training_loss.png)
+| Case | Final state norm | Settling time | Quadratic cost |
+|---|---:|---:|---:|
+| LQR, `x0 = [1.5, 0.0]` | `3.35e-06` | `3.37 s` | `14.6481` |
+| Neural network, `x0 = [1.5, 0.0]` | `2.75e-07` | `3.25 s` | `14.6803` |
+| Saturated neural network, `x0 = [1.5, 0.0]` | `2.73e-07` | `3.28 s` | `14.8506` |
 
-The decreasing mean-squared error indicates that the neural network progressively learns the LQR control law.
+The tracked stability-weight ablation reports a sampled Lyapunov violation fraction of `0.0` for every tested weight. Interpret these numbers together with the documented experiment region and limitations.
 
-## Lyapunov grid check
+## Results gallery
 
-| Controller | Maximum V-dot | Violation fraction |
-|---|---:|---:|
-| LQR | -0.0221 | 0.0 |
-| Neural network | -0.0192 | 0.0 |
+| Architecture | Controller response |
+|---|---|
+| ![Closed-loop model architecture](results/model_architecture.png) | ![LQR and neural-network position comparison](results/position_comparison.png) |
+| **Stability-aware training** | **Region-of-attraction comparison** |
+| ![Training losses](results/training_loss.png) | ![Region-of-attraction controller comparison](results/region_of_attraction_comparison.png) |
 
-All tested nonzero grid points produced a negative Lyapunov derivative.
-
-This is empirical evidence within the sampled region. It is not a formal stability proof over the entire continuous state space.
+All generated plots are listed in the [figures guide](docs/en/figures.md).
 
 ## Installation
 
-Create and activate a virtual environment:
+Python 3.10 or newer is required. CPU execution is sufficient.
 
 ```bash
+git clone https://github.com/wolfchil345/lyapunov-nn-control-lab.git
+cd lyapunov-nn-control-lab
 python -m venv .venv
 source .venv/bin/activate
-```
-
-Install the dependencies:
-
-```bash
 python -m pip install --upgrade pip
-pip install -r requirements.txt
+python -m pip install -e .
 ```
 
-## Run the experiment
+On Windows PowerShell, activate the environment with `.venv\Scripts\Activate.ps1`.
 
-```bash
-python main.py
-```
+## Run and verify
 
-The program trains the controller and creates:
-
-```text
-results/
-├── nn_controller.pt
-├── position_comparison.png
-└── training_loss.png
-```
-
-The trained model file is ignored by Git, while the two result figures are included in the repository.
-
-## Current limitations
-
-- The neural network imitates an existing LQR controller.
-- Stability is evaluated on a finite grid.
-- Only one initial condition is shown in the main comparison.
-- The plant currently has no actuator saturation, measurement noise, or parameter uncertainty.
-
-## Future work
-
-- Add a Lyapunov penalty to the training loss.
-- Compare LQR, PID, and neural controllers.
-- Test multiple initial conditions.
-- Add actuator saturation and measurement noise.
-- Study robustness to changes in mass, damping, and stiffness.
-- Extend the project to an inverted pendulum.
-- Investigate formal neural-network verification.
-
-## Technologies
-
-- Python
-- PyTorch
-- NumPy
-- SciPy
-- Matplotlib
-- Python Control Systems Library
-
-## Author
-
-Sirichet Sriamontham  
-Mechanical Engineering student interested in control engineering, neural networks, and stability analysis.
-
-## License
-
-This project is released under the MIT License. See `LICENSE` for details.
-
-## Quantitative performance evaluation
-
-The experiment compares the LQR and neural-network controllers using:
-
-- final state norm;
-- settling time;
-- quadratic control cost;
-- control energy;
-- maximum absolute control input.
-
-The full results for all tested initial conditions are stored in [`results/performance_metrics.csv`](results/performance_metrics.csv).
-
-## Stability-aware training
-
-The neural controller is trained using a combined objective:
-
-```text
-total loss = imitation loss + lambda * Lyapunov penalty
-```
-
-The imitation term encourages the neural network to reproduce the LQR control law. The Lyapunov term penalizes sampled states that violate the desired decay condition:
-
-```text
-V-dot(x) <= -alpha * ||x||^2
-```
-
-This encourages stability-related behaviour during training. The sampled Lyapunov evaluation remains empirical and does not constitute formal verification over the full continuous state space.
-
-## Actuator saturation comparison
-
-The project also compares saturated and unsaturated controllers using a fixed actuator limit:
-
-```text
-u = clip(u, -u_max, u_max)
-```
-
-This models the fact that real actuators cannot apply unlimited control force.
-
-The comparison includes:
-
-- LQR;
-- neural-network controller;
-- saturated LQR;
-- saturated neural-network controller.
-
-The saturation comparison figure is stored in [`results/saturation_comparison.png`](results/saturation_comparison.png).
-
-## Noise robustness experiment
-
-The project evaluates the saturated neural-network controller under noisy state measurements:
-
-```text
-x_measured = x + noise
-```
-
-This simulates sensor noise, which is common in real control systems.
-
-The experiment compares several Gaussian noise levels and checks whether the closed-loop state still converges toward the equilibrium.
-
-The noise robustness figure is stored in [`results/noise_robustness.png`](results/noise_robustness.png).
-
-## Parameter robustness experiment
-
-The project tests whether the saturated neural-network controller remains stable when the plant parameters differ from the nominal model.
-
-The tested variations include:
-
-- increased and decreased mass;
-- reduced damping;
-- increased stiffness;
-- combined parameter variation.
-
-This evaluates robustness to modelling error, which is important because real mechanical systems rarely match their mathematical model exactly.
-
-The parameter robustness figure is stored in [`results/parameter_robustness.png`](results/parameter_robustness.png).
-
-## Phase portrait
-
-The project includes a phase portrait of the neural-network controller.
-
-The plot shows position on the horizontal axis and velocity on the vertical axis.
-
-Multiple closed-loop trajectories are drawn from different initial conditions to show whether the controller drives the state toward the equilibrium at the origin.
-
-The phase portrait figure is stored in [`results/phase_portrait.png`](results/phase_portrait.png).
-
-## Lyapunov contour plot
-
-The project visualizes Lyapunov level sets together with neural-network closed-loop trajectories.
-
-The contour lines represent values of the quadratic Lyapunov function, while the trajectories show how the neural-network controller moves the system state toward the equilibrium.
-
-The Lyapunov contour figure is stored in [`results/lyapunov_contours.png`](results/lyapunov_contours.png).
-
-## Region of attraction map
-
-The project estimates the region of attraction of the saturated neural-network controller.
-
-A grid of initial position and velocity values is simulated, and each initial state is classified as converged or not converged.
-
-This helps identify which initial conditions are successfully stabilized by the learned controller.
-
-The region of attraction figure is stored in [`results/region_of_attraction.png`](results/region_of_attraction.png).
-
-## Stability-weight ablation study
-
-The project includes an ablation study for the Lyapunov penalty weight used during neural-controller training.
-
-Several controllers are trained with different stability weights, then compared using Lyapunov violation fraction, final state norm, settling time, quadratic cost, and control energy.
-
-This checks whether the Lyapunov-aware training term improves closed-loop stability behavior instead of acting as a decorative loss term.
-
-The ablation results are stored in [`results/stability_weight_ablation.csv`](results/stability_weight_ablation.csv).
-
-The ablation figure is stored in [`results/stability_weight_ablation.png`](results/stability_weight_ablation.png).
-
-## Automatic experiment report
-
-The project automatically generates a Markdown experiment report after running `main.py`.
-
-The report summarizes available plots, performance metrics, and stability-weight ablation results.
-
-The generated report is stored in [`results/experiment_report.md`](results/experiment_report.md).
-
-## Region of attraction controller comparison
-
-The project compares estimated regions of attraction for the LQR controller, the neural-network controller, and the saturated neural-network controller.
-
-Each controller is tested over a grid of initial position and velocity values.
-
-This shows how controller design and actuator limits affect the set of initial states that can be stabilized.
-
-The comparison figure is stored in [`results/region_of_attraction_comparison.png`](results/region_of_attraction_comparison.png).
-
-## Model architecture diagram
-
-The project includes a block diagram of the neural-network closed-loop control architecture.
-
-The diagram shows how the system state is passed into the neural-network controller, converted into a control input, applied to the mass-spring-damper plant, and fed back as the next state.
-
-The architecture diagram is stored in [`results/model_architecture.png`](results/model_architecture.png).
-
-## Methodology documentation
-
-For a paper-style explanation of the control theory, neural-network controller, Lyapunov stability checks, robustness experiments, and region-of-attraction analysis, see [`docs/en/methodology.md`](docs/en/methodology.md).
-
-## Citation
-
-This repository includes citation metadata in [`CITATION.cff`](CITATION.cff).
-
-## Project summary
-
-A concise portfolio-style summary is available in [`docs/en/project_summary.md`](docs/en/project_summary.md).
-
-## Reproducibility
-
-Instructions for reproducing the experiments are available in [`docs/reproducibility.md`](docs/reproducibility.md).
-
-## Quick-start example
-
-A minimal runnable example is available in [`examples/quick_start.py`](examples/quick_start.py).
-
-Run it with:
+Run a short example:
 
 ```bash
 python examples/quick_start.py
 ```
 
-## Roadmap
-
-Future research directions are listed in [`ROADMAP.md`](ROADMAP.md).
-
-## Contributing
-
-Contribution guidelines are available in [`CONTRIBUTING.md`](CONTRIBUTING.md).
-
-## Security
-
-Security reporting guidance is available in [`SECURITY.md`](SECURITY.md).
-
-## Code of conduct
-
-Community guidelines are available in [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).
-
-## Glossary
-
-Important control and machine-learning terms are explained in [`docs/glossary.md`](docs/glossary.md).
-
-## References
-
-Suggested topics and further reading are listed in [`docs/references.md`](docs/references.md).
-
-## Figures guide
-
-Generated plots and result files are explained in [`docs/figures.md`](docs/figures.md).
-
-## Project structure
-
-The repository layout is explained in [`docs/project_structure.md`](docs/project_structure.md).
-
-## Local checks
-
-Run tests and the quick-start example with:
+Run the complete experiment:
 
 ```bash
-python scripts/run_checks.py
+python main.py
 ```
 
-## Cleaning results
-
-Remove generated files from `results/` with:
+Run the standard checks or the full readiness gate:
 
 ```bash
-python scripts/clean_results.py
-```
-
-## Summarizing results
-
-Print a quick terminal summary of generated CSV results with:
-
-```bash
-python scripts/summarize_results.py
-```
-
-## Troubleshooting
-
-Common setup and runtime issues are explained in [`docs/troubleshooting.md`](docs/troubleshooting.md).
-
-## Command cheat sheet
-
-Useful setup, testing, experiment, and Git commands are listed in [`docs/commands.md`](docs/commands.md).
-
-## Results interpretation
-
-Guidance for reading metrics, plots, Lyapunov checks, and robustness results is available in [`docs/results_interpretation.md`](docs/results_interpretation.md).
-
-## Limitations
-
-Important assumptions and limitations are described in [`docs/limitations.md`](docs/limitations.md).
-
-## Experiment workflow
-
-A recommended experiment workflow is available in [`docs/experiment_workflow.md`](docs/experiment_workflow.md).
-
-## Full experiment pipeline
-
-Clean old results, run the main experiment, and summarize outputs with:
-
-```bash
-python scripts/run_full_experiment.py
-```
-
-## Presentation outline
-
-A ready-to-use presentation structure is available in [`docs/presentation_outline.md`](docs/presentation_outline.md).
-
-## KAN extension
-
-Ideas for extending the project toward KAN-based controller experiments are described in [`docs/kan_extension.md`](docs/kan_extension.md).
-
-## Model card
-
-A model card for the neural-network controller is available in [`docs/model_card.md`](docs/model_card.md).
-
-## Research questions
-
-Possible research questions and thesis directions are listed in [`docs/research_questions.md`](docs/research_questions.md).
-
-## Thesis plan
-
-A possible graduation thesis plan based on this repository is available in [`docs/thesis_plan.md`](docs/thesis_plan.md).
-
-## Defense questions
-
-Possible presentation and thesis-defense questions are collected in [`docs/defense_questions.md`](docs/defense_questions.md).
-
-## Documentation index
-
-A map of the documentation files is available in [`docs/en/index.md`](docs/en/index.md).
-
-## Documentation link checker
-
-Check local Markdown links in the README and documentation files with:
-
-```bash
-python scripts/check_docs_links.py
-```
-
-The local check command validates documentation links, tests, and the quick-start example:
-
-```bash
-python scripts/run_checks.py
-```
-
-## Continuous integration
-
-GitHub Actions runs local checks automatically on pushes and pull requests using [`scripts/run_checks.py`](scripts/run_checks.py).
-
-## Build status
-
-[![Local checks](https://github.com/wolfchil345/lyapunov-nn-control-lab/actions/workflows/local-checks.yml/badge.svg)](https://github.com/wolfchil345/lyapunov-nn-control-lab/actions/workflows/local-checks.yml)
-
-## Editor configuration
-
-The repository includes `.editorconfig` to keep indentation, line endings, and whitespace consistent across editors.
-
-## Git attributes
-
-The repository includes `.gitattributes` to keep text line endings and binary files handled consistently by Git.
-
-## Python project metadata
-
-The repository includes `pyproject.toml` with basic project metadata and pytest configuration.
-
-## Environment setup
-
-See the [environment setup guide](docs/environment.md) for Python version, virtual environment, dependency installation, and local checks.
-
-## Artifact manifest
-
-See the [artifact manifest](docs/artifact_manifest.md) for an overview of source files, scripts, generated plots, reports, and result summaries.
-
-## VS Code setup
-
-See the [VS Code setup guide](docs/vscode.md) for recommended extensions, pytest settings, Codespaces notes, and common terminal workflow.
-
-## Codespaces setup
-
-See the [Codespaces setup guide](docs/codespaces.md) for the dev container, automatic dependency installation, extensions, and workflow notes.
-
-## Environment checker
-
-Run `python scripts/check_environment.py` to diagnose Python, Git LFS, project files, and PyTorch import status.
-
-## Dependency troubleshooting
-
-See the [dependency troubleshooting guide](docs/dependency_troubleshooting.md) for Git LFS, PyTorch import errors, virtual environment resets, and Codespaces recovery.
-
-## Command shortcuts
-
-The repository includes a `Makefile` for common shortcuts such as `make check-env`, `make checks`, `make test`, and `make experiment`.
-
-## Dependency updates
-
-See the [dependency updates guide](docs/dependency_updates.md) for Dependabot behavior and the update review checklist.
-
-## Security scanning
-
-See the [security scanning guide](docs/security_scanning.md) for CodeQL workflow behavior and review notes.
-
-## Branch protection
-
-See the [branch protection guide](docs/branch_protection.md) for recommended `main` branch rules and required checks.
-
-## Pull request review
-
-See the [pull request review guide](docs/pull_request_review.md) for the recommended checklist before merging feature branches.
-
-## Release checklist
-
-See the [release checklist](docs/release_checklist.md) before tagging a release or submitting the project for review.
-
-## Demo guide
-
-See the [five minute demo script](docs/demo_script.md) for a quick explanation flow for professors, reviewers, interviews, and lab discussions.
-
-## Portfolio pitch
-
-See the [portfolio pitch](docs/portfolio_pitch.md) for a concise explanation for CVs, interviews, professor visits, and graduate applications.
-
-## FAQ
-
-See the [FAQ](docs/faq.md) for quick answers about the project goal, LQR reference controller, Lyapunov-style checks, and limitations.
-
-## Experiment parameters
-
-See the [experiment parameters guide](docs/experiment_parameters.md) for the main settings that affect training, simulation, Lyapunov checks, robustness tests, and results.
-
-## Experiment log template
-
-See the [experiment log template](docs/experiment_log_template.md) for recording experiment settings, results, comparisons, and observations.
-
-## Result file naming
-
-See the [result file naming guide](docs/result_naming.md) for organizing plots, metrics, reports, robustness outputs, and experiment comparisons.
-
-## Experiment log generator
-
-Create a timestamped experiment log from the template with:
-
-```bash
-python scripts/new_experiment_log.py "baseline seed 0"
-```
-
-## Result inventory
-
-List generated result files with:
-
-```bash
-python scripts/list_results.py
-```
-
-## Result review checklist
-
-See the [result review checklist](docs/result_review_checklist.md) before using generated plots, metrics, Lyapunov outputs, robustness outputs, or reports.
-
-## Project status
-
-Check important project files, documentation, scripts, tests, workflows, and result files with:
-
-```bash
-python scripts/project_status.py
-```
-
-Or use:
-
-```bash
-make status
-```
-
-## Quality gate
-
-Run the full project readiness check with:
-
-```bash
-python scripts/quality_gate.py
-```
-
-Or use:
-
-```bash
+make checks
 make quality-gate
 ```
 
-## Automated quality gate
+Useful commands are collected in the [command guide](docs/en/commands.md). Running `python scripts/clean_results.py` deletes every file in `results/`; review the [experiment workflow](docs/en/experiment_workflow.md) before using it.
 
-GitHub Actions runs the quality gate automatically with `.github/workflows/quality-gate.yml` on pushes and pull requests to `main`.
+## Project structure
 
-## Quality gate guide
+```text
+lyapunov-nn-control-lab/
+├── main.py                 # Full experiment pipeline
+├── src/                    # Dynamics, controllers, analysis, and plotting
+├── tests/                  # Automated test suite
+├── scripts/                # Checks and repeatable maintenance commands
+├── examples/               # Minimal runnable example
+├── docs/{en,ja,ko,th}/     # Localized documentation
+└── results/                # Tracked reference outputs and generated model
+```
 
-See the [quality gate guide](docs/quality_gate.md) for how to run the full readiness check and fix common failures.
+See the [project structure guide](docs/en/project_structure.md) for details.
 
-## CI workflows guide
+## Scientific limitations
 
-See the [CI workflows guide](docs/ci_workflows.md) for how GitHub Actions, badges, and quality checks are organized.
+- The plant is a simulated linear mass-spring-damper system, not hardware.
+- The neural controller is trained from an LQR teacher and may not generalize outside the sampled region.
+- Lyapunov and region-of-attraction evaluations use finite grids and simulations.
+- Robustness experiments cover selected noise levels, actuator limits, and parameter variations.
+- Small numerical differences may occur across dependency versions or platforms.
 
-## Project status guide
+See [limitations](docs/en/limitations.md), [results interpretation](docs/en/results_interpretation.md), and [reproducibility](docs/en/reproducibility.md) before drawing research conclusions.
 
-See the [project status guide](docs/project_status.md) for how repository health is checked.
+## Documentation
 
-## Maintenance guide
+The complete documentation index is available in four languages:
 
-See the [maintenance guide](docs/maintenance.md) for routine checks before merges, demos, and repository updates.
+- [English documentation](docs/en/index.md)
+- [日本語ドキュメント](docs/ja/index.md)
+- [한국어 문서](docs/ko/index.md)
+- [เอกสารภาษาไทย](docs/th/index.md)
 
-## Git workflow guide
+Key references include the [methodology](docs/en/methodology.md), [experiment workflow](docs/en/experiment_workflow.md), [model card](docs/en/model_card.md), and [research questions](docs/en/research_questions.md).
 
-See the [Git workflow guide](docs/git_workflow.md) for the project branch, commit, merge, and cleanup process.
+## Community and project information
 
-## Onboarding guide
+- [Contributing](CONTRIBUTING.md)
+- [Security policy](SECURITY.md)
+- [Code of conduct](CODE_OF_CONDUCT.md)
+- [Roadmap](ROADMAP.md)
+- [Release notes](RELEASE_NOTES.md)
+- [Citation metadata](CITATION.cff)
 
-See the [onboarding guide](docs/onboarding.md) for the first steps to run, test, and understand this project.
+## License and author
 
-## Multilingual documentation
+Released under the [MIT License](LICENSE).
 
-This project is being organized for English, Japanese, Korean, and Thai readers. See the [internationalization guide](docs/en/i18n.md).
+Created by Sirichet Sriamontham, a mechanical-engineering student interested in control engineering, neural networks, and stability analysis.

@@ -1,26 +1,14 @@
-# Security Scanning
+# Documentation languages / ドキュメント言語 / 문서 언어 / ภาษาเอกสาร
 
-This project uses GitHub CodeQL to scan Python code for security issues.
+This compatibility page preserves a former documentation URL. Choose a language.
 
-## What CodeQL checks
+この互換ページは以前のドキュメントURLを維持します。言語を選択してください。
 
-CodeQL performs static analysis on the repository source code.
+이 호환 페이지는 이전 문서 URL을 유지합니다. 언어를 선택하세요.
 
-## When it runs
+หน้านี้เก็บ URL เอกสารเดิมไว้ โปรดเลือกภาษา
 
-- On pushes to `main`.
-- On pull requests targeting `main`.
-- Weekly by schedule.
-
-## Local checks before security review
-
-Before merging changes, run:
-
-```bash
-python scripts/check_environment.py
-make checks
-```
-
-## Review note
-
-If CodeQL reports an alert, inspect the affected file and confirm whether the finding applies to this research code.
+- [English](en/security_scanning.md)
+- [日本語](ja/security_scanning.md)
+- [한국어](ko/security_scanning.md)
+- [ไทย](th/security_scanning.md)

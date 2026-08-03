@@ -6,6 +6,8 @@ labels: enhancement
 assignees: ""
 ---
 
+🌐 Language: [English](experiment_suggestion.md) | [日本語](experiment_suggestion.ja.md) | [한국어](experiment_suggestion.ko.md) | [ไทย](experiment_suggestion.th.md)
+
 ## Experiment idea
 
 Describe the proposed experiment.
@@ -21,6 +23,10 @@ Describe possible files, functions, plots, or metrics to add.
 ## Expected output
 
 What should the result look like?
+
+## Evaluation and limitations
+
+Which baseline, metrics, stability checks, and failure cases should be included?
 
 ## References
 

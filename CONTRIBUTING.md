@@ -1,65 +1,37 @@
-# Contributing Guide
+🌐 Language: [English](CONTRIBUTING.md) | [日本語](CONTRIBUTING.ja.md) | [한국어](CONTRIBUTING.ko.md) | [ไทย](CONTRIBUTING.th.md)
 
-Thank you for your interest in improving the Lyapunov Neural-Network Control Lab.
+# Contributing
 
-## Development setup
+Thank you for helping improve Lyapunov NN Control Lab.
+
+## Setup
 
 ```bash
 git clone https://github.com/wolfchil345/lyapunov-nn-control-lab.git
 cd lyapunov-nn-control-lab
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+python -m pip install -e .
 ```
 
-## Run tests
+## Workflow
 
-```bash
-python -m pytest
-```
+1. Create a focused branch from current `main`.
+2. Keep scientific, code, and documentation changes clearly scoped.
+3. Add tests for behavior changes.
+4. Update viewer-facing documentation in English, Japanese, Korean, and Thai.
+5. Run `git diff --check`, `make checks`, and `make quality-gate`.
+6. Open a pull request and wait for every required check before merging.
 
-## Run experiments
+## Scientific results
 
-```bash
-python main.py
-```
+Do not regenerate or commit results unless the change requires it. Record the seed and experiment settings, review every numerical and figure diff, and describe sampled stability evidence accurately.
 
-## Branch workflow
+## Good contributions
 
-Create a feature branch before changing files:
+- Controller baselines and carefully designed robustness experiments.
+- Tests for numerical, reporting, and documentation tools.
+- Clearer plots, examples, translations, and methodology explanations.
+- Reproducibility, safety, and failure-case improvements.
 
-```bash
-git switch main
-git pull origin main
-git switch -c feature/your-feature-name
-```
-
-## Commit style
-
-Use short, clear commit messages, for example:
-
-```text
-Add noise robustness experiment
-Add reproducibility guide
-Fix Lyapunov metric handling
-```
-
-## Suggested contribution areas
-
-- new controller baselines
-- additional robustness experiments
-- improved plots and documentation
-- tests for numerical utilities
-- examples for beginners
-
-## Before submitting changes
-
-Run:
-
-```bash
-python -m pytest
-python main.py
-python -m pytest
-```
-
-This helps confirm that both tests and generated experiment outputs remain healthy.
+Use short imperative commit messages, such as `Add noise robustness test` or `Clarify Lyapunov limitations`.

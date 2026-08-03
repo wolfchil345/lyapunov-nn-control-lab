@@ -6,6 +6,8 @@ labels: bug
 assignees: ""
 ---
 
+🌐 Language: [English](bug_report.md) | [日本語](bug_report.ja.md) | [한국어](bug_report.ko.md) | [ไทย](bug_report.th.md)
+
 ## Description
 
 Describe the bug clearly.
@@ -29,6 +31,12 @@ What actually happened?
 - Python version:
 - Operating system:
 - Running locally, VS Code, or GitHub Codespaces:
+- Commit or release:
+
+## Validation attempted
+
+- [ ] `python scripts/check_environment.py`
+- [ ] `make checks`
 
 ## Additional context
 

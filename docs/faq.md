@@ -1,42 +1,14 @@
-# Frequently Asked Questions
+# Documentation languages / ドキュメント言語 / 문서 언어 / ภาษาเอกสาร
 
-This page answers common questions about the project.
+This compatibility page preserves a former documentation URL. Choose a language.
 
-## What is this project about?
+この互換ページは以前のドキュメントURLを維持します。言語を選択してください。
 
-This project trains and evaluates a neural network controller for a mass-spring-damper system. The controller learns from an LQR reference controller and is evaluated with simulation metrics, Lyapunov-style checks, robustness tests, and region-of-attraction style analysis.
+이 호환 페이지는 이전 문서 URL을 유지합니다. 언어를 선택하세요.
 
-## Why use LQR as the reference controller?
+หน้านี้เก็บ URL เอกสารเดิมไว้ โปรดเลือกภาษา
 
-LQR is a standard control method for linear systems. It gives a stable and interpretable reference policy, which makes it useful for training and comparing a neural network controller.
-
-## Does this project prove global stability?
-
-No. The Lyapunov grid check is an empirical evaluation tool. It can provide useful evidence over sampled states, but it should not be described as a complete formal proof of global stability.
-
-## What makes this project different from a normal machine learning demo?
-
-The project does not only train a neural network. It also evaluates closed-loop behavior, control cost, robustness, Lyapunov-related quantities, reproducibility, and documentation quality.
-
-## What should I show first in a presentation?
-
-Start with the README, then show the five minute demo script, main experiment workflow, results plots, and Lyapunov or robustness documentation.
-
-## How do I check that the project is working?
-
-```bash
-python scripts/check_environment.py
-make checks
-```
-
-## Where are the main files?
-
-- `src/`: source code.
-- `tests/`: automated tests.
-- `scripts/`: repeatable command scripts.
-- `docs/`: explanations and guides.
-- `results/`: generated outputs.
-
-## What are the current limitations?
-
-This is a research prototype. Results depend on the chosen system, controller settings, training setup, random seed, sampled grid, and experiment conditions.
+- [English](en/faq.md)
+- [日本語](ja/faq.md)
+- [한국어](ko/faq.md)
+- [ไทย](th/faq.md)

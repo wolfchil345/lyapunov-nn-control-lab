@@ -1,49 +1,14 @@
-# References and Further Reading
+# Documentation languages / ドキュメント言語 / 문서 언어 / ภาษาเอกสาร
 
-This page lists useful topics and references for understanding the Lyapunov Neural-Network Control Lab.
+This compatibility page preserves a former documentation URL. Choose a language.
 
-## Control engineering
+この互換ページは以前のドキュメントURLを維持します。言語を選択してください。
 
-- State-space control systems
-- Linear Quadratic Regulator
-- Closed-loop stability
-- Robust control
-- Nonlinear control
+이 호환 페이지는 이전 문서 URL을 유지합니다. 언어를 선택하세요.
 
-## Lyapunov stability
+หน้านี้เก็บ URL เอกสารเดิมไว้ โปรดเลือกภาษา
 
-- Lyapunov direct method
-- Quadratic Lyapunov functions
-- Lyapunov derivative conditions
-- Region of attraction estimation
-- Empirical stability verification
-
-## Machine learning for control
-
-- Neural-network controllers
-- Imitation learning
-- Stability-aware loss functions
-- Neural Lyapunov methods
-- Physics-informed learning
-
-## Numerical simulation
-
-- Ordinary differential equation solvers
-- Grid-based evaluation
-- Sensitivity to initial conditions
-- Parameter variation experiments
-- Measurement-noise experiments
-
-## Suggested textbooks
-
-- Feedback control systems textbooks for state-space modeling and LQR.
-- Nonlinear control textbooks for Lyapunov stability and region of attraction.
-- Machine learning textbooks for neural-network training and generalization.
-
-## Suggested future reading directions
-
-- Learning-based control with stability guarantees.
-- Neural-network Lyapunov function learning.
-- Safe reinforcement learning for control systems.
-- Formal verification of neural-network controllers.
-- Kolmogorov-Arnold Networks for control-oriented function approximation.
+- [English](en/references.md)
+- [日本語](ja/references.md)
+- [한국어](ko/references.md)
+- [ไทย](th/references.md)

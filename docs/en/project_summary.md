@@ -2,53 +2,25 @@
 
 # Project Summary
 
-## Overview
+## Purpose
 
-This project is a Python research lab for neural-network control with Lyapunov-inspired stability analysis.
+Lyapunov NN Control Lab is a reproducible research and portfolio project connecting mechanical systems, classical control, neural networks, and stability analysis.
 
-The target system is a mass-spring-damper plant. The project compares a classical LQR controller with a neural-network controller trained by imitation learning.
+## Approach
 
-## Main goal
+The project models a mass-spring-damper plant, designs an LQR baseline, and trains a neural controller to imitate the LQR state-feedback law. Training also includes a sampled Lyapunov penalty. Evaluation covers multiple initial states, quantitative metrics, actuator saturation, measurement noise, plant-parameter variation, sampled Lyapunov behavior, and estimated regions of attraction.
 
-The main goal is to study whether a neural-network controller can imitate a stabilizing classical controller while being evaluated with Lyapunov-based stability tools.
+## Evidence
 
-## Main features
+- Automated tests, quick-start example, CI, and quality gate.
+- Tracked figures, CSV metrics, and generated experiment reports.
+- Fixed random seeds and a documented reproduction workflow.
+- Honest separation between empirical sampled evidence and formal proof.
 
-- LQR baseline controller
-- neural-network controller
-- stability-aware training penalty
-- Lyapunov grid check
-- actuator saturation experiment
-- measurement-noise robustness experiment
-- parameter robustness experiment
-- phase portrait visualization
-- Lyapunov contour visualization
-- region-of-attraction estimation
-- controller comparison for region of attraction
-- stability-weight ablation study
-- automatic experiment report generation
+## Current result
 
-## Key outputs
-
-- `results/model_architecture.png`
-- `results/position_comparison.png`
-- `results/training_loss.png`
-- `results/saturation_comparison.png`
-- `results/noise_robustness.png`
-- `results/parameter_robustness.png`
-- `results/phase_portrait.png`
-- `results/lyapunov_contours.png`
-- `results/region_of_attraction.png`
-- `results/region_of_attraction_comparison.png`
-- `results/stability_weight_ablation.png`
-- `results/experiment_report.md`
-
-## Why this project matters
-
-Neural-network controllers are powerful, but stability is a major concern in control engineering.
-
-This project combines learning-based control with classical stability analysis ideas. It does not claim to provide a full formal proof for the neural-network controller, but it gives practical empirical tools for studying stability behavior.
+Within the tracked test settings, the neural controller closely follows the LQR baseline, converges from the selected initial states, and reports zero sampled Lyapunov violations. These results are limited to the documented model, regions, thresholds, and uncertainty scenarios.
 
 ## Portfolio value
 
-This repository demonstrates skills in control engineering, Python, PyTorch, numerical simulation, testing, visualization, GitHub Actions, documentation, and reproducible research workflow.
+The repository demonstrates system modeling, optimal control, PyTorch training, numerical simulation, scientific evaluation, software testing, GitHub workflows, release management, and multilingual technical communication.

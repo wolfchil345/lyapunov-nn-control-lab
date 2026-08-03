@@ -1,45 +1,34 @@
+🌐 Language: [English](ROADMAP.md) | [日本語](ROADMAP.ja.md) | [한국어](ROADMAP.ko.md) | [ไทย](ROADMAP.th.md)
+
 # Roadmap
 
-This roadmap lists possible future improvements for the Lyapunov Neural-Network Control Lab.
+## Near term
 
-## Near-term improvements
+- Repeat neural training across multiple seeds and report distributions or confidence intervals.
+- Add a CLI for selecting experiments and split expensive sweeps into focused commands.
+- Record dependency versions and experiment configurations in generated reports.
 
-- Add multiple random-seed experiments for neural-network training.
-- Save averaged metrics across repeated training runs.
-- Add confidence intervals for performance and stability metrics.
-- Add a command-line interface for selecting experiments.
-- Split heavy experiments into separate scripts for faster development.
+## Control and robustness
 
-## Control-engineering extensions
+- Compare PID, LQR, MPC, MLP, and KAN controllers under compatible settings.
+- Add nonlinear plants, external disturbances, delays, quantization, and broader uncertainty sets.
+- Extend region-of-attraction analysis and retain failure-case maps.
 
-- Compare the neural-network controller with PID control.
-- Add nonlinear plant dynamics.
-- Add external disturbance rejection experiments.
-- Add model-predictive control as another baseline.
-- Test larger regions of attraction.
+## Stability analysis
 
-## Stability-analysis extensions
+- Test alternative and learned Lyapunov functions.
+- Add adaptive sampling near candidate violations.
+- Compare empirical grid checks with formal neural-network verification tools.
 
-- Study alternative Lyapunov candidate functions.
-- Add neural-network Lyapunov function learning.
-- Compare empirical Lyapunov checks with formal verification tools.
-- Add denser grid checks and adaptive sampling near unstable regions.
+## Physical validation
 
-## Machine-learning extensions
+- Build a hardware-in-the-loop stage before operating real equipment.
+- Define actuator, sensor, and safety constraints explicitly.
+- Separate safety-certified components from research prototypes.
 
-- Compare different neural-network architectures.
-- Test different activation functions.
-- Add KAN-based controller experiments.
-- Add regularization experiments.
-- Study generalization outside the training state range.
+## Communication
 
-## Documentation and portfolio improvements
+- Keep the four-language documentation complete as features change.
+- Add a poster and a short technical article backed by the same reproducible results.
 
-- Add a short technical blog-style explanation.
-- Add a poster-style project summary.
-- Add diagrams explaining Lyapunov decrease and region of attraction.
-- Add links to related papers and textbooks.
-
-## Long-term research direction
-
-The long-term goal is to build a compact experimental platform for studying learning-based control with stability-aware evaluation.
+The long-term goal is a compact platform for credible learning-based control experiments, not a claim that one neural controller solves control safety in general.

@@ -1,56 +1,14 @@
-# Environment Setup
+# Documentation languages / ドキュメント言語 / 문서 언어 / ภาษาเอกสาร
 
-This guide explains how to prepare a local Python environment for the Lyapunov neural network control lab.
+This compatibility page preserves a former documentation URL. Choose a language.
 
-## Recommended Python version
+この互換ページは以前のドキュメントURLを維持します。言語を選択してください。
 
-Use Python 3.10 or newer.
+이 호환 페이지는 이전 문서 URL을 유지합니다. 언어를 선택하세요.
 
-## Create a virtual environment
+หน้านี้เก็บ URL เอกสารเดิมไว้ โปรดเลือกภาษา
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-```
-
-On Windows PowerShell:
-
-```powershell
-.venv\Scripts\Activate.ps1
-```
-
-## Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-## Run local checks
-
-```bash
-python scripts/run_checks.py
-```
-
-This command runs documentation link checks, unit tests, and the quick start example.
-
-## Run the main experiment
-
-```bash
-python main.py
-```
-
-## Common problems
-
-- If imports fail, make sure you are running commands from the repository root.
-- If packages are missing, run `pip install -r requirements.txt` again.
-- If generated results look old, clean the results directory before rerunning experiments.
-
-## Check the environment
-
-Use the environment checker when Codespaces or a local machine has dependency problems:
-
-```bash
-python scripts/check_environment.py
-```
-
-This checks Python, Git, Git LFS, required project files, and PyTorch import status.
+- [English](en/environment.md)
+- [日本語](ja/environment.md)
+- [한국어](ko/environment.md)
+- [ไทย](th/environment.md)

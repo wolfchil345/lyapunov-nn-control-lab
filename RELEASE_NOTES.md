@@ -1,3 +1,5 @@
+🌐 Language: [English](RELEASE_NOTES.md) | [日本語](RELEASE_NOTES.ja.md) | [한국어](RELEASE_NOTES.ko.md) | [ไทย](RELEASE_NOTES.th.md)
+
 # v1.0.1 - Documentation and Release Polish
 
 This patch release improves installation reliability, multilingual documentation, and result-summary reporting without changing the core control experiments.

@@ -1,56 +1,14 @@
-# Limitations
+# Documentation languages / ドキュメント言語 / 문서 언어 / ภาษาเอกสาร
 
-This page explains important limitations of the Lyapunov Neural-Network Control Lab.
+This compatibility page preserves a former documentation URL. Choose a language.
 
-## Educational research project
+この互換ページは以前のドキュメントURLを維持します。言語を選択してください。
 
-This repository is designed for learning, experimentation, and research exploration.
+이 호환 페이지는 이전 문서 URL을 유지합니다. 언어를 선택하세요.
 
-It should not be treated as a complete safety-certified control system.
+หน้านี้เก็บ URL เอกสารเดิมไว้ โปรดเลือกภาษา
 
-## Simple physical model
-
-The main plant is a mass-spring-damper system.
-
-This is useful for control experiments, but it is much simpler than many real mechanical systems.
-
-## Grid-based stability checks
-
-The Lyapunov checks are evaluated on sampled grid points.
-
-Passing a grid check does not prove global stability over every possible state.
-
-It only gives empirical evidence over the checked region.
-
-## Neural-network controller limitations
-
-The neural-network controller is trained from data and may behave poorly outside the training distribution.
-
-Good imitation of LQR does not automatically guarantee stability in all regions.
-
-## Numerical simulation limitations
-
-Simulation results can depend on solver settings, time step choices, package versions, and numerical tolerances.
-
-Small differences between machines are possible.
-
-## Robustness experiment limitations
-
-Noise, saturation, and parameter variation experiments test selected cases only.
-
-They do not cover every possible uncertainty or disturbance.
-
-## Lyapunov function limitation
-
-The project uses a quadratic Lyapunov-style analysis based on the system setup.
-
-More advanced nonlinear systems may require learned, non-quadratic, or problem-specific Lyapunov functions.
-
-## Future improvement directions
-
-- Add formal verification for neural-network controllers.
-- Test larger and more nonlinear systems.
-- Compare more controller types.
-- Learn neural Lyapunov functions directly.
-- Add stronger robustness and uncertainty analysis.
-- Study safety constraints beyond actuator saturation.
+- [English](en/limitations.md)
+- [日本語](ja/limitations.md)
+- [한국어](ko/limitations.md)
+- [ไทย](th/limitations.md)

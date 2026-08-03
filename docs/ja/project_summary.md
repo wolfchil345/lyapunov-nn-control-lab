@@ -2,27 +2,25 @@
 
 # プロジェクト概要
 
-Lyapunov NN Control Lab は、制御工学と機械学習を組み合わせた研究用ポートフォリオプロジェクトです。
-
-このプロジェクトでは、質量ばねダンパ系を対象に、LQR制御器のふるまいをニューラルネットワーク制御器で近似します。さらに、Lyapunov関数に基づく考え方を使い、閉ループ系の安定性を意識した評価を行います。
-
 ## 目的
 
-- ニューラルネットワーク制御器を学習する
-- LQR制御器との挙動を比較する
-- Lyapunov関数を使って安定性を確認する
-- シミュレーション結果を可視化する
-- 再現性のある研究ソフトウェアとして整理する
+Lyapunov NN Control Labは、機械system、古典制御、neural network、安定性解析を結ぶ再現可能なresearch・portfolio projectです。
 
-## 主な技術
+## アプローチ
 
-- Python
-- PyTorch
-- LQR制御
-- Lyapunov安定性
-- シミュレーション評価
-- GitHub Actions による自動チェック
+Mass-spring-damper plantをmodel化し、LQR baselineを設計し、LQR state-feedback lawを模倣するneural controllerを学習します。Trainingにはsampled Lyapunov penaltyも含みます。複数initial state、quantitative metric、actuator saturation、measurement noise、plant-parameter variation、sampled Lyapunov behavior、estimated region of attractionで評価します。
 
-## ポートフォリオとしての価値
+## 証拠
 
-このリポジトリは、制御工学、機械学習、安定解析、研究ソフトウェア管理を一つの流れで示すためのプロジェクトです。
+- Automated test、quick-start example、CI、quality gate。
+- 追跡figure、CSV metric、生成experiment report。
+- Fixed random seedとdocumented reproduction workflow。
+- Empirical sampled evidenceとformal proofの誠実な区別。
+
+## 現在の結果
+
+追跡test setting内でneural controllerはLQR baselineに近く、選択initial stateから収束し、sampled Lyapunov violationはzeroです。これらはdocumented model、region、threshold、uncertainty scenarioに限定されます。
+
+## ポートフォリオ価値
+
+System modeling、optimal control、PyTorch training、numerical simulation、scientific evaluation、software testing、GitHub workflow、release management、多言語technical communicationを示します。

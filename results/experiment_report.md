@@ -1,3 +1,5 @@
+🌐 Language: [English](experiment_report.md) | [日本語](experiment_report.ja.md) | [한국어](experiment_report.ko.md) | [ไทย](experiment_report.th.md)
+
 # Experiment Report
 
 This report summarizes the generated results for the Lyapunov neural-network control lab.
@@ -62,4 +64,5 @@ This report summarizes the generated results for the Lyapunov neural-network con
 - Lower settling time means the controller stabilizes faster.
 - Lower control energy means the controller uses less actuation effort.
 - Lower Lyapunov violation fraction means fewer sampled states violate the Lyapunov decrease condition.
-- Region of attraction results estimate which initial states converge successfully.
+- Region of attraction results estimate which sampled initial states converge under the selected settings.
+- These sampled results are empirical evidence, not a formal stability proof.

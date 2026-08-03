@@ -1,31 +1,27 @@
+🌐 Language: [English](CODE_OF_CONDUCT.md) | [日本語](CODE_OF_CONDUCT.ja.md) | [한국어](CODE_OF_CONDUCT.ko.md) | [ไทย](CODE_OF_CONDUCT.th.md)
+
 # Code of Conduct
 
 ## Our pledge
 
-This project aims to provide a respectful and welcoming environment for learning, research, and collaboration.
+We aim to provide a respectful, welcoming environment for learning, research, and collaboration.
 
 ## Expected behavior
 
-- Be respectful and constructive.
-- Give feedback on ideas, code, and documentation rather than on people.
-- Ask questions clearly and answer questions kindly.
-- Respect different experience levels, backgrounds, and research interests.
+- Be respectful, constructive, and patient.
+- Critique ideas, code, results, and documentation rather than people.
+- Welcome different experience levels, backgrounds, languages, and research interests.
+- State uncertainty and limitations honestly.
 
 ## Unacceptable behavior
 
-- Harassment or personal attacks.
-- Insults, intimidation, or discriminatory language.
+- Harassment, personal attacks, intimidation, or discriminatory language.
 - Publishing private information without permission.
-- Deliberately disruptive behavior in issues, pull requests, or discussions.
-
-## Scope
-
-This code of conduct applies to project spaces such as issues, pull requests, discussions, and other collaboration channels connected to this repository.
+- Deliberately disruptive behavior in issues, pull requests, discussions, or other project spaces.
+- Misrepresenting another contributor's work or scientific results.
 
 ## Reporting
 
-If you notice behavior that violates this code of conduct, contact the repository owner or report the issue through an appropriate private channel.
+Report conduct concerns to the repository owner through an appropriate private channel. Reports should be handled respectfully, confidentially, and without retaliation.
 
-## Goal
-
-The goal is to keep this project useful, rigorous, and friendly for people interested in control engineering, neural-network control, and stability analysis.
+The goal is a rigorous and friendly community around control engineering, learning-based control, and stability analysis.

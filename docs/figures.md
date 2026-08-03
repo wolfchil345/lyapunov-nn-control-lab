@@ -1,58 +1,14 @@
-# Figures Guide
+# Documentation languages / ドキュメント言語 / 문서 언어 / ภาษาเอกสาร
 
-This guide explains the generated figures in the `results/` directory.
+This compatibility page preserves a former documentation URL. Choose a language.
 
-## Main comparison plots
+この互換ページは以前のドキュメントURLを維持します。言語を選択してください。
 
-### `position_comparison.png`
-Compares the position response of the LQR controller and the neural-network controller.
+이 호환 페이지는 이전 문서 URL을 유지합니다. 언어를 선택하세요.
 
-### `training_loss.png`
-Shows the neural-network training loss over epochs.
+หน้านี้เก็บ URL เอกสารเดิมไว้ โปรดเลือกภาษา
 
-### `multiple_initial_conditions.png`
-Shows how the neural-network controller behaves from several different initial states.
-
-## Stability and Lyapunov plots
-
-### `phase_portrait.png`
-Shows trajectories in the position-velocity state space.
-
-### `lyapunov_contours.png`
-Shows Lyapunov function contours together with closed-loop trajectories.
-
-### `region_of_attraction.png`
-Shows which initial states converge toward the target equilibrium.
-
-### `region_of_attraction_comparison.png`
-Compares the region of attraction for different controllers.
-
-## Robustness plots
-
-### `saturation_comparison.png`
-Compares controller behavior when control input limits are applied.
-
-### `noise_robustness.png`
-Shows controller behavior under measurement noise.
-
-### `parameter_robustness.png`
-Shows how the controller behaves when physical system parameters are changed.
-
-## Architecture and ablation plots
-
-### `model_architecture.png`
-Shows the project workflow from plant model to controller, simulation, stability checks, and reports.
-
-### `stability_weight_ablation.png`
-Shows how different stability penalty weights affect controller performance and stability metrics.
-
-## Data files
-
-### `performance_metrics.csv`
-Stores numerical performance metrics for the controllers.
-
-### `stability_weight_ablation.csv`
-Stores numerical results from the stability-weight ablation experiment.
-
-### `experiment_report.md`
-Automatically summarizes the generated plots, metrics, and experiments.
+- [English](en/figures.md)
+- [日本語](ja/figures.md)
+- [한국어](ko/figures.md)
+- [ไทย](th/figures.md)

@@ -1,40 +1,14 @@
-# GitHub Codespaces Setup
+# Documentation languages / ドキュメント言語 / 문서 언어 / ภาษาเอกสาร
 
-This guide explains how to use the repository in GitHub Codespaces.
+This compatibility page preserves a former documentation URL. Choose a language.
 
-## Purpose
+この互換ページは以前のドキュメントURLを維持します。言語を選択してください。
 
-The repository includes `.devcontainer/devcontainer.json` so Codespaces can prepare a Python development environment automatically.
+이 호환 페이지는 이전 문서 URL을 유지합니다. 언어를 선택하세요.
 
-## What the dev container does
+หน้านี้เก็บ URL เอกสารเดิมไว้ โปรดเลือกภาษา
 
-- Uses Python 3.11.
-- Installs dependencies from `requirements.txt` after the Codespace is created.
-- Recommends Python, Pylance, and GitHub Actions extensions.
-- Enables pytest discovery from the `tests/` folder.
-
-## First commands after opening Codespaces
-
-```bash
-python scripts/run_checks.py
-```
-
-## Run the experiment
-
-```bash
-python main.py
-```
-
-## Normal Git workflow
-
-```bash
-git switch main
-git pull origin main
-git switch -c feature/my-change
-python scripts/run_checks.py
-git status
-```
-
-## Git LFS note
-
-Git LFS is installed automatically by the dev container so push hooks can run correctly in Codespaces.
+- [English](en/codespaces.md)
+- [日本語](ja/codespaces.md)
+- [한국어](ko/codespaces.md)
+- [ไทย](th/codespaces.md)

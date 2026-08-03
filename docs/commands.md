@@ -1,102 +1,14 @@
-# Command Cheat Sheet
+# Documentation languages / ドキュメント言語 / 문서 언어 / ภาษาเอกสาร
 
-This page collects useful commands for running and maintaining the Lyapunov Neural-Network Control Lab.
+This compatibility page preserves a former documentation URL. Choose a language.
 
-## Setup
+この互換ページは以前のドキュメントURLを維持します。言語を選択してください。
 
-Install required packages:
+이 호환 페이지는 이전 문서 URL을 유지합니다. 언어를 선택하세요.
 
-```bash
-pip install -r requirements.txt
-```
+หน้านี้เก็บ URL เอกสารเดิมไว้ โปรดเลือกภาษา
 
-## Quick start
-
-Run the small beginner-friendly example:
-
-```bash
-python examples/quick_start.py
-```
-
-## Run all local checks
-
-Run tests and the quick-start example:
-
-```bash
-python scripts/run_checks.py
-```
-
-## Run tests only
-
-```bash
-python -m pytest
-```
-
-## Run the main experiment
-
-```bash
-python main.py
-```
-
-## Summarize generated results
-
-```bash
-python scripts/summarize_results.py
-```
-
-## Clean generated results
-
-```bash
-python scripts/clean_results.py
-```
-
-## Check current Git branch
-
-```bash
-git branch --show-current
-git status
-```
-
-## Start a new feature branch
-
-```bash
-git switch main
-git pull origin main
-git switch -c feature/my-new-feature
-```
-
-## Commit and push a feature branch
-
-```bash
-git add .
-git commit -m "Describe the change"
-git push -u origin feature/my-new-feature
-```
-
-## Merge a feature branch into main
-
-```bash
-git switch main
-git pull origin main
-git merge --no-ff feature/my-new-feature
-python scripts/run_checks.py
-git push origin main
-```
-
-## Makefile shortcuts
-
-The repository includes a `Makefile` with common command shortcuts:
-
-```bash
-make check-env
-make checks
-make test
-make quickstart
-make experiment
-make clean
-make summarize
-```
-
-## CI command
-
-GitHub Actions uses `make checks` to run the same local checks used during development.
+- [English](en/commands.md)
+- [日本語](ja/commands.md)
+- [한국어](ko/commands.md)
+- [ไทย](th/commands.md)

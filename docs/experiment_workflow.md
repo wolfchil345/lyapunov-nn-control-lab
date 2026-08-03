@@ -1,89 +1,14 @@
-# Experiment Workflow
+# Documentation languages / ドキュメント言語 / 문서 언어 / ภาษาเอกสาร
 
-This guide explains the recommended workflow for running experiments in the Lyapunov Neural-Network Control Lab.
+This compatibility page preserves a former documentation URL. Choose a language.
 
-## 1. Install dependencies
+この互換ページは以前のドキュメントURLを維持します。言語を選択してください。
 
-```bash
-pip install -r requirements.txt
-```
+이 호환 페이지는 이전 문서 URL을 유지합니다. 언어를 선택하세요.
 
-## 2. Run a quick example
+หน้านี้เก็บ URL เอกสารเดิมไว้ โปรดเลือกภาษา
 
-Use the quick-start script to confirm that the basic simulation works:
-
-```bash
-python examples/quick_start.py
-```
-
-## 3. Run local checks
-
-Before running long experiments, check that tests and examples pass:
-
-```bash
-python scripts/run_checks.py
-```
-
-## 4. Clean old results
-
-Clean old generated files if you want a fresh experiment run:
-
-```bash
-python scripts/clean_results.py
-```
-
-## 5. Run the main experiment
-
-Run the full training, simulation, robustness, plotting, and reporting pipeline:
-
-```bash
-python main.py
-```
-
-## 6. Summarize numerical results
-
-Print a quick terminal summary of CSV result files:
-
-```bash
-python scripts/summarize_results.py
-```
-
-## 7. Inspect generated outputs
-
-Important outputs are saved in the `results/` directory.
-
-Recommended files to check first:
-
-- `performance_metrics.csv`
-- `position_comparison.png`
-- `phase_portrait.png`
-- `lyapunov_contours.png`
-- `region_of_attraction_comparison.png`
-- `experiment_report.md`
-
-## 8. Interpret the results
-
-Use these guides:
-
-- `docs/results_interpretation.md`
-- `docs/figures.md`
-- `docs/limitations.md`
-
-## 9. Before committing changes
-
-Run checks again before committing:
-
-```bash
-python scripts/run_checks.py
-git status
-```
-
-## Recommended complete workflow
-
-```bash
-python scripts/run_checks.py
-python scripts/clean_results.py
-python main.py
-python scripts/summarize_results.py
-python scripts/run_checks.py
-```
+- [English](en/experiment_workflow.md)
+- [日本語](ja/experiment_workflow.md)
+- [한국어](ko/experiment_workflow.md)
+- [ไทย](th/experiment_workflow.md)

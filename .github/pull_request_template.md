@@ -1,30 +1,32 @@
+🌐 Language: [English](pull_request_template.md) | [日本語](PULL_REQUEST_TEMPLATE/pull_request_template.ja.md) | [한국어](PULL_REQUEST_TEMPLATE/pull_request_template.ko.md) | [ไทย](PULL_REQUEST_TEMPLATE/pull_request_template.th.md)
+
 # Pull Request
 
 ## Summary
 
-Describe the main change in this pull request.
+Describe the focused change and why it is needed.
 
-## Type of change
+## Type
 
 - [ ] Bug fix
-- [ ] New experiment
-- [ ] New plot or result
-- [ ] Documentation update
-- [ ] Test improvement
-- [ ] Refactoring
+- [ ] Experiment or scientific change
+- [ ] Documentation or translation
+- [ ] Test, tooling, or refactoring
 
-## Changed files or outputs
+## Scientific and generated-file impact
 
-List important files, generated plots, CSV files, or documents changed by this PR.
+- Changed seeds, parameters, architecture, losses, or metrics:
+- Generated plots, CSV files, reports, or model artifacts changed:
+- Expected numerical differences and limitations:
 
-## Testing
+## Validation
 
-Please check the commands that were run:
+- [ ] `git diff --check`
+- [ ] `make checks`
+- [ ] `make quality-gate`
+- [ ] User-facing documentation updated in all four languages when required
+- [ ] Generated artifacts reviewed and intentionally included
 
-- [ ] `python -m pytest`
-- [ ] `python main.py`
-- [ ] `python examples/quick_start.py`
+## Follow-up
 
-## Notes
-
-Add any limitations, expected numerical differences, or follow-up tasks.
+List unresolved work or write `None`.

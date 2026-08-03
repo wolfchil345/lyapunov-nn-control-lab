@@ -1,37 +1,26 @@
+🌐 Language: [English](SECURITY.md) | [日本語](SECURITY.ja.md) | [한국어](SECURITY.ko.md) | [ไทย](SECURITY.th.md)
+
 # Security Policy
 
-## Supported versions
+## Supported version
 
-This project is an academic and research-oriented Python repository.
+The latest version on `main` is supported. Historical releases remain available for reproducibility but do not receive fixes.
 
-The latest version on the `main` branch is the supported version.
+## Report a vulnerability
 
-## Reporting a vulnerability
+Do not publish exploit details in an issue. Contact the repository owner through an appropriate private GitHub channel and provide the affected version, reproduction steps, impact, and a minimal safe example.
 
-If you find a security issue, please do not open a public issue with exploit details.
+## In scope
 
-Instead, contact the repository owner privately or create a minimal report that avoids exposing sensitive details.
+- Unsafe dependency or file-handling behavior.
+- Credential, token, or private-data exposure.
+- Unexpected command execution or untrusted-input handling.
+- Security problems in workflows and project scripts.
 
-## Scope
+## Separate research concerns
 
-Relevant security concerns may include:
+Numerical instability, model limitations, changed experiment results, and disagreements about scientific interpretation are not software vulnerabilities. Report them as research or bug issues without including sensitive information.
 
-- unsafe dependency behavior;
-- accidental exposure of credentials or tokens;
-- unsafe file handling;
-- harmful code execution patterns.
+## Safe use
 
-## Out of scope
-
-The following are usually outside the security scope of this project:
-
-- numerical instability in experiments;
-- model performance limitations;
-- expected simulation errors from changed parameters;
-- research conclusions or interpretation disagreements.
-
-## Recommended user practice
-
-Run this project inside a virtual environment or GitHub Codespaces.
-
-Before running code from forks or pull requests, inspect the changes and run tests.
+Use a virtual environment or Codespaces, inspect changes from forks, never commit secrets, and run the test and quality-gate workflows before executing modified experiment code.
