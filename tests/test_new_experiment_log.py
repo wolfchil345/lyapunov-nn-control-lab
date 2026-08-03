@@ -25,8 +25,8 @@ def test_slugify_uses_default_for_empty_text():
 
 def test_create_log_from_template(tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
-    docs_dir = Path("docs")
-    docs_dir.mkdir()
+    docs_dir = Path("docs/en")
+    docs_dir.mkdir(parents=True)
     template_path = docs_dir / "experiment_log_template.md"
     template_path.write_text("# Template\n\n- Seed:\n", encoding="utf-8")
 
@@ -35,3 +35,18 @@ def test_create_log_from_template(tmp_path, monkeypatch):
     assert output_path.parent == Path("results") / "experiment_logs"
     assert output_path.name.endswith("_baseline_seed_0.md")
     assert output_path.read_text(encoding="utf-8") == "# Template\n\n- Seed:\n"
+
+
+def test_create_log_selects_localized_template(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    docs_dir = Path("docs/ja")
+    docs_dir.mkdir(parents=True)
+    (docs_dir / "experiment_log_template.md").write_text(
+        "# 実験ログ\n",
+        encoding="utf-8",
+    )
+
+    output_path = new_experiment_log.create_log("Baseline Seed 0", language="ja")
+
+    assert output_path.name.endswith("_baseline_seed_0.ja.md")
+    assert output_path.read_text(encoding="utf-8") == "# 実験ログ\n"

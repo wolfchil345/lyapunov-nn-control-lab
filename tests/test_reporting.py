@@ -3,6 +3,7 @@ from pathlib import Path
 from src.reporting import (
     format_markdown_table,
     generate_experiment_report,
+    generate_localized_experiment_reports,
     read_csv_rows,
 )
 
@@ -69,3 +70,39 @@ def test_generate_experiment_report_creates_file(tmp_path):
     assert "# Experiment Report" in text
     assert "Performance metrics preview" in text
     assert "Stability-weight ablation preview" in text
+    assert "experiment_report.ja.md" in text
+
+
+def test_generate_localized_experiment_reports_creates_four_languages(tmp_path):
+    (tmp_path / "performance_metrics.csv").write_text(
+        "controller,initial_position,initial_velocity,final_state_norm,settling_time_s,quadratic_cost,control_energy,max_abs_control\n"
+        "LQR,1.5,0.0,0.001,2.0,4.0,1.0,2.0\n",
+        encoding="utf-8",
+    )
+    (tmp_path / "stability_weight_ablation.csv").write_text(
+        "stability_weight,lyapunov_violation_fraction,final_state_norm,settling_time_s,quadratic_cost,control_energy\n"
+        "10.0,0.01,0.001,2.0,4.0,1.0\n",
+        encoding="utf-8",
+    )
+
+    output_paths = generate_localized_experiment_reports(tmp_path)
+
+    assert {path.name for path in output_paths} == {
+        "experiment_report.md",
+        "experiment_report.ja.md",
+        "experiment_report.ko.md",
+        "experiment_report.th.md",
+    }
+    expected_titles = {
+        "experiment_report.md": "# Experiment Report",
+        "experiment_report.ja.md": "# 実験レポート",
+        "experiment_report.ko.md": "# 실험 보고서",
+        "experiment_report.th.md": "# รายงานการทดลอง",
+    }
+    for output_path in output_paths:
+        text = output_path.read_text(encoding="utf-8")
+        assert expected_titles[output_path.name] in text
+        assert "experiment_report.md" in text
+        assert "experiment_report.ja.md" in text
+        assert "experiment_report.ko.md" in text
+        assert "experiment_report.th.md" in text

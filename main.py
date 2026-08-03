@@ -33,7 +33,7 @@ from src.plotting import (
     save_model_architecture_diagram,
 
 )
-from src.reporting import generate_experiment_report
+from src.reporting import generate_localized_experiment_reports
 from src.simulation import simulate
 from src.system import (
     CLOSED_LOOP_EIGENVALUES,
@@ -397,15 +397,13 @@ def main() -> None:
         output_dir,
     )
 
-    report_path = output_dir / "experiment_report.md"
-    generate_experiment_report(
-        output_dir,
-        report_path,
-    )
+    report_paths = generate_localized_experiment_reports(output_dir)
 
     print()
     print(f"Metrics saved to: {metrics_path.resolve()}")
-    print(f"Experiment report saved to: {report_path.resolve()}")
+    print("Experiment reports saved to:")
+    for report_path in report_paths:
+        print(f"- {report_path.resolve()}")
     print(f"Model and figures saved in: {output_dir.resolve()}")
 
 
