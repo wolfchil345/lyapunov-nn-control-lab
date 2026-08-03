@@ -20,3 +20,23 @@ clean:
 
 summarize:
 	python scripts/summarize_results.py
+
+.PHONY: new-log
+new-log:
+	python scripts/new_experiment_log.py
+
+.PHONY: list-results
+list-results:
+	python scripts/list_results.py
+
+.PHONY: status
+status:
+	python scripts/project_status.py
+
+.PHONY: quality-gate
+quality-gate:
+	python scripts/quality_gate.py
+
+.PHONY: workflow-badges
+workflow-badges:
+	python scripts/check_workflow_badges.py

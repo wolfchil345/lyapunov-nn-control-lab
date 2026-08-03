@@ -1,3 +1,5 @@
+🌐 Language: [English](../en/project_summary.md) | [日本語](../ja/project_summary.md) | [한국어](../ko/project_summary.md) | [ไทย](../th/project_summary.md)
+
 # Project Summary
 
 ## Overview

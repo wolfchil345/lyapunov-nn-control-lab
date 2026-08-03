@@ -1,4 +1,7 @@
+🌐 Language: [English](README.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [ไทย](README.th.md)
+
 ![Python tests](https://github.com/wolfchil345/lyapunov-nn-control-lab/actions/workflows/tests.yml/badge.svg)
+![Quality gate](https://github.com/wolfchil345/lyapunov-nn-control-lab/actions/workflows/quality-gate.yml/badge.svg)
 
 # Lyapunov NN Control Lab
 
@@ -354,7 +357,7 @@ The architecture diagram is stored in [`results/model_architecture.png`](results
 
 ## Methodology documentation
 
-For a paper-style explanation of the control theory, neural-network controller, Lyapunov stability checks, robustness experiments, and region-of-attraction analysis, see [`docs/methodology.md`](docs/methodology.md).
+For a paper-style explanation of the control theory, neural-network controller, Lyapunov stability checks, robustness experiments, and region-of-attraction analysis, see [`docs/en/methodology.md`](docs/en/methodology.md).
 
 ## Citation
 
@@ -362,7 +365,7 @@ This repository includes citation metadata in [`CITATION.cff`](CITATION.cff).
 
 ## Project summary
 
-A concise portfolio-style summary is available in [`docs/project_summary.md`](docs/project_summary.md).
+A concise portfolio-style summary is available in [`docs/en/project_summary.md`](docs/en/project_summary.md).
 
 ## Reproducibility
 
@@ -488,7 +491,7 @@ Possible presentation and thesis-defense questions are collected in [`docs/defen
 
 ## Documentation index
 
-A map of the documentation files is available in [`docs/index.md`](docs/index.md).
+A map of the documentation files is available in [`docs/en/index.md`](docs/en/index.md).
 
 ## Documentation link checker
 
@@ -555,3 +558,123 @@ The repository includes a `Makefile` for common shortcuts such as `make check-en
 ## Dependency updates
 
 See the [dependency updates guide](docs/dependency_updates.md) for Dependabot behavior and the update review checklist.
+
+## Security scanning
+
+See the [security scanning guide](docs/security_scanning.md) for CodeQL workflow behavior and review notes.
+
+## Branch protection
+
+See the [branch protection guide](docs/branch_protection.md) for recommended `main` branch rules and required checks.
+
+## Pull request review
+
+See the [pull request review guide](docs/pull_request_review.md) for the recommended checklist before merging feature branches.
+
+## Release checklist
+
+See the [release checklist](docs/release_checklist.md) before tagging a release or submitting the project for review.
+
+## Demo guide
+
+See the [five minute demo script](docs/demo_script.md) for a quick explanation flow for professors, reviewers, interviews, and lab discussions.
+
+## Portfolio pitch
+
+See the [portfolio pitch](docs/portfolio_pitch.md) for a concise explanation for CVs, interviews, professor visits, and graduate applications.
+
+## FAQ
+
+See the [FAQ](docs/faq.md) for quick answers about the project goal, LQR reference controller, Lyapunov-style checks, and limitations.
+
+## Experiment parameters
+
+See the [experiment parameters guide](docs/experiment_parameters.md) for the main settings that affect training, simulation, Lyapunov checks, robustness tests, and results.
+
+## Experiment log template
+
+See the [experiment log template](docs/experiment_log_template.md) for recording experiment settings, results, comparisons, and observations.
+
+## Result file naming
+
+See the [result file naming guide](docs/result_naming.md) for organizing plots, metrics, reports, robustness outputs, and experiment comparisons.
+
+## Experiment log generator
+
+Create a timestamped experiment log from the template with:
+
+```bash
+python scripts/new_experiment_log.py "baseline seed 0"
+```
+
+## Result inventory
+
+List generated result files with:
+
+```bash
+python scripts/list_results.py
+```
+
+## Result review checklist
+
+See the [result review checklist](docs/result_review_checklist.md) before using generated plots, metrics, Lyapunov outputs, robustness outputs, or reports.
+
+## Project status
+
+Check important project files, documentation, scripts, tests, workflows, and result files with:
+
+```bash
+python scripts/project_status.py
+```
+
+Or use:
+
+```bash
+make status
+```
+
+## Quality gate
+
+Run the full project readiness check with:
+
+```bash
+python scripts/quality_gate.py
+```
+
+Or use:
+
+```bash
+make quality-gate
+```
+
+## Automated quality gate
+
+GitHub Actions runs the quality gate automatically with `.github/workflows/quality-gate.yml` on pushes and pull requests to `main`.
+
+## Quality gate guide
+
+See the [quality gate guide](docs/quality_gate.md) for how to run the full readiness check and fix common failures.
+
+## CI workflows guide
+
+See the [CI workflows guide](docs/ci_workflows.md) for how GitHub Actions, badges, and quality checks are organized.
+
+## Project status guide
+
+See the [project status guide](docs/project_status.md) for how repository health is checked.
+
+## Maintenance guide
+
+See the [maintenance guide](docs/maintenance.md) for routine checks before merges, demos, and repository updates.
+
+## Git workflow guide
+
+See the [Git workflow guide](docs/git_workflow.md) for the project branch, commit, merge, and cleanup process.
+
+## Onboarding guide
+
+See the [onboarding guide](docs/onboarding.md) for the first steps to run, test, and understand this project.
+
+## Multilingual documentation
+
+This project is being organized for English, Japanese, Korean, and Thai readers. See the [internationalization guide](docs/en/i18n.md).
