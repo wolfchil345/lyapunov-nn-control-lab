@@ -1,3 +1,5 @@
+🌐 Language: [English](README.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [ไทย](README.th.md)
+
 ![Python tests](https://github.com/wolfchil345/lyapunov-nn-control-lab/actions/workflows/tests.yml/badge.svg)
 ![Quality gate](https://github.com/wolfchil345/lyapunov-nn-control-lab/actions/workflows/quality-gate.yml/badge.svg)
 
@@ -355,7 +357,7 @@ The architecture diagram is stored in [`results/model_architecture.png`](results
 
 ## Methodology documentation
 
-For a paper-style explanation of the control theory, neural-network controller, Lyapunov stability checks, robustness experiments, and region-of-attraction analysis, see [`docs/methodology.md`](docs/methodology.md).
+For a paper-style explanation of the control theory, neural-network controller, Lyapunov stability checks, robustness experiments, and region-of-attraction analysis, see [`docs/en/methodology.md`](docs/en/methodology.md).
 
 ## Citation
 
@@ -363,7 +365,7 @@ This repository includes citation metadata in [`CITATION.cff`](CITATION.cff).
 
 ## Project summary
 
-A concise portfolio-style summary is available in [`docs/project_summary.md`](docs/project_summary.md).
+A concise portfolio-style summary is available in [`docs/en/project_summary.md`](docs/en/project_summary.md).
 
 ## Reproducibility
 
@@ -489,7 +491,7 @@ Possible presentation and thesis-defense questions are collected in [`docs/defen
 
 ## Documentation index
 
-A map of the documentation files is available in [`docs/index.md`](docs/index.md).
+A map of the documentation files is available in [`docs/en/index.md`](docs/en/index.md).
 
 ## Documentation link checker
 
@@ -664,3 +666,15 @@ See the [project status guide](docs/project_status.md) for how repository health
 ## Maintenance guide
 
 See the [maintenance guide](docs/maintenance.md) for routine checks before merges, demos, and repository updates.
+
+## Git workflow guide
+
+See the [Git workflow guide](docs/git_workflow.md) for the project branch, commit, merge, and cleanup process.
+
+## Onboarding guide
+
+See the [onboarding guide](docs/onboarding.md) for the first steps to run, test, and understand this project.
+
+## Multilingual documentation
+
+This project is being organized for English, Japanese, Korean, and Thai readers. See the [internationalization guide](docs/en/i18n.md).

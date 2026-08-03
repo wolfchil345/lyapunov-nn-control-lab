@@ -1,3 +1,5 @@
+🌐 Language: [English](../en/methodology.md) | [日本語](../ja/methodology.md) | [한국어](../ko/methodology.md) | [ไทย](../th/methodology.md)
+
 # Methodology
 
 This document explains the main control-engineering ideas used in the Lyapunov neural-network control lab.

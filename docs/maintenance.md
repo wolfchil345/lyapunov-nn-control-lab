@@ -28,7 +28,7 @@ Then check:
 
 - GitHub Actions are passing.
 - README badges are visible.
-- Important docs are linked from `docs/index.md`.
+- Important docs are linked from the appropriate language index under `docs/{en,ja,ko,th}/index.md`.
 - New scripts have tests when possible.
 - New important files are tracked by `scripts/project_status.py`.
 
@@ -43,7 +43,7 @@ Then check:
 ## After adding a new document
 
 1. Place the file under `docs/`.
-2. Link it from `docs/index.md`.
+2. Link it from the appropriate `docs/<language>/index.md` file.
 3. Link it from `README.md` if it is important for visitors.
 4. Add it to `scripts/project_status.py` if it is a core guide.
 
