@@ -38,7 +38,7 @@ This report summarizes the generated results for the Lyapunov neural-network con
 
 ## Performance metrics preview
 
-| controller | initial_position | initial_velocity | final_state_norm | settling_time_s | quadratic_cost | control_energy | max_abs_control |
+| Controller | Initial position | Initial velocity | Final state norm | Settling time [s] | Quadratic cost | Control energy | Maximum control magnitude |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | LQR | 1.5 | 0.0 | 3.3512211263851475e-06 | 3.37 | 14.648088325259708 | 4.456642635355886 | 4.348469228349534 |
 | LQR | -1.5 | 0.0 | 3.3512211263851475e-06 | 3.37 | 14.648088325259708 | 4.456642635355886 | 4.348469228349534 |
@@ -51,7 +51,7 @@ This report summarizes the generated results for the Lyapunov neural-network con
 
 ## Stability-weight ablation preview
 
-| stability_weight | lyapunov_violation_fraction | final_state_norm | settling_time_s | quadratic_cost | control_energy |
+| Stability weight | Lyapunov violation fraction | Final state norm | Settling time [s] | Quadratic cost | Control energy |
 | --- | --- | --- | --- | --- | --- |
 | 0.0 | 0.0 | 2.56460257589076e-08 | 2.99 | 14.77627249722799 | 5.410421142108917 |
 | 1.0 | 0.0 | 7.738160083800791e-10 | 2.5500000000000003 | 14.834420901355982 | 5.515590194940069 |

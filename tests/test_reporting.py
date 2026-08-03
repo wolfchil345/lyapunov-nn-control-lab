@@ -106,3 +106,13 @@ def test_generate_localized_experiment_reports_creates_four_languages(tmp_path):
         assert "experiment_report.ja.md" in text
         assert "experiment_report.ko.md" in text
         assert "experiment_report.th.md" in text
+
+    japanese = (tmp_path / "experiment_report.ja.md").read_text(encoding="utf-8")
+    korean = (tmp_path / "experiment_report.ko.md").read_text(encoding="utf-8")
+    thai = (tmp_path / "experiment_report.th.md").read_text(encoding="utf-8")
+    assert "| 制御器 | 初期位置 |" in japanese
+    assert "| 제어기 | 초기 위치 |" in korean
+    assert "| ตัวควบคุม | ตำแหน่งเริ่มต้น |" in thai
+    assert "ニューラルネットワーク" in japanese
+    assert "신경망" in korean
+    assert "โครงข่ายประสาท" in thai

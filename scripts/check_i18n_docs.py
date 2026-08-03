@@ -14,6 +14,8 @@ SCRIPT_PATTERNS = {
     "ko": re.compile(r"[가-힣]"),
     "th": re.compile(r"[ก-๙]"),
 }
+MARKDOWN_LINK_PATTERN = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
+DUPLICATE_SUFFIX_PATTERN = re.compile(r" \d+\.(?:md|py)$")
 TOP_LEVEL_FAMILIES = (
     "README",
     "CONTRIBUTING",
@@ -30,22 +32,41 @@ def localized_filename(stem: str, language: str) -> str:
     return f"{stem}.md" if language == "en" else f"{stem}.{language}.md"
 
 
-def heading_count(path: Path) -> int:
-    """Count Markdown ATX headings in a document."""
+def heading_levels(path: Path) -> list[int]:
+    """Return the ATX heading-level sequence in a document."""
 
     text = path.read_text(encoding="utf-8")
-    return len(re.findall(r"^#{1,6}\s+", text, flags=re.MULTILINE))
+    return [
+        len(match.group(1))
+        for match in re.finditer(r"^(#{1,6})\s+", text, flags=re.MULTILINE)
+    ]
 
 
-def check_language_switcher(path: Path) -> list[str]:
-    """Check that the document header links all supported languages."""
+def check_language_switcher(
+    path: Path,
+    family_paths: dict[str, Path],
+) -> list[str]:
+    """Check that the document header links the matching family in every language."""
 
     lines = path.read_text(encoding="utf-8").splitlines()
     header = "\n".join(lines[:15])
+    problems = []
     missing = [label for label in LANGUAGE_LABELS if label not in header]
     if missing:
-        return [f"{path}: language switcher missing {', '.join(missing)}"]
-    return []
+        problems.append(f"{path}: language switcher missing {', '.join(missing)}")
+
+    linked_paths = {
+        (path.parent / target.split("#", 1)[0]).resolve()
+        for target in MARKDOWN_LINK_PATTERN.findall(header)
+        if "://" not in target
+    }
+    for language, target in family_paths.items():
+        if target.resolve() not in linked_paths:
+            problems.append(
+                f"{path}: language switcher has no {language} family link "
+                f"to {target}",
+            )
+    return problems
 
 
 def check_script_content(path: Path, language: str) -> list[str]:
@@ -61,24 +82,59 @@ def check_script_content(path: Path, language: str) -> list[str]:
 
 
 def check_family(paths: dict[str, Path], label: str) -> list[str]:
-    """Check existence, switchers, scripts, and heading-count parity."""
+    """Check existence, switchers, scripts, and heading-structure parity."""
 
     problems = []
     missing = [language for language, path in paths.items() if not path.exists()]
     if missing:
         return [f"{label}: missing languages {', '.join(missing)}"]
 
-    expected_headings = heading_count(paths["en"])
+    expected_levels = heading_levels(paths["en"])
     for language, path in paths.items():
-        problems.extend(check_language_switcher(path))
+        problems.extend(check_language_switcher(path, paths))
         problems.extend(check_script_content(path, language))
-        actual_headings = heading_count(path)
-        if actual_headings != expected_headings:
+        actual_levels = heading_levels(path)
+        if actual_levels != expected_levels:
             problems.append(
-                f"{label}: {language} has {actual_headings} headings; "
-                f"English has {expected_headings}",
+                f"{label}: {language} heading levels {actual_levels}; "
+                f"English has {expected_levels}",
             )
     return problems
+
+
+def check_index_coverage(index_path: Path, expected_names: set[str]) -> list[str]:
+    """Check that one localized index links every document in its language tree."""
+
+    if not index_path.exists():
+        return [f"{index_path}: missing index file"]
+
+    text = index_path.read_text(encoding="utf-8")
+    targets = {
+        target.split("#", 1)[0]
+        for target in MARKDOWN_LINK_PATTERN.findall(text)
+        if "/" not in target and target.endswith(".md")
+    }
+    required = expected_names - {"index.md"}
+    missing = sorted(required - targets)
+    if missing:
+        return [f"{index_path}: missing index entries {', '.join(missing)}"]
+    return []
+
+
+def duplicate_suffix_files(root: Path) -> list[Path]:
+    """Return sync-conflict-style duplicate Markdown or Python files."""
+
+    ignored_parts = {".git", ".pytest_cache", ".venv", "__pycache__"}
+    return sorted(
+        path
+        for path in root.rglob("*")
+        if path.is_file()
+        and DUPLICATE_SUFFIX_PATTERN.search(path.name)
+        and not any(
+            part in ignored_parts or part.endswith(".egg-info")
+            for part in path.relative_to(root).parts
+        )
+    )
 
 
 def audit_repository(root: Path = ROOT) -> list[str]:
@@ -103,6 +159,11 @@ def audit_repository(root: Path = ROOT) -> list[str]:
     for name in sorted(expected_names):
         paths = {language: docs / language / name for language in LANGUAGES}
         problems.extend(check_family(paths, f"docs/{name}"))
+
+    for language in LANGUAGES:
+        problems.extend(
+            check_index_coverage(docs / language / "index.md", expected_names),
+        )
 
     for stem in TOP_LEVEL_FAMILIES:
         paths = {
@@ -153,6 +214,9 @@ def audit_repository(root: Path = ROOT) -> list[str]:
             target = f"{language}/{path.name}"
             if target not in text:
                 problems.append(f"{path}: missing compatibility link {target}")
+
+    for path in duplicate_suffix_files(root):
+        problems.append(f"{path}: duplicate numeric suffix file")
 
     return problems
 

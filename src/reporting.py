@@ -21,9 +21,29 @@ REPORT_COPY = {
         "output": "Output",
         "available": "Available plots",
         "no_plots": "No plot files were found.",
+        "no_data": "No data available.",
         "performance": "Performance metrics preview",
         "ablation": "Stability-weight ablation preview",
         "interpretation": "Interpretation guide",
+        "performance_labels": [
+            "Controller",
+            "Initial position",
+            "Initial velocity",
+            "Final state norm",
+            "Settling time [s]",
+            "Quadratic cost",
+            "Control energy",
+            "Maximum control magnitude",
+        ],
+        "ablation_labels": [
+            "Stability weight",
+            "Lyapunov violation fraction",
+            "Final state norm",
+            "Settling time [s]",
+            "Quadratic cost",
+            "Control energy",
+        ],
+        "controller_names": {},
         "experiments": [
             "Model architecture",
             "LQR and neural-network comparison",
@@ -56,9 +76,32 @@ REPORT_COPY = {
         "output": "出力",
         "available": "利用可能な図",
         "no_plots": "図ファイルが見つかりません。",
+        "no_data": "利用可能なデータがありません。",
         "performance": "性能指標（抜粋）",
         "ablation": "安定性重みのアブレーション結果（抜粋）",
         "interpretation": "解釈ガイド",
+        "performance_labels": [
+            "制御器",
+            "初期位置",
+            "初期速度",
+            "最終状態ノルム",
+            "整定時間 [s]",
+            "二次コスト",
+            "制御エネルギー",
+            "最大制御入力",
+        ],
+        "ablation_labels": [
+            "安定性重み",
+            "Lyapunov違反率",
+            "最終状態ノルム",
+            "整定時間 [s]",
+            "二次コスト",
+            "制御エネルギー",
+        ],
+        "controller_names": {
+            "Neural network": "ニューラルネットワーク",
+            "Saturated neural network": "飽和ニューラルネットワーク",
+        },
         "experiments": [
             "モデル構成",
             "LQRとニューラルネットワークの比較",
@@ -91,9 +134,32 @@ REPORT_COPY = {
         "output": "출력",
         "available": "사용 가능한 그림",
         "no_plots": "그림 파일을 찾지 못했습니다.",
+        "no_data": "사용 가능한 데이터가 없습니다.",
         "performance": "성능 지표 미리보기",
         "ablation": "안정성 가중치 제거 실험 미리보기",
         "interpretation": "해석 가이드",
+        "performance_labels": [
+            "제어기",
+            "초기 위치",
+            "초기 속도",
+            "최종 상태 노름",
+            "정착 시간 [s]",
+            "이차 비용",
+            "제어 에너지",
+            "최대 제어 입력",
+        ],
+        "ablation_labels": [
+            "안정성 가중치",
+            "Lyapunov 위반 비율",
+            "최종 상태 노름",
+            "정착 시간 [s]",
+            "이차 비용",
+            "제어 에너지",
+        ],
+        "controller_names": {
+            "Neural network": "신경망",
+            "Saturated neural network": "포화 신경망",
+        },
         "experiments": [
             "모델 구조",
             "LQR과 신경망 비교",
@@ -126,9 +192,32 @@ REPORT_COPY = {
         "output": "ผลลัพธ์",
         "available": "รูปที่พร้อมใช้งาน",
         "no_plots": "ไม่พบไฟล์รูป",
+        "no_data": "ไม่มีข้อมูลที่พร้อมใช้งาน",
         "performance": "ตัวอย่างตัวชี้วัดประสิทธิภาพ",
         "ablation": "ตัวอย่างผลการตัดองค์ประกอบน้ำหนักเสถียรภาพ",
         "interpretation": "คู่มือการตีความ",
+        "performance_labels": [
+            "ตัวควบคุม",
+            "ตำแหน่งเริ่มต้น",
+            "ความเร็วเริ่มต้น",
+            "นอร์มสถานะสุดท้าย",
+            "เวลาตั้งตัว [s]",
+            "ต้นทุนกำลังสอง",
+            "พลังงานควบคุม",
+            "ขนาดอินพุตควบคุมสูงสุด",
+        ],
+        "ablation_labels": [
+            "น้ำหนักเสถียรภาพ",
+            "สัดส่วนการละเมิด Lyapunov",
+            "นอร์มสถานะสุดท้าย",
+            "เวลาตั้งตัว [s]",
+            "ต้นทุนกำลังสอง",
+            "พลังงานควบคุม",
+        ],
+        "controller_names": {
+            "Neural network": "โครงข่ายประสาท",
+            "Saturated neural network": "โครงข่ายประสาทแบบอิ่มตัว",
+        },
         "experiments": [
             "สถาปัตยกรรมแบบจำลอง",
             "การเปรียบเทียบ LQR และโครงข่ายประสาท",
@@ -187,19 +276,30 @@ def read_csv_rows(
 def format_markdown_table(
     rows: list[dict[str, str]],
     columns: list[str],
+    labels: list[str] | None = None,
+    value_maps: dict[str, dict[str, str]] | None = None,
+    no_data: str = "No data available.",
 ) -> list[str]:
     """Format selected CSV columns as a Markdown table."""
 
     if not rows:
-        return ["No data available."]
+        return [no_data]
+
+    labels = labels or columns
+    value_maps = value_maps or {}
+    if len(labels) != len(columns):
+        raise ValueError("Table labels must match the number of columns")
 
     lines = [
-        "| " + " | ".join(columns) + " |",
+        "| " + " | ".join(labels) + " |",
         "| " + " | ".join(["---"] * len(columns)) + " |",
     ]
 
     for row in rows:
-        values = [row.get(column, "") for column in columns]
+        values = [
+            value_maps.get(column, {}).get(row.get(column, ""), row.get(column, ""))
+            for column in columns
+        ]
         lines.append("| " + " | ".join(values) + " |")
 
     return lines
@@ -267,6 +367,9 @@ def generate_experiment_report(
                 "control_energy",
                 "max_abs_control",
             ],
+            labels=copy["performance_labels"],
+            value_maps={"controller": copy["controller_names"]},
+            no_data=copy["no_data"],
         ),
     )
 
@@ -282,6 +385,8 @@ def generate_experiment_report(
                 "quadratic_cost",
                 "control_energy",
             ],
+            labels=copy["ablation_labels"],
+            no_data=copy["no_data"],
         ),
     )
 
