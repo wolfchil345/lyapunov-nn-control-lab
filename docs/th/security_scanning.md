@@ -2,9 +2,9 @@
 
 # การสแกนความปลอดภัย
 
-CodeQL วิเคราะห์ Python code เมื่อ push ไป `main`, pull request ที่เป้าหมายเป็น `main` และตาม weekly schedule
+CodeQL วิเคราะห์โค้ด Python เมื่อพุชไปยัง `main` เมื่อมีคำขอรวมโค้ดที่มุ่งสู่ `main` และตามตารางรายสัปดาห์
 
-## การเตรียม Local
+## การเตรียมพร้อมในเครื่อง
 
 ```bash
 python -m pip check
@@ -12,6 +12,6 @@ make checks
 make quality-gate
 ```
 
-Review dependency alert และ CodeQL finding ก่อน merge Clean scan ไม่ได้พิสูจน์ว่า control policy safe หรือ stable เพราะ software security และ control-system safety เป็นคนละ review domain
+ตรวจสอบแจ้งเตือนของแพ็กเกจและผลการสแกน CodeQL ก่อนรวมโค้ด ผลสแกนที่สะอาดไม่ได้พิสูจน์ว่านโยบายควบคุมปลอดภัยหรือเสถียร เนื่องจากความปลอดภัยของซอฟต์แวร์กับความปลอดภัยของระบบควบคุมเป็นคนละขอบเขตการทบทวน
 
-รายงานช่องโหว่ที่สงสัยแบบ private ตาม [security policy](../../SECURITY.th.md) ของ repository ห้ามใส่ secret, private data หรือ exploit detail ใน public issue
+รายงานช่องโหว่ที่สงสัยแบบส่วนตัวตาม [นโยบายความปลอดภัย](../../SECURITY.th.md) ห้ามใส่ข้อมูลลับ ข้อมูลส่วนตัว หรือรายละเอียดการโจมตีใน Issue สาธารณะ

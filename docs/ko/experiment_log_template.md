@@ -1,40 +1,40 @@
 🌐 언어: [English](../en/experiment_log_template.md) | [日本語](../ja/experiment_log_template.md) | [한국어](../ko/experiment_log_template.md) | [ไทย](../th/experiment_log_template.md)
 
-# 실험 로그 Template
+# 실험 로그 양식
 
-## 식별 정보
+## 기본 정보
 
 - 날짜:
-- Branch와 commit SHA:
+- 브랜치와 커밋 SHA:
 - 연구 질문:
 - 목적:
 
 ## 환경과 설정
 
-- Python과 PyTorch version:
-- Runtime:
-- Random seed:
-- Epochs, learning rate, dataset size, network architecture:
-- Plant, controller, simulation, Lyapunov, noise, parameter 설정:
+- Python과 PyTorch 버전:
+- 실행 환경:
+- 난수 시드:
+- 에포크 수, 학습률, 데이터셋 크기, 네트워크 구조:
+- 플랜트, 제어기, 시뮬레이션, Lyapunov, 잡음, 매개변수 설정:
 
 ## 명령과 출력
 
-- 사용 명령:
-- Metrics CSV:
-- Report:
-- Figures:
+- 사용한 명령:
+- 평가 지표 CSV:
+- 보고서:
+- 그림:
 
-## 해석
+## 결과 해석
 
-- 무엇이 개선되거나 나빠졌는가?
-- LQR과 비교하면 어떠한가?
-- 표본 Lyapunov 위반 또는 robustness failure가 있었는가?
-- 이전 run과 설정을 비교할 수 있는가?
+- 무엇이 개선되었고 무엇이 나빠졌는가?
+- 제어기는 LQR과 비교해 어떤 거동을 보였는가?
+- 표본점에서 Lyapunov 조건 위반이나 강인성 실패가 있었는가?
+- 이 설정은 이전 실험과 비교 가능한가?
 
-## 결정
+## 판단
 
-- Reference result로 보관? Yes / No
-- Report 또는 presentation에 사용? Yes / No
+- 참조 결과로 보존할가? 예 / 아니요
+- 보고서나 발표에 사용할가? 예 / 아니요
 - 다음 실험:
 
-`python scripts/new_experiment_log.py "short description" --language ko`로 timestamp copy를 만들 수 있습니다.
+`python scripts/new_experiment_log.py "short description" --language ko`로 시각이 포함된 사본을 만들 수 있습니다.

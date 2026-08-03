@@ -2,25 +2,25 @@
 
 # 보안 정책
 
-## 지원 version
+## 지원 버전
 
-`main`의 latest version을 지원합니다. Historical release는 reproducibility를 위해 유지하지만 fix를 받지 않습니다.
+`main`의 최신 버전을 지원합니다. 이전 릴리스는 재현성을 위해 유지하지만 수정 사항은 제공하지 않습니다.
 
 ## 취약점 보고
 
-Exploit detail을 issue에 공개하지 마십시오. 적절한 private GitHub channel로 repository owner에게 연락하고 affected version, reproduction step, impact, 최소한의 safe example을 제공하십시오.
+공격 방법의 세부 내용을 Issue에 공개하지 마십시오. 적절한 GitHub 비공개 경로를 통해 저장소 소유자에게 연락하고, 영향을 받는 버전, 재현 절차, 영향, 안전하고 최소한의 예제를 제공해 주십시오.
 
-## 범위
+## 보안 정책의 범위
 
-- Unsafe dependency 또는 file-handling behavior.
-- Credential, token, private-data exposure.
-- Unexpected command execution 또는 untrusted-input handling.
-- Workflow와 project script의 security problem.
+- 안전하지 않은 의존성 또는 파일 처리 동작.
+- 자격 증명, 토큰 또는 비공개 데이터 노출.
+- 예상하지 못한 명령 실행 또는 신뢰할 수 없는 입력 처리.
+- 워크플로와 프로젝트 스크립트의 보안 문제.
 
-## 별도의 연구 문제
+## 연구 문제와의 구분
 
-Numerical instability, model limitations, changed experiment result, scientific interpretation 의견 차이는 software vulnerability가 아닙니다. Sensitive information 없이 research 또는 bug issue로 보고하십시오.
+수치적 불안정성, 모델의 한계, 실험 결과의 변경, 과학적 해석에 대한 의견 차이는 소프트웨어 취약점이 아닙니다. 민감한 정보를 포함하지 않고 연구 또는 버그 Issue로 보고해 주십시오.
 
 ## 안전한 사용
 
-Virtual environment 또는 Codespaces를 사용하고 fork 변경을 검토하며 secret을 commit하지 말고 수정 experiment code 실행 전에 test와 quality-gate workflow를 실행하십시오.
+가상 환경 또는 Codespaces를 사용하고, 포크에서 가져온 변경 사항을 확인하며, 비밀 정보를 커밋하지 마십시오. 수정된 실험 코드를 실행하기 전에 테스트와 품질 게이트 워크플로를 실행하십시오.

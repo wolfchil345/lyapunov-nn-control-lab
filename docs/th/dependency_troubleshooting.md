@@ -1,6 +1,6 @@
 🌐 ภาษา: [English](../en/dependency_troubleshooting.md) | [日本語](../ja/dependency_troubleshooting.md) | [한국어](../ko/dependency_troubleshooting.md) | [ไทย](../th/dependency_troubleshooting.md)
 
-# การแก้ปัญหา Dependency
+# การแก้ปัญหาไลบรารีที่ต้องใช้
 
 เริ่มด้วย:
 
@@ -9,16 +9,16 @@ python scripts/check_environment.py
 python -m pip check
 ```
 
-## Package หายหรือ PyTorch import error
+## ไม่พบแพ็กเกจหรือนำเข้า PyTorch ไม่ได้
 
-เปิด `.venv` upgrade pip และติดตั้งโครงการใหม่ด้วย `python -m pip install -e .` อย่าผสม package ของ system Python กับ virtual environment
+เปิดใช้ `.venv` อัปเกรด pip แล้วติดตั้งโปรเจกต์ใหม่ด้วย `python -m pip install -e .` หลีกเลี่ยงการปะปนแพ็กเกจจาก Python ของระบบกับสภาพแวดล้อมเสมือน
 
-## Git LFS error
+## ข้อผิดพลาดของ Git LFS
 
-ติดตั้ง Git LFS รัน `git lfs install` และใช้ `git lfs pull` เพื่อคืน binary asset ที่ติดตาม
+ติดตั้ง Git LFS รัน `git lfs install` และใช้ `git lfs pull` เพื่อกู้คืนไฟล์ไบนารีที่ Git ติดตามอยู่
 
-## Clean reset
+## สร้างสภาพแวดล้อมใหม่
 
-สร้าง virtual environment ใหม่แทนการแก้ system interpreter ใน Codespaces ให้ rebuild dev container หาก environment ยังไม่สอดคล้อง
+สร้างสภาพแวดล้อมเสมือนใหม่แทนการแก้ไข Python ของระบบ หาก Codespaces ยังมีความไม่สอดคล้อง ให้สร้างคอนเทนเนอร์พัฒนาใหม่
 
-เมื่อขอความช่วยเหลือให้แนบผล `python scripts/check_environment.py`, `python --version` และ `python -m pip check`
+เมื่อขอความช่วยเหลือ ให้แนบผลลัพธ์ของ `python scripts/check_environment.py`, `python --version` และ `python -m pip check`

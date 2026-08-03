@@ -1,47 +1,59 @@
 🌐 ภาษา: [English](RELEASE_NOTES.md) | [日本語](RELEASE_NOTES.ja.md) | [한국어](RELEASE_NOTES.ko.md) | [ไทย](RELEASE_NOTES.th.md)
 
-# v1.0.1 - การปรับปรุงเอกสารและ Release
+# v1.0.1 - ปรับปรุงเอกสารและการเผยแพร่
 
-Patch release นี้ปรับ installation reliability, documentation หลายภาษา และ result-summary reporting โดยไม่เปลี่ยน core control experiment
+รุ่นแก้ไขนี้ปรับปรุงความน่าเชื่อถือของการติดตั้ง เอกสารหลายภาษา และรายงานสรุปผล โดยไม่เปลี่ยนการทดลองด้านการควบคุมหลัก
 
 ## จุดเด่น
 
-- เพิ่ม `python-control` runtime dependency ที่ขาด
-- Ignore virtual-environment และ package-metadata file ที่สร้างขึ้น
-- เพิ่ม documentation foundation ภาษาอังกฤษ ญี่ปุ่น เกาหลี และไทย
-- เพิ่ม localized documentation index สำหรับสี่ภาษา
-- Link README แต่ละภาษาไป localized documentation index
-- ลบ obsolete และ nonexistent documentation link
-- แก้ ablation summary ให้อ่าน `lyapunov_violation_fraction`
-- ทำ release checklist ให้ใช้กับ version tag ในอนาคต
+- เพิ่มแพ็กเกจที่ต้องใช้ขณะรัน `python-control` ซึ่งก่อนหน้านี้ขาดหายไป
+- ไม่ให้ Git ติดตามไฟล์สภาพแวดล้อมเสมือนและเมตาเดตาของแพ็กเกจที่สร้างขึ้น
+- เพิ่มพื้นฐานเอกสารภาษาอังกฤษ ญี่ปุ่น เกาหลี และไทย
+- เพิ่มดัชนีเอกสารที่แปลแล้วสำหรับทั้งสี่ภาษา
+- เชื่อมโยง README แต่ละภาษาไปยังดัชนีเอกสารภาษานั้น
+- ลบลิงก์เก่าและลิงก์ไปยังเอกสารที่ไม่มีอยู่
+- แก้ไขสรุปการศึกษาแบบตัดองค์ประกอบให้อ่าน `lyapunov_violation_fraction`
+- ปรับรายการตรวจสอบการเผยแพร่ให้ใช้กับแท็กเวอร์ชันในอนาคตได้
 
 ## การตรวจสอบ
 
-- 57 test ผ่าน
-- Quick-start example ผ่าน
-- Quality gate ผ่าน
-- สร้าง experiment result ใหม่สำเร็จด้วย fixed random seed
-- Figure ที่สร้างใหม่ pixel-identical กับ tracked figure เดิม
-- Lyapunov grid check มี zero violation
-- Region-of-attraction check ของ test controller มี 100% convergence
+- การทดสอบ 57 รายการผ่าน
+- ตัวอย่างเริ่มต้นอย่างรวดเร็วผ่าน
+- ด่านคุณภาพผ่าน
+- สร้างผลการทดลองใหม่ได้สำเร็จด้วยค่าเมล็ดสุ่มคงที่
+- รูปที่สร้างใหม่ตรงกับรูปเดิมที่ Git ติดตามในระดับพิกเซล
+- การตรวจ Lyapunov บนกริดไม่พบจุดละเมิด
+- การตรวจบริเวณดึงดูดให้ผลการลู่เข้า 100% สำหรับตัวควบคุมที่ทดสอบ
 
 ## ความเข้ากันได้
 
-Core simulation, controller architecture และ tracked experimental result ไม่เปลี่ยนจาก `v1.0.0`
+การจำลองหลัก สถาปัตยกรรมตัวควบคุม และผลการทดลองที่ Git ติดตามยังคงเหมือน `v1.0.0`
 
 ---
 
-# v1.0.0 - Release สมบูรณ์ครั้งแรก
+# v1.0.0 - รุ่นสมบูรณ์รุ่นแรก
 
-นี่คือ complete release แรกของ Lyapunov Neural-Network Control Lab
+นี่คือรุ่นสมบูรณ์รุ่นแรกของ Lyapunov Neural-Network Control Lab
 
 ## จุดเด่น
 
-- LQR baseline, imitation-trained neural controller และ Lyapunov-inspired check
-- Stability-aware penalty, saturation, noise และ parameter robustness
-- Phase portrait, Lyapunov contour และ region-of-attraction analysis
-- Stability-weight ablation, automatic report และ model architecture diagram
-- Methodology, project summary และ citation metadata
+- ตัวควบคุมอ้างอิง LQR
+- ตัวควบคุมโครงข่ายประสาทที่ฝึกด้วยการเรียนแบบเลียนแบบ
+- การตรวจเสถียรภาพตามแนวคิด Lyapunov
+- พจน์ปรับโทษการฝึกที่คำนึงถึงเสถียรภาพ
+- การทดลองการอิ่มตัวของแอกชูเอเตอร์
+- การทดลองความทนทานต่อสัญญาณรบกวนในการวัด
+- การทดลองความทนทานต่อความแปรผันของพารามิเตอร์
+- การแสดงแผนภาพเฟส
+- การแสดงเส้นชั้น Lyapunov
+- การประมาณบริเวณดึงดูด
+- การเปรียบเทียบบริเวณดึงดูดระหว่างตัวควบคุม
+- การศึกษาแบบตัดองค์ประกอบของค่าน้ำหนักเสถียรภาพ
+- การสร้างรายงานการทดลองอัตโนมัติ
+- แผนภาพสถาปัตยกรรมของแบบจำลอง
+- เอกสารระเบียบวิธี
+- เอกสารสรุปโครงการ
+- เมตาเดตาการอ้างอิง
 
 ## ผลลัพธ์หลัก
 
@@ -58,6 +70,6 @@ Core simulation, controller architecture และ tracked experimental result �
 - `results/stability_weight_ablation.png`
 - `results/experiment_report.md`
 
-## จุดเน้นการวิจัย
+## จุดเน้นของการวิจัย
 
-ศึกษาว่า neural controller ที่เลียนแบบ stabilizing classical controller สามารถประเมินด้วย Lyapunov-based stability tool ได้หรือไม่
+โครงการนี้ศึกษาว่าตัวควบคุมโครงข่ายประสาทสามารถเลียนแบบตัวควบคุมแบบดั้งเดิมที่ทำให้ระบบเสถียร พร้อมรับการประเมินด้วยเครื่องมือเสถียรภาพแบบ Lyapunov ได้หรือไม่

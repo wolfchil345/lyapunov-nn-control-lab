@@ -4,21 +4,21 @@
 
 ## การควบคุมและเสถียรภาพ
 
-- State-space modeling, feedback control และการออกแบบ Linear Quadratic Regulator
-- Lyapunov direct method, quadratic Lyapunov function และ region-of-attraction analysis
-- Robust และ nonlinear control สำหรับระบบที่มี uncertainty และ input constraint
+- การสร้างแบบจำลองปริภูมิสถานะ การควบคุมแบบป้อนกลับ และการออกแบบตัวควบคุมเชิงเส้นกำลังสอง
+- วิธีตรงของ Lyapunov ฟังก์ชัน Lyapunov แบบกำลังสอง และการวิเคราะห์บริเวณดึงดูด
+- การควบคุมแบบทนทานและไม่เชิงเส้นสำหรับระบบที่มีความไม่แน่นอนและข้อจำกัดของอินพุต
 
-## Learning-based control
+## การควบคุมที่อาศัยการเรียนรู้
 
-- Neural-network controller และ imitation learning
-- Stability-aware loss และ neural Lyapunov method
-- Safe reinforcement learning และ formal verification ของ neural controller
-- Kolmogorov-Arnold Networks สำหรับการประมาณฟังก์ชันด้านการควบคุม
+- ตัวควบคุมโครงข่ายประสาทและการเรียนแบบเลียนแบบ
+- ฟังก์ชันความสูญเสียที่คำนึงถึงเสถียรภาพและวิธี Lyapunov แบบโครงข่ายประสาท
+- การเรียนรู้แบบเสริมแรงที่ปลอดภัย และการพิสูจน์เชิงรูปแบบของตัวควบคุมโครงข่ายประสาท
+- Kolmogorov-Arnold Networks สำหรับการประมาณฟังก์ชันเพื่องานควบคุม
 
 ## วิธีเชิงตัวเลข
 
-- Initial-value ODE solver, grid evaluation, sensitivity analysis และ uncertainty sweep
+- ตัวแก้สมการ ODE แบบค่าเริ่มต้น การประเมินบนกริด การวิเคราะห์ความไว และการกวาดค่าความไม่แน่นอน
 
-ใช้ตำราหรือ peer-reviewed primary literature สำหรับข้ออ้างอย่างเป็นทางการ หน้านี้เป็น reading map ไม่ใช่ bibliography ที่สนับสนุน theorem
+ควรอ้างอิงตำราหรืองานวิจัยต้นฉบับที่ผ่านการประเมินโดยผู้ทรงคุณวุฒิสำหรับข้ออ้างเชิงรูปแบบ หน้านี้เป็นแผนที่การอ่าน ไม่ใช่บรรณานุกรมสำหรับสนับสนุนทฤษฎีบท
 
-ข้อมูลอ้างอิง package และ repository อยู่ใน [`CITATION.cff`](../../CITATION.cff)
+เมตาเดตาสำหรับอ้างอิงแพ็กเกจและรีโพซิทอรีอยู่ใน [`CITATION.cff`](../../CITATION.cff)

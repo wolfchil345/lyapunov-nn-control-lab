@@ -10,7 +10,7 @@ assignees: ""
 
 ## 설명
 
-Bug를 명확히 설명하십시오.
+문제를 명확히 설명해 주세요.
 
 ## 재현 단계
 
@@ -28,10 +28,10 @@ Bug를 명확히 설명하십시오.
 
 ## 환경
 
-- Python version:
-- Operating system:
-- Local, VS Code, GitHub Codespaces 중 하나:
-- Commit 또는 release:
+- Python 버전:
+- 운영체제:
+- 로컬, VS Code, GitHub Codespaces 중 하나:
+- 커밋 또는 릴리스:
 
 ## 시도한 검증
 
@@ -40,4 +40,4 @@ Bug를 명확히 설명하십시오.
 
 ## 추가 정보
 
-필요하면 screenshot, error message, log를 추가하십시오.
+필요하면 스크린샷, 오류 메시지, 로그를 추가해 주세요.

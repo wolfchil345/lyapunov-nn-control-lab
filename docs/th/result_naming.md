@@ -2,7 +2,7 @@
 
 # การตั้งชื่อไฟล์ผลลัพธ์
 
-ใช้ identifier ภาษาอังกฤษตัวเล็กและ underscore:
+ใช้ตัวระบุภาษาอังกฤษตัวพิมพ์เล็กและขีดล่าง:
 
 ```text
 YYYYMMDD_controller_experiment_setting.ext
@@ -16,6 +16,6 @@ YYYYMMDD_controller_experiment_setting.ext
 20260804_nn_noise_sigma005.md
 ```
 
-ใส่วันที่ controller, experiment type และ setting ที่ทำให้ผลแตกต่าง หลีกเลี่ยงช่องว่างและชื่ออย่าง `final.png`, `new_result.csv`, `really_final_plot.png`
+ใส่วันที่ ชนิดตัวควบคุม ประเภทการทดลอง และค่าตั้งที่ใช้แยกผลลัพธ์ หลีกเลี่ยงช่องว่างและชื่อที่กำกวมอย่าง `final.png`, `new_result.csv`, `really_final_plot.png`
 
-รักษา filename แบบคงที่ที่ `main.py` ใช้สำหรับ reference artifact ที่ติดตาม ใช้ pattern แบบยาวกับ run เพิ่มเติมและ link ผลสำคัญจาก experiment log
+คงชื่อไฟล์แบบตายตัวที่ `main.py` ใช้สำหรับผลอ้างอิงซึ่ง Git ติดตามอยู่ ส่วนการรันเพิ่มเติมให้ใช้รูปแบบชื่อแบบยาว และเชื่อมโยงผลสำคัญจากบันทึกการทดลอง

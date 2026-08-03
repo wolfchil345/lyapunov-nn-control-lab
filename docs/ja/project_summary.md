@@ -4,23 +4,23 @@
 
 ## 目的
 
-Lyapunov NN Control Labは、機械system、古典制御、neural network、安定性解析を結ぶ再現可能なresearch・portfolio projectです。
+Lyapunov NN Control Labは、機械システム、古典制御、ニューラルネットワーク、安定性解析を結ぶ再現可能な研究・ポートフォリオプロジェクトです。
 
 ## アプローチ
 
-Mass-spring-damper plantをmodel化し、LQR baselineを設計し、LQR state-feedback lawを模倣するneural controllerを学習します。Trainingにはsampled Lyapunov penaltyも含みます。複数initial state、quantitative metric、actuator saturation、measurement noise、plant-parameter variation、sampled Lyapunov behavior、estimated region of attractionで評価します。
+質量ばねダンパ系をモデル化し、LQR ベースラインを設計し、LQR状態フィードバック則を模倣するニューラル制御器を学習します。学習にはサンプル点に基づくLyapunovペナルティも含みます。複数初期状態、定量指標、アクチュエータ飽和、観測ノイズ、プラントパラメータ変動、サンプル点でのLyapunov挙動、推定引き込み領域で評価します。
 
 ## 証拠
 
-- Automated test、quick-start example、CI、quality gate。
-- 追跡figure、CSV metric、生成experiment report。
-- Fixed random seedとdocumented reproduction workflow。
-- Empirical sampled evidenceとformal proofの誠実な区別。
+- 自動テスト、クイックスタート例、CI、品質ゲート。
+- 追跡図、CSV 指標、生成実験レポート。
+- 固定乱数シードと文書化された再現手順。
+- サンプル評価による経験的証拠と形式的証明の誠実な区別。
 
 ## 現在の結果
 
-追跡test setting内でneural controllerはLQR baselineに近く、選択initial stateから収束し、sampled Lyapunov violationはzeroです。これらはdocumented model、region、threshold、uncertainty scenarioに限定されます。
+追跡テスト設定内でニューラル制御器はLQR ベースラインに近く、選択初期状態から収束し、サンプル点でのLyapunov違反は0です。これらは文書化されたモデル、領域、閾値、不確かさシナリオに限定されます。
 
 ## ポートフォリオ価値
 
-System modeling、optimal control、PyTorch training、numerical simulation、scientific evaluation、software testing、GitHub workflow、release management、多言語technical communicationを示します。
+システムモデリング、最適制御、PyTorch 学習、数値シミュレーション、科学的評価、ソフトウェアテスト、GitHub ワークフロー、リリース管理、多言語技術コミュニケーションを示します。

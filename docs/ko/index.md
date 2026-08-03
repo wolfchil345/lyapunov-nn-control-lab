@@ -1,8 +1,8 @@
-🌐 Language: [English](../en/index.md) | [日本語](../ja/index.md) | [한국어](../ko/index.md) | [ไทย](../th/index.md)
+🌐 언어: [English](../en/index.md) | [日本語](../ja/index.md) | [한국어](../ko/index.md) | [ไทย](../th/index.md)
 
 # 문서 색인
 
-이 페이지는 Lyapunov Neural-Network Control Lab의 주요 문서를 안내하는 지도입니다.
+이 페이지는 Lyapunov NN Control Lab의 주요 문서를 안내하는 색인입니다.
 
 ## 먼저 읽기
 

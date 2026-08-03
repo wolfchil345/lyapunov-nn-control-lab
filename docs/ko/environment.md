@@ -4,9 +4,9 @@
 
 ## 요구 사항
 
-- Python 3.10 이상. CI는 Python 3.11과 3.12를 사용합니다.
-- Git 및 추적되는 binary asset을 위한 Git LFS.
-- 포함된 실험은 CPU로 실행할 수 있습니다.
+- Python 3.10 이상. CI에서는 Python 3.11과 3.12를 사용합니다.
+- Git. 추적 대상 바이너리 산출물을 다룰 때는 Git LFS도 필요합니다.
+- 제공된 실험은 CPU만으로 실행할 수 있습니다.
 
 ## 설치
 
@@ -17,7 +17,7 @@ python -m pip install --upgrade pip
 python -m pip install -e .
 ```
 
-Windows PowerShell에서는 `.venv\Scripts\Activate.ps1`을 사용합니다.
+Windows PowerShell에서는 `.venv\Scripts\Activate.ps1`로 가상 환경을 활성화합니다.
 
 ## 환경 확인
 
@@ -27,4 +27,4 @@ python examples/quick_start.py
 make checks
 ```
 
-명령은 저장소 root에서 실행하십시오. import가 실패하면 `.venv`를 다시 활성화하고 `python -m pip install -e .`를 실행합니다.
+명령은 저장소 루트에서 실행하세요. 불러오기에 실패하면 `.venv`를 다시 활성화하고 `python -m pip install -e .`로 재설치하세요.

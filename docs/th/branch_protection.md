@@ -1,18 +1,18 @@
 🌐 ภาษา: [English](../en/branch_protection.md) | [日本語](../ja/branch_protection.md) | [한국어](../ko/branch_protection.md) | [ไทย](../th/branch_protection.md)
 
-# การป้องกัน Branch
+# การปกป้องสาขา
 
-ป้องกัน default branch ด้วย ruleset `Protect main` ที่ Active
+ปกป้องสาขาเริ่มต้นด้วยกฎชุด `Protect main` ที่เปิดใช้งาน
 
 ## กฎที่แนะนำ
 
-- ต้องมี pull request ก่อน merge
-- ต้องแก้ conversation ให้เรียบร้อย
-- ต้องมี status check ที่เสถียรและ branch ที่ up to date
-- Block force push และ branch deletion
-- สำหรับ solo repository ตั้ง required approval เป็น 0 หากไม่มี independent reviewer
-- อนุญาต administrator bypass เฉพาะ pull request และ emergency
+- กำหนดให้ใช้คำขอรวมโค้ดก่อนรวม
+- กำหนดให้แก้ข้อสนทนาที่ค้างอยู่
+- กำหนดให้สถานะการตรวจสอบผ่านและสาขาเป็นปัจจุบัน
+- ปิดกั้นการพุชแบบบังคับและการลบสาขา
+- รีโพซิทอรีส่วนบุคคลควรตั้งจำนวนการอนุมัติที่บังคับเป็นศูนย์ เว้นแต่มีผู้ตรวจทานอิสระ
+- อนุญาตให้ผู้ดูแลข้ามกฎได้เฉพาะในคำขอรวมโค้ดและเหตุฉุกเฉิน
 
-ใช้ check name ตรงกับที่ GitHub แสดง ปกติคือ Python tests, local checks, quality gate และ CodeQL analysis
+ใช้ชื่อการตรวจสอบตามที่ GitHub แสดงให้ตรงทุกตัวอักษร โดยปกติคือ Python tests, Local checks, Quality gate และ CodeQL analysis
 
-อย่าเปิด linear history หากไม่เปลี่ยน merge strategy ของ repository ทดสอบ rule ด้วย documentation pull request ก่อนใช้กับ release
+อย่าเปิดใช้ประวัติแบบเส้นตรง หากยังไม่เปลี่ยนกลยุทธ์การรวมโค้ด ควรทดสอบกฎด้วยคำขอรวมโค้ดด้านเอกสารก่อนนำไปใช้กับการเผยแพร่

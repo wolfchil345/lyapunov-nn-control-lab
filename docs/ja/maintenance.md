@@ -4,20 +4,20 @@
 
 ## 定期チェック
 
-- 最新の `main` branchをpullし、open dependency updateを確認。
+- 最新の `main` ブランチをpullし、作成 依存関係 updateを確認。
 - `python scripts/project_status.py` と `make quality-gate` を実行。
-- Workflow badgeと4つのdocumentation indexを確認。
-- 追跡resultが意図せず再生成されていないか確認。
-- 新behaviorにはtestを追加し、documentを4言語で更新。
+- ワークフロー badgeと4つのドキュメント 索引を確認。
+- 追跡結果が意図せず再生成されていないか確認。
+- 新挙動にはテストを追加し、ドキュメントを4言語で更新。
 
-## 新しいfile追加後
+## 新しいファイル追加後
 
-- 必要に応じてessential fileを `KEY_FILES` に追加。
-- User-facing documentを全localized indexからlink。
-- Scriptまたはcheckerにbehaviorを追加したらtestを追加。
+- 必要に応じてessential ファイルを `KEY_FILES` に追加。
+- ユーザー向けドキュメントを、すべての言語別索引からリンクする。
+- Scriptまたはcheckerに挙動を追加したらテストを追加。
 
-## Demoまたはrelease前
+## Demoまたはリリース前
 
-Clean branchを使い、Git status、recent commit、limitationsを確認し、表示resultが現在のcodeとrelease noteに一致することを検証します。
+作業ツリーがクリーンなブランチを使い、Gitの状態、最近のコミット、制約を確認します。表示される結果が現在のコードとリリースノートに一致することも検証します。
 
-Historical tagを削除したりpublished releaseをforce-updateしたりしません。
+過去のタグを削除したり、公開済みリリースを強制的に書き換えたりしてはいけません。

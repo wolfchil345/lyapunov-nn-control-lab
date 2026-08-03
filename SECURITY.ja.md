@@ -2,25 +2,25 @@
 
 # セキュリティポリシー
 
-## 対応version
+## サポート対象バージョン
 
-`main` のlatest versionをsupportします。Historical releaseはreproducibilityのため残しますがfixを受けません。
+`main` 上の最新バージョンをサポートします。過去のリリースは再現性のために保存しますが、修正の対象ではありません。
 
 ## 脆弱性の報告
 
-Exploit detailをissueに公開しないでください。適切なprivate GitHub channelでrepository ownerへ連絡し、affected version、reproduction step、impact、最小限のsafe exampleを提供します。
+攻撃手法の詳細を Issue で公開しないでください。適切な GitHub の非公開経路でリポジトリ所有者に連絡し、影響を受けるバージョン、再現手順、影響、安全で最小限の例を提供してください。
 
-## 対象
+## 対象範囲
 
-- Unsafe dependencyまたはfile-handling behavior。
-- Credential、token、private-data exposure。
-- Unexpected command executionまたはuntrusted-input handling。
-- Workflowとproject scriptのsecurity problem。
+- 安全でない依存関係またはファイル処理。
+- 認証情報、トークン、非公開データの露出。
+- 予期しないコマンド実行、または信頼できない入力の取り扱い。
+- ワークフローやプロジェクトスクリプトのセキュリティ問題。
 
-## 別の研究上の問題
+## 研究上の問題との区別
 
-Numerical instability、model limitations、changed experiment result、scientific interpretationの意見差はsoftware vulnerabilityではありません。Sensitive informationを含めずresearchまたはbug issueとして報告します。
+数値的な不安定性、モデルの限界、実験結果の変化、科学的解釈に関する意見の相違は、ソフトウェアの脆弱性ではありません。機密情報を含めず、研究またはバグの Issue として報告してください。
 
 ## 安全な利用
 
-Virtual environmentまたはCodespacesを使用し、forkからの変更を確認し、secretをcommitせず、変更experiment code実行前にtestとquality-gate workflowを実行します。
+仮想環境または Codespaces を使い、フォークからの変更を確認し、秘密情報をコミットしないでください。変更された実験コードを実行する前に、テストと品質ゲートのワークフローを実行してください。

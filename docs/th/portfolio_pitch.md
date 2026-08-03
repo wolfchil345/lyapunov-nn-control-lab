@@ -1,22 +1,22 @@
 🌐 ภาษา: [English](../en/portfolio_pitch.md) | [日本語](../ja/portfolio_pitch.md) | [한국어](../ko/portfolio_pitch.md) | [ไทย](../th/portfolio_pitch.md)
 
-# คำอธิบายสำหรับพอร์ตโฟลิโอ
+# คำนำเสนอสำหรับพอร์ตโฟลิโอ
 
 ## หนึ่งประโยค
 
-ฉันสร้าง neural-control laboratory ที่ทำซ้ำได้ ซึ่งรวม LQR baseline, Lyapunov-aware training, robustness evaluation, test อัตโนมัติ และเอกสารวิจัยหลายภาษา
+ฉันสร้างห้องทดลองการควบคุมด้วยโครงข่ายประสาทที่ทำซ้ำได้ ซึ่งรวมตัวควบคุมอ้างอิง LQR การฝึกที่คำนึงถึง Lyapunov การประเมินความทนทาน การทดสอบอัตโนมัติ และเอกสารวิจัยหลายภาษา
 
 ## สามสิบวินาที
 
-Project ใช้ mass-spring-damper system เพื่อฝึก neural network ให้เลียนแบบ LQR แล้วประเมินด้วย closed-loop simulation, quantitative metric, sampled Lyapunov check, actuator limit, noise, parameter uncertainty และ region of attraction โดยประมาณ Repository มี test, CI, reproducible script, report และ documentation สี่ภาษา
+โครงการใช้ระบบมวล-สปริง-แดมเปอร์เพื่อฝึกโครงข่ายประสาทให้เลียนแบบ LQR ฉันประเมินตัวควบคุมด้วยการจำลองวงปิด ตัวชี้วัดเชิงปริมาณ การตรวจ Lyapunov บนจุดตัวอย่าง ขีดจำกัดของแอกชูเอเตอร์ สัญญาณรบกวน ความไม่แน่นอนของพารามิเตอร์ และบริเวณดึงดูดที่ประมาณไว้ รีโพซิทอรีมีการทดสอบ CI สคริปต์ที่ทำซ้ำได้ รายงาน และเอกสารสี่ภาษา
 
-## สิ่งที่ควรแสดง
+## สิ่งที่ควรนำเสนอ
 
-1. Model architecture และ controller-comparison figure
-2. Quality gate และ test suite ที่ผ่าน
-3. Methodology, limitations และ experiment workflow
-4. หนึ่ง failure mode หรือข้อจำกัดอย่างซื่อตรง
+1. แผนภาพสถาปัตยกรรมของแบบจำลองและรูปเปรียบเทียบตัวควบคุม
+2. ด่านคุณภาพและชุดการทดสอบที่ผ่าน
+3. ระเบียบวิธี ข้อจำกัด และขั้นตอนการทดลอง
+4. กรณีล้มเหลวหนึ่งกรณีหรือข้อจำกัดที่อธิบายอย่างซื่อสัตย์
 
-## Keywords
+## คำสำคัญ
 
 `control systems`, `LQR`, `PyTorch`, `neural-network control`, `Lyapunov stability`, `robustness`, `reproducible research`

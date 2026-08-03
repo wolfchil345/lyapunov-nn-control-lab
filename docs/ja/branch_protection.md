@@ -2,17 +2,17 @@
 
 # ブランチ保護
 
-Activeな `Protect main` rulesetでdefault branchを保護します。
+Activeな `Protect main` rulesetでdefault ブランチを保護します。
 
 ## 推奨ルール
 
-- Merge前にpull requestを必須化。
+- Merge前にプルリクエストを必須化。
 - Conversation解決を必須化。
-- 安定したstatus checkとup-to-date branchを必須化。
-- Force pushとbranch deletionをblock。
-- Solo repositoryでは独立reviewerがいない限りrequired approvalを0に設定。
-- Administrator bypassはpull requestおよびemergencyだけに限定。
+- 安定した状態チェックの通過と、ブランチが最新であることを必須にする。
+- 強制プッシュとブランチ削除をブロックする。
+- 個人リポジトリで独立したレビュアーがいない場合、必須承認数は0に設定する。
+- 管理者によるバイパスは、プルリクエストと緊急時に限定する。
 
-GitHubに表示される正確なcheck nameを使います。通常はPython tests、local checks、quality gate、CodeQL analysisです。
+GitHub に表示される正確なチェック名を使います。通常は Python tests、Local checks、Quality gate、CodeQL analysis です。
 
-Repositoryのmerge strategyも変えない限りlinear historyを有効にしません。Releaseで使う前にdocumentation pull requestでruleをtestします。
+リポジトリのマージ strategyも変えない限り線形 historyを有効にしません。リリースで使う前にドキュメント プルリクエストでruleをテストします。

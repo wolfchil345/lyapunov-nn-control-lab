@@ -2,46 +2,58 @@
 
 # v1.0.1 - ドキュメントとリリースの改善
 
-このpatch releaseはcore control experimentを変更せず、installation reliability、多言語documentation、result-summary reportingを改善します。
+このパッチリリースは、中核となる制御実験を変更せずに、インストールの信頼性、多言語ドキュメント、結果サマリーの出力を改善しました。
 
-## ハイライト
+## 主な変更
 
-- 不足していた `python-control` runtime dependencyを追加
-- 生成virtual-environmentとpackage-metadata fileをignore
-- 英語、日本語、韓国語、タイ語documentation foundationを追加
-- 4言語のlocalized documentation indexを追加
-- 各READMEをlocalized documentation indexへlink
-- Obsoleteまたはnonexistent documentation linkを削除
-- Ablation summaryが `lyapunov_violation_fraction` を読むよう修正
-- 将来version tag向けにrelease checklistを一般化
+- 不足していた実行時依存関係 `python-control` を追加
+- 生成された仮想環境ファイルとパッケージメタデータを Git の対象外に設定
+- 英語、日本語、韓国語、タイ語のドキュメント基盤を追加
+- 4言語それぞれのドキュメント索引を追加
+- 各 README から対応する言語のドキュメント索引へリンク
+- 古いリンクと存在しないドキュメントへのリンクを削除
+- アブレーションサマリーが `lyapunov_violation_fraction` を読み込むよう修正
+- 今後のバージョンタグで使えるようリリースチェックリストを一般化
 
 ## 検証
 
-- 57 testがpass
-- Quick-start exampleがpass
-- Quality gateがpass
-- Fixed random seedでexperiment resultの再生成に成功
-- 再生成figureは以前の追跡figureとpixel-identical
-- Lyapunov grid checkはzero violation
-- Test controllerのregion-of-attraction checkは100% convergence
+- 57件のテストが合格
+- クイックスタート例が合格
+- 品質ゲートが合格
+- 固定した乱数シードで実験結果の再生成に成功
+- 再生成した図は、従来 Git で管理していた図とピクセル単位で一致
+- Lyapunov グリッド検査の違反数は0
+- 試験した制御器の引き込み領域検査では100%収束
 
 ## 互換性
 
-Core simulation、controller architecture、追跡experimental resultは `v1.0.0` から変更ありません。
+中核となるシミュレーション、制御器アーキテクチャ、Git で管理する実験結果は `v1.0.0` から変更していません。
 
 ---
 
-# v1.0.0 - 最初の完全リリース
+# v1.0.0 - 最初の完全版リリース
 
-Lyapunov Neural-Network Control Labの最初のcomplete releaseです。
+Lyapunov Neural-Network Control Lab の最初の完全版リリースです。
 
-## ハイライト
+## 主な機能
 
-- LQR baseline、imitation-trained neural controller、Lyapunov-inspired check
-- Stability-aware penalty、saturation、noise、parameter robustness
-- Phase portrait、Lyapunov contour、region-of-attraction analysis
-- Stability-weight ablation、automatic report、model architecture diagram
-- Methodology、project summary、citation metadata
+- LQR 基準制御器
+- 模倣学習で学習したニューラルネットワーク制御器
+- Lyapunov 理論に基づく安定性検査
+- 安定性を考慮した学習ペナルティ
+- アクチュエータ飽和実験
+- 計測ノイズに対するロバスト性実験
+- パラメータ変動に対するロバスト性実験
+- 位相面図の可視化
+- Lyapunov 等高線の可視化
+- 引き込み領域の推定
+- 制御器ごとの引き込み領域の比較
+- 安定性重みのアブレーションスタディ
+- 実験レポートの自動生成
+- モデルアーキテクチャ図
+- 手法のドキュメント
+- プロジェクト概要のドキュメント
+- 引用メタデータ
 
 ## 主な出力
 
@@ -58,6 +70,6 @@ Lyapunov Neural-Network Control Labの最初のcomplete releaseです。
 - `results/stability_weight_ablation.png`
 - `results/experiment_report.md`
 
-## 研究焦点
+## 研究の焦点
 
-安定化古典controllerを模倣するneural controllerをLyapunov-based stability toolで評価できるか研究します。
+このプロジェクトは、安定化可能な古典制御器をニューラルネットワーク制御器が模倣し、その挙動を Lyapunov 安定性の観点から評価できるかを研究します。

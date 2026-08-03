@@ -2,21 +2,21 @@
 
 # よくある質問
 
-## このprojectは何をするか?
+## このプロジェクトは何をするか?
 
-Mass-spring-damper systemでLQRを模倣するneural controllerを学習し、performance、sampled Lyapunov behavior、robustnessを評価します。
+質量ばねダンパ系で LQR を模倣するニューラル制御器を学習し、性能、サンプル点での Lyapunov 挙動、ロバスト性を評価します。
 
-## なぜLQRをteacherにするか?
+## なぜLQRを教師にするか?
 
-LQRは透明で再現可能であり、公称linear plantを安定化するため、有用なbaselineとlabel sourceになります。
+LQRは透明で再現可能であり、公称線形 プラントを安定化するため、有用なベースラインとラベル ソースになります。
 
 ## 安定性を証明するか?
 
-いいえ。二次Lyapunov candidateを使ったsimulationとfinite-grid evidenceを提供します。Formal continuous-domain verificationは現在の範囲外です。
+いいえ。二次 Lyapunov 候補関数を用いたシミュレーションと有限グリッド上の証拠を提供します。連続領域全体の形式検証は現在の範囲外です。
 
-## 通常のmachine-learning demoと何が違うか?
+## 通常のmachine-学習 デモと何が違うか?
 
-Closed-loop trajectory、control effort、cost、saturation、noise、model variation、Lyapunov behavior、estimated region of attractionを再現可能なsoftware checkと共に評価します。
+閉ループ軌道、制御入力の大きさ、コスト、飽和、ノイズ、モデル変動、Lyapunov 挙動、推定引き込み領域を、再現可能なソフトウェア検査と共に評価します。
 
 ## どう検証するか?
 

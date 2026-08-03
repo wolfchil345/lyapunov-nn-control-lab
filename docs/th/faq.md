@@ -2,26 +2,26 @@
 
 # คำถามที่พบบ่อย
 
-## Project นี้เกี่ยวกับอะไร?
+## โครงการนี้เกี่ยวกับอะไร
 
-ฝึก neural controller ให้เลียนแบบ LQR บน mass-spring-damper system และประเมิน performance, sampled Lyapunov behavior และ robustness
+โครงการฝึกตัวควบคุมโครงข่ายประสาทให้เลียนแบบ LQR บนระบบมวล-สปริง-แดมเปอร์ และประเมินสมรรถนะ พฤติกรรม Lyapunov บนจุดตัวอย่าง และความทนทาน
 
-## ทำไมใช้ LQR เป็น teacher?
+## เหตุใดจึงใช้ LQR เป็นตัวควบคุมครู
 
-LQR โปร่งใส ทำซ้ำได้ และทำให้ nominal linear plant เสถียร จึงเป็น baseline และแหล่ง label ที่มีประโยชน์
+LQR โปร่งใส ทำซ้ำได้ และทำให้ระบบเชิงเส้นค่านามเสถียร จึงเหมาะเป็นเกณฑ์อ้างอิงและแหล่งป้ายกำกับ
 
-## Project พิสูจน์เสถียรภาพหรือไม่?
+## โครงการนี้พิสูจน์เสถียรภาพหรือไม่
 
-ไม่ ให้หลักฐานจาก simulation และ finite grid ด้วย quadratic Lyapunov candidate ส่วน formal continuous-domain verification อยู่นอกขอบเขตปัจจุบัน
+ไม่พิสูจน์ โครงการให้หลักฐานจากการจำลองและกริดจำกัด โดยใช้ฟังก์ชัน Lyapunov แบบกำลังสองที่เสนอ การพิสูจน์เชิงรูปแบบบนปริภูมิต่อเนื่องอยู่นอกขอบเขตปัจจุบัน
 
-## ต่างจาก machine-learning demo ทั่วไปอย่างไร?
+## อะไรทำให้โครงการนี้เป็นมากกว่าการสาธิตการเรียนรู้ของเครื่อง
 
-ประเมิน closed-loop trajectory, control effort, cost, saturation, noise, model variation, Lyapunov behavior และ estimated region of attraction พร้อม software check ที่ทำซ้ำได้
+โครงการประเมินวิถีวงปิด ขนาดอินพุตควบคุม ต้นทุน การอิ่มตัว สัญญาณรบกวน ความแปรผันของแบบจำลอง พฤติกรรม Lyapunov และบริเวณดึงดูดที่ประมาณไว้ พร้อมการตรวจสอบซอฟต์แวร์ที่ทำซ้ำได้
 
-## ตรวจสอบอย่างไร?
+## จะตรวจสอบได้อย่างไร
 
-รัน `python examples/quick_start.py`, `make checks` และ `make quality-gate` ใช้ `python main.py` สำหรับการทดลองเต็ม
+รัน `python examples/quick_start.py`, `make checks` และ `make quality-gate` ใช้ `python main.py` สำหรับการทดลองฉบับเต็ม
 
-## เริ่มอ่านที่ไหน?
+## ควรเริ่มอ่านจากที่ใด
 
-อ่าน [สรุปโครงการ](project_summary.md), [ระเบียบวิธี](methodology.md), [ขั้นตอนการทดลอง](experiment_workflow.md) และ [ข้อจำกัด](limitations.md)
+เริ่มจาก [สรุปโครงการ](project_summary.md), [ระเบียบวิธี](methodology.md), [ขั้นตอนการทดลอง](experiment_workflow.md) และ [ข้อจำกัด](limitations.md)

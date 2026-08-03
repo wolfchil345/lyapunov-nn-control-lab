@@ -99,8 +99,8 @@ V_dot(x) <= -alpha * ||x||^2
 | ケース | 最終状態ノルム | 整定時間 | 二次コスト |
 |---|---:|---:|---:|
 | LQR, `x0 = [1.5, 0.0]` | `3.35e-06` | `3.37 s` | `14.6481` |
-| Neural network, `x0 = [1.5, 0.0]` | `2.75e-07` | `3.25 s` | `14.6803` |
-| Saturated neural network, `x0 = [1.5, 0.0]` | `2.73e-07` | `3.28 s` | `14.8506` |
+| ニューラルネットワーク, `x0 = [1.5, 0.0]` | `2.75e-07` | `3.25 s` | `14.6803` |
+| 飽和ニューラル ネットワーク, `x0 = [1.5, 0.0]` | `2.73e-07` | `3.28 s` | `14.8506` |
 
 追跡されている安定性重みアブレーションでは、全ての重みでサンプルLyapunov違反率が `0.0` でした。実験領域と制約を示すドキュメントと併せて解釈してください。
 
@@ -156,13 +156,13 @@ make quality-gate
 
 ```text
 lyapunov-nn-control-lab/
-├── main.py                 # Full experiment pipeline
-├── src/                    # Dynamics, controllers, analysis, and plotting
-├── tests/                  # Automated test suite
-├── scripts/                # Checks and repeatable maintenance commands
-├── examples/               # Minimal runnable example
-├── docs/{en,ja,ko,th}/     # Localized documentation
-└── results/                # Tracked reference outputs and generated model
+├── main.py                 # 実験全体の実行パイプライン
+├── src/                    # ダイナミクス、制御器、解析、プロット
+├── tests/                  # 自動テスト一式
+├── scripts/                # 検査と再現可能な保守コマンド
+├── examples/               # 実行可能な最小例
+├── docs/{en,ja,ko,th}/     # 各言語のドキュメント
+└── results/                # 追跡中の参照結果と生成モデル
 ```
 
 詳細は[プロジェクト構成ガイド](docs/ja/project_structure.md)を参照してください。
@@ -181,7 +181,7 @@ lyapunov-nn-control-lab/
 
 完全なドキュメント索引は4言語で提供しています。
 
-- [English documentation](docs/en/index.md)
+- [英語ドキュメント](docs/en/index.md)
 - [日本語ドキュメント](docs/ja/index.md)
 - [한국어 문서](docs/ko/index.md)
 - [เอกสารภาษาไทย](docs/th/index.md)

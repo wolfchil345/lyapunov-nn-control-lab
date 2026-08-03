@@ -4,21 +4,21 @@
 
 ## 制御と安定性
 
-- State-space modeling、feedback control、Linear Quadratic Regulator設計。
-- Lyapunov直接法、二次Lyapunov関数、region-of-attraction解析。
-- 不確かさとinput constraintを含むrobust control、nonlinear control。
+- 状態空間モデリング、フィードバック制御、線形二次レギュレータの設計。
+- Lyapunov直接法、二次Lyapunov関数、引き込み領域解析。
+- 不確かさと入力制約を含むシステムに対するロバスト制御と非線形制御。
 
 ## 学習ベース制御
 
-- Neural-network controllerとimitation learning。
-- Stability-aware lossとneural Lyapunov method。
-- Safe reinforcement learningとneural controllerのformal verification。
-- 制御向け関数近似としてのKolmogorov-Arnold Networks。
+- ニューラルネットワーク制御器と模倣学習。
+- 安定性を考慮した損失関数とニューラル Lyapunov 手法。
+- 安全な強化学習とニューラル制御器の形式検証。
+- 制御向け関数近似としての Kolmogorov-Arnold ネットワーク。
 
 ## 数値手法
 
-- Initial-value ODE solver、grid evaluation、sensitivity analysis、uncertainty sweep。
+- 初期値 ODE ソルバ、グリッド評価、感度解析、不確かさのスイープ。
 
-形式的な主張には教科書または査読済み一次文献を使用してください。このページは定理を裏づけるbibliographyではなくreading mapです。
+形式的な主張には教科書または査読済み一次文献を使用してください。このページは定理を裏づける参考文献一覧ではなく、学習資料への案内です。
 
-Packageとrepositoryの引用metadataは [`CITATION.cff`](../../CITATION.cff) にあります。
+パッケージとリポジトリの引用情報は [`CITATION.cff`](../../CITATION.cff) にあります。

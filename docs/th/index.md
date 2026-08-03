@@ -1,8 +1,8 @@
-🌐 Language: [English](../en/index.md) | [日本語](../ja/index.md) | [한국어](../ko/index.md) | [ไทย](../th/index.md)
+🌐 ภาษา: [English](../en/index.md) | [日本語](../ja/index.md) | [한국어](../ko/index.md) | [ไทย](../th/index.md)
 
 # ดัชนีเอกสาร
 
-หน้านี้เป็นแผนที่สำหรับเอกสารหลักของ Lyapunov Neural-Network Control Lab
+หน้านี้เป็นดัชนีสำหรับเอกสารหลักของ Lyapunov NN Control Lab
 
 ## เริ่มต้นที่นี่
 
@@ -33,30 +33,30 @@
 - [คำอธิบายรูปภาพ](figures.md): คำอธิบายรูปที่สร้างขึ้น
 - [กฎการตั้งชื่อไฟล์ผลลัพธ์](result_naming.md): แนวทางการตั้งชื่อไฟล์
 - [รายการตรวจสอบผลลัพธ์](result_review_checklist.md): รายการสำหรับตรวจสอบผลที่สร้างขึ้น
-- [โครงสร้างโครงการ](project_structure.md): ภาพรวมโครงสร้าง repository
-- [การทำซ้ำผลการทดลอง](reproducibility.md): ข้อควรทราบด้าน reproducibility
+- [โครงสร้างโครงการ](project_structure.md): ภาพรวมโครงสร้างรีโพซิทอรี
+- [การทำซ้ำผลการทดลอง](reproducibility.md): ข้อควรทราบด้านการทำซ้ำผล
 - [รายการสิ่งประดิษฐ์](artifact_manifest.md): คำอธิบายไฟล์ต้นฉบับและผลลัพธ์ที่สร้างขึ้น
 
 ## สภาพแวดล้อมและการพัฒนา
 
-- [การตั้งค่าสภาพแวดล้อม](environment.md): Python, virtual environment, dependencies และ local checks
-- [การตั้งค่า VS Code](vscode.md): การตั้งค่า editor ที่แนะนำ
-- [การตั้งค่า GitHub Codespaces](codespaces.md): วิธีใช้ development container
-- [การแก้ปัญหา dependencies](dependency_troubleshooting.md): การแก้ไขปัญหา dependencies และ environment
-- [การอัปเดต dependencies](dependency_updates.md): ตารางอัปเดตและรายการตรวจสอบ
-- [ขั้นตอนการใช้ Git](git_workflow.md): branches, commits, merges และ cleanup
+- [การตั้งค่าสภาพแวดล้อม](environment.md): Python สภาพแวดล้อมเสมือน แพ็กเกจที่ต้องใช้ และการตรวจภายในเครื่อง
+- [การตั้งค่า VS Code](vscode.md): การตั้งค่าโปรแกรมแก้ไขโค้ดที่แนะนำ
+- [การตั้งค่า GitHub Codespaces](codespaces.md): วิธีใช้คอนเทนเนอร์สำหรับการพัฒนา
+- [การแก้ปัญหาแพ็กเกจที่ต้องใช้](dependency_troubleshooting.md): การแก้ไขปัญหาแพ็กเกจและสภาพแวดล้อม
+- [การอัปเดตแพ็กเกจที่ต้องใช้](dependency_updates.md): ตารางอัปเดตและรายการตรวจสอบ
+- [ขั้นตอนการใช้ Git](git_workflow.md): บรานช์ คอมมิต การรวม และการทำความสะอาด
 - [คู่มือเริ่มต้น](onboarding.md): คู่มือสำหรับผู้ใช้ใหม่
 
 ## คุณภาพและการบำรุงรักษา
 
-- [Quality Gate](quality_gate.md): การตรวจสอบความพร้อมและการแก้ไขข้อผิดพลาด
-- [CI workflows](ci_workflows.md): GitHub Actions และ badges
-- [สถานะโครงการ](project_status.md): การตรวจสอบสุขภาพของ repository
+- [ด่านคุณภาพ](quality_gate.md): การตรวจสอบความพร้อมและการแก้ไขข้อผิดพลาด
+- [เวิร์กโฟลว์ CI](ci_workflows.md): GitHub Actions และป้ายสถานะ
+- [สถานะโครงการ](project_status.md): การตรวจสอบสุขภาพของรีโพซิทอรี
 - [การบำรุงรักษา](maintenance.md): งานบำรุงรักษาตามปกติ
-- [การสแกนความปลอดภัย](security_scanning.md): CodeQL workflow และแนวทางตรวจสอบ
-- [การป้องกัน branch](branch_protection.md): กฎป้องกันที่แนะนำ
-- [การตรวจสอบ Pull Request](pull_request_review.md): รายการตรวจสอบการ review
-- [รายการตรวจสอบ release](release_checklist.md): การเตรียม release และสร้าง tag
+- [การสแกนความปลอดภัย](security_scanning.md): CodeQL เวิร์กโฟลว์ และแนวทางตรวจสอบ
+- [การป้องกันบรานช์](branch_protection.md): กฎป้องกันที่แนะนำ
+- [การตรวจสอบคำขอรวมโค้ด](pull_request_review.md): รายการตรวจสอบการทบทวน
+- [รายการตรวจสอบรีลีส](release_checklist.md): การเตรียมรีลีสและสร้างแท็ก
 
 ## การนำเสนอและพอร์ตโฟลิโอ
 
@@ -70,7 +70,7 @@
 - [อภิธานศัพท์](glossary.md): คำศัพท์และคำนิยามสำคัญ
 - [คู่มือภาษาสากล](i18n.md): โครงสร้างเอกสารสี่ภาษา
 
-## นโยบาย Repository และรายงาน
+## นโยบายรีโพซิทอรีและรายงาน
 
 - [แนวทางการมีส่วนร่วม](../../CONTRIBUTING.th.md)
 - [นโยบายความปลอดภัย](../../SECURITY.th.md)

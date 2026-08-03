@@ -4,25 +4,25 @@
 
 ## 設定
 
-- [ ] Branch、commit、seed、epochs、model architectureを記録した。
-- [ ] Initial condition、duration、grid density、noise、parameter caseを記録した。
-- [ ] 比較runは意図した変数だけが異なる。
+- [ ] ブランチ、コミット、シード、エポック数、モデル構成を記録した。
+- [ ] 初期条件、シミュレーション時間、グリッド密度、ノイズ、パラメータの条件を記録した。
+- [ ] 比較実行は意図した変数だけが異なる。
 
 ## 出力
 
-- [ ] 期待するCSV、report、model、figureが存在する。
-- [ ] Figureのlabelが読め、軌道が妥当である。
-- [ ] Metricが有限で、複数を合わせて解釈している。
-- [ ] Saturation、noise、parameter caseを明確に表示している。
+- [ ] 期待するCSV、レポート、モデル、図が存在する。
+- [ ] 図のラベルが読め、軌道が妥当である。
+- [ ] 指標が有限で、複数を合わせて解釈している。
+- [ ] 飽和、ノイズ、パラメータ ケースを明確に表示している。
 
 ## 安定性の主張
 
-- [ ] サンプルLyapunov checkを経験的証拠と説明している。
-- [ ] Region-of-attractionの主張にtest grid、horizon、thresholdを示している。
-- [ ] Failure caseと予想外の挙動を残し、説明している。
+- [ ] サンプルLyapunov 確認を経験的証拠と説明している。
+- [ ] 引き込み領域に関する主張に、テストグリッド、評価時間、閾値を示している。
+- [ ] 失敗 ケースと予想外の挙動を残し、説明している。
 
-## Commit前
+## コミット前
 
-- [ ] `make quality-gate` がpassする。
-- [ ] `git diff` は意図したartifactだけを含む。
-- [ ] Documentationとexperiment logが生成結果と一致する。
+- [ ] `make quality-gate` が合格する。
+- [ ] `git diff` は意図した成果物だけを含む。
+- [ ] ドキュメントと実験 ログが生成結果と一致する。

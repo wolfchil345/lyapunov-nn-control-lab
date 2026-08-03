@@ -2,23 +2,23 @@
 
 # 依存関係のトラブルシューティング
 
-最初に次を実行します。
+まず次を実行します。
 
 ```bash
 python scripts/check_environment.py
 python -m pip check
 ```
 
-## Package不足またはPyTorch import error
+## パッケージがない、またはPyTorchを読み込めない
 
-`.venv` を有効化し、pipをupgradeし、`python -m pip install -e .` で再installします。system Pythonとvirtual environmentのpackageを混在させないでください。
+`.venv`を有効にし、pipを更新してから `python -m pip install -e .` でプロジェクトを再インストールします。システムのPythonと仮想環境のパッケージを混在させないでください。
 
-## Git LFS error
+## Git LFSエラー
 
-Git LFSをinstallし、`git lfs install` と `git lfs pull` を実行して追跡対象binary assetを復元します。
+Git LFSをインストールし、`git lfs install`を実行します。追跡中のバイナリ成果物は `git lfs pull` で復元できます。
 
-## Clean reset
+## 環境を作り直す
 
-system interpreterを変更せず、新しいvirtual environmentを作ります。Codespacesで不整合が続く場合はdev containerをrebuildします。
+システムのPythonを変更するのではなく、新しい仮想環境を作成します。Codespacesで環境の不整合が解消しない場合は、開発コンテナを再構築してください。
 
-相談時には `python scripts/check_environment.py`、`python --version`、`python -m pip check` の出力を添えてください。
+サポートを求める場合は、`python scripts/check_environment.py`、`python --version`、`python -m pip check` の出力を添えてください。

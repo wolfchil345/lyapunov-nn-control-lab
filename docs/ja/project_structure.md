@@ -4,22 +4,22 @@
 
 ```text
 lyapunov-nn-control-lab/
-├── main.py                    # Full experiment pipeline
-├── src/                       # Control, simulation, analysis, reporting
-├── tests/                     # Automated tests
-├── scripts/                   # Checks, maintenance, experiment helpers
-├── examples/                  # Minimal runnable example
-├── docs/{en,ja,ko,th}/        # Localized documentation
-├── results/                   # Reference figures, CSV data, reports
-├── .github/                   # Workflows and contribution templates
-├── pyproject.toml             # Package metadata and dependencies
-└── README*.md                 # Four localized entry pages
+├── main.py                    # 実験全体の実行パイプライン
+├── src/                       # 制御、シミュレーション、解析、レポート作成
+├── tests/                     # 自動テスト
+├── scripts/                   # 検査、保守、実験支援ツール
+├── examples/                  # 実行可能な最小例
+├── docs/{en,ja,ko,th}/        # 各言語のドキュメント
+├── results/                   # 参照用の図、CSVデータ、レポート
+├── .github/                   # ワークフローと貢献用テンプレート
+├── pyproject.toml             # パッケージ情報と依存関係
+└── README*.md                 # 4言語のエントリーページ
 ```
 
-## Sourceの責務
+## ソースの責務
 
-`src/system.py` はplantとLQR baselineを定義します。Controller trainingは `src/controllers.py` にあり、simulation、metric、Lyapunov check、robustness study、plotting、reportingは目的別moduleに分かれています。
+`src/system.py` はプラントとLQR基準制御器を定義します。制御器の学習は `src/controllers.py` にあり、シミュレーション、評価指標、Lyapunov検査、ロバスト性実験、プロット、レポート作成は目的ごとのモジュールに分けられています。
 
 ## 生成ファイル
 
-`results/nn_controller.pt` は生成されignoreされます。選択したplot、CSV、reportはreference evidenceとして追跡します。Commit前に確認してください。
+`results/nn_controller.pt` は実行時に生成され、Git管理の対象外です。一部の図、CSVファイル、レポートは参照用の検証資料として追跡します。コミット前に内容を確認してください。

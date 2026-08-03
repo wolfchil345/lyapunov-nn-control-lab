@@ -2,15 +2,15 @@
 
 # โครงร่างการนำเสนอ
 
-1. **แรงจูงใจ:** Neural controller ยืดหยุ่น แต่ต้องตรวจเสถียรภาพและ robustness
-2. **Plant:** Mass-spring-damper state-space model ที่มี position, velocity และ force input
-3. **Baseline:** LQR ให้ stabilizing reference และ imitation target
-4. **Neural controller:** Zero-at-origin architecture, imitation loss และ Lyapunov penalty
-5. **การประเมิน:** Trajectory, settling time, cost, control effort และ sampled `V_dot`
-6. **Robustness:** Actuator saturation, measurement noise และ parameter variation
-7. **State-space evidence:** Phase portrait, Lyapunov contour และ region-of-attraction map
-8. **ผลหลัก:** Neural controller ใกล้ LQR ใน test setting และ sampled Lyapunov violation fraction ที่ติดตามทั้งหมดเป็น zero
-9. **ข้อจำกัด:** Simulated linear plant, finite grid, uncertainty case ที่เลือก และไม่มี formal proof
-10. **งานอนาคต:** Nonlinear system, formal verification, learned Lyapunov function, KAN และ hardware validation
+1. **แรงจูงใจ:** ตัวควบคุมโครงข่ายประสาทมีความยืดหยุ่น แต่ต้องตรวจสอบเสถียรภาพและความทนทาน
+2. **ระบบ:** แบบจำลองปริภูมิสถานะของระบบมวล-สปริง-แดมเปอร์ โดยมีตำแหน่ง ความเร็ว และแรงเป็นอินพุต
+3. **ตัวควบคุมอ้างอิง:** LQR ให้ตัวอ้างอิงที่ทำให้ระบบเสถียรและเป้าหมายสำหรับการเลียนแบบ
+4. **ตัวควบคุมโครงข่ายประสาท:** สถาปัตยกรรมที่ให้เอาต์พุตเป็นศูนย์ที่จุดกำเนิด ความสูญเสียการเลียนแบบ และพจน์ปรับโทษ Lyapunov
+5. **การประเมิน:** วิถี เวลาเข้าสู่สมดุล ต้นทุน แรงควบคุม และ `V_dot` บนจุดตัวอย่าง
+6. **ความทนทาน:** การอิ่มตัวของแอกชูเอเตอร์ สัญญาณรบกวนในการวัด และความแปรผันของพารามิเตอร์
+7. **หลักฐานในปริภูมิสถานะ:** แผนภาพเฟส เส้นชั้น Lyapunov และแผนที่บริเวณดึงดูด
+8. **ผลหลัก:** ในเงื่อนไขที่ทดสอบ ตัวควบคุมโครงข่ายประสาทติดตาม LQR ได้ใกล้เคียง และสัดส่วนการละเมิด Lyapunov บนจุดตัวอย่างที่บันทึกทั้งหมดเป็นศูนย์
+9. **ข้อจำกัด:** ใช้ระบบเชิงเส้นจำลอง กริดจำกัด กรณีความไม่แน่นอนที่คัดเลือก และไม่มีการพิสูจน์เชิงรูปแบบ
+10. **งานในอนาคต:** ระบบไม่เชิงเส้น การพิสูจน์เชิงรูปแบบ ฟังก์ชัน Lyapunov ที่เรียนรู้ได้ KAN และการตรวจสอบด้วยฮาร์ดแวร์
 
-เมื่อเสนอข้ออ้างเชิงตัวเลข ให้ใช้ figure ที่มี caption อ่านได้และระบุ seed กับ tested region
+เมื่อนำเสนอข้ออ้างเชิงตัวเลข ให้ใช้รูปที่มีคำบรรยายอ่านง่าย และระบุค่าเมล็ดสุ่มกับบริเวณที่ทดสอบ

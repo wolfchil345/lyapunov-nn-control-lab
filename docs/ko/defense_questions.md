@@ -4,24 +4,24 @@
 
 ## 동기와 설계
 
-**왜 LQR을 사용하는가?** 투명한 안정화 baseline이며 선형 공칭 plant에 신뢰할 수 있는 imitation target을 제공하기 때문입니다.
+**왜 LQR을 사용하는가?** 투명한 안정화 기준 제어기이며 선형 공칭 플랜트에 신뢰할 수 있는 모방 대상을 제공하기 때문입니다.
 
-**Network는 무엇을 배우는가?** Position과 velocity에서 scalar control force로 가는 mapping입니다.
+**네트워크는 무엇을 배우는가?** 위치와 속도에서 스칼라 제어력으로의 대응 관계를 배웁니다.
 
-**왜 `u(0) = 0`을 강제하는가?** 목표에서 nonzero command가 의도한 equilibrium을 깨뜨릴 수 있기 때문입니다.
+**왜 `u(0) = 0`을 강제하는가?** 목표 상태에서 0이 아닌 명령이 의도한 평형점을 깨뜨릴 수 있기 때문입니다.
 
 ## 안정성
 
-**Grid check가 global stability를 증명하는가?** 아닙니다. 하나의 Lyapunov candidate로 유한한 sampled state를 평가합니다.
+**격자 검사가 전역 안정성를 증명하는가?** 아닙니다. 하나의 Lyapunov candidate로 유한한 표본점에서의 상태를 평가합니다.
 
-**왜 Lyapunov penalty를 사용하는가?** Imitation error만으로 closed-loop decay를 직접 측정할 수 없습니다. Penalty는 학습 중 sampled decay condition을 유도합니다.
+**왜 Lyapunov 패널티를 사용하는가?** 모방 오류만으로 폐루프 감소를 직접 측정할 수 없습니다. 패널티는 학습 중 표본점에서의 감소 조건을 유도합니다.
 
 ## 평가
 
-**어떤 metric이 가장 중요한가?** 하나만으로 결정할 수 없습니다. Convergence, cost, effort, sampled stability, robustness를 함께 해석합니다.
+**어떤 지표가 가장 중요한가?** 하나만으로 결정할 수 없습니다. 수렴성, 비용, 입력 크기, 표본점에서의 안정성, 강건성을 함께 해석합니다.
 
-**왜 saturation, noise, parameter variation을 시험하는가?** 실제 제어기는 입력 제한, sensor 오차, model mismatch를 겪기 때문입니다.
+**왜 포화, 잡음, 매개변수 변화를 시험하는가?** 실제 제어기는 입력 제한, 센서 오차, 모델 불일치의 영향을 받기 때문입니다.
 
 ## 한계와 다음 연구
 
-Plant는 단순하고 모든 근거는 simulation이며 training region 밖의 거동은 불확실합니다. Nonlinear plant, formal verification, hardware experiment, KAN 같은 대체 architecture가 강화 방향입니다.
+플랜트는 단순하고 모든 근거는 시뮬레이션이며 학습 영역 밖의 거동은 불확실합니다. 비선형 플랜트, 형식적 검증, 실기기 실험, KAN 같은 대체 구조가 강화 방향입니다.

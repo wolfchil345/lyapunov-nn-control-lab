@@ -2,28 +2,28 @@
 
 # โมเดลการ์ด
 
-## โมเดล
+## แบบจำลอง
 
-Controller เป็น PyTorch multilayer perceptron ขนาดเล็กที่ mapping `[position, velocity]` ไปเป็น force command หนึ่งค่า และ shift output เพื่อบังคับ `u(0) = 0`
+ตัวควบคุมเป็นโครงข่ายเพอร์เซปตรอนหลายชั้นขนาดเล็กด้วย PyTorch ซึ่งแปลง `[position, velocity]` เป็นคำสั่งแรงหนึ่งค่า เลื่อนค่าเอาต์พุตเพื่อบังคับ `u(0) = 0`
 
 ## การฝึก
 
-Sample state จาก bounded region และสร้าง label ด้วย nominal LQR controller การฝึกลด imitation MSE รวมกับ weighted sampled Lyapunov penalty Repository ตั้ง fixed random seed
+สุ่มสถานะจากบริเวณที่มีขอบเขต และกำกับคำตอบด้วยตัวควบคุม LQR ค่านาม การฝึกลด MSE ของการเลียนแบบร่วมกับพจน์ปรับโทษ Lyapunov บนจุดตัวอย่างที่ถ่วงน้ำหนัก รีโพซิทอรีกำหนดค่าเมล็ดสุ่มคงที่
 
-## การใช้งานที่ตั้งใจ
+## วัตถุประสงค์การใช้งาน
 
-- การศึกษาและ research prototyping สำหรับ learning-based control
-- Reproducible comparison กับ LQR ใน simulation ที่รวมไว้
-- การสำรวจ stability-aware objective และ robustness diagnostic
+- การศึกษาและการสร้างต้นแบบวิจัยสำหรับการควบคุมที่อาศัยการเรียนรู้
+- การเปรียบเทียบกับ LQR ที่ทำซ้ำได้ภายใต้การจำลองที่ให้มา
+- การสำรวจวัตถุประสงค์การฝึกที่คำนึงถึงเสถียรภาพและการวินิจฉัยความทนทาน
 
 ## นอกขอบเขต
 
-- การ deployment โดยตรงกับ safety-critical หรือ hardware
-- ข้ออ้าง formal, global หรือ distribution-free stability
-- การทำงานนอก state, actuator และ plant range ที่ตรวจแล้ว
+- การนำไปใช้โดยตรงกับงานที่มีความสำคัญต่อความปลอดภัยหรือฮาร์ดแวร์จริง
+- การอ้างเสถียรภาพแบบพิสูจน์เชิงรูปแบบ ทั่วทั้งปริภูมิ หรือไม่ขึ้นกับการแจกแจง
+- การทำงานนอกช่วงสถานะ แอกชูเอเตอร์ และระบบที่ได้ตรวจสอบ
 
 ## การประเมิน
 
-Closed-loop trajectory, final norm, settling time, cost, control energy, maximum input, sampled `V_dot`, robustness scenario และ estimated region of attraction
+วิถีวงปิด นอร์มสุดท้าย เวลาเข้าสู่สมดุล ต้นทุน พลังงานควบคุม อินพุตสูงสุด `V_dot` บนจุดตัวอย่าง กรณีความทนทาน และบริเวณดึงดูดที่ประมาณไว้
 
-อ่าน [ข้อจำกัด](limitations.md) และ [การทำซ้ำผล](reproducibility.md) ก่อน reuse model
+อ่าน [ข้อจำกัด](limitations.md) และ [การทำซ้ำผล](reproducibility.md) ก่อนนำแบบจำลองไปใช้ซ้ำ

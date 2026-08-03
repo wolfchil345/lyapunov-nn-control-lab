@@ -4,24 +4,24 @@
 
 ## モデルとデータ
 
-- Plantはsimulated linear mass-spring-damper systemです。
-- Training stateはbounded regionを対象としLQR teacherを使います。
-- Nonlinear plantやunseen stateへのgeneralizationを示しません。
+- プラントはsimulated 線形 質量ばねダンパ システムです。
+- 学習 状態はbounded 領域を対象としLQR 教師を使います。
+- 非線形 プラントやunseen 状態へのgeneralizationを示しません。
 
 ## 安定性の証拠
 
-- Quadratic Lyapunov functionは公称LQR設計から得ています。
-- `V_dot` とregion-of-attraction評価はfinite grid、threshold、simulation horizonを使用します。
-- Zero sampled violationはformalまたはglobal proofではありません。
+- 二次形式の Lyapunov 関数は公称LQR設計から得ています。
+- `V_dot` と引き込み領域評価はfinite グリッド、閾値、シミュレーション 評価時間を使用します。
+- サンプル点で違反が0であっても、形式的または大域的な証明にはなりません。
 
 ## ロバスト性の証拠
 
-- Actuator limit、noise level、parameter variationは選択scenarioであり、網羅的uncertainty setではありません。
-- Numerical solverとdependency versionにより小さな差が生じます。
-- Hardware、delay、quantization、fault、adversarial testを含みません。
+- アクチュエータ制限、ノイズレベル、パラメータ変動は選択したシナリオであり、網羅的な不確かさの集合ではありません。
+- 数値 solverと依存関係 バージョンにより小さな差が生じます。
+- ハードウェア、遅延、量子化、故障、敵対的入力のテストは含みません。
 
 ## 責任ある利用
 
-このrepositoryは教育研究softwareであり、安全認証済みcontrollerではありません。物理equipmentへ適用する前に独立検証してください。
+このリポジトリは教育研究ソフトウェアであり、安全認証済み制御器ではありません。物理装置へ適用する前に独立検証してください。
 
-今後はnonlinear plant、formal verification、learned Lyapunov function、広いuncertainty analysis、hardware validationを検討します。
+今後は非線形 プラント、形式的 検証、学習した Lyapunov 関数、広い不確かさ 解析、実機 検証を検討します。

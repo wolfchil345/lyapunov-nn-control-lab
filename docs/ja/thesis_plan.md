@@ -8,24 +8,24 @@
 
 ## 目的
 
-LQR teacherから学習したneural controllerが、選択した非理想条件で有用なclosed-loop performance、sampled stability behavior、robustnessを維持できるか評価します。
+LQR教師から学習したニューラル制御器が、選択した非理想条件の下で、有用な閉ループ性能、サンプ点での安定性の挙動、ロバスト性を維持できるかを評価します。
 
 ## 手法
 
-1. State-space plantとLQR baselineを導出。
-2. Imitation lossとstability-aware lossでneural controllerを学習。
-3. Trajectory、cost、effort、settling timeを比較。
-4. Sampled Lyapunov behaviorと推定region of attractionを評価。
-5. Saturation、noise、parameter variationを試験。
-6. Limitationsとreproducibilityを文書化。
+1. 状態空間 プラントとLQR ベースラインを導出。
+2. 模倣 損失と安定性-を意識した 損失でニューラル制御器を学習。
+3. 軌道、コスト、大きさ、整定時間を比較。
+4. サンプル点での Lyapunov 挙動と推定引き込み領域を評価。
+5. 飽和、ノイズ、パラメータ変動を試験。
+6. 制約とreproducibilityを文書化。
 
 ## 推奨章構成
 
 1. 序論と関連研究
-2. System modelとLQR設計
-3. Neural controllerの学習
-4. 安定性・robustness評価
+2. システム モデルとLQR設計
+3. ニューラル 制御器の学習
+4. 安定性・ロバスト性評価
 5. 結果と考察
 6. 制約、結論、今後の課題
 
-現在のsystemはsimulation testbedです。Hardware validationとformal verificationは将来の拡張です。
+現在のシステムはシミュレーション用のテストベッドです。実機検証と形式検証は将来の拡張課題です。

@@ -1,7 +1,7 @@
 ---
 name: 실험 제안
 about: 새 제어기, 안정성 검사, 그림 또는 강건성 실험 제안
-title: "[Experiment]: "
+title: "[실험]: "
 labels: enhancement
 assignees: ""
 ---
@@ -14,20 +14,20 @@ assignees: ""
 
 ## 동기
 
-왜 project를 개선합니까?
+왜 프로젝트를 개선합니까?
 
 ## 가능한 구현
 
-추가할 file, function, plot, metric을 설명하십시오.
+추가할 파일, 함수, 그래프, 지표를 설명해 주세요.
 
 ## 예상 출력
 
-Result는 어떤 모습이어야 합니까?
+결과는 어떤 모습이어야 합니까?
 
 ## 평가와 한계
 
-어떤 baseline, metric, stability check, failure case를 포함해야 합니까?
+어떤 기준 제어기, 지표, 안정성 검사, 실패 사례를 포함해야 합니까?
 
 ## 참고자료
 
-가능한 paper, textbook, 관련 project를 추가하십시오.
+가능한 논문, 교재, 관련 프로젝트를 추가해 주세요.

@@ -27,7 +27,7 @@ python scripts/summarize_results.py
 python scripts/new_experiment_log.py "short description" --language th
 ```
 
-`python scripts/clean_results.py` ลบทุกไฟล์ใน `results/` ให้ backup reference artifact ที่ต้องการเก็บก่อนใช้งาน
+`python scripts/clean_results.py` ลบทุกไฟล์ใน `results/` ให้ สำรองข้อมูล อ้างอิง สิ่งส่งมอบ ที่ต้องการเก็บก่อนใช้งาน
 
 ## Git
 

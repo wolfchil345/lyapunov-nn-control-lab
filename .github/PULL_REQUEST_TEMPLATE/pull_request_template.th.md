@@ -1,6 +1,6 @@
 🌐 ภาษา: [English](../pull_request_template.md) | [日本語](pull_request_template.ja.md) | [한국어](pull_request_template.ko.md) | [ไทย](pull_request_template.th.md)
 
-# Pull Request
+# คำขอรวมโค้ด
 
 ## สรุป
 
@@ -8,25 +8,25 @@
 
 ## ประเภท
 
-- [ ] Bug fix
-- [ ] Experiment หรือ scientific change
-- [ ] Documentation หรือ translation
-- [ ] Test, tooling หรือ refactoring
+- [ ] แก้ไขข้อบกพร่อง
+- [ ] เปลี่ยนแปลงการทดลองหรือเนื้อหาทางวิทยาศาสตร์
+- [ ] เอกสารหรือการแปล
+- [ ] การทดสอบ เครื่องมือพัฒนา หรือการปรับโครงสร้างโค้ด
 
 ## ผลกระทบทางวิทยาศาสตร์และไฟล์ที่สร้าง
 
-- Seed, parameter, architecture, loss หรือ metric ที่เปลี่ยน:
-- Plot, CSV, report หรือ model artifact ที่เปลี่ยน:
-- ความต่างเชิงตัวเลขและ limitations ที่คาด:
+- ค่าเมล็ดสุ่ม พารามิเตอร์ สถาปัตยกรรม ค่าความสูญเสีย หรือตัวชี้วัดที่เปลี่ยน:
+- กราฟ CSV รายงาน หรือไฟล์แบบจำลองที่เปลี่ยน:
+- ความต่างเชิงตัวเลขและข้อจำกัดที่คาดไว้:
 
 ## การตรวจสอบ
 
 - [ ] `git diff --check`
 - [ ] `make checks`
 - [ ] `make quality-gate`
-- [ ] อัปเดต viewer-facing documentation ทั้งสี่ภาษาเมื่อจำเป็น
-- [ ] Review generated artifact และ include โดยตั้งใจ
+- [ ] อัปเดตเอกสารสำหรับผู้ใช้ทั้งสี่ภาษาเมื่อจำเป็น
+- [ ] ตรวจผลลัพธ์ที่สร้างขึ้น และรวมเฉพาะไฟล์ที่ตั้งใจเก็บ
 
-## Follow-up
+## งานต่อเนื่อง
 
-ระบุ work ที่ยังไม่เสร็จหรือเขียน `None`
+ระบุงานที่ยังไม่เสร็จหรือเขียน `None`

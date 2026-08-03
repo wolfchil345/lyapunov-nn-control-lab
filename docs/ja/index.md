@@ -1,8 +1,8 @@
-🌐 Language: [English](../en/index.md) | [日本語](../ja/index.md) | [한국어](../ko/index.md) | [ไทย](../th/index.md)
+🌐 言語: [English](../en/index.md) | [日本語](../ja/index.md) | [한국어](../ko/index.md) | [ไทย](../th/index.md)
 
 # ドキュメント一覧
 
-このページは、Lyapunov Neural-Network Control Lab の主要なドキュメントを案内する索引です。
+このページは、Lyapunov NN Control Labの主要なドキュメントを案内する索引です。
 
 ## 最初に読むページ
 

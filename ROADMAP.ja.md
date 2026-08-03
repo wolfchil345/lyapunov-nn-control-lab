@@ -2,33 +2,33 @@
 
 # ロードマップ
 
-## 短期
+## 短期目標
 
-- 複数seedでneural trainingを繰り返し、分布またはconfidence intervalを報告。
-- 実験選択CLIを追加し、高cost sweepを目的別commandに分割。
-- 生成reportにdependency versionとexperiment configurationを記録。
+- 複数の乱数シードでニューラルネットワークの学習を繰り返し、分布または信頼区間を報告する。
+- 実験選択用の CLI を追加し、計算コストの高いスイープを目的ごとのコマンドに分ける。
+- 生成レポートに依存パッケージのバージョンと実験設定を記録する。
 
 ## 制御とロバスト性
 
-- 互換settingでPID、LQR、MPC、MLP、KAN controllerを比較。
-- Nonlinear plant、external disturbance、delay、quantization、広いuncertainty setを追加。
-- Region-of-attraction解析を拡張しfailure-case mapを保存。
+- 同等の条件で PID、LQR、MPC、MLP、KAN 制御器を比較する。
+- 非線形プラント、外乱、遅延、量子化、より広い不確実性集合を追加する。
+- 引き込み領域の解析を拡張し、失敗例のマップを保存する。
 
 ## 安定性解析
 
-- Alternativeおよびlearned Lyapunov functionを試験。
-- Candidate violation付近にadaptive samplingを追加。
-- Empirical grid checkとformal neural-network verification toolを比較。
+- 別の Lyapunov 関数および学習した Lyapunov 関数を試験する。
+- 違反候補の周辺で適応的サンプリングを行う。
+- 経験的なグリッド検査と、ニューラルネットワークを対象とする形式検証ツールを比較する。
 
 ## 物理検証
 
-- 実機運用前にhardware-in-the-loop stageを構築。
-- Actuator、sensor、safety constraintを明示。
-- Safety-certified componentとresearch prototypeを分離。
+- 実機を運用する前に、ハードウェアインザループの段階を構築する。
+- アクチュエータ、センサ、安全性の制約を明示する。
+- 安全性が認証された構成要素と研究用プロトタイプを分離する。
 
 ## コミュニケーション
 
-- Feature変更時も4言語documentationを完全に維持。
-- 同じreproducible resultに基づくposterと短いtechnical articleを追加。
+- 機能の変更時にも4言語のドキュメントを完全に保つ。
+- 同じ再現可能な結果に基づくポスターと短い技術記事を追加する。
 
-長期目標は信頼できるlearning-based control実験platformであり、一つのneural controllerがcontrol safety全般を解決するという主張ではありません。
+長期目標は、信頼できる学習ベース制御実験のためのコンパクトな基盤を構築することです。一つのニューラル制御器で制御安全全般を解決できると主張するものではありません。

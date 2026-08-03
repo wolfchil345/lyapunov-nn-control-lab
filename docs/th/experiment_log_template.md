@@ -1,40 +1,40 @@
 🌐 ภาษา: [English](../en/experiment_log_template.md) | [日本語](../ja/experiment_log_template.md) | [한국어](../ko/experiment_log_template.md) | [ไทย](../th/experiment_log_template.md)
 
-# Template บันทึกการทดลอง
+# แม่แบบบันทึกการทดลอง
 
-## ข้อมูลประจำการทดลอง
+## ข้อมูลพื้นฐาน
 
 - วันที่:
-- Branch และ commit SHA:
+- บรานช์และ commit SHA:
 - คำถามวิจัย:
-- จุดประสงค์:
+- วัตถุประสงค์:
 
-## Environment และการตั้งค่า
+## สภาพแวดล้อมและค่าตั้ง
 
-- Python และ PyTorch version:
-- Runtime:
-- Random seed:
-- Epochs, learning rate, dataset size, network architecture:
-- การตั้งค่า plant, controller, simulation, Lyapunov, noise และ parameter:
+- เวอร์ชัน Python และ PyTorch:
+- สภาพแวดล้อมที่ใช้รัน:
+- ค่าเมล็ดสุ่ม:
+- จำนวนรอบฝึก อัตราการเรียนรู้ ขนาดชุดข้อมูล และโครงสร้างเครือข่าย:
+- ค่าตั้งของระบบ ตัวควบคุม การจำลอง Lyapunov สัญญาณรบกวน และพารามิเตอร์:
 
 ## คำสั่งและผลลัพธ์
 
 - คำสั่งที่ใช้:
-- Metrics CSV:
-- Report:
-- Figures:
+- ไฟล์ CSV ของตัวชี้วัด:
+- รายงาน:
+- รูป:
 
-## การตีความ
+## การตีความผล
 
 - อะไรดีขึ้นหรือแย่ลง?
-- เปรียบเทียบกับ LQR อย่างไร?
-- มี sampled Lyapunov violation หรือ robustness failure หรือไม่?
-- การตั้งค่าเทียบกับ run ก่อนหน้าได้หรือไม่?
+- ตัวควบคุมทำงานเป็นอย่างไรเมื่อเทียบกับ LQR?
+- มีการละเมิดเงื่อนไข Lyapunov บนจุดตัวอย่าง หรือมีความล้มเหลวด้านความทนทานหรือไม่?
+- ค่าตั้งเปรียบเทียบกับการทดลองครั้งก่อนได้หรือไม่?
 
 ## การตัดสินใจ
 
-- เก็บเป็น reference result? Yes / No
-- ใช้ใน report หรือ presentation? Yes / No
+- เก็บเป็นผลอ้างอิงหรือไม่? ใช่ / ไม่
+- นำไปใช้ในรายงานหรือการนำเสนอหรือไม่? ใช่ / ไม่
 - การทดลองถัดไป:
 
-สร้างสำเนาที่มี timestamp ด้วย `python scripts/new_experiment_log.py "short description" --language th`
+สร้างสำเนาที่มีเวลากำกับด้วย `python scripts/new_experiment_log.py "short description" --language th`

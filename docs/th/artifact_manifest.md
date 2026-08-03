@@ -1,27 +1,27 @@
 🌐 ภาษา: [English](../en/artifact_manifest.md) | [日本語](../ja/artifact_manifest.md) | [한국어](../ko/artifact_manifest.md) | [ไทย](../th/artifact_manifest.md)
 
-# รายการ Artifact
+# รายการไฟล์และผลลัพธ์
 
-## Source และการตั้งค่า
+## ซอร์สโค้ดและการตั้งค่า
 
-- `main.py`: orchestration การทดลองทั้งหมด
-- `src/`: dynamics, controller, simulation, metric, robustness, reporting และ plotting
-- `tests/`: การตรวจ behavior อัตโนมัติ
-- `pyproject.toml`, `requirements.txt`: package metadata และ dependency
+- `main.py`: ควบคุมลำดับการทดลองทั้งหมด
+- `src/`: พลวัต ตัวควบคุม การจำลอง ตัวชี้วัด ความทนทาน การสร้างรายงาน และการวาดกราฟ
+- `tests/`: การทดสอบพฤติกรรมแบบอัตโนมัติ
+- `pyproject.toml`, `requirements.txt`: ข้อมูลแพ็กเกจและไลบรารีที่ต้องใช้
 
-## สคริปต์ปฏิบัติงาน
+## สคริปต์สำหรับใช้งาน
 
-- `scripts/run_checks.py`: ตรวจ documentation link, test และ quick start
-- `scripts/quality_gate.py`: ลำดับตรวจ repository readiness ขั้นสุดท้าย
-- `scripts/run_full_experiment.py`: cleanup, experiment และ summary pipeline
-- `scripts/check_environment.py`, `scripts/project_status.py`, `scripts/list_results.py`: การวินิจฉัย
+- `scripts/run_checks.py`: ตรวจลิงก์เอกสาร รันชุดทดสอบ และตัวอย่างเริ่มต้น
+- `scripts/quality_gate.py`: ตรวจความพร้อมขั้นสุดท้ายของรีโพซิทอรี
+- `scripts/run_full_experiment.py`: ล้างผลเก่า รันการทดลอง และสรุปผลตามลำดับ
+- `scripts/check_environment.py`, `scripts/project_status.py`, `scripts/list_results.py`: สคริปต์สำหรับวินิจฉัยสภาพแวดล้อมและไฟล์
 
 ## หลักฐานที่สร้างขึ้น
 
-- `results/*.png`: reference figure
-- `results/performance_metrics.csv`: controller metric
-- `results/stability_weight_ablation.csv`: ablation metric
-- `results/experiment_report*.md`: report หลายภาษา
-- `results/nn_controller.pt`: model state ที่สร้างและไม่ติดตามโดยตั้งใจ
+- `results/*.png`: รูปอ้างอิง
+- `results/performance_metrics.csv`: ตัวชี้วัดสมรรถนะของตัวควบคุม
+- `results/stability_weight_ablation.csv`: ตัวชี้วัดจากการทดลองแบบตัดองค์ประกอบ
+- `results/experiment_report*.md`: รายงานแต่ละภาษา
+- `results/nn_controller.pt`: สถานะโมเดลที่สร้างขึ้น โดยตั้งใจไม่ให้ Git ติดตาม
 
-ไฟล์ที่สร้างคือหลักฐานไม่ใช่ source ให้เก็บการตั้งค่าและตรวจ diff ก่อนแทนที่ artifact ที่ติดตาม
+ไฟล์ที่สร้างขึ้นเป็นหลักฐานจากการทดลอง ไม่ใช่ซอร์สโค้ด ควรเก็บค่าตั้งและตรวจความแตกต่างก่อนแทนที่ไฟล์อ้างอิงที่ Git ติดตามอยู่

@@ -27,7 +27,7 @@ python scripts/summarize_results.py
 python scripts/new_experiment_log.py "short description" --language ja
 ```
 
-`python scripts/clean_results.py` は `results/` 内の全ファイルを削除します。保存するreference artifactは先にbackupしてください。
+`python scripts/clean_results.py` は `results/` 内の全ファイルを削除します。保存する参照 成果物は先にバックアップしてください。
 
 ## Git
 

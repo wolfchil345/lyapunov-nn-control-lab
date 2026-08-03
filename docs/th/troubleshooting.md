@@ -2,24 +2,24 @@
 
 # การแก้ไขปัญหา
 
-## Import หรือ test ล้มเหลว
+## นำเข้าโมดูลไม่ได้หรือการทดสอบล้มเหลว
 
-ตรวจว่า terminal อยู่ที่ root ของ repository เปิด `.venv` แล้วรัน `python -m pip install -e .` และ `python -m pytest`
+ตรวจว่าเทอร์มินัลอยู่ที่รากโครงการ เปิดใช้งาน `.venv` แล้วรัน `python -m pip install -e .` และ `python -m pytest`
 
-## Plot หรือ CSV เก่า
+## กราฟ หรือ CSV เก่า
 
-ตรวจ `git status` และ backup artifact ที่ติดตาม จากนั้นจึงรัน `python scripts/clean_results.py` แล้ว `python main.py`
+ตรวจ `git status` และสำรองผลลัพธ์ที่ Git ติดตามอยู่ จากนั้นจึงรัน `python scripts/clean_results.py` แล้ว `python main.py`
 
 ## ค่าตัวเลขต่างเล็กน้อย
 
-ตรวจ Python, dependency version และ seed คงที่ ความต่างเล็กน้อยระหว่าง platform เป็นไปได้ แต่ความต่างมากต้องตรวจสอบ
+ตรวจเวอร์ชัน Python เวอร์ชันไลบรารี และค่าเมล็ดสุ่มคงที่ ความต่างเล็กน้อยระหว่างแพลตฟอร์มเป็นไปได้ แต่หากต่างกันมากต้องหาสาเหตุ
 
 ## การฝึกช้า
 
-ใช้ quick start เพื่อตรวจ setup การทดลองเต็มมีการฝึก robustness sweep และ region-of-attraction simulation
+ใช้ตัวอย่างเริ่มต้นเพื่อตรวจการตั้งค่า การทดลองเต็มรวมการฝึก การประเมินความทนทานหลายกรณี และการจำลองบริเวณดึงดูด
 
-## สับสนเรื่อง Git branch
+## สับสนเรื่อง Git บรานช์
 
-รัน `git status -sb` และ `git branch --show-current` อย่า commit ไฟล์ environment หรือผลลัพธ์ที่ไม่เกี่ยวข้อง
+รัน `git status -sb` และ `git branch --show-current` อย่าคอมมิตไฟล์สภาพแวดล้อมหรือผลลัพธ์ที่ไม่เกี่ยวข้อง
 
-ปัญหาการติดตั้งดูที่ [การแก้ปัญหา dependency](dependency_troubleshooting.md)
+ปัญหาการติดตั้งดูที่ [การแก้ปัญหาแพ็กเกจที่ต้องใช้](dependency_troubleshooting.md)

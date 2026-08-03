@@ -1,23 +1,23 @@
 🌐 言語: [English](../en/pull_request_review.md) | [日本語](../ja/pull_request_review.md) | [한국어](../ko/pull_request_review.md) | [ไทย](../th/pull_request_review.md)
 
-# Pull Requestレビュー
+# Pull Requestのレビュー
 
 ## 一般レビュー
 
-- [ ] Titleとsummaryが一つの限定された変更を説明する。
-- [ ] Testとrequired checkがpassする。
-- [ ] User-facing behavior変更時にdocumentを4言語で更新する。
-- [ ] Generated fileを意図してincludeまたはignoreする。
+- [ ] Titleと概要が一つの限定された変更を説明する。
+- [ ] テストと必須チェックが合格する。
+- [ ] ユーザーから見える動作が変わる場合は、ドキュメントを4言語すべてで更新する。
+- [ ] 生成ファイルを追跡するか無視するかを意図的に決める。
 - [ ] Merge前にconversationを解決する。
 
 ## 科学的レビュー
 
-- [ ] Seed、plant parameter、controller architecture、loss、evaluation settingの変更が明示される。
-- [ ] 数値とfigureのdiffを説明する。
-- [ ] Sampled checkをformal proofとして示さない。
-- [ ] Failure caseとlimitationsを残す。
+- [ ] 乱数シード、プラントパラメータ、制御器構成、損失関数、評価設定の変更が明記されている。
+- [ ] 数値と図の差分を説明する。
+- [ ] サンプル点での 確認を形式的証明として示さない。
+- [ ] 失敗 ケースと制約を残す。
 
-## Local commands
+## ローカルで実行するコマンド
 
 ```bash
 git diff --check
@@ -25,4 +25,4 @@ make checks
 make quality-gate
 ```
 
-Latest commitが全required checkにpassした後、protected `main` branch経由でのみmergeします。
+最新のコミットが必須チェックをすべて通過した後、保護された `main` ブランチ経由でのみマージします。

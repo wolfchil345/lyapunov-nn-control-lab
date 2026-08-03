@@ -4,23 +4,23 @@
 
 ## 목적
 
-Lyapunov NN Control Lab은 기계 system, 고전 제어, neural network, 안정성 해석을 연결하는 재현 가능한 research 및 portfolio project입니다.
+Lyapunov NN Control Lab은 기계 시스템, 고전 제어, 신경망, 안정성 해석을 연결하는 재현 가능한 연구 및 포트폴리오 프로젝트입니다.
 
 ## 접근 방법
 
-Mass-spring-damper plant를 model화하고 LQR baseline을 설계하며 LQR state-feedback law를 모방하는 neural controller를 학습합니다. Training에는 sampled Lyapunov penalty도 포함됩니다. 여러 initial state, quantitative metric, actuator saturation, measurement noise, plant-parameter variation, sampled Lyapunov behavior, estimated region of attraction으로 평가합니다.
+질량-스프링-댐퍼 시스템를 모델화하고 LQR 기준 제어기을 설계하며 LQR 상태 피드백 법칙를 모방하는 신경망 제어기를 학습합니다. 학습에는 표본점 기반 Lyapunov 패널티도 포함됩니다. 여러 초기 상태, 정량 지표, 구동기 포화, 측정 잡음, 플랜트 매개변수 변화, 표본점 Lyapunov 거동, 추정 인력 영역으로 평가합니다.
 
 ## 근거
 
-- Automated test, quick-start example, CI, quality gate.
-- 추적 figure, CSV metric, 생성 experiment report.
-- Fixed random seed와 documented reproduction workflow.
-- Empirical sampled evidence와 formal proof의 정직한 구분.
+- 자동 테스트, 빠른 시작 예제, CI, 품질 게이트.
+- 추적 그림, CSV 지표, 생성 실험 보고서.
+- 고정 난수 시드와 문서화된 재현 절차.
+- 표본 평가에 기반한 경험적 근거와 형식적 증명의 정직한 구분.
 
 ## 현재 결과
 
-추적 test setting에서 neural controller는 LQR baseline을 가깝게 따르고 선택 initial state에서 수렴하며 sampled Lyapunov violation이 zero입니다. 이 결과는 documented model, region, threshold, uncertainty scenario에 한정됩니다.
+추적 테스트 설정에서 신경망 제어기는 LQR 기준 제어기을 가깝게 따르고 선택 초기 상태에서 수렴하며 표본점 Lyapunov 위반이 0입니다. 이 결과는 문서화된 모델, 영역, 임곗값, 불확실성 시나리오에 한정됩니다.
 
 ## 포트폴리오 가치
 
-System modeling, optimal control, PyTorch training, numerical simulation, scientific evaluation, software testing, GitHub workflow, release management, 다국어 technical communication을 보여줍니다.
+시스템 모델링, 최적 제어, PyTorch 학습, 수치 시뮬레이션, 과학적 평가, 소프트웨어 테스트, GitHub 워크플로, 릴리스 관리, 다국어 기술 커뮤니케이션을 보여줍니다.

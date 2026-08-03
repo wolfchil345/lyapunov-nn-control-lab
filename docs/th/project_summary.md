@@ -4,23 +4,23 @@
 
 ## จุดประสงค์
 
-Lyapunov NN Control Lab เป็น research และ portfolio project ที่ทำซ้ำได้ ซึ่งเชื่อมระบบกล การควบคุมแบบดั้งเดิม neural network และการวิเคราะห์เสถียรภาพ
+Lyapunov NN Control Lab เป็นโครงการวิจัยและพอร์ตโฟลิโอที่ทำซ้ำได้ ซึ่งเชื่อมโยงระบบกล การควบคุมแบบดั้งเดิม โครงข่ายประสาท และการวิเคราะห์เสถียรภาพ
 
 ## แนวทาง
 
-Project สร้าง model ของ mass-spring-damper plant ออกแบบ LQR baseline และฝึก neural controller ให้เลียนแบบ LQR state-feedback law การฝึกมี sampled Lyapunov penalty ด้วย การประเมินครอบคลุมหลาย initial state, quantitative metric, actuator saturation, measurement noise, plant-parameter variation, sampled Lyapunov behavior และ estimated region of attraction
+โครงการสร้างแบบจำลองระบบมวล-สปริง-แดมเปอร์ ออกแบบตัวควบคุม LQR อ้างอิง และฝึกตัวควบคุมโครงข่ายประสาทให้เลียนแบบกฎป้อนกลับสถานะ LQR การฝึกมีบทลงโทษ Lyapunov บนจุดตัวอย่าง การประเมินครอบคลุมหลายสถานะเริ่มต้น ตัวชี้วัดเชิงปริมาณ การอิ่มตัวของตัวกระตุ้น สัญญาณรบกวนการวัด การเปลี่ยนพารามิเตอร์ของระบบ พฤติกรรม Lyapunov บนจุดตัวอย่าง และบริเวณดึงดูดที่ประมาณไว้
 
 ## หลักฐาน
 
-- Automated test, quick-start example, CI และ quality gate
-- Figure ที่ติดตาม CSV metric และ experiment report ที่สร้างขึ้น
-- Fixed random seed และ documented reproduction workflow
-- การแยก empirical sampled evidence ออกจาก formal proof อย่างซื่อตรง
+- การทดสอบอัตโนมัติ ตัวอย่างเริ่มต้นอย่างรวดเร็ว CI และด่านคุณภาพ
+- รูปที่ติดตาม ตัวชี้วัด CSV และรายงานการทดลองที่สร้างขึ้น
+- ค่าเมล็ดสุ่มคงที่และขั้นตอนทำซ้ำที่บันทึกไว้
+- การแยกหลักฐานเชิงประจักษ์จากจุดตัวอย่างออกจากการพิสูจน์อย่างเป็นทางการอย่างชัดเจน
 
 ## ผลปัจจุบัน
 
-ใน test setting ที่ติดตาม neural controller ใกล้ LQR baseline ลู่เข้าจาก initial state ที่เลือก และ sampled Lyapunov violation เป็น zero ผลนี้จำกัดอยู่ที่ documented model, region, threshold และ uncertainty scenario
+ภายใต้การตั้งค่าทดสอบที่ติดตาม ตัวควบคุมโครงข่ายประสาทให้ผลใกล้เคียงตัวควบคุม LQR อ้างอิง ลู่เข้าจากสถานะเริ่มต้นที่เลือก และมีการละเมิด Lyapunov บนจุดตัวอย่างเป็น 0 ผลนี้จำกัดอยู่ในแบบจำลอง ขอบเขต เกณฑ์ และสถานการณ์ความไม่แน่นอนที่บันทึกไว้
 
 ## คุณค่าในพอร์ตโฟลิโอ
 
-Repository แสดง system modeling, optimal control, PyTorch training, numerical simulation, scientific evaluation, software testing, GitHub workflow, release management และ technical communication หลายภาษา
+รีโพซิทอรีแสดงทักษะด้านการสร้างแบบจำลองระบบ การควบคุมเหมาะที่สุด การฝึกด้วย PyTorch การจำลองเชิงตัวเลข การประเมินเชิงวิทยาศาสตร์ การทดสอบซอฟต์แวร์ เวิร์กโฟลว์ GitHub การจัดการรีลีส และการสื่อสารทางเทคนิคหลายภาษา

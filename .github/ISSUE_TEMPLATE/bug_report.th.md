@@ -1,6 +1,6 @@
 ---
 name: รายงานบั๊ก
-about: รายงานปัญหาใน code, test, plot หรือ documentation
+about: รายงานปัญหาในโค้ด การทดสอบ กราฟ หรือเอกสาร
 title: "[Bug]: "
 labels: bug
 assignees: ""
@@ -10,7 +10,7 @@ assignees: ""
 
 ## คำอธิบาย
 
-อธิบาย bug ให้ชัดเจน
+อธิบายปัญหาให้ชัดเจน
 
 ## ขั้นตอนการทำซ้ำ
 
@@ -26,12 +26,12 @@ assignees: ""
 
 เกิดอะไรขึ้นจริง?
 
-## Environment
+## สภาพแวดล้อม
 
-- Python version:
-- Operating system:
-- Local, VS Code หรือ GitHub Codespaces:
-- Commit หรือ release:
+- Python เวอร์ชัน:
+- ระบบปฏิบัติการ:
+- ภายในเครื่อง, VS Code หรือ GitHub Codespaces:
+- คอมมิต หรือ รีลีส:
 
 ## การตรวจที่ลองแล้ว
 
@@ -40,4 +40,4 @@ assignees: ""
 
 ## ข้อมูลเพิ่มเติม
 
-เพิ่ม screenshot, error message หรือ log หากมีประโยชน์
+เพิ่มภาพหน้าจอ ข้อความแสดงข้อผิดพลาด หรือบันทึกการทำงาน หากมีประโยชน์

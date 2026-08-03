@@ -2,11 +2,11 @@
 
 # การตั้งค่าสภาพแวดล้อม
 
-## ความต้องการ
+## ข้อกำหนด
 
-- Python 3.10 ขึ้นไป โดย CI ใช้ Python 3.11 และ 3.12
-- Git และ Git LFS สำหรับ binary asset ที่ติดตาม
-- การทดลองที่รวมไว้ใช้ CPU ได้
+- Python 3.10 หรือใหม่กว่า ระบบ CI ใช้ Python 3.11 และ 3.12
+- Git และ Git LFS สำหรับไฟล์ไบนารีที่ Git ติดตาม
+- การทดลองที่ให้มาสามารถรันด้วย CPU ได้
 
 ## การติดตั้ง
 
@@ -17,9 +17,9 @@ python -m pip install --upgrade pip
 python -m pip install -e .
 ```
 
-บน Windows PowerShell ใช้ `.venv\Scripts\Activate.ps1`
+บน Windows PowerShell ให้เปิดใช้สภาพแวดล้อมด้วย `.venv\Scripts\Activate.ps1`
 
-## ตรวจสอบ environment
+## การตรวจสภาพแวดล้อม
 
 ```bash
 python scripts/check_environment.py
@@ -27,4 +27,4 @@ python examples/quick_start.py
 make checks
 ```
 
-ให้รันคำสั่งจาก root ของ repository หาก import ไม่สำเร็จ ให้เปิด `.venv` อีกครั้งและรัน `python -m pip install -e .`
+ให้รันคำสั่งจากโฟลเดอร์รากของรีโพซิทอรี หากนำเข้าโมดูลไม่ได้ ให้เปิดใช้ `.venv` ใหม่แล้วติดตั้งอีกครั้งด้วย `python -m pip install -e .`

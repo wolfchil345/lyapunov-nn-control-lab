@@ -1,23 +1,23 @@
 🌐 言語: [English](../en/quality_gate.md) | [日本語](../ja/quality_gate.md) | [한국어](../ko/quality_gate.md) | [ไทย](../th/quality_gate.md)
 
-# Quality Gate
+# 品質ゲート
 
-最終readiness checkを実行:
+最終readiness 確認を実行:
 
 ```bash
 make quality-gate
 ```
 
-Project status、workflow badge validation、environment check、result inventory、Markdown link check、完全なtest suite、quick-start exampleを実行します。
+プロジェクト状態、ワークフローバッジ、環境、結果一覧、Markdown リンク、完全なテストスイート、クイックスタート例を検査します。
 
 ## 使用前
 
-- Pull requestをopenまたはmergeする前。
-- 追跡experiment resultを置き換える前。
-- Demo、submission、release前。
+- プルリクエストを作成またはマージする前。
+- 追跡実験 結果を置き換える前。
+- デモ、提出、リリースの前。
 
-## Failure対応
+## 失敗対応
 
-最初に失敗したcommandを読み、その原因を直し、gateを再実行します。失敗stageをskipしたり、変更範囲を不必要に広げたりしません。Passはrepository consistencyを確認しますが、implemented testを超える科学的主張を検証しません。
+最初に失敗したコマンドを読み、原因を修正してゲートを再実行します。失敗した段階をスキップしたり、変更範囲を不必要に広げたりしないでください。ゲートの合格はリポジトリの整合性を確認しますが、実装済みのテストを超える科学的主張を検証するものではありません。
 
-GitHub Actionsは `.github/workflows/quality-gate.yml` から同じcommandを実行します。
+GitHub Actionsは `.github/workflows/quality-gate.yml` から同じコマンドを実行します。

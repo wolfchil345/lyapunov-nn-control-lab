@@ -2,25 +2,25 @@
 
 # นโยบายความปลอดภัย
 
-## Version ที่รองรับ
+## เวอร์ชันที่รองรับ
 
-รองรับ latest version บน `main` ส่วน historical release เก็บไว้เพื่อ reproducibility แต่ไม่ได้รับ fix
+รองรับเวอร์ชันล่าสุดบน `main` รุ่นที่เผยแพร่ก่อนหน้านี้ยังคงเก็บไว้เพื่อการทำซ้ำผล แต่จะไม่ได้รับการแก้ไข
 
-## รายงานช่องโหว่
+## การรายงานช่องโหว่
 
-อย่าเผยแพร่ exploit detail ใน issue ติดต่อ repository owner ผ่าน private GitHub channel ที่เหมาะสม และให้ affected version, reproduction step, impact และ safe example ขนาดเล็ก
+ห้ามเผยแพร่รายละเอียดการโจมตีใน Issue ให้ติดต่อผู้ดูแลรีโพซิทอรีผ่านช่องทางส่วนตัวของ GitHub ที่เหมาะสม พร้อมระบุเวอร์ชันที่ได้รับผลกระทบ ขั้นตอนการทำซ้ำ ผลกระทบ และตัวอย่างที่ปลอดภัยและสั้นที่สุด
 
-## ในขอบเขต
+## ขอบเขตที่รับพิจารณา
 
-- Unsafe dependency หรือ file-handling behavior
-- Credential, token หรือ private-data exposure
-- Unexpected command execution หรือ untrusted-input handling
-- Security problem ใน workflow และ project script
+- พฤติกรรมที่ไม่ปลอดภัยในการจัดการแพ็กเกจหรือไฟล์
+- การเปิดเผยข้อมูลรับรอง โทเคน หรือข้อมูลส่วนตัว
+- การรันคำสั่งที่ไม่คาดคิด หรือการจัดการอินพุตที่ไม่น่าเชื่อถือ
+- ปัญหาความปลอดภัยในเวิร์กโฟลว์และสคริปต์ของโครงการ
 
-## ประเด็นวิจัยที่แยกต่างหาก
+## ประเด็นด้านการวิจัยที่แยกต่างหาก
 
-Numerical instability, model limitations, changed experiment result และความเห็นต่างด้าน scientific interpretation ไม่ใช่ software vulnerability ให้รายงานเป็น research หรือ bug issue โดยไม่ใส่ sensitive information
+ความไม่เสถียรเชิงตัวเลข ข้อจำกัดของแบบจำลอง ผลการทดลองที่เปลี่ยนไป และความเห็นต่างเรื่องการตีความทางวิทยาศาสตร์ ไม่ถือเป็นช่องโหว่ของซอฟต์แวร์ ให้รายงานเป็น Issue ด้านการวิจัยหรือบั๊ก โดยไม่ระบุข้อมูลที่ละเอียดอ่อน
 
-## การใช้อย่างปลอดภัย
+## การใช้งานอย่างปลอดภัย
 
-ใช้ virtual environment หรือ Codespaces ตรวจการเปลี่ยนจาก fork ห้าม commit secret และรัน test กับ quality-gate workflow ก่อนใช้ experiment code ที่แก้ไข
+ใช้สภาพแวดล้อมเสมือนหรือ Codespaces ตรวจสอบการเปลี่ยนแปลงจากฟอร์ก ห้ามคอมมิตข้อมูลลับ และรันเวิร์กโฟลว์การทดสอบกับด่านคุณภาพก่อนรันโค้ดทดลองที่ถูกแก้ไข

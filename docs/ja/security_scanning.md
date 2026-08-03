@@ -2,9 +2,9 @@
 
 # セキュリティスキャン
 
-CodeQLは `main` へのpush、`main` を対象とするpull request、weekly scheduleでPython codeを解析します。
+CodeQLは `main` へのpush、`main` を対象とするpull request、週次スケジュールでPythonコードを解析します。
 
-## Local準備
+## ローカル準備
 
 ```bash
 python -m pip check
@@ -12,6 +12,6 @@ make checks
 make quality-gate
 ```
 
-Merge前にdependency alertとCodeQL findingをreviewします。Clean scanはcontrol policyのsafeまたはstableを証明しません。Software securityとcontrol-system safetyは別のreview domainです。
+マージ前に依存関係の警告とCodeQLの検出結果を確認します。スキャンを通過しても、制御方策の安全性や安定性が証明されるわけではありません。ソフトウェアセキュリティと制御システムの安全性は、異なる観点からレビューする必要があります。
 
-脆弱性の疑いはrepositoryの[security policy](../../SECURITY.ja.md)に従って非公開で報告します。Secret、private data、exploit detailをpublic issueへ書かないでください。
+脆弱性の疑いは、リポジトリの[セキュリティ方針](../../SECURITY.ja.md)に従って非公開で報告してください。機密情報、個人データ、攻撃手法の詳細を公開issueに記載しないでください。

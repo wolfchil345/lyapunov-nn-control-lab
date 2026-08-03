@@ -1,24 +1,24 @@
 🌐 언어: [English](../en/references.md) | [日本語](../ja/references.md) | [한국어](../ko/references.md) | [ไทย](../th/references.md)
 
-# 참고문헌과 추가 학습
+# 참고 자료와 추천 학습 주제
 
 ## 제어와 안정성
 
-- State-space modeling, feedback control, Linear Quadratic Regulator 설계.
-- Lyapunov 직접법, 이차 Lyapunov 함수, region-of-attraction 해석.
-- 불확실성과 input constraint가 있는 robust control과 nonlinear control.
+- 상태 공간 모델링, 피드백 제어, 선형 이차 조절기(LQR) 설계.
+- Lyapunov 직접법, 이차 Lyapunov 함수, 흡인 영역 해석.
+- 불확실성과 입력 제약이 있는 시스템을 위한 강인 제어와 비선형 제어.
 
 ## 학습 기반 제어
 
-- Neural-network controller와 imitation learning.
-- Stability-aware loss와 neural Lyapunov method.
-- Safe reinforcement learning과 neural controller formal verification.
-- 제어 지향 함수 근사를 위한 Kolmogorov-Arnold Networks.
+- 신경망 제어기와 모방 학습.
+- 안정성을 고려한 손실 함수와 신경망 Lyapunov 방법.
+- 안전 강화 학습과 신경망 제어기의 형식 검증.
+- 제어 함수 근사를 위한 Kolmogorov-Arnold Networks.
 
-## 수치 방법
+## 수치 해석
 
-- Initial-value ODE solver, grid evaluation, sensitivity analysis, uncertainty sweep.
+- 초기값 ODE 해법, 격자 기반 평가, 민감도 분석, 불확실성 스윕.
 
-형식적 주장에는 교과서 또는 peer-reviewed primary literature를 사용하십시오. 이 페이지는 theorem의 bibliography가 아니라 reading map입니다.
+형식적 주장의 근거로는 교과서나 동료 심사를 거친 1차 문헌을 사용하세요. 이 페이지는 특정 정리를 뒷받침하는 참고문헌 목록이 아니라, 추가 학습을 위한 안내서입니다.
 
-Package와 repository 인용 metadata는 [`CITATION.cff`](../../CITATION.cff)에 있습니다.
+패키지와 저장소의 인용 정보는 [`CITATION.cff`](../../CITATION.cff)에 기록되어 있습니다.

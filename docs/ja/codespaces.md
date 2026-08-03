@@ -2,7 +2,7 @@
 
 # GitHub Codespaces設定
 
-dev containerはPython 3.11を使用し、`requirements.txt` をインストールし、推奨拡張機能とpytest discoveryを設定します。
+開発コンテナはPython 3.11を使用し、`requirements.txt` をインストールし、推奨拡張機能とpytestのテスト検出を設定します。
 
 ## 最初のコマンド
 
@@ -14,6 +14,6 @@ make checks
 
 ## 開発ワークフロー
 
-feature branchを作成し、変更を限定して、`make quality-gate` を実行し、commit、push、pull requestを行います。生成図は意図したreference artifactの場合だけ保存します。
+作業用ブランチを作成し、変更を明確な範囲に限定します。`make quality-gate` を実行してからコミット、プッシュ、pull requestを行います。生成図は、意図して保存する参照成果物の場合だけ追跡します。
 
-追跡対象のbinary assetをcheckoutする前にGit LFSが必要です。Codespaceが不整合になった場合は、環境生成ファイルをcommitせずcontainerをrebuildしてください。
+追跡対象のbinary 成果物をcheckoutする前にGit LFSが必要です。Codespaceが不整合になった場合は、環境生成ファイルをコミットせずコンテナをrebuildしてください。

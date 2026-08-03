@@ -1,6 +1,6 @@
 🌐 ภาษา: [English](../en/project_status.md) | [日本語](../ja/project_status.md) | [한국어](../ko/project_status.md) | [ไทย](../th/project_status.md)
 
-# สถานะโครงการ
+# สถานะโปรเจกต์
 
 รัน:
 
@@ -8,12 +8,12 @@
 python scripts/project_status.py
 ```
 
-Command นี้ตรวจ file สำคัญของ repository และรายงานจำนวน documentation, script, test, workflow และ result artifact เป็น inventory check ไม่ใช่สิ่งแทน test หรือ scientific review
+คำสั่งนี้ตรวจไฟล์สำคัญของรีโพซิทอรี และรายงานจำนวนเอกสาร สคริปต์ ชุดทดสอบ เวิร์กโฟลว์ และผลลัพธ์ การตรวจนี้เป็นเพียงบัญชีรายการ ไม่ได้แทนการทดสอบหรือการทบทวนทางวิทยาศาสตร์
 
-## เวลาที่ควรใช้
+## ควรใช้เมื่อใด
 
-- หลังจัดโครงสร้าง file ใหม่
-- ก่อน pull request, demo หรือ release
-- หลังเพิ่ม documentation, script, test หรือ workflow
+- หลังจากจัดโครงสร้างไฟล์ใหม่
+- ก่อนเปิด pull request สาธิต หรือออกรีลีส
+- หลังจากเพิ่มเอกสาร สคริปต์ ชุดทดสอบ หรือเวิร์กโฟลว์
 
-อัปเดต `KEY_FILES` ใน `scripts/project_status.py` เมื่อ file ใหม่กลายเป็นส่วนสำคัญ [Quality gate](quality_gate.md) รัน status command นี้เป็นส่วนหนึ่งของ validation sequence ที่กว้างกว่า
+เมื่อไฟล์ใหม่กลายเป็นไฟล์จำเป็น ให้อัปเดต `KEY_FILES` ใน `scripts/project_status.py` [ด่านคุณภาพ](quality_gate.md)จะรันคำสั่งนี้เป็นส่วนหนึ่งของการตรวจที่ครอบคลุมกว่า

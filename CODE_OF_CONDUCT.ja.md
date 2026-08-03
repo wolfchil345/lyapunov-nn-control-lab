@@ -2,26 +2,26 @@
 
 # 行動規範
 
-## 私たちの約束
+## 私たちの誓約
 
-学習、研究、協力のため、尊重され歓迎される環境を提供します。
+学習、研究、協働のために、敬意と歓迎の意が感じられる環境を提供することを目指します。
 
-## 期待する行動
+## 期待される行動
 
-- 敬意、建設性、忍耐を持つ。
-- 人ではなくidea、code、result、documentationを批評する。
-- 異なるexperience level、background、language、research interestを歓迎する。
-- Uncertaintyとlimitationsを誠実に述べる。
+- 相手を尊重し、建設的かつ忍耐強く対応する。
+- 人ではなく、アイデア、コード、結果、ドキュメントを論じる。
+- 経験、背景、言語、研究分野の違いを歓迎する。
+- 不確実性と限界を誠実に示す。
 
 ## 許容されない行動
 
-- Harassment、personal attack、intimidation、discriminatory language。
-- 許可なくprivate informationを公開。
-- Issue、pull request、discussion、project spaceで意図的に妨害。
-- 他contributorのworkまたはscientific resultを不正確に表現。
+- 嫌がらせ、個人攻撃、威圧、差別的な言動。
+- 許可なく個人情報を公開すること。
+- Issue、プルリクエスト、ディスカッション、その他のプロジェクト空間で故意に混乱を招くこと。
+- 他の貢献者の作業や科学的結果を偽って伝えること。
 
 ## 報告
 
-行動上の問題は適切なprivate channelでrepository ownerへ報告します。報告は敬意、confidentiality、no retaliationの原則で扱います。
+行動規範に関する問題は、適切な非公開経路でリポジトリ所有者に報告してください。報告は敬意をもって機密に扱い、報復を許しません。
 
-目標はcontrol engineering、learning-based control、stability analysisを扱う厳密で友好的なcommunityです。
+目標は、制御工学、学習ベース制御、安定性解析を中心とする、厳密で親しみやすいコミュニティの形成です。

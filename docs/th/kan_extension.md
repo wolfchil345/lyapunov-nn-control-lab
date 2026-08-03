@@ -4,19 +4,19 @@
 
 ## คำถาม
 
-Kolmogorov-Arnold Network controller สามารถเทียบเท่าหรือดีกว่า MLP controller ปัจจุบัน โดยรักษา closed-loop stability และ robustness ใน test region ได้หรือไม่?
+ตัวควบคุมแบบโครงข่าย Kolmogorov-Arnold สามารถทำงานได้เทียบเท่าหรือดีกว่าตัวควบคุม MLP ปัจจุบัน โดยยังรักษาเสถียรภาพวงปิดและความทนทานภายในขอบเขตที่ทดสอบได้หรือไม่?
 
 ## แผนการพัฒนา
 
-1. เพิ่ม KAN controller ที่ใช้ state-to-force interface เดียวกันใน `src/controllers.py`
-2. คง dataset, seed, training region, initial state และ evaluation pipeline
-3. เพิ่ม test สำหรับ shape, `u(0) = 0`, serialization และ simulation compatibility
-4. เปรียบเทียบ LQR, MLP และ KAN ด้วย metric และ plot เดียวกัน
+1. เพิ่มตัวควบคุม KAN ใน `src/controllers.py` โดยใช้อินเทอร์เฟซสถานะเข้าและแรงควบคุมออกเหมือนเดิม
+2. คงชุดข้อมูล ค่าเมล็ดสุ่ม ขอบเขตการฝึก สถานะเริ่มต้น และลำดับการประเมินให้เหมือนกัน
+3. เพิ่มชุดทดสอบรูปร่างอินพุตและเอาต์พุต `u(0) = 0` การบันทึกโมเดล และความเข้ากันได้กับการจำลอง
+4. เปรียบเทียบ LQR, MLP และ KAN ด้วยตัวชี้วัดและกราฟชุดเดียวกัน
 
 ## การประเมิน
 
-เปรียบเทียบ imitation loss, settling time, quadratic cost, control energy, maximum input, sampled Lyapunov violation fraction, robustness และ estimated region of attraction
+เปรียบเทียบความสูญเสียจากการเลียนแบบ เวลาตั้งตัว ต้นทุนกำลังสอง พลังงานควบคุม อินพุตสูงสุด สัดส่วนการละเมิด Lyapunov บนจุดตัวอย่าง ความทนทาน และบริเวณดึงดูดที่ประมาณไว้
 
 ## ข้อควรระวัง
 
-Architecture ที่ตีความง่ายกว่าไม่ได้หมายความว่า controller จะเสถียรกว่าโดยอัตโนมัติ ใช้ limitations, review process และ formal-proof caveat แบบเดียวกับ MLP
+โครงสร้างที่ตีความง่ายกว่าไม่ได้หมายความว่าตัวควบคุมจะเสถียรกว่าโดยอัตโนมัติ ต้องใช้ข้อจำกัด ขั้นตอนทบทวน และคำเตือนว่าไม่ใช่การพิสูจน์อย่างเป็นทางการเช่นเดียวกับ MLP

@@ -2,33 +2,33 @@
 
 # 로드맵
 
-## 단기
+## 단기 목표
 
-- 여러 seed에서 neural training을 반복하고 분포 또는 confidence interval 보고.
-- 실험 선택 CLI를 추가하고 비싼 sweep을 집중된 command로 분리.
-- 생성 report에 dependency version과 experiment configuration 기록.
+- 여러 난수 시드에서 신경망 학습을 반복하고 분포 또는 신뢰 구간을 보고합니다.
+- 실험 선택용 CLI를 추가하고 계산 비용이 큰 스윙프를 목적별 명령으로 나눉니다.
+- 생성된 보고서에 의존 패키지 버전과 실험 설정을 기록합니다.
 
 ## 제어와 강건성
 
-- 호환 setting에서 PID, LQR, MPC, MLP, KAN controller 비교.
-- Nonlinear plant, external disturbance, delay, quantization, 더 넓은 uncertainty set 추가.
-- Region-of-attraction 해석을 확장하고 failure-case map 보존.
+- 동일한 조건에서 PID, LQR, MPC, MLP, KAN 제어기를 비교합니다.
+- 비선형 플랜트, 외란, 지연, 양자화, 더 넓은 불확실성 집합을 추가합니다.
+- 인력 영역 해석을 확장하고 실패 사례 지도를 보존합니다.
 
 ## 안정성 해석
 
-- Alternative 및 learned Lyapunov function 시험.
-- Candidate violation 근처에 adaptive sampling 추가.
-- Empirical grid check와 formal neural-network verification tool 비교.
+- 다른 Lyapunov 함수와 학습된 Lyapunov 함수를 시험합니다.
+- 위반 후보 주변에서 적응형 샘플링을 추가합니다.
+- 경험적 격자 검사와 신경망 형식 검증 도구를 비교합니다.
 
-## 물리 검증
+## 물리적 검증
 
-- 실제 장비 운용 전 hardware-in-the-loop stage 구축.
-- Actuator, sensor, safety constraint 명시.
-- Safety-certified component와 research prototype 분리.
+- 실제 장비를 운용하기 전에 하드웨어 인 더 루프 단계를 구축합니다.
+- 구동기, 센서, 안전 제약을 명시적으로 정의합니다.
+- 안전 인증을 받은 구성 요소와 연구용 프로토타입을 분리합니다.
 
 ## 커뮤니케이션
 
-- Feature 변경에도 네 언어 documentation 완전성 유지.
-- 같은 reproducible result에 기반한 poster와 짧은 technical article 추가.
+- 기능이 바뀌어도 네 언어 문서를 완전하게 유지합니다.
+- 동일한 재현 가능한 결과에 기반한 포스터와 짧은 기술 글을 추가합니다.
 
-장기 목표는 신뢰할 수 있는 learning-based control 실험 platform이며 하나의 neural controller가 control safety 전반을 해결한다는 주장이 아닙니다.
+장기 목표는 신뢰할 수 있는 학습 기반 제어 실험을 위한 작은 플랫폼을 구축하는 것입니다. 하나의 신경망 제어기가 제어 안전 문제 전반을 해결한다고 주장하는 것이 아닙니다.

@@ -14,24 +14,24 @@ source .venv/bin/activate
 python -m pip install -e .
 ```
 
-## Workflow
+## 작업 절차
 
-1. 최신 `main`에서 목적이 분명한 branch 생성.
-2. 과학, code, documentation 변경 범위 구분.
-3. Behavior 변경에 test 추가.
-4. Viewer-facing documentation을 영어, 일본어, 한국어, 태국어로 업데이트.
-5. `git diff --check`, `make checks`, `make quality-gate` 실행.
-6. Pull request를 open하고 모든 required check 후 merge.
+1. 최신 `main`에서 목적이 분명한 브랜치를 만듭니다.
+2. 과학적 변경, 코드 변경, 문서 변경의 범위를 명확히 구분합니다.
+3. 동작을 바꾸는 경우 테스트를 추가합니다.
+4. 사용자용 문서를 영어, 일본어, 한국어, 태국어 네 언어로 갱신합니다.
+5. `git diff --check`, `make checks`, `make quality-gate`를 실행합니다.
+6. 풀 리퀘스트를 열고 필수 검사가 모두 완료된 뒤 병합합니다.
 
 ## 과학적 결과
 
-변경에 필요하지 않으면 result를 재생성하거나 commit하지 않습니다. Seed와 experiment setting을 기록하고 모든 수치 및 figure diff를 검토하며 sampled stability evidence를 정확히 설명합니다.
+변경에 필요한 경우가 아니면 결과를 다시 생성하거나 커밋하지 마십시오. 난수 시드와 실험 설정을 기록하고, 모든 수치 및 그림 차이를 검토하며, 표본점에서 얻은 안정성 근거를 정확히 설명하십시오.
 
-## 좋은 기여
+## 환영하는 기여
 
-- Controller baseline과 신중하게 설계한 robustness experiment.
-- Numerical, reporting, documentation tool test.
-- 명확한 plot, example, translation, methodology 설명.
-- Reproducibility, safety, failure-case 개선.
+- 기준 제어기와 신중하게 설계된 강건성 실험.
+- 수치 계산, 보고서 생성, 문서 도구에 대한 테스트.
+- 더 명확한 그림, 예제, 번역, 방법론 설명.
+- 재현성, 안전성, 실패 사례에 대한 개선.
 
-`Add noise robustness test`, `Clarify Lyapunov limitations` 같은 짧은 명령형 commit message를 사용합니다.
+커밋 메시지는 `Add noise robustness test` 또는 `Clarify Lyapunov limitations`처럼 짧은 명령형으로 작성합니다.

@@ -13,10 +13,10 @@
 | `parameter_robustness.png` | プラント変動下の応答 |
 | `phase_portrait.png` | 位置・速度空間の状態軌道 |
 | `lyapunov_contours.png` | 二次Lyapunov等高線と軌道 |
-| `region_of_attraction.png` | サンプル収束map |
-| `region_of_attraction_comparison.png` | 制御器間の収束map比較 |
+| `region_of_attraction.png` | サンプル収束マップ |
+| `region_of_attraction_comparison.png` | 制御器間の収束マップ比較 |
 | `stability_weight_ablation.png` | 安定性損失重みの影響 |
 
-数値データは `performance_metrics.csv` と `stability_weight_ablation.csv` にあります。生成reportは同じ証拠を要約します。
+数値データは `performance_metrics.csv` と `stability_weight_ablation.csv` にあります。生成レポートは同じ証拠を要約します。
 
-言語間で同一の科学的assetを比較できるよう、plot内のtextは英語のままです。各言語のdocumentが翻訳captionと解釈を提供します。
+言語間で同一の科学的成果物を比較できるよう、図内のtextは英語のままです。各言語のドキュメントが翻訳説明文と解釈を提供します。

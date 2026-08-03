@@ -8,9 +8,9 @@
 - Pylance
 - GitHub Actions
 
-저장소 폴더를 열고 `.venv` interpreter를 선택한 뒤 통합 terminal에서 저장소 root 기준으로 명령을 실행합니다.
+저장소 폴더를 열고 `.venv` interpreter를 선택한 뒤 통합 terminal에서 저장소 루트 기준으로 명령을 실행합니다.
 
-## 일반 workflow
+## 일반 워크플로
 
 ```bash
 python scripts/check_environment.py

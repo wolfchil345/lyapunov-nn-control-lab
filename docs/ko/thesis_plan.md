@@ -4,28 +4,28 @@
 
 ## 가제
 
-기계 동역학 시스템을 위한 Lyapunov-aware 신경망 제어
+기계 동역학 시스템을 위한 Lyapunov 안정성 기반 신경망 제어
 
 ## 목적
 
-LQR teacher로 학습한 neural controller가 선택된 비이상 조건에서 유용한 closed-loop performance, sampled stability behavior, robustness를 유지하는지 평가합니다.
+LQR 교사로 학습한 신경망 제어기가 선택된 비이상 조건에서 유용한 폐루프 성능, 표본점의 안정성 거동, 강인성을 유지하는지 평가합니다.
 
 ## 방법
 
-1. State-space plant와 LQR baseline 도출.
-2. Imitation loss와 stability-aware loss로 neural controller 학습.
-3. Trajectory, cost, effort, settling time 비교.
-4. Sampled Lyapunov behavior와 추정 region of attraction 평가.
-5. Saturation, noise, parameter variation 시험.
-6. Limitations와 reproducibility 문서화.
+1. 상태 공간 플랜트와 LQR 기준 제어기 도출.
+2. 모방 손실와 안정성-중심 손실로 신경망 제어기 학습.
+3. 궤적, 비용, 크기, 정착 시간 비교.
+4. 표본점에서의 Lyapunov 거동와 추정 인력 영역 평가.
+5. 포화, 잡음, 매개변수 변화 시험.
+6. 한계와 재현성 문서화.
 
 ## 권장 장 구성
 
 1. 서론과 관련 연구
-2. System model과 LQR 설계
-3. Neural controller 학습
-4. 안정성과 robustness 평가
+2. 시스템 모델과 LQR 설계
+3. 신경망 제어기 학습
+4. 안정성과 강건성 평가
 5. 결과와 논의
 6. 한계, 결론, 향후 연구
 
-현재 system은 simulation testbed입니다. Hardware validation과 formal verification은 향후 확장입니다.
+현재 시스템은 시뮬레이션 시험 환경입니다. 실물 장비 검증과 형식 검증은 향후 확장 과제입니다.

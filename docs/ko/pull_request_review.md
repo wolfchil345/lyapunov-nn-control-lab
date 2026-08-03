@@ -1,23 +1,23 @@
 🌐 언어: [English](../en/pull_request_review.md) | [日本語](../ja/pull_request_review.md) | [한국어](../ko/pull_request_review.md) | [ไทย](../th/pull_request_review.md)
 
-# Pull Request Review
+# Pull Request 검토
 
-## 일반 review
+## 일반 검토
 
-- [ ] Title과 summary가 하나의 집중된 변경을 설명한다.
-- [ ] Test와 required check가 pass한다.
-- [ ] User-facing behavior가 바뀌면 문서를 네 언어로 업데이트한다.
-- [ ] Generated file을 의도적으로 include 또는 ignore한다.
-- [ ] Merge 전에 conversation을 해결한다.
+- [ ] Title과 요약가 하나의 집중된 변경을 설명한다.
+- [ ] 테스트와 필수 검사가 통과한다.
+- [ ] 사용자가 보는 동작이 바뀌면 문서를 4개 언어 모두에서 업데이트한다.
+- [ ] 생성 파일을 추적할지 무시할지 의도적으로 결정한다.
+- [ ] 병합 전에 대화를 모두 해결한다.
 
-## 과학적 review
+## 과학적 검토
 
-- [ ] Seed, plant parameter, controller architecture, loss, evaluation setting 변경이 명확하다.
-- [ ] 수치와 figure diff를 설명한다.
-- [ ] Sampled check를 formal proof로 표현하지 않는다.
-- [ ] Failure case와 limitations를 유지한다.
+- [ ] 시드, 플랜트 매개변수, 제어기 구조, 손실 함수, 평가 설정의 변경이 명확하다.
+- [ ] 수치와 그림 차이를 설명한다.
+- [ ] 표본점에서의 검사를 형식적 증명로 표현하지 않는다.
+- [ ] 실패 사례와 한계를 유지한다.
 
-## Local commands
+## 로컬 명령
 
 ```bash
 git diff --check
@@ -25,4 +25,4 @@ make checks
 make quality-gate
 ```
 
-Latest commit이 모든 required check를 통과한 뒤 protected `main` branch를 통해서만 merge합니다.
+최신 커밋이 모든 필수 검사를 통과한 뒤, 보호된 `main` 브랜치를 통해서만 병합합니다.

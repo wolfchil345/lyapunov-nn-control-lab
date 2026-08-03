@@ -4,26 +4,26 @@
 
 ## モデル
 
-Controllerは `[position, velocity]` から一つのforce commandへmappingする小さなPyTorch multilayer perceptronです。Outputをshiftして `u(0) = 0` を強制します。
+制御器は、`[position, velocity]` を一つの制御力コマンドに変換する小型の PyTorch 多層パーセプトロンです。出力をシフトすることで `u(0) = 0` を保証します。
 
 ## 学習
 
-Bounded regionからstateをsampleし、公称LQR controllerでlabelを作ります。Trainingはimitation MSEとweighted sampled Lyapunov penaltyを最小化します。Repositoryはfixed random seedを設定します。
+有界領域から状態をサンプリングし、公称 LQR 制御器でラベルを作成します。学習では、模倣 MSE と重み付きのサンプル点 Lyapunov ペナルティを合わせて最小化します。再現性のため、乱数シードは固定しています。
 
 ## 想定用途
 
-- Learning-based controlの教育とresearch prototyping。
-- 収録simulationにおけるLQRとのreproducible comparison。
-- Stability-aware objectiveとrobustness diagnosticの探索。
+- 学習ベース制御の教育と研究用プロトタイピング。
+- 収録されたシミュレーションにおける LQR との再現可能な比較。
+- 安定性-を意識した objectiveとロバスト性 diagnosticの探索。
 
 ## 対象外
 
-- Safety-criticalまたはhardwareへの直接deployment。
-- Formal、global、distribution-free stabilityの主張。
-- 検証済みstate、actuator、plant range外での運用。
+- 安全が重要なシステムや実機への直接導入。
+- 形式的、大域的、または分布に依存しない安定性の主張。
+- 検証済み状態、アクチュエータ、プラント range外での運用。
 
 ## 評価
 
-Closed-loop trajectory、final norm、settling time、cost、control energy、maximum input、sampled `V_dot`、robustness scenario、estimated region of attraction。
+閉ループ軌道、最終ノルム、整定時間、コスト、制御エネルギー、最大入力、サンプル点での `V_dot`、ロバスト性シナリオ、推定引き込み領域を評価します。
 
-Model再利用前に[制約](limitations.md)と[再現性](reproducibility.md)を確認してください。
+モデル再利用前に[制約](limitations.md)と[再現性](reproducibility.md)を確認してください。

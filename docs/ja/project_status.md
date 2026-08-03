@@ -1,19 +1,19 @@
 🌐 言語: [English](../en/project_status.md) | [日本語](../ja/project_status.md) | [한국어](../ko/project_status.md) | [ไทย](../th/project_status.md)
 
-# プロジェクト状態
+# プロジェクトの状態
 
-実行:
+次を実行します。
 
 ```bash
 python scripts/project_status.py
 ```
 
-このcommandは重要なrepository fileを確認し、documentation、script、test、workflow、result artifactの数を表示します。Inventory checkであり、testや科学的reviewの代わりではありません。
+このコマンドは、重要なリポジトリファイルの有無を確認し、ドキュメント、スクリプト、テスト、ワークフロー、結果成果物の数を表示します。これはファイル構成の確認であり、テストや科学的レビューの代わりにはなりません。
 
-## 使用時期
+## 使用するタイミング
 
-- Fileを再編成した後。
-- Pull request、demo、release前。
-- Documentation、script、test、workflowを追加した後。
+- ファイル構成を変更した後。
+- pull request、デモ、リリースの前。
+- ドキュメント、スクリプト、テスト、ワークフローを追加した後。
 
-新しいfileが必須になったら `scripts/project_status.py` の `KEY_FILES` を更新します。[Quality gate](quality_gate.md)はこのstatus commandをより広いvalidation sequenceの一部として実行します。
+新しいファイルが必須になった場合は、`scripts/project_status.py` の `KEY_FILES` を更新します。[品質ゲート](quality_gate.md)は、より広範な検証の一部としてこの状態確認を実行します。

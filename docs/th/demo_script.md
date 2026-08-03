@@ -1,27 +1,27 @@
 🌐 ภาษา: [English](../en/demo_script.md) | [日本語](../ja/demo_script.md) | [한국어](../ko/demo_script.md) | [ไทย](../th/demo_script.md)
 
-# สคริปต์สาธิตห้านาที
+# การสาธิตภายในห้านาที
 
-## 0:00–0:30 — จุดประสงค์
+## 0:00–0:30 — วัตถุประสงค์
 
-“Project นี้ศึกษาตัวควบคุม neural ที่เลียนแบบ LQR และประเมินด้วย Lyapunov-style กับ robustness check”
+“โครงการนี้ศึกษาตัวควบคุมโครงข่ายประสาทที่เลียนแบบ LQR และประเมินด้วยการตรวจแบบ Lyapunov และการทดสอบความทนทาน”
 
-## 0:30–1:30 — Repository tour
+## 0:30–1:30 — ชมรีโพซิทอรี
 
 แสดง `README.md`, `src/`, `tests/`, `scripts/`, `docs/` หลายภาษา และ `results/`
 
 ## 1:30–2:15 — การทำซ้ำผล
 
-รัน `python examples/quick_start.py` หรือแสดงผล `make quality-gate` ที่เสร็จแล้ว อย่าเริ่ม full experiment ระหว่าง demo สั้น
+รัน `python examples/quick_start.py` หรือแสดงผล `make quality-gate` ที่เสร็จแล้ว อย่าเริ่มการทดลองฉบับเต็มในช่วงการสาธิตสั้นๆ
 
 ## 2:15–3:30 — วิธีการ
 
-อธิบาย mass-spring-damper model, LQR teacher, neural imitation, `u(0) = 0` และ sampled Lyapunov penalty
+อธิบายแบบจำลองมวล-สปริง-แดมเปอร์ ตัวควบคุมครู LQR การเลียนแบบด้วยโครงข่ายประสาท `u(0) = 0` และพจน์ปรับโทษ Lyapunov บนจุดตัวอย่าง
 
 ## 3:30–4:30 — หลักฐาน
 
-แสดง `position_comparison.png`, `training_loss.png` และ `region_of_attraction_comparison.png` พร้อมกล่าวถึง saturation, noise และ parameter test
+แสดง `position_comparison.png`, `training_loss.png` และ `region_of_attraction_comparison.png` พร้อมกล่าวถึงการอิ่มตัว สัญญาณรบกวน และการทดสอบพารามิเตอร์
 
-## 4:30–5:00 — ข้อสรุปที่ซื่อตรง
+## 4:30–5:00 — สรุปอย่างซื่อสัตย์
 
-ระบุว่าผลเป็น simulation-based และ sampled แล้วอธิบายขั้นวิจัยถัดไป
+ระบุว่าผลมาจากการจำลองและจุดตัวอย่าง จากนั้นอธิบายขั้นตอนวิจัยถัดไป

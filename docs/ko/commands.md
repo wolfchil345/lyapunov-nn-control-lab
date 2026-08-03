@@ -27,7 +27,7 @@ python scripts/summarize_results.py
 python scripts/new_experiment_log.py "short description" --language ko
 ```
 
-`python scripts/clean_results.py`는 `results/`의 모든 파일을 삭제합니다. 보관할 reference artifact를 먼저 backup하십시오.
+`python scripts/clean_results.py`는 `results/`의 모든 파일을 삭제합니다. 보관할 참조 산출물를 먼저 백업하십시오.
 
 ## Git
 

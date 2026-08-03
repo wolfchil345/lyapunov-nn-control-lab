@@ -2,26 +2,26 @@
 
 # 자주 묻는 질문
 
-## 이 project는 무엇인가?
+## 이 프로젝트는 무엇을 다루나요?
 
-Mass-spring-damper system에서 LQR을 모방하는 neural controller를 학습하고 performance, sampled Lyapunov behavior, robustness를 평가합니다.
+질량-스프링-댐퍼 시스템에서 LQR을 모방하는 신경망 제어기를 학습하고, 제어 성능·표본 기반 Lyapunov 거동·강인성을 평가합니다.
 
-## 왜 LQR을 teacher로 사용하는가?
+## 왜 LQR을 교사로 사용하나요?
 
-LQR은 투명하고 재현 가능하며 공칭 linear plant를 안정화하므로 유용한 baseline과 label source입니다.
+LQR은 공칭 선형 플랜트에서 구조가 명확하고 재현 가능하며 시스템을 안정화합니다. 따라서 유용한 기준 제어기이자 학습 레이블의 출처가 됩니다.
 
-## 안정성을 증명하는가?
+## 이 프로젝트가 안정성을 증명하나요?
 
-아닙니다. 이차 Lyapunov candidate를 사용한 simulation과 finite-grid evidence를 제공합니다. Formal continuous-domain verification은 현재 범위 밖입니다.
+아니요. 이차 Lyapunov 함수 후보를 사용한 시뮬레이션과 유한 격자 근거를 제공합니다. 연속 상태 공간 전체에 대한 형식 검증은 현재 범위에 포함되지 않습니다.
 
-## 일반 machine-learning demo와 무엇이 다른가?
+## 일반적인 머신러닝 데모와 무엇이 다른가요?
 
-Closed-loop trajectory, control effort, cost, saturation, noise, model variation, Lyapunov behavior, estimated region of attraction을 재현 가능한 software check와 함께 평가합니다.
+폐루프 깤적, 제어 노력, 비용, 구동기 포화, 잡음, 모델 변화, Lyapunov 거동, 추정 흡인 영역을 평가하며 재현 가능한 소프트웨어 검사도 함께 제공합니다.
 
-## 어떻게 검증하는가?
+## 어떻게 검증하나요?
 
-`python examples/quick_start.py`, `make checks`, `make quality-gate`를 실행합니다. 전체 실험은 `python main.py`를 사용합니다.
+`python examples/quick_start.py`, `make checks`, `make quality-gate`를 실행하세요. 전체 실험은 `python main.py`로 실행합니다.
 
-## 무엇부터 읽어야 하는가?
+## 무엇부터 읽으면 좋을까요?
 
-[프로젝트 요약](project_summary.md), [방법론](methodology.md), [실험 workflow](experiment_workflow.md), [한계](limitations.md)를 읽습니다.
+[프로젝트 요약](project_summary.md), [방법론](methodology.md), [실험 절차](experiment_workflow.md), [한계](limitations.md) 순서로 읽어 보세요.

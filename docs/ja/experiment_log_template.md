@@ -2,39 +2,39 @@
 
 # 実験ログテンプレート
 
-## 識別情報
+## 基本情報
 
 - 日付:
-- Branchとcommit SHA:
+- ブランチとコミットSHA:
 - 研究課題:
 - 目的:
 
-## 環境と設定
+## 実行環境と設定
 
-- PythonとPyTorchのversion:
-- Runtime:
-- Random seed:
-- Epochs, learning rate, dataset size, network architecture:
-- Plant, controller, simulation, Lyapunov, noise, parameter設定:
+- PythonとPyTorchのバージョン:
+- 実行環境:
+- 乱数シード:
+- エポック数、学習率、データセットサイズ、ネットワーク構成:
+- プラント、制御器、シミュレーション、Lyapunov、ノイズ、パラメータの設定:
 
-## コマンドと出力
+## 実行コマンドと出力
 
-- 使用コマンド:
-- Metrics CSV:
-- Report:
-- Figures:
+- 使用したコマンド:
+- 評価指標のCSV:
+- レポート:
+- 図:
 
-## 解釈
+## 結果の解釈
 
-- 改善点と悪化点は何か?
-- LQRと比べてどうか?
-- サンプルLyapunov違反またはrobustness failureがあったか?
-- 前回runと設定を比較できるか?
+- 改善した点、または悪化した点は何か?
+- LQRと比較して制御器はどのように振る舞ったか?
+- サンプル点でLyapunov条件の違反やロバスト性の問題があったか?
+- 前回の実験と設定を比較できるか?
 
 ## 判断
 
-- Reference resultとして保存する? Yes / No
-- Reportまたはpresentationに使う? Yes / No
+- 参照結果として保存するか? はい / いいえ
+- レポートや発表に使用するか? はい / いいえ
 - 次の実験:
 
-`python scripts/new_experiment_log.py "short description" --language ja` でtimestamp付きcopyを作成できます。
+`python scripts/new_experiment_log.py "short description" --language ja`で、タイムスタンプ付きのコピーを作成できます。

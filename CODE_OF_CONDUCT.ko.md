@@ -1,27 +1,27 @@
 🌐 언어: [English](CODE_OF_CONDUCT.md) | [日本語](CODE_OF_CONDUCT.ja.md) | [한국어](CODE_OF_CONDUCT.ko.md) | [ไทย](CODE_OF_CONDUCT.th.md)
 
-# 행동 강령
+# 행동 규칙
 
 ## 우리의 약속
 
-학습, 연구, 협업을 위한 존중받고 환영받는 환경을 지향합니다.
+학습, 연구, 협업을 위해 서로를 존중하고 환영하는 환경을 제공하고자 합니다.
 
-## 기대 행동
+## 기대하는 행동
 
-- 존중하고 건설적이며 인내심 있게 행동.
-- 사람이 아니라 idea, code, result, documentation을 비평.
-- 다양한 experience level, background, language, research interest를 환영.
-- Uncertainty와 limitations를 정직하게 표현.
+- 상대를 존중하고 건설적이며 인내심 있게 행동합니다.
+- 사람이 아니라 아이디어, 코드, 결과, 문서를 비평합니다.
+- 서로 다른 경험 수준, 배경, 언어, 연구 관심사를 환영합니다.
+- 불확실성과 한계를 솔직하게 밝힙니다.
 
 ## 허용되지 않는 행동
 
-- Harassment, personal attack, intimidation, discriminatory language.
-- 허가 없이 private information 공개.
-- Issue, pull request, discussion, project space에서 의도적 방해.
-- 다른 contributor의 work 또는 scientific result를 왜곡.
+- 괴롭힘, 개인 공격, 위협, 차별적 언어.
+- 허가 없이 개인 정보를 공개하는 행위.
+- Issue, 풀 리퀘스트, 토론 또는 기타 프로젝트 공간에서 고의로 방해하는 행위.
+- 다른 기여자의 작업이나 과학적 결과를 왜곡하는 행위.
 
 ## 보고
 
-행동 문제는 적절한 private channel로 repository owner에게 보고합니다. 보고는 존중, confidentiality, no retaliation 원칙으로 처리합니다.
+행동 규칙에 관한 문제는 적절한 비공개 경로를 통해 저장소 소유자에게 알려 주십시오. 보고는 존중과 비밀이 보장되어야 하며, 보복은 허용되지 않습니다.
 
-목표는 control engineering, learning-based control, stability analysis를 위한 엄밀하고 친절한 community입니다.
+우리의 목표는 제어공학, 학습 기반 제어, 안정성 해석을 둘러싼 엄밀하고 친근한 커뮤니티를 만드는 것입니다.

@@ -2,7 +2,7 @@
 
 # GitHub Codespaces 설정
 
-dev container는 Python 3.11을 사용하고 `requirements.txt`를 설치하며 권장 확장 기능과 pytest discovery를 설정합니다.
+개발 컨테이너는 Python 3.11을 사용하고 `requirements.txt`를 설치하며, 권장 확장 기능과 pytest 테스트 탐색을 설정합니다.
 
 ## 첫 명령
 
@@ -12,8 +12,8 @@ python examples/quick_start.py
 make checks
 ```
 
-## 개발 workflow
+## 개발 워크플로
 
-feature branch를 만들고 범위가 명확한 변경을 수행한 뒤 `make quality-gate`, commit, push, pull request 순서로 진행합니다. 생성 그림은 의도한 reference artifact일 때만 저장합니다.
+작업용 브랜치를 만들고 변경 범위를 명확히 유지합니다. `make quality-gate`를 실행한 뒤 커밋, 푸시, pull request 순서로 진행합니다. 생성된 그림은 의도한 참조 산출물일 때만 추적합니다.
 
-추적되는 binary asset을 checkout하기 전에 Git LFS가 필요합니다. Codespace가 불안정하면 환경 생성 파일을 commit하지 말고 container를 rebuild하십시오.
+추적 중인 바이너리 산출물을 checkout하기 전에 Git LFS가 필요합니다. Codespace 환경이 불일치하면 환경이 생성한 파일을 커밋하지 말고 컨테이너를 다시 빌드하세요.

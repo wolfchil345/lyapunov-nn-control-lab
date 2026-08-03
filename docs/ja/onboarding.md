@@ -18,6 +18,6 @@ git pull --ff-only origin main
 git switch -c feature/short-description
 ```
 
-科学的変更とドキュメント変更を分け、実験設定を記録し、review依頼前に `make quality-gate` を実行します。
+科学的変更とドキュメント変更を分け、実験設定を記録し、レビュー依頼前に `make quality-gate` を実行します。
 
 完全な手順は[Gitワークフロー](git_workflow.md)と[コントリビューションガイド](../../CONTRIBUTING.ja.md)を参照してください。

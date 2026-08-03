@@ -4,19 +4,19 @@
 
 ## 問い
 
-Kolmogorov-Arnold Network controllerは、test region内のclosed-loop stabilityとrobustnessを保ちながら現在のMLP controllerと同等以上になれるか?
+Kolmogorov-Arnold Networkを用いた制御器は、テスト領域内の閉ループ安定性とロバスト性を保ちながら、現在のMLP制御器と同等以上の性能を示せるか?
 
 ## 実装計画
 
-1. `src/controllers.py` に同じstate-to-force interfaceを持つKAN controllerを追加。
-2. Dataset、seed、training region、initial state、evaluation pipelineを固定。
-3. Shape、`u(0) = 0`、serialization、simulation compatibilityのtestを追加。
-4. 同一metricとplotでLQR、MLP、KANを比較。
+1. `src/controllers.py` に、同じ状態入力と制御力出力のインターフェースを持つKAN制御器を追加する。
+2. データセット、シード、学習領域、初期状態、評価パイプラインを固定する。
+3. 入出力形状、`u(0) = 0`、シリアライズ、シミュレーションとの互換性を確認するテストを追加する。
+4. 同じ指標と図を用いてLQR、MLP、KANを比較する。
 
 ## 評価
 
-Imitation loss、settling time、quadratic cost、control energy、maximum input、sampled Lyapunov violation fraction、robustness、estimated region of attractionを比較します。
+模倣損失、整定時間、二次コスト、制御エネルギー、最大入力、サンプル点でのLyapunov違反率、ロバスト性、推定引き込み領域を比較します。
 
 ## 注意
 
-より解釈しやすいarchitectureが自動的により安定なcontrollerになるわけではありません。MLPと同じlimitations、review process、formal-proof caveatを適用します。
+解釈しやすい構成であっても、制御器が自動的により安定になるわけではありません。MLPと同じ制約、レビュー手順、形式的証明ではないという注意事項を適用します。

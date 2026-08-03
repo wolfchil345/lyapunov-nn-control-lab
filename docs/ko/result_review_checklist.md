@@ -1,28 +1,28 @@
 🌐 언어: [English](../en/result_review_checklist.md) | [日本語](../ja/result_review_checklist.md) | [한국어](../ko/result_review_checklist.md) | [ไทย](../th/result_review_checklist.md)
 
-# 결과 Review Checklist
+# 결과 검토 체크리스트
 
 ## 설정
 
-- [ ] Branch, commit, seed, epochs, model architecture를 기록했다.
-- [ ] Initial condition, duration, grid density, noise, parameter case를 기록했다.
-- [ ] 비교 run은 의도한 변수만 다르다.
+- [ ] 브랜치, 커밋, 시드, 에포크 수, 모델 구조를 기록했다.
+- [ ] 초기 조건, 시뮬레이션 시간, 격자 밀도, 잡음, 매개변수 사례를 기록했다.
+- [ ] 비교하는 실험은 의도한 변수만 다르다.
 
 ## 출력
 
-- [ ] 예상 CSV, report, model, figure가 존재한다.
-- [ ] Figure label을 읽을 수 있고 궤적이 타당하다.
-- [ ] Metric이 유한하며 여러 지표를 함께 해석한다.
-- [ ] Saturation, noise, parameter case가 명확히 표시된다.
+- [ ] 예상한 CSV, 보고서, 모델, 그림 파일이 모두 있다.
+- [ ] 그림의 표시가 읽기 쉬우며 깤적이 타당해 보인다.
+- [ ] 지표가 유한한 값이며 서로 연계해 해석했다.
+- [ ] 포화, 잡음, 매개변수 사례에 명확한 표시가 있다.
 
 ## 안정성 주장
 
-- [ ] 표본 Lyapunov check를 경험적 근거로 설명한다.
-- [ ] Region-of-attraction 주장에 test grid, horizon, threshold를 명시한다.
-- [ ] Failure case와 예상 밖 거동을 유지하고 설명한다.
+- [ ] 표본 기반 Lyapunov 검사를 경험적 근거로 설명했다.
+- [ ] 흡인 영역에 관한 주장에 테스트 격자, 평가 시간, 임계값을 명시했다.
+- [ ] 실패 사례와 예상하지 못한 거동을 보존하고 설명했다.
 
-## Commit 전
+## 커밋 전
 
-- [ ] `make quality-gate`가 pass한다.
-- [ ] `git diff`에 의도한 artifact만 있다.
-- [ ] Documentation과 experiment log가 생성 결과와 일치한다.
+- [ ] `make quality-gate`가 통과한다.
+- [ ] `git diff`에 의도한 산출물만 포함된다.
+- [ ] 문서와 실험 로그가 생성된 결과와 일치한다.

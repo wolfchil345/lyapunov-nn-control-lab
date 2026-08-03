@@ -4,24 +4,24 @@
 
 ## 動機と設計
 
-**なぜLQRを使うか?** 透明性のある安定化baselineであり、線形公称plantに信頼できるimitation targetを与えるためです。
+**なぜLQRを使うか?** 透明性のある安定化ベースラインであり、線形公称プラントに信頼できる模倣 参照先を与えるためです。
 
-**Networkは何を学ぶか?** Positionとvelocityからscalar control forceへのmappingです。
+**ネットワークは何を学ぶか?** 位置と速度からスカラーの制御力への対応付けです。
 
-**なぜ `u(0) = 0` を強制するか?** 目標で非zero commandがあると意図したequilibriumを壊す可能性があるためです。
+**なぜ `u(0) = 0` を強制するか?** 目標で非0 コマンドがあると意図したequilibriumを壊す可能性があるためです。
 
 ## 安定性
 
-**Grid checkはglobal stabilityを証明するか?** いいえ。一つのLyapunov candidateで有限個のsampled stateを評価します。
+**グリッド 確認は大域的 安定性を証明するか?** いいえ。一つのLyapunov candidateで有限個のサンプル点での 状態を評価します。
 
-**なぜLyapunov penaltyを使うか?** Imitation errorだけではclosed-loop decayを直接測れません。Penaltyは学習中にsampled decay conditionを促します。
+**なぜLyapunov ペナルティを使うか?** 模倣 エラーだけでは閉ループ 減少を直接測れません。ペナルティは学習中にサンプル点での 減少 条件を促します。
 
 ## 評価
 
-**最重要metricは?** 単一では決められません。Convergence、cost、effort、sampled stability、robustnessを合わせて解釈します。
+**最も重要な指標は何か?** 一つには決められません。収束性、コスト、入力の大きさ、サンプル点での安定性、ロバスト性を組み合わせて解釈します。
 
-**なぜsaturation、noise、parameter variationを試すか?** 実制御器には入力制限、sensor誤差、model mismatchがあるためです。
+**なぜ飽和、ノイズ、パラメータ変動を試すか?** 実制御器には入力制限、sensor誤差、モデル mismatchがあるためです。
 
 ## 制約と次の研究
 
-Plantは単純で、証拠は全てsimulationであり、training region外の挙動は不確かです。Nonlinear plant、formal verification、hardware experiment、KANなどの別architectureが強化案です。
+プラントは単純で、証拠は全てシミュレーションであり、学習 領域外の挙動は不確かです。非線形 プラント、形式的 検証、実機 実験、KANなどの別構成が強化案です。

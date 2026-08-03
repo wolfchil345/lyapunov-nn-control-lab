@@ -4,17 +4,17 @@
 
 ## 一文
 
-LQR baseline、Lyapunov-aware training、robustness evaluation、自動test、多言語研究documentationを統合した再現可能なneural-control laboratoryを構築しました。
+LQR基準制御器、Lyapunov安定性を意識した学習、ロバスト性評価、自動テスト、多言語の研究ドキュメントを統合した、再現可能なニューラル制御実験環境を構築しました。
 
 ## 30秒
 
-Mass-spring-damper systemでLQRを模倣するneural networkを学習します。Closed-loop simulation、quantitative metric、sampled Lyapunov check、actuator limit、noise、parameter uncertainty、推定region of attractionで評価します。Repositoryにはtest、CI、reproducible script、report、4言語documentationがあります。
+質量ばねダンパ系で LQR を模倣するニューラルネットワークを学習します。閉ループシミュレーション、定量指標、サンプル点での Lyapunov 検査、アクチュエータ制限、ノイズ、パラメータの不確かさ、推定引き込み領域で評価します。リポジトリには、テスト、CI、再現可能なスクリプト、レポート、4言語のドキュメントが含まれます。
 
 ## 示すもの
 
-1. Model architectureとcontroller-comparison figure。
-2. Passするquality gateとtest suite。
-3. Methodology、limitations、experiment workflow。
+1. モデル構成図と制御器の比較図。
+2. 合格した品質ゲートとテストスイート。
+3. 手法、制約、実験ワークフロー。
 4. 一つのfailure modeまたは誠実な制約。
 
 ## キーワード

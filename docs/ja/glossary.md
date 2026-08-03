@@ -2,18 +2,18 @@
 
 # 用語集
 
-- **State（状態）**: システムを表す変数。本プロジェクトでは位置と速度。
-- **Plant（プラント）**: 制御される物理またはsimulation system。
-- **Control input（制御入力）**: Plantへ加えるforce command `u`。
-- **Closed loop（閉ループ）**: State feedbackで接続されたcontrollerとplant。
-- **LQR**: Linear Quadratic Regulator。古典的baselineおよびteacher。
-- **Equilibrium（平衡点）**: 変化しない状態。目標は原点。
-- **Lyapunov function**: 安定性を調べる正のenergy-like function。
-- **Lyapunov derivative**: 軌道に沿った変化率 `V_dot`。
-- **Actuator saturation**: 実現可能なcontrol inputの制限。
-- **Region of attraction**: 明示された条件で平衡点へ収束するinitial state集合。
-- **Imitation learning**: Teacher actionを再現するmodel学習。
-- **Stability-aware training**: サンプルLyapunov penaltyを含む学習。
-- **Ablation study**: 一つの設計要素だけを変える比較。
+- **状態（状態）**: システムを表す変数。本プロジェクトでは位置と速度。
+- **プラント（プラント）**: 制御される物理またはシミュレーション システム。
+- **制御入力**: プラントに加える制御力コマンド `u`。
+- **閉ループ**: 状態フィードバックで接続された制御器とプラント。
+- **LQR**: 線形二次レギュレータ。古典的な基準制御器であり、学習時の教師です。
+- **平衡点**: 変化しない状態。ここでの目標は原点。
+- **Lyapunov関数**: 安定性を調べるための、正の値をとるエネルギーに似た関数。
+- **Lyapunov 導関数**: 軌道に沿った変化率 `V_dot`。
+- **アクチュエータ飽和**: 実現可能なcontrol 入力の制限。
+- **引き込み領域**: 明示された条件で平衡点へ収束する初期状態集合。
+- **模倣 学習**: 教師 actionを再現するモデル学習。
+- **安定性-を意識した 学習**: サンプルLyapunov ペナルティを含む学習。
+- **アブレーションスタディ**: 一つの設計要素だけを変える比較。
 
-Code identifierと数式記号は全翻訳で英語のまま維持します。
+コード識別子と数式記号は、すべての翻訳で英語のまま維持します。

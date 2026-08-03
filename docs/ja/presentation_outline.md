@@ -2,15 +2,15 @@
 
 # プレゼンテーション構成
 
-1. **動機:** Neural controllerは柔軟だが、安定性とrobustnessの評価が必要。
-2. **Plant:** Position、velocity、force inputを持つmass-spring-damper state-space model。
-3. **Baseline:** LQRが安定化referenceとimitation targetを提供。
-4. **Neural controller:** Zero-at-origin architecture、imitation loss、Lyapunov penalty。
-5. **評価:** Trajectory、settling time、cost、control effort、sampled `V_dot`。
-6. **Robustness:** Actuator saturation、measurement noise、parameter variation。
-7. **State-space evidence:** Phase portrait、Lyapunov contour、region-of-attraction map。
-8. **主結果:** Test setting内でneural controllerはLQRに近く、追跡されたsampled Lyapunov violation fractionは全てzero。
-9. **制約:** Simulated linear plant、finite grid、選択したuncertainty case、formal proofなし。
-10. **今後:** Nonlinear system、formal verification、learned Lyapunov function、KAN、hardware validation。
+1. **動機:** ニューラル 制御器は柔軟だが、安定性とロバスト性の評価が必要。
+2. **プラント:** 位置、速度、制御力入力を持つ質量ばねダンパの状態空間モデル。
+3. **ベースライン:** LQRが安定化参照と模倣 参照先を提供。
+4. **ニューラル制御器:** 原点で出力がゼロになるアーキテクチャ、模倣損失、Lyapunov ペナルティ。
+5. **評価:** 軌道、整定時間、コスト、制御入力の大きさ、サンプル点での `V_dot`。
+6. **ロバスト性:** アクチュエータ飽和、観測ノイズ、パラメータ変動。
+7. **状態空間 証拠:** 位相図、Lyapunov等高線、引き込み領域 マップ。
+8. **主結果:** テスト 設定内でニューラル制御器はLQRに近く、追跡されたサンプル点でのLyapunov違反率は全て0。
+9. **制約:** シミュレーション上の線形プラント、有限グリッド、選択した不確かさのケース、形式的証明なし。
+10. **今後:** 非線形 システム、形式的 検証、学習した Lyapunov 関数、KAN、実機 検証。
 
-数値主張を示すときは読めるcaption付きfigureを使い、seedとtested regionを明記します。
+数値主張を示すときは読める説明文付き図を使い、シードとtested 領域を明記します。

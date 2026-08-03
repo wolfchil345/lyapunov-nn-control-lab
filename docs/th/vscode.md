@@ -2,15 +2,15 @@
 
 # การตั้งค่า VS Code
 
-## Extension ที่แนะนำ
+## ส่วนขยายที่แนะนำ
 
 - Python
 - Pylance
 - GitHub Actions
 
-เปิดโฟลเดอร์ repository เลือก interpreter จาก `.venv` และรันคำสั่งจาก root ของ repository ใน terminal ที่รวมอยู่ใน VS Code
+เปิดโฟลเดอร์ของรีโพซิทอรี เลือกตัวแปลภาษา Python จาก `.venv` และรันคำสั่งที่รากโครงการผ่านเทอร์มินัลใน VS Code
 
-## Workflow ปกติ
+## ขั้นตอนทำงานทั่วไป
 
 ```bash
 python scripts/check_environment.py
@@ -19,4 +19,4 @@ python main.py
 make quality-gate
 ```
 
-Pytest discovery ตั้งไว้ที่ `tests/` หาก VS Code ใช้ interpreter อื่น ให้เลือก `.venv` ใหม่และ reload window
+การค้นหาชุดทดสอบของ pytest กำหนดไว้ที่ `tests/` หาก VS Code ใช้ตัวแปลภาษาอื่น ให้เลือก `.venv` ใหม่แล้วโหลดหน้าต่างอีกครั้ง

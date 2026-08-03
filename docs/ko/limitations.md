@@ -4,24 +4,24 @@
 
 ## 모델과 데이터
 
-- Plant는 simulated linear mass-spring-damper system입니다.
-- Training state는 bounded region을 다루고 LQR teacher를 사용합니다.
-- Nonlinear plant나 unseen state에 대한 generalization을 보장하지 않습니다.
+- 플랜트는 시뮬레이션된 선형 질량-스프링-댐퍼 시스템입니다.
+- 학습 상태는 유한한 영역을 다루며 LQR 제어기를 교사로 사용합니다.
+- 결과가 비선형 플랜트나 학습에서 보지 못한 상태에도 일반화됨을 보장하지 않습니다.
 
 ## 안정성 근거
 
-- Quadratic Lyapunov function은 공칭 LQR 설계에서 얻습니다.
-- `V_dot`와 region-of-attraction 평가는 finite grid, threshold, simulation horizon을 사용합니다.
-- Zero sampled violation은 formal 또는 global proof가 아닙니다.
+- 이차 Lyapunov 함수는 공칭 LQR 설계에서 얻습니다.
+- `V_dot`과 흡인 영역 평가는 유한한 격자, 임계값, 시뮬레이션 시간을 사용합니다.
+- 표본점에서 위반이 0이라는 결과는 형식적 또는 전역적 증명이 아닙니다.
 
-## 강건성 근거
+## 강인성 근거
 
-- Actuator limit, noise level, parameter variation은 선택 scenario이며 포괄적 uncertainty set이 아닙니다.
-- Numerical solver와 dependency version이 작은 차이를 만들 수 있습니다.
-- Hardware, delay, quantization, fault, adversarial test가 포함되지 않습니다.
+- 구동기 제한, 잡음 수준, 매개변수 변화는 선택된 시나리오이며 모든 불확실성을 포괄하지 않습니다.
+- 수치 해법과 의존성 버전에 따라 작은 차이가 발생할 수 있습니다.
+- 실물 장비, 지연, 양자화, 고장, 적대적 공격에 대한 시험은 포함되어 있지 않습니다.
 
 ## 책임 있는 사용
 
-이 repository는 교육 연구 software이며 안전 인증 controller가 아닙니다. 물리 equipment에 적용하기 전에 독립적으로 검증하십시오.
+이 저장소는 교육용 연구 소프트웨어이며 안전 인증을 받은 제어기가 아닙니다. 물리 장비에 적용하기 전에 독립적으로 검증하세요.
 
-향후 연구에는 nonlinear plant, formal verification, learned Lyapunov function, 더 넓은 uncertainty analysis, hardware validation이 있습니다.
+향후 연구 주제로는 비선형 플랜트, 형식 검증, 학습된 Lyapunov 함수, 더 넓은 불확실성 분석, 실물 장비 검증이 있습니다.

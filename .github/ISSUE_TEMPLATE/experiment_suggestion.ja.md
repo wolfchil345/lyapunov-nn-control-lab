@@ -1,7 +1,7 @@
 ---
 name: 実験の提案
 about: 新しい制御器、安定性確認、図、ロバスト性実験を提案
-title: "[Experiment]: "
+title: "[実験]: "
 labels: enhancement
 assignees: ""
 ---
@@ -14,20 +14,20 @@ assignees: ""
 
 ## 動機
 
-なぜprojectを改善しますか?
+なぜプロジェクトを改善しますか?
 
 ## 実装案
 
-追加するfile、function、plot、metricを説明してください。
+追加するファイル、関数、図、指標を説明してください。
 
 ## 期待する出力
 
-Resultはどのようになるべきですか?
+結果はどのようになるべきですか?
 
 ## 評価と制約
 
-どのbaseline、metric、stability check、failure caseを含めますか?
+どのベースライン、指標、安定性確認、失敗事例を含めますか?
 
 ## 参考資料
 
-利用できるpaper、textbook、関連projectを追加してください。
+利用できる論文、教科書、関連プロジェクトを追加してください。

@@ -1,23 +1,23 @@
 🌐 ภาษา: [English](../en/quality_gate.md) | [日本語](../ja/quality_gate.md) | [한국어](../ko/quality_gate.md) | [ไทย](../th/quality_gate.md)
 
-# Quality Gate
+# ด่านคุณภาพ
 
-รัน final readiness check:
+รันการตรวจความพร้อมขั้นสุดท้ายด้วย
 
 ```bash
 make quality-gate
 ```
 
-ระบบรัน project status, workflow badge validation, environment check, result inventory, Markdown link check, test suite ทั้งหมด และ quick-start example
+คำสั่งนี้ตรวจสถานะโครงการ ตรวจป้ายเวิร์กโฟลว์ ตรวจสภาพแวดล้อม แสดงรายการผลลัพธ์ ตรวจลิงก์ Markdown รันการทดสอบทั้งหมด และรันตัวอย่างเริ่มต้นอย่างรวดเร็ว
 
-## ใช้ก่อน
+## ควรใช้ก่อน
 
-- เปิดหรือ merge pull request
-- แทนที่ experiment result ที่ติดตาม
-- Demo, submission หรือ release
+- เปิดหรือรวมคำขอรวมโค้ด
+- แทนที่ผลการทดลองที่ Git ติดตาม
+- การสาธิต การส่งงาน หรือการเผยแพร่
 
-## การจัดการ Failure
+## การจัดการเมื่อไม่ผ่าน
 
-อ่าน command แรกที่ล้มเหลว แก้สาเหตุนั้น แล้วรัน gate ใหม่ อย่าข้าม stage ที่ล้มเหลวหรือขยายขอบเขตการเปลี่ยนโดยไม่จำเป็น Gate ที่ผ่านยืนยัน repository consistency แต่ไม่ยืนยันข้ออ้างวิทยาศาสตร์เกิน implemented test
+อ่านคำสั่งแรกที่ล้มเหลว แก้สาเหตุ แล้วรันด่านคุณภาพใหม่ อย่าข้ามขั้นตอนที่ล้มเหลวหรือขยายขอบเขตการเปลี่ยนแปลงโดยไม่จำเป็น ด่านที่ผ่านยืนยันความสอดคล้องของรีโพซิทอรี แต่ไม่ได้ยืนยันข้ออ้างทางวิทยาศาสตร์เกินกว่าการทดสอบที่มีอยู่
 
-GitHub Actions รัน command เดียวกันผ่าน `.github/workflows/quality-gate.yml`
+GitHub Actions รันคำสั่งเดียวกันผ่าน `.github/workflows/quality-gate.yml`

@@ -1,25 +1,25 @@
 🌐 ภาษา: [English](../en/project_structure.md) | [日本語](../ja/project_structure.md) | [한국어](../ko/project_structure.md) | [ไทย](../th/project_structure.md)
 
-# โครงสร้างโครงการ
+# โครงสร้างโปรเจกต์
 
 ```text
 lyapunov-nn-control-lab/
-├── main.py                    # Full experiment pipeline
-├── src/                       # Control, simulation, analysis, reporting
-├── tests/                     # Automated tests
-├── scripts/                   # Checks, maintenance, experiment helpers
-├── examples/                  # Minimal runnable example
-├── docs/{en,ja,ko,th}/        # Localized documentation
-├── results/                   # Reference figures, CSV data, reports
-├── .github/                   # Workflows and contribution templates
-├── pyproject.toml             # Package metadata and dependencies
-└── README*.md                 # Four localized entry pages
+├── main.py                    # ลำดับการทดลองทั้งหมด
+├── src/                       # การควบคุม การจำลอง การวิเคราะห์ และการสร้างรายงาน
+├── tests/                     # การทดสอบอัตโนมัติ
+├── scripts/                   # การตรวจ การบำรุงรักษา และเครื่องมือช่วยทดลอง
+├── examples/                  # ตัวอย่างขั้นต่ำที่รันได้
+├── docs/{en,ja,ko,th}/        # เอกสารแต่ละภาษา
+├── results/                   # รูปอ้างอิง ข้อมูล CSV และรายงาน
+├── .github/                   # เวิร์กโฟลว์และแม่แบบสำหรับผู้ร่วมพัฒนา
+├── pyproject.toml             # ข้อมูลแพ็กเกจและไลบรารีที่ต้องใช้
+└── README*.md                 # หน้าเริ่มต้นสี่ภาษา
 ```
 
-## หน้าที่ของ Source
+## หน้าที่ของซอร์สโค้ด
 
-`src/system.py` กำหนด plant และ LQR baseline ส่วน controller training อยู่ใน `src/controllers.py`; simulation, metric, Lyapunov check, robustness study, plotting และ reporting แยกเป็น module ตามหน้าที่
+`src/system.py` นิยามระบบและตัวควบคุม LQR อ้างอิง การฝึกตัวควบคุมอยู่ใน `src/controllers.py` ส่วนการจำลอง ตัวชี้วัด การตรวจ Lyapunov การทดสอบความทนทาน การวาดกราฟ และการสร้างรายงานแยกเป็นโมดูลตามหน้าที่
 
 ## ไฟล์ที่สร้างขึ้น
 
-`results/nn_controller.pt` ถูกสร้างและ ignore ส่วน plot, CSV และ report ที่เลือกจะติดตามเป็น reference evidence ให้ตรวจก่อน commit
+`results/nn_controller.pt` ถูกสร้างระหว่างรันและไม่ให้ Git ติดตาม รูป ไฟล์ CSV และรายงานบางส่วนถูกติดตามเป็นหลักฐานอ้างอิง ควรตรวจก่อนคอมมิต

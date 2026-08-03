@@ -1,8 +1,8 @@
 🌐 ภาษา: [English](CONTRIBUTING.md) | [日本語](CONTRIBUTING.ja.md) | [한국어](CONTRIBUTING.ko.md) | [ไทย](CONTRIBUTING.th.md)
 
-# การมีส่วนร่วม
+# คู่มือการมีส่วนร่วม
 
-ขอบคุณที่ช่วยพัฒนา Lyapunov NN Control Lab
+ขอบคุณที่ช่วยปรับปรุง Lyapunov NN Control Lab
 
 ## การตั้งค่า
 
@@ -14,24 +14,24 @@ source .venv/bin/activate
 python -m pip install -e .
 ```
 
-## Workflow
+## ขั้นตอนการทำงาน
 
-1. สร้าง branch ที่มีจุดประสงค์ชัดเจนจาก `main` ปัจจุบัน
-2. แยกขอบเขตการเปลี่ยนแปลงด้านวิทยาศาสตร์ code และ documentation
-3. เพิ่ม test เมื่อ behavior เปลี่ยน
-4. อัปเดต viewer-facing documentation เป็นอังกฤษ ญี่ปุ่น เกาหลี และไทย
+1. สร้างสาขาที่มีขอบเขตชัดเจนจาก `main` ล่าสุด
+2. แยกขอบเขตการเปลี่ยนแปลงด้านวิทยาศาสตร์ โค้ด และเอกสารให้ชัดเจน
+3. เพิ่มการทดสอบเมื่อพฤติกรรมของระบบเปลี่ยนไป
+4. อัปเดตเอกสารสำหรับผู้ใช้ให้ครบทั้งภาษาอังกฤษ ญี่ปุ่น เกาหลี และไทย
 5. รัน `git diff --check`, `make checks` และ `make quality-gate`
-6. เปิด pull request และรอ required check ทั้งหมดก่อน merge
+6. เปิดคำขอรวมโค้ด และรอให้การตรวจสอบที่กำหนดผ่านทั้งหมดก่อนรวม
 
 ## ผลลัพธ์ทางวิทยาศาสตร์
 
-อย่าสร้างหรือ commit result ใหม่หากการเปลี่ยนไม่ต้องใช้ บันทึก seed และ experiment setting ตรวจทุก numerical และ figure diff และอธิบาย sampled stability evidence อย่างถูกต้อง
+อย่าสร้างหรือคอมมิตผลลัพธ์ใหม่หากการเปลี่ยนแปลงไม่ได้กำหนดให้ทำ ควรบันทึกค่าเมล็ดสุ่มและการตั้งค่าการทดลอง ตรวจทานความแตกต่างของตัวเลขและรูปทั้งหมด และอธิบายหลักฐานเสถียรภาพจากจุดตัวอย่างอย่างถูกต้อง
 
-## การมีส่วนร่วมที่ดี
+## การมีส่วนร่วมที่ยินดีต้อนรับ
 
-- Controller baseline และ robustness experiment ที่ออกแบบอย่างรอบคอบ
-- Test สำหรับ numerical, reporting และ documentation tool
-- Plot, example, translation และ methodology explanation ที่ชัดขึ้น
-- การปรับปรุง reproducibility, safety และ failure case
+- ตัวควบคุมอ้างอิงและการทดลองความทนทานที่ออกแบบอย่างรอบคอบ
+- การทดสอบเครื่องมือด้านการคำนวณ การสร้างรายงาน และเอกสาร
+- กราฟ ตัวอย่าง คำแปล และคำอธิบายระเบียบวิธีที่ชัดเจนขึ้น
+- การปรับปรุงด้านการทำซ้ำได้ ความปลอดภัย และกรณีล้มเหลว
 
-ใช้ commit message แบบคำสั่งสั้น เช่น `Add noise robustness test` หรือ `Clarify Lyapunov limitations`
+ใช้ข้อความคอมมิตแบบคำสั่งสั้นๆ เช่น `Add noise robustness test` หรือ `Clarify Lyapunov limitations`

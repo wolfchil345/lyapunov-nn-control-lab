@@ -2,15 +2,15 @@
 
 # 발표 구성
 
-1. **동기:** Neural controller는 유연하지만 안정성과 robustness를 평가해야 함.
-2. **Plant:** Position, velocity, force input이 있는 mass-spring-damper state-space model.
-3. **Baseline:** LQR이 안정화 reference와 imitation target을 제공.
-4. **Neural controller:** Zero-at-origin architecture, imitation loss, Lyapunov penalty.
-5. **평가:** Trajectory, settling time, cost, control effort, sampled `V_dot`.
-6. **Robustness:** Actuator saturation, measurement noise, parameter variation.
-7. **State-space evidence:** Phase portrait, Lyapunov contour, region-of-attraction map.
-8. **주요 결과:** Test setting에서 neural controller가 LQR을 가깝게 따르고 추적된 sampled Lyapunov violation fraction이 모두 zero.
-9. **한계:** Simulated linear plant, finite grid, 선택된 uncertainty case, formal proof 없음.
-10. **향후 연구:** Nonlinear system, formal verification, learned Lyapunov function, KAN, hardware validation.
+1. **동기:** 신경망 제어기는 유연하지만 안정성과 강인성을 검토해야 합니다.
+2. **플랜트:** 위치, 속도, 힘 입력을 사용하는 질량-스프링-댐퍼 상태 공간 모델.
+3. **기준 제어기:** LQR이 안정화 기준과 모방 학습의 목표값을 제공합니다.
+4. **신경망 제어기:** 원점 출력이 0인 구조, 모방 손실, Lyapunov 패널티.
+5. **평가:** 깤적, 정착 시간, 비용, 제어 노력, 표본점에서의 `V_dot`.
+6. **강인성:** 구동기 포화, 측정 잡음, 매개변수 변화.
+7. **상태 공간 근거:** 위상 선도, Lyapunov 등고선, 흡인 영역 지도.
+8. **주요 결과:** 신경망 제어기는 시험한 조건에서 LQR을 가깝게 따랐고, 추적한 모든 표본 Lyapunov 위반 비율은 0입니다.
+9. **한계:** 시뮬레이션된 선형 플랜트, 유한 격자, 선택된 불확실성 사례, 형식 증명 없음.
+10. **향후 연구:** 비선형 시스템, 형식 검증, 학습된 Lyapunov 함수, KAN, 실물 장비 검증.
 
-수치 주장을 발표할 때 읽기 쉬운 caption이 있는 figure를 사용하고 seed와 tested region을 명시합니다.
+수치 결과를 발표할 때는 읽기 쉬운 설명이 있는 그림을 사용하고, 난수 시드와 시험 영역을 함께 밝히세요.

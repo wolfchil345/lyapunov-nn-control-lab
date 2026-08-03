@@ -4,26 +4,26 @@
 
 ## 모델
 
-Controller는 `[position, velocity]`에서 하나의 force command로 mapping하는 작은 PyTorch multilayer perceptron입니다. Output을 shift해 `u(0) = 0`을 강제합니다.
+이 제어기는 `[position, velocity]`를 하나의 힘 명령으로 변환하는 작은 PyTorch 다층 퍼셉트론입니다. 출력을 보정해 `u(0) = 0`을 항상 만족합니다.
 
 ## 학습
 
-Bounded region에서 state를 sample하고 공칭 LQR controller로 label을 만듭니다. Training은 imitation MSE와 weighted sampled Lyapunov penalty를 최소화합니다. Repository는 fixed random seed를 설정합니다.
+유한한 영역에서 상태를 추출하고 공칭 LQR 제어기의 출력을 정답으로 사용합니다. 학습은 모방 MSE와 가중치가 적용된 표본 기반 Lyapunov 패널티를 함께 최소화합니다. 재현성을 위해 난수 시드를 고정합니다.
 
-## 의도된 사용
+## 의도된 용도
 
-- Learning-based control 교육과 research prototyping.
-- 포함된 simulation에서 LQR과의 reproducible comparison.
-- Stability-aware objective와 robustness diagnostic 탐색.
+- 학습 기반 제어를 위한 교육과 연구 시작품.
+- 제공된 시뮬레이션에서 LQR과 재현 가능한 비교.
+- 안정성을 고려한 목적 함수와 강인성 진단의 탐구.
 
-## 범위 밖
+## 적용 범위 외
 
-- Safety-critical 또는 hardware 직접 deployment.
-- Formal, global, distribution-free stability 주장.
-- 검증된 state, actuator, plant range 밖 운용.
+- 안전이 중요한 시스템이나 실물 장비에 바로 배치하는 용도.
+- 형식적·전역적·분포 독립적 안정성을 보장하는 주장.
+- 검증된 상태, 구동기, 플랜트 범위 밖에서의 운용.
 
 ## 평가
 
-Closed-loop trajectory, final norm, settling time, cost, control energy, maximum input, sampled `V_dot`, robustness scenario, estimated region of attraction.
+폐루프 깤적, 최종 상태 노름, 정착 시간, 비용, 제어 에너지, 최대 입력, 표본점에서의 `V_dot`, 강인성 시나리오, 추정된 흡인 영역을 평가합니다.
 
-Model 재사용 전에 [한계](limitations.md)와 [재현성](reproducibility.md)을 확인하십시오.
+모델을 재사용하기 전에 [한계](limitations.md)와 [재현성](reproducibility.md)을 확인하세요.

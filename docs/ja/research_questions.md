@@ -4,22 +4,22 @@
 
 ## 主な問い
 
-ニューラル制御器は安定化LQR policyを模倣しながら、閉ループsimulationで良好なサンプルLyapunov挙動とrobustnessを維持できるか?
+ニューラル制御器は安定化LQR 方針を模倣しながら、閉ループシミュレーションで良好なサンプルLyapunov挙動とロバスト性を維持できるか?
 
 ## 性能と安定性
 
-- Settling time、quadratic cost、control effortはLQRにどの程度近いか?
-- サンプル `V_dot` はどこで非負となり、training penaltyによりどう変わるか?
-- 推定region of attractionはLQR、neural、saturated controllerでどう変わるか?
+- 整定時間、二次コスト、制御入力の大きさはLQRにどの程度近いか?
+- サンプル `V_dot` はどこで非負となり、学習 ペナルティによりどう変わるか?
+- 推定引き込み領域は、LQR、ニューラル制御器、飽和付きニューラル制御器でどのように異なるか?
 
 ## ロバスト性
 
-- Measurement noise、actuator saturation、plant uncertaintyは収束にどう影響するか?
-- どのtest caseが最初に失敗し、それはtraining regionの内側か外側か?
+- 測定ノイズ、アクチュエータ飽和、プラントの不確かさは収束にどのような影響を与えるか?
+- どのテスト ケースが最初に失敗し、それは学習 領域の内側か外側か?
 
 ## 学習とアーキテクチャ
 
-- Imitation accuracyとstability-loss weightのtrade-offは何か?
-- KAN controllerはsmoothness、interpretability、robustness、region-of-attraction resultを変えるか?
+- 模倣 accuracyと安定性-損失 weightのトレードオフは何か?
+- KAN制御器は、滑らかさ、解釈可能性、ロバスト性、引き込み領域の結果をどのように変えるか?
 
-回答を報告するときはsampled region、threshold、seed、limitationsを明記します。
+回答を報告するときはサンプル点での 領域、閾値、シード、制約を明記します。

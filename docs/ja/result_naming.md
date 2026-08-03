@@ -16,6 +16,6 @@ YYYYMMDD_controller_experiment_setting.ext
 20260804_nn_noise_sigma005.md
 ```
 
-日付、controller、experiment type、結果を区別するsettingを含めます。Spaceや `final.png`、`new_result.csv`、`really_final_plot.png` は避けます。
+日付、制御器、実験の種類、結果を区別できる設定を名前に含めます。空白や `final.png`、`new_result.csv`、`really_final_plot.png` のような曖昧な名前は避けてください。
 
-`main.py` が使う追跡reference artifactは安定したfilenameを維持します。追加runには拡張patternを使用し、重要な出力をexperiment logからlinkします。
+`main.py` が使う追跡参照 成果物は安定したfilenameを維持します。追加実行には拡張patternを使用し、重要な出力を実験 ログからリンクします。

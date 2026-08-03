@@ -1,8 +1,8 @@
 🌐 言語: [English](CONTRIBUTING.md) | [日本語](CONTRIBUTING.ja.md) | [한국어](CONTRIBUTING.ko.md) | [ไทย](CONTRIBUTING.th.md)
 
-# コントリビューション
+# コントリビューションガイド
 
-Lyapunov NN Control Labの改善に協力いただきありがとうございます。
+Lyapunov NN Control Lab の改善にご協力いただき、ありがとうございます。
 
 ## セットアップ
 
@@ -14,24 +14,24 @@ source .venv/bin/activate
 python -m pip install -e .
 ```
 
-## ワークフロー
+## 作業手順
 
-1. 最新 `main` から目的を限定したbranchを作成。
-2. 科学、code、documentation変更の範囲を明確化。
-3. Behavior変更にtestを追加。
-4. Viewer-facing documentationを英語、日本語、韓国語、タイ語で更新。
-5. `git diff --check`、`make checks`、`make quality-gate` を実行。
-6. Pull requestをopenし、全required checkを待ってからmerge。
+1. 最新の `main` から目的を限定したブランチを作成します。
+2. 科学的変更、コード変更、ドキュメント変更の範囲を明確に分けます。
+3. 動作を変更した場合はテストを追加します。
+4. 利用者向けのドキュメントを英語、日本語、韓国語、タイ語の4言語で更新します。
+5. `git diff --check`、`make checks`、`make quality-gate` を実行します。
+6. プルリクエストを作成し、必須チェックがすべて完了してからマージします。
 
 ## 科学的結果
 
-変更に必要でない限りresultを再生成・commitしません。Seedとexperiment settingを記録し、全数値・figure diffを確認し、sampled stability evidenceを正確に説明します。
+変更に必要な場合を除き、結果の再生成やコミットは行いません。乱数シードと実験設定を記録し、数値と図の差分をすべて確認した上で、サンプル点に基づく安定性の証拠を正確に説明してください。
 
-## 良い貢献
+## 歓迎する貢献
 
-- Controller baselineと慎重に設計したrobustness experiment。
-- Numerical、reporting、documentation toolのtest。
-- 明確なplot、example、translation、methodology説明。
-- Reproducibility、safety、failure-caseの改善。
+- 基準制御器と、慎重に設計されたロバスト性実験。
+- 数値計算、レポート生成、ドキュメントツールのテスト。
+- より明確な図、例、翻訳、手法の説明。
+- 再現性、安全性、失敗例に関する改善。
 
-`Add noise robustness test` や `Clarify Lyapunov limitations` のような短い命令形commit messageを使います。
+コミットメッセージには、`Add noise robustness test` や `Clarify Lyapunov limitations` のような短い命令形を使ってください。

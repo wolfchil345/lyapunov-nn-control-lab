@@ -17,12 +17,12 @@ git commit -m "Describe the change"
 git push -u origin docs/short-description
 ```
 
-Pull requestをopenし、required checkを待ち、conversationを解決し、protected `main` branch経由でmergeします。
+プルリクエストを作成し、必須チェックを待ち、conversationを解決し、保護された `main` ブランチ経由でマージします。
 
 ## ルール
 
-- 一つのbranchに一つの目的。
-- 明示的なfileをstageし、生成artifactを別にreview。
-- 明確な命令形commit messageを使用。
-- `main` をforce-pushせず、published tagを書き換えず、secretやenvironment fileをcommitしない。
-- `main` 同期後にmerge済みfeature branchを削除。
+- 一つのブランチに一つの目的。
+- 明示的なファイルを段階し、生成成果物を別にレビュー。
+- 明確な命令形コミット メッセージを使用。
+- `main` への強制push、公開済みタグの書き換え、機密情報や環境ファイルのコミットは行わない。
+- `main` 同期後にマージ済みfeature ブランチを削除。

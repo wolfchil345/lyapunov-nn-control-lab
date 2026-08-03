@@ -1,20 +1,20 @@
 🌐 ภาษา: [English](../en/experiment_parameters.md) | [日本語](../ja/experiment_parameters.md) | [한국어](../ko/experiment_parameters.md) | [ไทย](../th/experiment_parameters.md)
 
-# Parameter การทดลอง
+# พารามิเตอร์ การทดลอง
 
-## กลุ่ม Parameter
+## กลุ่ม พารามิเตอร์
 
 | กลุ่ม | ตัวอย่าง | ตำแหน่งหลัก |
 |---|---|---|
-| Plant | mass, damping, stiffness | `src/system.py`, `src/parameter_variation.py` |
-| Controller | `Q`, `R`, network size, saturation limit | `src/system.py`, `src/controllers.py`, `main.py` |
-| Training | seed, epochs, learning rate, dataset size, loss weights | `src/controllers.py`, `main.py` |
-| Simulation | initial state, duration, evaluation times | `src/simulation.py`, `main.py` |
-| Stability | state range, grid density, decay margin | `src/lyapunov.py`, `main.py` |
-| Robustness | noise, parameter cases, ablation weights | `src/noise.py`, `src/parameter_variation.py`, `src/stability_ablation.py` |
+| ระบบ | มวล ค่าหน่วง และค่าสปริง | `src/system.py`, `src/parameter_variation.py` |
+| ตัวควบคุม | `Q`, `R`, ขนาดเครือข่าย ขีดจำกัดการอิ่มตัว | `src/system.py`, `src/controllers.py`, `main.py` |
+| การฝึก | ค่าเมล็ดสุ่ม จำนวนรอบฝึก อัตราการเรียนรู้ ขนาดชุดข้อมูล น้ำหนักของค่าความสูญเสีย | `src/controllers.py`, `main.py` |
+| การจำลอง | สถานะเริ่มต้น, ระยะเวลาจำลอง, การประเมิน เวลาประเมิน | `src/simulation.py`, `main.py` |
+| เสถียรภาพ | ช่วงสถานะ ความหนาแน่นของกริด ค่าเผื่อการลดลง | `src/lyapunov.py`, `main.py` |
+| ความทนทาน | สัญญาณรบกวน, พารามิเตอร์ กรณี, การตัดองค์ประกอบ น้ำหนัก | `src/noise.py`, `src/parameter_variation.py`, `src/stability_ablation.py` |
 
 ## การเปรียบเทียบที่ยุติธรรม
 
-เปลี่ยนทีละหนึ่งกลุ่ม parameter ให้คง seed, initial state, simulation horizon และ evaluation metric เว้นแต่สิ่งนั้นคือคำถามวิจัย
+เปลี่ยนทีละหนึ่งกลุ่ม พารามิเตอร์ ให้คง ค่าเมล็ดสุ่ม, สถานะเริ่มต้น, การจำลอง ช่วงเวลาประเมิน และ การประเมิน ตัวชี้วัด เว้นแต่สิ่งนั้นคือคำถามวิจัย
 
-บันทึกค่าที่แน่นอนใน [บันทึกการทดลอง](experiment_log_template.md) ก่อนยอมรับ reference result ใหม่
+บันทึกค่าที่แน่นอนใน [บันทึกการทดลอง](experiment_log_template.md) ก่อนยอมรับ ผลลัพธ์อ้างอิง ใหม่
