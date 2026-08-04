@@ -7,8 +7,8 @@
 1. Install the project and run `python scripts/check_environment.py`.
 2. Run `python examples/quick_start.py` and `make checks`.
 3. Record the branch, commit, seed, and intended parameter changes.
-4. Back up tracked files in `results/` before any cleanup.
-5. Run `python main.py` or `python scripts/run_full_experiment.py`.
+4. Back up tracked files in `results/`, then preview cleanup with `python scripts/clean_results.py`.
+5. Run `python main.py`, or use `python scripts/run_full_experiment.py` to confirm cleanup of known generated files and run the full pipeline.
 6. Run `python scripts/summarize_results.py` and inspect every generated plot and CSV.
 7. Compare metrics only when settings are compatible.
 8. Run `make quality-gate` before committing.

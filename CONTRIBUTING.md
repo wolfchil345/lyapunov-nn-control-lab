@@ -11,7 +11,7 @@ git clone https://github.com/wolfchil345/lyapunov-nn-control-lab.git
 cd lyapunov-nn-control-lab
 python -m venv .venv
 source .venv/bin/activate
-python -m pip install -e .
+python -m pip install -e ".[dev]"
 ```
 
 ## Workflow

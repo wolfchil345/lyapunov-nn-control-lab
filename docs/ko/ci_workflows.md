@@ -4,8 +4,8 @@
 
 | 워크플로 | 목적 |
 |---|---|
-| `tests.yml` | Python 3.12에서 Python 테스트 모음 실행 |
-| `local-checks.yml` | Python 3.11에서 `make checks` 실행 |
+| `tests.yml` | Python 3.10과 3.12에서 Python 테스트 모음 실행 |
+| `local-checks.yml` | Python 3.12에서 패키지, 문서, lint, 테스트, 빠른 시작 검사 실행 |
 | `quality-gate.yml` | `main`과 풀 리퀘스트에서 전체 준비 상태 검사 실행 |
 | `codeql.yml` | 푸시, 풀 리퀘스트, 주간 스케줄에서 Python 코드 분석 |
 
@@ -16,6 +16,6 @@ make checks
 make quality-gate
 ```
 
-필수 브랜치 검사에는 GitHub에 표시되는 작업 이름을 정확히 사용해야 합니다. 워크플로가 실패하면 처음 실패한 단계를 확인하고 그 명령을 로컬에서 재현합니다.
+워크플로는 읽기 전용 기본 권한, 의존성 캐시, 동시 실행 취소, 명시적 시간 제한을 사용합니다. 필수 브랜치 검사에는 GitHub에 표시되는 작업 이름을 정확히 사용해야 합니다. 실패하면 처음 실패한 단계를 확인하고 그 명령을 로컬에서 재현합니다.
 
 README 배지는 `python scripts/check_workflow_badges.py`로 검증합니다.

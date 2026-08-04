@@ -11,11 +11,11 @@ python -m pip check
 
 ## パッケージがない、またはPyTorchを読み込めない
 
-`.venv`を有効にし、pipを更新してから `python -m pip install -e .` でプロジェクトを再インストールします。システムのPythonと仮想環境のパッケージを混在させないでください。
+`.venv`を有効にし、pipを更新してから `python -m pip install -e ".[dev]"` でプロジェクトを再インストールします。システムのPythonと仮想環境のパッケージを混在させないでください。
 
-## Git LFSエラー
+## パッケージ情報またはインポートのエラー
 
-Git LFSをインストールし、`git lfs install`を実行します。追跡中のバイナリ成果物は `git lfs pull` で復元できます。
+`python scripts/check_package.py` を実行します。失敗する場合は、開発用extra付きの編集可能プロジェクトを再インストールしてください。現在追跡している成果物にGit LFSは不要です。
 
 ## 環境を作り直す
 

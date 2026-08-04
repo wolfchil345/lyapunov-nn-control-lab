@@ -5,7 +5,7 @@
 ## 검사 재현
 
 ```bash
-python -m pip install -e .
+python -m pip install -e ".[dev]"
 make checks
 make quality-gate
 ```
@@ -18,11 +18,11 @@ make quality-gate
 python scripts/run_full_experiment.py
 ```
 
-코드는 Python, NumPy, PyTorch의 난수 시드를 설정합니다. 모든 결과에 커밋, Python 버전, 의존성 버전, 실험 설정을 기록하십시오.
+코드는 Python, NumPy, PyTorch 및 사용 가능한 CUDA 장치의 난수 시드를 설정합니다. 모든 결과에 커밋, Python 버전, 의존성 버전, 장치, 실험 설정을 기록하십시오.
 
 ## 예상 차이
 
-시스템과 라이브러리 버전에 따라 작은 수치 차이나 PNG 인코딩 차이가 생길 수 있습니다. 변경을 채택하기 전에 수치 지표를 비교하고 그림의 픽셀 내용을 확인합니다.
+시스템, 장치, 라이브러리 버전에 따라 작은 수치 차이나 PNG 인코딩 차이가 생길 수 있습니다. 고정 시드도 모든 CPU, GPU, BLAS 구현 또는 의존성 릴리스에서 비트 단위 동일성을 보장하지 않습니다. 변경을 채택하기 전에 수치 지표를 비교하고 그림의 픽셀 내용을 확인합니다.
 
 ## 범위
 

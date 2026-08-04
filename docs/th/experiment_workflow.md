@@ -7,8 +7,8 @@
 1. ติดตั้งโครงการและรัน `python scripts/check_environment.py`
 2. รัน `python examples/quick_start.py` และ `make checks`
 3. บันทึกสาขา คอมมิต ค่าเมล็ดสุ่ม และพารามิเตอร์ที่จะเปลี่ยน
-4. สำรองไฟล์ที่ Git ติดตามใน `results/` ก่อนล้างผลลัพธ์เก่า
-5. รัน `python main.py` หรือ `python scripts/run_full_experiment.py`
+4. สำรองไฟล์ที่ Git ติดตามใน `results/` แล้วใช้ `python scripts/clean_results.py` เพื่อดูรายการที่จะล้างก่อน
+5. รัน `python main.py` หรือใช้ `python scripts/run_full_experiment.py` เพื่อยืนยันการลบไฟล์ที่สร้างขึ้นซึ่งรู้จักและรันลำดับงานเต็ม
 6. รัน `python scripts/summarize_results.py` และตรวจกราฟกับไฟล์ CSV ทุกไฟล์
 7. เปรียบเทียบตัวชี้วัดเฉพาะเมื่อการตั้งค่าเข้ากันได้
 8. รัน `make quality-gate` ก่อนคอมมิต

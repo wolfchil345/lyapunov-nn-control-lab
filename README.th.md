@@ -124,7 +124,7 @@ cd lyapunov-nn-control-lab
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
-python -m pip install -e .
+python -m pip install -e ".[dev]"
 ```
 
 บน Windows PowerShell ให้เปิดสภาพแวดล้อมด้วย `.venv\Scripts\Activate.ps1`
@@ -150,7 +150,7 @@ make checks
 make quality-gate
 ```
 
-คำสั่งที่มีประโยชน์อยู่ใน [คู่มือคำสั่ง](docs/th/commands.md) คำสั่ง `python scripts/clean_results.py` จะลบทุกไฟล์ใน `results/`; โปรดอ่าน [ขั้นตอนการทดลอง](docs/th/experiment_workflow.md) ก่อนใช้งาน
+คำสั่งที่มีประโยชน์อยู่ใน [คู่มือคำสั่ง](docs/th/commands.md) คำสั่ง `python scripts/clean_results.py` จะแสดงตัวอย่างไฟล์ที่สร้างขึ้นซึ่งรู้จักก่อน และต้องระบุ `--yes` อย่างชัดเจนจึงจะลบจริง โปรดอ่าน [ขั้นตอนการทดลอง](docs/th/experiment_workflow.md) ก่อน
 
 ## โครงสร้างโครงการ
 

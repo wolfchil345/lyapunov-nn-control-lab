@@ -5,16 +5,16 @@
 ## ซอร์สโค้ดและการตั้งค่า
 
 - `main.py`: ควบคุมลำดับการทดลองทั้งหมด
-- `src/`: พลวัต ตัวควบคุม การจำลอง ตัวชี้วัด ความทนทาน การสร้างรายงาน และการวาดกราฟ
+- `src/`: พลวัต ตัวควบคุม การจำลอง การตรวจสอบอินพุต การทำซ้ำผล ตัวชี้วัด ความทนทาน การสร้างรายงาน และการวาดกราฟ
 - `tests/`: การทดสอบพฤติกรรมแบบอัตโนมัติ
-- `pyproject.toml`, `requirements.txt`: ข้อมูลแพ็กเกจและไลบรารีที่ต้องใช้
+- `pyproject.toml`, `requirements.txt`, `requirements-dev.txt`: ข้อมูลแพ็กเกจ dependencies ขณะรัน และเครื่องมือพัฒนา
 
 ## สคริปต์สำหรับใช้งาน
 
 - `scripts/run_checks.py`: ตรวจลิงก์เอกสาร รันชุดทดสอบ และตัวอย่างเริ่มต้น
 - `scripts/quality_gate.py`: ตรวจความพร้อมขั้นสุดท้ายของรีโพซิทอรี
 - `scripts/run_full_experiment.py`: ล้างผลเก่า รันการทดลอง และสรุปผลตามลำดับ
-- `scripts/check_environment.py`, `scripts/project_status.py`, `scripts/list_results.py`: สคริปต์สำหรับวินิจฉัยสภาพแวดล้อมและไฟล์
+- `scripts/check_environment.py`, `scripts/check_package.py`, `scripts/project_status.py`, `scripts/list_results.py`: สคริปต์สำหรับวินิจฉัยสภาพแวดล้อม แพ็กเกจ และไฟล์
 
 ## หลักฐานที่สร้างขึ้น
 

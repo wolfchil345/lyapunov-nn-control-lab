@@ -11,11 +11,11 @@ python -m pip check
 
 ## Missing package or PyTorch import error
 
-Activate `.venv`, upgrade pip, and reinstall the project with `python -m pip install -e .`. Avoid mixing system Python and virtual-environment packages.
+Activate `.venv`, upgrade pip, and reinstall the project with `python -m pip install -e ".[dev]"`. Avoid mixing system Python and virtual-environment packages.
 
-## Git LFS error
+## Package metadata or import error
 
-Install Git LFS, run `git lfs install`, and use `git lfs pull` to restore tracked binary assets.
+Run `python scripts/check_package.py`. If it fails, reinstall the editable project with the development extra. The current tracked assets do not require Git LFS.
 
 ## Clean reset
 

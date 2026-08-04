@@ -7,8 +7,8 @@
 1. 프로젝트를 설치하고 `python scripts/check_environment.py`를 실행합니다.
 2. `python examples/quick_start.py`와 `make checks`를 실행합니다.
 3. 브랜치, 커밋, 시드, 변경할 매개변수를 기록합니다.
-4. 결과를 정리하기 전에 `results/`의 추적 파일을 백업합니다.
-5. `python main.py` 또는 `python scripts/run_full_experiment.py`를 실행합니다.
+4. `results/`의 추적 파일을 백업한 뒤 `python scripts/clean_results.py`로 정리 대상을 미리 확인합니다.
+5. `python main.py`를 실행하거나, `python scripts/run_full_experiment.py`로 알려진 생성 파일의 삭제를 확인하고 전체 파이프라인을 실행합니다.
 6. `python scripts/summarize_results.py`를 실행하고 모든 그래프과 CSV를 확인합니다.
 7. 설정이 호환될 때만 지표을 비교합니다.
 8. 커밋 전에 `make quality-gate`를 실행합니다.

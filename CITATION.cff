@@ -1,6 +1,8 @@
 cff-version: 1.2.0
 message: "If you use this project, please cite it using the metadata in this file."
 title: "Lyapunov Neural-Network Control Lab"
+version: "1.0.1"
+date-released: "2026-07-20"
 authors:
   - family-names: "Sriamontham"
     given-names: "Sirichet"

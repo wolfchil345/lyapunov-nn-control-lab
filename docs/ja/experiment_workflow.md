@@ -7,8 +7,8 @@
 1. プロジェクトをインストールし、`python scripts/check_environment.py` を実行します。
 2. `python examples/quick_start.py` と `make checks` を実行します。
 3. ブランチ、コミット、シード、変更予定のパラメータを記録します。
-4. クリーンアップ前に `results/` の追跡ファイルをバックアップします。
-5. `python main.py` または `python scripts/run_full_experiment.py` を実行します。
+4. `results/` の追跡ファイルをバックアップし、`python scripts/clean_results.py` でクリーンアップ対象をプレビューします。
+5. `python main.py` を実行するか、`python scripts/run_full_experiment.py` で既知の生成ファイルの削除を確定して完全なパイプラインを実行します。
 6. `python scripts/summarize_results.py` を実行し、全図とCSVを確認します。
 7. 設定が互換の場合だけ指標を比較します。
 8. コミット前に `make quality-gate` を実行します。

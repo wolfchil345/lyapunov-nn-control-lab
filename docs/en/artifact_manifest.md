@@ -5,16 +5,16 @@
 ## Source and configuration
 
 - `main.py`: full experiment orchestration.
-- `src/`: dynamics, controllers, simulation, metrics, robustness, reporting, and plotting.
+- `src/`: dynamics, controllers, simulation, validation, reproducibility, metrics, robustness, reporting, and plotting.
 - `tests/`: automated behavior checks.
-- `pyproject.toml`, `requirements.txt`: package metadata and dependencies.
+- `pyproject.toml`, `requirements.txt`, `requirements-dev.txt`: package metadata, runtime dependencies, and development tools.
 
 ## Operational scripts
 
 - `scripts/run_checks.py`: documentation links, tests, and quick start.
 - `scripts/quality_gate.py`: final repository-readiness sequence.
 - `scripts/run_full_experiment.py`: cleanup, experiment, and summary pipeline.
-- `scripts/check_environment.py`, `scripts/project_status.py`, `scripts/list_results.py`: diagnostics.
+- `scripts/check_environment.py`, `scripts/check_package.py`, `scripts/project_status.py`, `scripts/list_results.py`: diagnostics.
 
 ## Generated evidence
 

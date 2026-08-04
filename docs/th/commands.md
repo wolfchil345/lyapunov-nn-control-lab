@@ -5,7 +5,7 @@
 ## ติดตั้งและวินิจฉัย
 
 ```bash
-python -m pip install -e .
+python -m pip install -e ".[dev]"
 python scripts/check_environment.py
 ```
 
@@ -15,6 +15,7 @@ python scripts/check_environment.py
 python examples/quick_start.py
 python main.py
 python -m pytest
+make lint
 make checks
 make quality-gate
 ```
@@ -27,7 +28,7 @@ python scripts/summarize_results.py
 python scripts/new_experiment_log.py "short description" --language th
 ```
 
-`python scripts/clean_results.py` จะลบทุกไฟล์ใน `results/` จึงต้องสำรองผลลัพธ์อ้างอิงที่ต้องการเก็บก่อนใช้งาน
+`python scripts/clean_results.py` เป็นการทดลองแบบไม่ลบจริงและจะแสดงรายการไฟล์ที่สร้างขึ้นซึ่งรู้จัก ใช้ `python scripts/clean_results.py --yes` หลังจากตรวจสอบรายการแล้วเท่านั้น โดยจะเก็บไฟล์ที่ไม่รู้จักและโฟลเดอร์บันทึกการทดลองไว้
 
 ## Git
 

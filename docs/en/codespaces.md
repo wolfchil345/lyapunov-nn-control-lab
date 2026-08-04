@@ -2,7 +2,7 @@
 
 # GitHub Codespaces Setup
 
-The dev container uses Python 3.11, installs `requirements.txt`, recommends the project extensions, and enables pytest discovery.
+The dev container uses Python 3.12, installs the editable project with the `dev` extra, recommends the project extensions, and enables pytest discovery.
 
 ## First commands
 
@@ -16,4 +16,4 @@ make checks
 
 Create a feature branch, make focused changes, run `make quality-gate`, commit, push, and open a pull request. Store generated plots only when they are intentional reference artifacts.
 
-Git LFS must be available before checking out tracked binary assets. If a Codespace becomes inconsistent, rebuild the container instead of committing environment-generated files.
+Tracked reference images use normal Git; Git LFS is not required. If a Codespace becomes inconsistent, rebuild the container instead of committing environment-generated files.

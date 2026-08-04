@@ -124,7 +124,7 @@ cd lyapunov-nn-control-lab
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
-python -m pip install -e .
+python -m pip install -e ".[dev]"
 ```
 
 Windows PowerShell에서는 `.venv\Scripts\Activate.ps1`로 환경을 활성화합니다.
@@ -150,7 +150,7 @@ make checks
 make quality-gate
 ```
 
-유용한 명령은 [명령어 가이드](docs/ko/commands.md)에 있습니다. `python scripts/clean_results.py`는 `results/`의 모든 파일을 삭제하므로 실행 전에 [실험 워크플로](docs/ko/experiment_workflow.md)를 확인하십시오.
+유용한 명령은 [명령어 가이드](docs/ko/commands.md)에 있습니다. `python scripts/clean_results.py`는 알려진 생성 파일을 미리 보여 주며, 실제 삭제에는 명시적인 `--yes`가 필요합니다. 먼저 [실험 워크플로](docs/ko/experiment_workflow.md)를 확인하십시오.
 
 ## 프로젝트 구조
 

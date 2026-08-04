@@ -4,11 +4,11 @@
 
 ## 모듈 불러오기 또는 테스트 실패
 
-터미널이 저장소 루트인지 확인하고 `.venv`를 활성화한 뒤 `python -m pip install -e .`와 `python -m pytest`를 실행합니다.
+터미널이 저장소 루트인지 확인하고 `.venv`를 활성화한 뒤 `python -m pip install -e ".[dev]"`와 `python -m pytest`를 실행합니다.
 
 ## 그래프 또는 CSV가 오래됨
 
-`git status`를 확인하고 추적 산출물를 백업합니다. 그 다음에만 `python scripts/clean_results.py`와 `python main.py`를 실행합니다.
+`git status`를 확인하고 추적 산출물을 백업합니다. `python scripts/clean_results.py`로 삭제 대상을 미리 확인한 뒤 `python scripts/clean_results.py --yes`와 `python main.py`를 실행합니다.
 
 ## 수치가 조금 다름
 

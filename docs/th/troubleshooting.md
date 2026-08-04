@@ -4,11 +4,11 @@
 
 ## นำเข้าโมดูลไม่ได้หรือการทดสอบล้มเหลว
 
-ตรวจว่าเทอร์มินัลอยู่ที่รากโครงการ เปิดใช้งาน `.venv` แล้วรัน `python -m pip install -e .` และ `python -m pytest`
+ตรวจว่าเทอร์มินัลอยู่ที่รากโครงการ เปิดใช้งาน `.venv` แล้วรัน `python -m pip install -e ".[dev]"` และ `python -m pytest`
 
 ## กราฟ หรือ CSV เก่า
 
-ตรวจ `git status` และสำรองผลลัพธ์ที่ Git ติดตามอยู่ จากนั้นจึงรัน `python scripts/clean_results.py` แล้ว `python main.py`
+ตรวจ `git status` และสำรองผลลัพธ์ที่ Git ติดตามอยู่ ใช้ `python scripts/clean_results.py` เพื่อดูรายการที่จะลบก่อน จากนั้นจึงรัน `python scripts/clean_results.py --yes` และ `python main.py`
 
 ## ค่าตัวเลขต่างเล็กน้อย
 

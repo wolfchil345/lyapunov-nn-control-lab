@@ -4,11 +4,11 @@
 
 ## インポートまたはテストが失敗する
 
-ターミナルがリポジトリのルートにあることを確認し、`.venv` を有効化して、`python -m pip install -e .` の後に `python -m pytest` を実行します。
+ターミナルがリポジトリのルートにあることを確認し、`.venv` を有効化して、`python -m pip install -e ".[dev]"` の後に `python -m pytest` を実行します。
 
 ## 図やCSVが古い
 
-`git status` を確認し、追跡対象成果物をバックアップします。その後だけ `python scripts/clean_results.py` と `python main.py` を実行します。
+`git status` を確認し、追跡対象成果物をバックアップします。`python scripts/clean_results.py` で削除対象をプレビューし、一覧を確認した後に `python scripts/clean_results.py --yes` と `python main.py` を実行します。
 
 ## 数値が少し異なる
 

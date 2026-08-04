@@ -17,7 +17,7 @@
 ## Robustness evidence
 
 - Actuator limits, noise levels, and parameter variations are selected scenarios, not exhaustive uncertainty sets.
-- Numerical solvers and dependency versions can introduce small differences.
+- Most simulations use adaptive ODE integration; the measurement-noise experiment uses fixed-step explicit Euler integration. Solver, device, and dependency differences can change results slightly.
 - No hardware, delay, quantization, fault, or adversarial test is included.
 
 ## Responsible use

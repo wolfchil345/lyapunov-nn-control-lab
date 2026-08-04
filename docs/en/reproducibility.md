@@ -5,7 +5,7 @@
 ## Reproduce the checks
 
 ```bash
-python -m pip install -e .
+python -m pip install -e ".[dev]"
 make checks
 make quality-gate
 ```
@@ -18,11 +18,11 @@ Back up tracked results, then run:
 python scripts/run_full_experiment.py
 ```
 
-The code seeds Python, NumPy, and PyTorch. Record the commit, Python version, dependency versions, and experiment settings with every result.
+The code seeds Python, NumPy, PyTorch, and available CUDA devices. Record the commit, Python version, dependency versions, device, and experiment settings with every result.
 
 ## Expected variation
 
-Small numerical or PNG-encoding differences can occur across systems and library versions. Compare numeric metrics and, for figures, inspect pixel content before accepting changes.
+Small numerical or PNG-encoding differences can occur across systems, devices, and library versions. Fixed seeds do not guarantee bit-for-bit identity across every CPU, GPU, BLAS implementation, or dependency release. Compare numeric metrics and, for figures, inspect pixel content before accepting changes.
 
 ## Scope
 

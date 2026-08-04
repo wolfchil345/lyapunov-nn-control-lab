@@ -5,7 +5,7 @@
 ## Setup and diagnostics
 
 ```bash
-python -m pip install -e .
+python -m pip install -e ".[dev]"
 python scripts/check_environment.py
 ```
 
@@ -15,6 +15,7 @@ python scripts/check_environment.py
 python examples/quick_start.py
 python main.py
 python -m pytest
+make lint
 make checks
 make quality-gate
 ```
@@ -27,7 +28,7 @@ python scripts/summarize_results.py
 python scripts/new_experiment_log.py "short description"
 ```
 
-`python scripts/clean_results.py` deletes every file in `results/`. Back up intended reference artifacts before running it.
+`python scripts/clean_results.py` is a dry run that lists known generated files. Use `python scripts/clean_results.py --yes` only after reviewing the list; unknown files and experiment-log directories are preserved.
 
 ## Git
 

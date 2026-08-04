@@ -4,8 +4,8 @@
 
 ## Requirements
 
-- Python 3.10 or newer; CI uses Python 3.11 and 3.12.
-- Git and, for tracked binary assets, Git LFS.
+- Python 3.10 or newer; CI tests Python 3.10 and 3.12.
+- Git. The current tracked binary assets use normal Git and do not require Git LFS.
 - CPU execution is sufficient for the included experiments.
 
 ## Installation
@@ -14,7 +14,7 @@
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
-python -m pip install -e .
+python -m pip install -e ".[dev]"
 ```
 
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`.
@@ -27,4 +27,4 @@ python examples/quick_start.py
 make checks
 ```
 
-Run commands from the repository root. If imports fail, reactivate `.venv` and reinstall with `python -m pip install -e .`.
+Run commands from the repository root. If imports fail, reactivate `.venv` and reinstall with `python -m pip install -e ".[dev]"`.

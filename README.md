@@ -124,7 +124,7 @@ cd lyapunov-nn-control-lab
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
-python -m pip install -e .
+python -m pip install -e ".[dev]"
 ```
 
 On Windows PowerShell, activate the environment with `.venv\Scripts\Activate.ps1`.
@@ -150,7 +150,7 @@ make checks
 make quality-gate
 ```
 
-Useful commands are collected in the [command guide](docs/en/commands.md). Running `python scripts/clean_results.py` deletes every file in `results/`; review the [experiment workflow](docs/en/experiment_workflow.md) before using it.
+Useful commands are collected in the [command guide](docs/en/commands.md). `python scripts/clean_results.py` previews the known generated files; removal requires the explicit `--yes` flag. Review the [experiment workflow](docs/en/experiment_workflow.md) first.
 
 ## Project structure
 

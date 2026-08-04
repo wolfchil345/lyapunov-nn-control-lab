@@ -4,11 +4,11 @@
 
 ## Imports or tests fail
 
-Confirm that the terminal is at the repository root, activate `.venv`, run `python -m pip install -e .`, then use `python -m pytest`.
+Confirm that the terminal is at the repository root, activate `.venv`, run `python -m pip install -e ".[dev]"`, then use `python -m pytest`.
 
 ## Plots or CSV files look old
 
-Check `git status` and back up tracked artifacts. Only then run `python scripts/clean_results.py` followed by `python main.py`.
+Check `git status` and back up tracked artifacts. Preview cleanup with `python scripts/clean_results.py`; after reviewing the list, use `python scripts/clean_results.py --yes` followed by `python main.py`.
 
 ## Numerical values differ slightly
 

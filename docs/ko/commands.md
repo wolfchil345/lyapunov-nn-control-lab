@@ -5,7 +5,7 @@
 ## 설정과 진단
 
 ```bash
-python -m pip install -e .
+python -m pip install -e ".[dev]"
 python scripts/check_environment.py
 ```
 
@@ -15,6 +15,7 @@ python scripts/check_environment.py
 python examples/quick_start.py
 python main.py
 python -m pytest
+make lint
 make checks
 make quality-gate
 ```
@@ -27,7 +28,7 @@ python scripts/summarize_results.py
 python scripts/new_experiment_log.py "short description" --language ko
 ```
 
-`python scripts/clean_results.py`는 `results/`의 모든 파일을 삭제합니다. 보관할 참조 산출물를 먼저 백업하십시오.
+`python scripts/clean_results.py`는 알려진 생성 파일을 나열하는 드라이런입니다. 목록을 확인한 뒤에만 `python scripts/clean_results.py --yes`를 사용하십시오. 알 수 없는 파일과 실험 로그 디렉터리는 보존됩니다.
 
 ## Git
 
