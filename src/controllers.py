@@ -5,6 +5,7 @@ import torch
 from torch import nn
 
 from src.system import A, B, K, P
+from src.validation import nonnegative_number, positive_number, state_vector
 
 SEED = 7
 
@@ -35,6 +36,9 @@ def make_dataset(
 ) -> tuple[torch.Tensor, torch.Tensor]:
     """Generate states and corresponding LQR control targets."""
 
+    if isinstance(n_samples, bool) or not isinstance(n_samples, int) or n_samples < 1:
+        raise ValueError("n_samples must be a positive integer.")
+
     rng = np.random.default_rng(SEED)
 
     states = rng.uniform(
@@ -57,6 +61,14 @@ def calculate_lyapunov_penalty(
     margin: float = 0.05,
 ) -> torch.Tensor:
     """Penalize violations of V-dot <= -margin * ||x||^2."""
+
+    if states.ndim != 2 or states.shape[1] != 2:
+        raise ValueError("states must have shape (n_samples, 2).")
+    if controls.ndim != 2 or controls.shape != (states.shape[0], 1):
+        raise ValueError("controls must have shape (n_samples, 1).")
+    if states.device != controls.device:
+        raise ValueError("states and controls must use the same device.")
+    margin = nonnegative_number(margin, name="margin")
 
     dtype = states.dtype
     device = states.device
@@ -115,7 +127,21 @@ def train_controller(
 ) -> dict[str, list[float]]:
     """Train using LQR imitation and a Lyapunov penalty."""
 
+    if isinstance(epochs, bool) or not isinstance(epochs, int) or epochs < 1:
+        raise ValueError("epochs must be a positive integer.")
+    stability_weight = nonnegative_number(
+        stability_weight,
+        name="stability_weight",
+    )
+    stability_margin = nonnegative_number(
+        stability_margin,
+        name="stability_margin",
+    )
+
     x_train, u_train = make_dataset()
+    parameter = next(model.parameters())
+    x_train = x_train.to(device=parameter.device, dtype=parameter.dtype)
+    u_train = u_train.to(device=parameter.device, dtype=parameter.dtype)
 
     optimizer = torch.optim.Adam(
         model.parameters(),
@@ -189,8 +215,9 @@ def saturate_control(
 ) -> float:
     """Clip the control input to actuator limits."""
 
-    if limit <= 0.0:
-        raise ValueError("Control limit must be positive.")
+    limit = positive_number(limit, name="limit")
+    if not np.isfinite(control):
+        raise ValueError("control must be finite.")
 
     return float(np.clip(control, -limit, limit))
 
@@ -213,11 +240,14 @@ def make_nn_controller(
     """Convert a PyTorch model into a simulation controller."""
 
     model.eval()
+    parameter = next(model.parameters())
 
     def controller(x: np.ndarray) -> float:
+        state = state_vector(x)
         x_tensor = torch.tensor(
-            x,
-            dtype=torch.float32,
+            state,
+            dtype=parameter.dtype,
+            device=parameter.device,
         ).reshape(1, 2)
 
         with torch.no_grad():

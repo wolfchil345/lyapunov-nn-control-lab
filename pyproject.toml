@@ -1,21 +1,46 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "lyapunov-nn-control-lab"
 version = "1.0.1"
 description = "A Lyapunov-aware neural network control lab for a mass-spring-damper system."
 readme = "README.md"
 requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [
   { name = "Sirichet Sriamontham" }
 ]
 dependencies = [
-  "control",
-  "matplotlib",
-  "numpy",
-  "pytest",
-  "scipy",
-  "torch"
+  "control>=0.9.4,<1",
+  "matplotlib>=3.7,<4",
+  "numpy>=1.24,<3",
+  "scipy>=1.10,<2",
+  "torch>=2.0,<3"
 ]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.4,<10",
+  "ruff>=0.6,<1",
+]
+
+[project.urls]
+Homepage = "https://github.com/wolfchil345/lyapunov-nn-control-lab"
+Repository = "https://github.com/wolfchil345/lyapunov-nn-control-lab"
+Issues = "https://github.com/wolfchil345/lyapunov-nn-control-lab/issues"
+
+[tool.setuptools]
+packages = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
+
+[tool.ruff]
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["B", "BLE", "DTZ", "E4", "E7", "E9", "F", "I", "PLW", "SIM"]

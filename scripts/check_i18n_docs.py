@@ -5,7 +5,6 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 LANGUAGES = ("en", "ja", "ko", "th")
 LANGUAGE_LABELS = ("[English]", "[日本語]", "[한국어]", "[ไทย]")

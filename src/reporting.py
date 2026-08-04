@@ -3,7 +3,6 @@
 import csv
 from pathlib import Path
 
-
 REPORT_FILENAMES = {
     "en": "experiment_report.md",
     "ja": "experiment_report.ja.md",
@@ -344,7 +343,7 @@ def generate_experiment_report(
         "|---|---|",
     ]
 
-    for experiment, plot_file in zip(copy["experiments"], PLOT_FILES):
+    for experiment, plot_file in zip(copy["experiments"], PLOT_FILES, strict=True):
         lines.append(f"| {experiment} | `{plot_file}` |")
 
     lines.extend(["", f"## {copy['available']}", ""])

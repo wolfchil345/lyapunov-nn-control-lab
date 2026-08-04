@@ -3,6 +3,7 @@ from collections.abc import Callable
 import numpy as np
 
 from src.simulation import simulate
+from src.validation import ordered_range, positive_number
 
 
 def evaluate_region_of_attraction(
@@ -15,11 +16,16 @@ def evaluate_region_of_attraction(
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """Evaluate convergence over a grid of initial states."""
 
-    if num_points < 2:
+    if isinstance(num_points, bool) or not isinstance(num_points, int) or num_points < 2:
         raise ValueError("num_points must be at least 2.")
 
-    if convergence_threshold <= 0.0:
-        raise ValueError("convergence_threshold must be positive.")
+    position_range = ordered_range(position_range, name="position_range")
+    velocity_range = ordered_range(velocity_range, name="velocity_range")
+    convergence_threshold = positive_number(
+        convergence_threshold,
+        name="convergence_threshold",
+    )
+    duration = positive_number(duration, name="duration")
 
     positions = np.linspace(
         position_range[0],

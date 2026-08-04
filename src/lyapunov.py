@@ -3,10 +3,12 @@ from collections.abc import Callable
 import numpy as np
 
 from src.system import A, B, P
+from src.validation import state_vector
 
 
 def lyapunov_value(x: np.ndarray) -> float:
     """V(x) = x^T P x."""
+    x = state_vector(x, name="x")
     return float(x.T @ P @ x)
 
 
@@ -15,6 +17,7 @@ def lyapunov_derivative(
     controller: Callable[[np.ndarray], float],
 ) -> float:
     """Vdot(x) = 2 x^T P f(x)."""
+    x = state_vector(x, name="x")
     u = controller(x)
     closed_loop_vector_field = A @ x + B[:, 0] * u
     return float(2.0 * x.T @ P @ closed_loop_vector_field)

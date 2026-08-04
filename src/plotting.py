@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import matplotlib
+
 # Plot generation runs in CI and other environments without a display server.
 matplotlib.use("Agg")
 
@@ -60,7 +61,7 @@ def save_multiple_initial_conditions_plot(
 
     plt.figure(figsize=(9, 6))
 
-    for initial_state, solution in zip(initial_states, nn_solutions):
+    for initial_state, solution in zip(initial_states, nn_solutions, strict=True):
         state_norm = np.linalg.norm(solution.y, axis=0)
         state_norm = np.maximum(state_norm, 1e-12)
 
@@ -170,7 +171,7 @@ def save_phase_portrait_plot(
 
     plt.figure(figsize=(7, 7))
 
-    for initial_state, solution in zip(initial_states, nn_solutions):
+    for initial_state, solution in zip(initial_states, nn_solutions, strict=True):
         plt.plot(
             solution.y[0],
             solution.y[1],
@@ -236,7 +237,7 @@ def save_lyapunov_contour_plot(
     )
     plt.clabel(contour, inline=True, fontsize=8)
 
-    for initial_state, solution in zip(initial_states, nn_solutions):
+    for initial_state, solution in zip(initial_states, nn_solutions, strict=True):
         plt.plot(
             solution.y[0],
             solution.y[1],
@@ -399,6 +400,7 @@ def save_region_of_attraction_comparison_plot(
     for axis, (controller_name, result) in zip(
         axes[0],
         comparison_results.items(),
+        strict=True,
     ):
         positions, velocities, convergence_map, final_norm_map = result
 

@@ -4,9 +4,8 @@ from __future__ import annotations
 
 import argparse
 import re
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
-
 
 SUPPORTED_LANGUAGES = ("en", "ja", "ko", "th")
 
@@ -31,7 +30,7 @@ def create_log(title: str = "experiment", language: str = "en") -> Path:
     output_dir = Path("results/experiment_logs")
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
     language_suffix = "" if language == "en" else f".{language}"
     output_path = output_dir / f"{timestamp}_{slugify(title)}{language_suffix}.md"
     content = template_path.read_text(encoding="utf-8")

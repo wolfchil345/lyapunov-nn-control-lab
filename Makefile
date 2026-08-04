@@ -1,10 +1,13 @@
-.PHONY: check-env checks test quickstart experiment clean summarize
+.PHONY: check-env checks lint test quickstart experiment clean summarize
 
 check-env:
 	python scripts/check_environment.py
 
 checks:
 	python scripts/run_checks.py
+
+lint:
+	python -m ruff check .
 
 test:
 	python -m pytest

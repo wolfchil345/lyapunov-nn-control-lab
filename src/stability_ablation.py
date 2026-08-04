@@ -1,10 +1,8 @@
 import csv
-import random
 from pathlib import Path
 from typing import Any
 
 import numpy as np
-import torch
 
 from src.controllers import (
     ZeroAtOriginController,
@@ -13,16 +11,15 @@ from src.controllers import (
 )
 from src.lyapunov import grid_check
 from src.metrics import calculate_metrics
+from src.reproducibility import set_global_seed
 from src.simulation import simulate
+from src.validation import nonnegative_number, state_vector
 
 
 def set_ablation_seed(seed: int) -> None:
     """Set random seeds for repeatable ablation runs."""
 
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-    torch.set_num_threads(1)
+    set_global_seed(seed)
 
 
 def get_metric(
@@ -49,6 +46,14 @@ def run_stability_weight_ablation(
     base_seed: int = 700,
 ) -> list[dict[str, float]]:
     """Train controllers with different Lyapunov penalty weights."""
+
+    if not stability_weights:
+        raise ValueError("stability_weights must not be empty.")
+    stability_weights = [
+        nonnegative_number(weight, name="stability_weight")
+        for weight in stability_weights
+    ]
+    initial_state = state_vector(initial_state, name="initial_state")
 
     rows: list[dict[str, float]] = []
 

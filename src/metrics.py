@@ -4,6 +4,7 @@ import numpy as np
 from scipy.integrate import trapezoid
 
 from src.system import Q, R
+from src.validation import positive_number
 
 
 def calculate_metrics(
@@ -16,13 +17,26 @@ def calculate_metrics(
     if not solution.success:
         raise ValueError("Cannot calculate metrics for a failed simulation.")
 
+    settling_threshold = positive_number(
+        settling_threshold,
+        name="settling_threshold",
+    )
+
     time = np.asarray(solution.t, dtype=float)
     states = np.asarray(solution.y, dtype=float).T
+    if time.ndim != 1 or time.size < 2 or not np.all(np.isfinite(time)):
+        raise ValueError("solution.t must be a finite one-dimensional time vector.")
+    if states.shape != (time.size, 2) or not np.all(np.isfinite(states)):
+        raise ValueError("solution.y must contain finite states with shape (2, n_times).")
+    if np.any(np.diff(time) <= 0.0):
+        raise ValueError("solution.t must be strictly increasing.")
 
     controls = np.array(
         [controller(state) for state in states],
         dtype=float,
     )
+    if not np.all(np.isfinite(controls)):
+        raise ValueError("controller returned a non-finite control input.")
 
     state_norms = np.linalg.norm(states, axis=1)
 

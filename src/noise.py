@@ -4,6 +4,7 @@ from types import SimpleNamespace
 import numpy as np
 
 from src.system import A, B
+from src.validation import nonnegative_number, positive_number, state_vector
 
 
 def add_measurement_noise(
@@ -13,8 +14,8 @@ def add_measurement_noise(
 ) -> np.ndarray:
     """Add Gaussian measurement noise to the measured state."""
 
-    if noise_std < 0.0:
-        raise ValueError("Noise standard deviation must be nonnegative.")
+    state = state_vector(state)
+    noise_std = nonnegative_number(noise_std, name="noise_std")
 
     noise = rng.normal(
         loc=0.0,
@@ -56,12 +57,15 @@ def simulate_with_measurement_noise(
 ):
     """Simulate closed-loop dynamics with noisy state measurements."""
 
-    if noise_std < 0.0:
-        raise ValueError("Noise standard deviation must be nonnegative.")
+    initial_state = state_vector(initial_state, name="initial_state")
+    noise_std = nonnegative_number(noise_std, name="noise_std")
+    duration = positive_number(duration, name="duration")
+    dt = positive_number(dt, name="dt")
 
     rng = np.random.default_rng(seed)
 
-    time = np.arange(0.0, duration + dt, dt)
+    num_steps = int(np.ceil(duration / dt))
+    time = np.linspace(0.0, duration, num_steps + 1)
     states = np.zeros((2, len(time)), dtype=float)
     states[:, 0] = initial_state
 
@@ -75,9 +79,17 @@ def simulate_with_measurement_noise(
         )
 
         control = controller(measured_state)
+        if not np.isfinite(control):
+            return SimpleNamespace(
+                t=time[: index + 1],
+                y=states[:, : index + 1],
+                success=False,
+                message="Non-finite control input encountered.",
+            )
         state_dot = A @ true_state + B[:, 0] * control
 
-        states[:, index + 1] = true_state + dt * state_dot
+        step_size = time[index + 1] - time[index]
+        states[:, index + 1] = true_state + step_size * state_dot
 
         if not np.all(np.isfinite(states[:, index + 1])):
             return SimpleNamespace(

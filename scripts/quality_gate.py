@@ -3,7 +3,6 @@ from __future__ import annotations
 import subprocess
 import sys
 
-
 COMMANDS = [
     [sys.executable, "scripts/project_status.py"],
     [sys.executable, "scripts/check_workflow_badges.py"],
@@ -18,7 +17,7 @@ def run_command(command: list[str]) -> int:
     print("")
     print(f"Running: {command_text}")
     print("-" * (9 + len(command_text)))
-    completed = subprocess.run(command)
+    completed = subprocess.run(command, check=False)
     return completed.returncode
 
 

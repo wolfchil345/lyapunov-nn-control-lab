@@ -1,5 +1,5 @@
-from pathlib import Path
 import sys
+from pathlib import Path
 
 import numpy as np
 
@@ -7,9 +7,9 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from src.metrics import calculate_metrics
-from src.simulation import simulate
-from src.system import lqr_controller
+from src.metrics import calculate_metrics  # noqa: E402
+from src.simulation import simulate  # noqa: E402
+from src.system import lqr_controller  # noqa: E402
 
 
 def main() -> None:

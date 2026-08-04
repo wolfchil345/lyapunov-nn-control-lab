@@ -1,6 +1,5 @@
-numpy
-scipy
-matplotlib
-torch
-control
-pytest
+numpy>=1.24,<3
+scipy>=1.10,<2
+matplotlib>=3.7,<4
+torch>=2.0,<3
+control>=0.9.4,<1

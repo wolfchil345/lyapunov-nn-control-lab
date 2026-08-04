@@ -7,7 +7,6 @@ import sys
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
-
 LINK_PATTERN = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
 HEADING_PATTERN = re.compile(r"^#{1,6}\s+(.+?)\s*#*\s*$", re.MULTILINE)
 ROOT = Path(__file__).resolve().parents[1]
@@ -119,12 +118,16 @@ def check_file(path: Path, root: Path = ROOT) -> list[str]:
             problems.append(f"{relative_path}:{line_number}: missing {raw_target}")
             continue
 
-        if anchor and target_path.is_file() and target_path.suffix.lower() == ".md":
-            if anchor not in heading_anchors(target_path):
-                problems.append(
-                    f"{relative_path}:{line_number}: missing anchor #{anchor} in "
-                    f"{target_path.relative_to(root)}",
-                )
+        if (
+            anchor
+            and target_path.is_file()
+            and target_path.suffix.lower() == ".md"
+            and anchor not in heading_anchors(target_path)
+        ):
+            problems.append(
+                f"{relative_path}:{line_number}: missing anchor #{anchor} in "
+                f"{target_path.relative_to(root)}",
+            )
 
     return problems
 

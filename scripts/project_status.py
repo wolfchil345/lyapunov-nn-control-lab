@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from pathlib import Path
 
-
 KEY_FILES = [
     "README.md",
     "README.ja.md",
@@ -18,6 +17,8 @@ KEY_FILES = [
     "SECURITY.th.md",
     "Makefile",
     "pyproject.toml",
+    "requirements.txt",
+    "requirements-dev.txt",
     "docs/en/index.md",
     "docs/ja/index.md",
     "docs/ko/index.md",
@@ -31,6 +32,7 @@ KEY_FILES = [
     "scripts/check_docs_links.py",
     "scripts/check_i18n_docs.py",
     "scripts/check_environment.py",
+    "scripts/check_package.py",
     "scripts/list_results.py",
     "scripts/new_experiment_log.py",
     "scripts/quality_gate.py",

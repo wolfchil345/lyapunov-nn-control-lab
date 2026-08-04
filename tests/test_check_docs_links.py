@@ -1,4 +1,3 @@
-from pathlib import Path
 
 from scripts.check_docs_links import check_file, markdown_files
 

@@ -18,7 +18,7 @@ def run_command(command: list[str]) -> None:
 def main() -> None:
     """Run cleanup, main experiment, and result summary."""
     print("Running full experiment pipeline...")
-    run_command([sys.executable, "scripts/clean_results.py"])
+    run_command([sys.executable, "scripts/clean_results.py", "--yes"])
     run_command([sys.executable, "main.py"])
     run_command([sys.executable, "scripts/summarize_results.py"])
     print()

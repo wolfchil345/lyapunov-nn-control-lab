@@ -1,6 +1,5 @@
-from pathlib import Path
 import csv
-import random
+from pathlib import Path
 
 import numpy as np
 import torch
@@ -15,26 +14,27 @@ from src.lyapunov import grid_check
 from src.metrics import calculate_metrics
 from src.noise import simulate_with_measurement_noise
 from src.parameter_variation import simulate_parameter_variation
+from src.plotting import (
+    save_lyapunov_contour_plot,
+    save_model_architecture_diagram,
+    save_multiple_initial_conditions_plot,
+    save_noise_robustness_plot,
+    save_parameter_robustness_plot,
+    save_phase_portrait_plot,
+    save_plots,
+    save_region_of_attraction_comparison_plot,
+    save_region_of_attraction_plot,
+    save_saturation_comparison_plot,
+    save_stability_weight_ablation_plot,
+)
 from src.region_of_attraction import evaluate_region_of_attraction
+from src.reporting import generate_localized_experiment_reports
+from src.reproducibility import set_global_seed
+from src.simulation import simulate
 from src.stability_ablation import (
     run_stability_weight_ablation,
     save_ablation_results_csv,
 )
-from src.plotting import (
-    save_multiple_initial_conditions_plot,
-    save_region_of_attraction_plot,
-    save_region_of_attraction_comparison_plot,
-    save_stability_weight_ablation_plot,
-    save_plots,
-    save_saturation_comparison_plot,
-    save_noise_robustness_plot,
-    save_parameter_robustness_plot,    save_phase_portrait_plot,
-    save_lyapunov_contour_plot,
-    save_model_architecture_diagram,
-
-)
-from src.reporting import generate_localized_experiment_reports
-from src.simulation import simulate
 from src.system import (
     CLOSED_LOOP_EIGENVALUES,
     K,
@@ -44,15 +44,6 @@ from src.system import (
 
 SEED = 7
 CONTROL_LIMIT = 2.0
-
-
-def set_seed() -> None:
-    """Set deterministic random seeds."""
-
-    random.seed(SEED)
-    np.random.seed(SEED)
-    torch.manual_seed(SEED)
-    torch.set_num_threads(1)
 
 
 def save_metrics_csv(
@@ -80,7 +71,7 @@ def save_metrics_csv(
 
 
 def main() -> None:
-    set_seed()
+    set_global_seed(SEED)
 
     output_dir = Path("results")
     output_dir.mkdir(exist_ok=True)
@@ -150,6 +141,7 @@ def main() -> None:
         for initial_state, solution in zip(
             initial_states,
             solutions[controller_name],
+            strict=True,
         ):
             metrics = calculate_metrics(solution, controller)
 

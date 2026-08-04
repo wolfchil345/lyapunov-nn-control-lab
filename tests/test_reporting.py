@@ -1,4 +1,3 @@
-from pathlib import Path
 
 from src.reporting import (
     format_markdown_table,

@@ -3,6 +3,8 @@ from collections.abc import Callable
 import numpy as np
 from scipy.integrate import solve_ivp
 
+from src.validation import nonnegative_number, positive_number, state_vector
+
 
 def make_state_space_matrices(
     mass: float,
@@ -11,14 +13,9 @@ def make_state_space_matrices(
 ) -> tuple[np.ndarray, np.ndarray]:
     """Create state-space matrices for a mass-spring-damper system."""
 
-    if mass <= 0.0:
-        raise ValueError("Mass must be positive.")
-
-    if damping < 0.0:
-        raise ValueError("Damping must be nonnegative.")
-
-    if stiffness <= 0.0:
-        raise ValueError("Stiffness must be positive.")
+    mass = positive_number(mass, name="mass")
+    damping = nonnegative_number(damping, name="damping")
+    stiffness = positive_number(stiffness, name="stiffness")
 
     a_matrix = np.array(
         [
@@ -46,6 +43,9 @@ def simulate_parameter_variation(
 ):
     """Simulate closed-loop dynamics under changed plant parameters."""
 
+    initial_state = state_vector(initial_state, name="initial_state")
+    duration = positive_number(duration, name="duration")
+
     a_matrix, b_matrix = make_state_space_matrices(
         mass=mass,
         damping=damping,
@@ -54,6 +54,8 @@ def simulate_parameter_variation(
 
     def closed_loop_rhs(_time: float, state: np.ndarray) -> np.ndarray:
         control = controller(state)
+        if not np.isfinite(control):
+            raise ValueError("controller returned a non-finite control input.")
         return a_matrix @ state + b_matrix[:, 0] * control
 
     time_points = np.linspace(0.0, duration, 1001)
