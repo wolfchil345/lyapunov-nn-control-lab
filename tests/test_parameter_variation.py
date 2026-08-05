@@ -1,11 +1,11 @@
 import numpy as np
 import pytest
 
-from src.parameter_variation import (
+from lyapunov_nn_control_lab.parameter_variation import (
     make_state_space_matrices,
     simulate_parameter_variation,
 )
-from src.system import lqr_controller
+from lyapunov_nn_control_lab.system import lqr_controller
 
 
 def test_parameter_variation_matrix_shapes():

@@ -2,7 +2,7 @@ from types import SimpleNamespace
 
 import numpy as np
 
-from src.plotting import save_phase_portrait_plot
+from lyapunov_nn_control_lab.plotting import save_phase_portrait_plot
 
 
 def test_save_phase_portrait_plot_creates_file(tmp_path):

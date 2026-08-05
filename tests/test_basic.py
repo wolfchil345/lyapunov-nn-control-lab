@@ -2,10 +2,10 @@ import numpy as np
 import pytest
 import torch
 
-from src.controllers import ZeroAtOriginController
-from src.lyapunov import grid_check
-from src.simulation import simulate
-from src.system import A, B, K, lqr_controller
+from lyapunov_nn_control_lab.controllers import ZeroAtOriginController
+from lyapunov_nn_control_lab.lyapunov import grid_check
+from lyapunov_nn_control_lab.simulation import simulate
+from lyapunov_nn_control_lab.system import A, B, K, lqr_controller
 
 
 def test_system_matrix_shapes():

@@ -3,7 +3,7 @@ from collections.abc import Callable
 import numpy as np
 from scipy.integrate import solve_ivp
 
-from src.system import A, B
+from .system import A, B
 
 
 def simulate(

@@ -2,7 +2,7 @@ from collections.abc import Callable
 
 import numpy as np
 
-from src.system import A, B, P
+from .system import A, B, P
 
 
 def lyapunov_value(x: np.ndarray) -> float:

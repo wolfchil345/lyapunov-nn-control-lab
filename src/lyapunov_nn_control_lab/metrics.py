@@ -3,7 +3,7 @@ from collections.abc import Callable
 import numpy as np
 from scipy.integrate import trapezoid
 
-from src.system import Q, R
+from .system import Q, R
 
 
 def calculate_metrics(

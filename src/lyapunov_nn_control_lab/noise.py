@@ -3,7 +3,7 @@ from types import SimpleNamespace
 
 import numpy as np
 
-from src.system import A, B
+from .system import A, B
 
 
 def add_measurement_noise(

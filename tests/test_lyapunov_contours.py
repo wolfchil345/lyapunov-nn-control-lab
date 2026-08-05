@@ -2,7 +2,7 @@ from types import SimpleNamespace
 
 import numpy as np
 
-from src.plotting import save_lyapunov_contour_plot
+from lyapunov_nn_control_lab.plotting import save_lyapunov_contour_plot
 
 
 def test_save_lyapunov_contour_plot_creates_file(tmp_path):

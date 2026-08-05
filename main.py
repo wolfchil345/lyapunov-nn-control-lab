@@ -5,22 +5,22 @@ import random
 import numpy as np
 import torch
 
-from src.controllers import (
+from lyapunov_nn_control_lab.controllers import (
     ZeroAtOriginController,
     make_nn_controller,
     make_saturated_controller,
     train_controller,
 )
-from src.lyapunov import grid_check
-from src.metrics import calculate_metrics
-from src.noise import simulate_with_measurement_noise
-from src.parameter_variation import simulate_parameter_variation
-from src.region_of_attraction import evaluate_region_of_attraction
-from src.stability_ablation import (
+from lyapunov_nn_control_lab.lyapunov import grid_check
+from lyapunov_nn_control_lab.metrics import calculate_metrics
+from lyapunov_nn_control_lab.noise import simulate_with_measurement_noise
+from lyapunov_nn_control_lab.parameter_variation import simulate_parameter_variation
+from lyapunov_nn_control_lab.region_of_attraction import evaluate_region_of_attraction
+from lyapunov_nn_control_lab.stability_ablation import (
     run_stability_weight_ablation,
     save_ablation_results_csv,
 )
-from src.plotting import (
+from lyapunov_nn_control_lab.plotting import (
     save_multiple_initial_conditions_plot,
     save_region_of_attraction_plot,
     save_region_of_attraction_comparison_plot,
@@ -33,9 +33,9 @@ from src.plotting import (
     save_model_architecture_diagram,
 
 )
-from src.reporting import generate_experiment_report
-from src.simulation import simulate
-from src.system import (
+from lyapunov_nn_control_lab.reporting import generate_experiment_report
+from lyapunov_nn_control_lab.simulation import simulate
+from lyapunov_nn_control_lab.system import (
     CLOSED_LOOP_EIGENVALUES,
     K,
     P,

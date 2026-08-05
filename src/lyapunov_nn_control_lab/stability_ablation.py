@@ -6,14 +6,14 @@ from typing import Any
 import numpy as np
 import torch
 
-from src.controllers import (
+from .controllers import (
     ZeroAtOriginController,
     make_nn_controller,
     train_controller,
 )
-from src.lyapunov import grid_check
-from src.metrics import calculate_metrics
-from src.simulation import simulate
+from .lyapunov import grid_check
+from .metrics import calculate_metrics
+from .simulation import simulate
 
 
 def set_ablation_seed(seed: int) -> None:

@@ -3,9 +3,9 @@ from types import SimpleNamespace
 import numpy as np
 import pytest
 
-from src.plotting import save_region_of_attraction_plot
-from src.region_of_attraction import evaluate_region_of_attraction
-from src.system import lqr_controller
+from lyapunov_nn_control_lab.plotting import save_region_of_attraction_plot
+from lyapunov_nn_control_lab.region_of_attraction import evaluate_region_of_attraction
+from lyapunov_nn_control_lab.system import lqr_controller
 
 
 def test_region_of_attraction_shapes():

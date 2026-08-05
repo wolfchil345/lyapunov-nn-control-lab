@@ -1,9 +1,9 @@
 import torch
 
-from src.controllers import (
+from lyapunov_nn_control_lab.controllers import (
     calculate_lyapunov_penalty,
 )
-from src.system import K
+from lyapunov_nn_control_lab.system import K
 
 
 def test_lqr_actions_have_zero_lyapunov_penalty():
