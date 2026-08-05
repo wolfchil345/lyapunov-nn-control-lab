@@ -10,22 +10,6 @@ Run the environment checker before changing packages:
 python scripts/check_environment.py
 ```
 
-## Git LFS is missing
-
-If Git says `git-lfs was not found on your path`, install Git LFS:
-
-```bash
-sudo apt-get update
-sudo apt-get install -y git-lfs
-git lfs install
-```
-
-Then try pushing again:
-
-```bash
-git push
-```
-
 ## PyTorch import error
 
 If PyTorch fails to import with a shared library error, reinstall the CPU wheel:
@@ -52,7 +36,7 @@ If the virtual environment becomes messy, recreate it:
 rm -rf .venv
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+python -m pip install -e ".[dev]"
 python scripts/run_checks.py
 ```
 

@@ -4,10 +4,10 @@ This guide lists common problems and quick fixes when running the Lyapunov Neura
 
 ## `ModuleNotFoundError`
 
-If Python cannot find a package, install the project requirements:
+If Python cannot find the project or a runtime dependency, install the project:
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -e .
 ```
 
 ## Tests fail after changing code

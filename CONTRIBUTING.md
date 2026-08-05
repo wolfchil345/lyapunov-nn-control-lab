@@ -9,7 +9,7 @@ git clone https://github.com/wolfchil345/lyapunov-nn-control-lab.git
 cd lyapunov-nn-control-lab
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+python -m pip install -e ".[dev]"
 ```
 
 ## Run tests

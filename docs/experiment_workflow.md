@@ -5,7 +5,7 @@ This guide explains the recommended workflow for running experiments in the Lyap
 ## 1. Install dependencies
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -e ".[dev]"
 ```
 
 ## 2. Run a quick example

@@ -19,10 +19,18 @@ On Windows PowerShell:
 .venv\Scripts\Activate.ps1
 ```
 
-## Install dependencies
+## Install the project
+
+For normal use:
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -e .
+```
+
+For development, tests, and package builds:
+
+```bash
+python -m pip install -e ".[dev]"
 ```
 
 ## Run local checks
@@ -42,7 +50,8 @@ python main.py
 ## Common problems
 
 - If imports fail, make sure you are running commands from the repository root.
-- If packages are missing, run `pip install -r requirements.txt` again.
+- If runtime packages are missing, run `python -m pip install -e .` again.
+- If test or build tools are missing, run `python -m pip install -e ".[dev]"`.
 - If generated results look old, clean the results directory before rerunning experiments.
 
 ## Check the environment
@@ -53,4 +62,4 @@ Use the environment checker when Codespaces or a local machine has dependency pr
 python scripts/check_environment.py
 ```
 
-This checks Python, Git, Git LFS, required project files, and PyTorch import status.
+This checks Python, required project files, the installed package, and all declared runtime imports.

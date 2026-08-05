@@ -4,10 +4,10 @@ This page collects useful commands for running and maintaining the Lyapunov Neur
 
 ## Setup
 
-Install required packages:
+Install the project with development tools:
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -e ".[dev]"
 ```
 
 ## Quick start

@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,17 +8,37 @@ version = "1.0.1"
 description = "A Lyapunov-aware neural network control lab for a mass-spring-damper system."
 readme = "README.md"
 requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [
   { name = "Sirichet Sriamontham" }
 ]
 dependencies = [
-  "control",
-  "matplotlib",
-  "numpy",
-  "pytest",
-  "scipy",
-  "torch"
+  "control>=0.10",
+  "matplotlib>=3.7",
+  "numpy>=1.24",
+  "scipy>=1.10",
+  "torch>=2.0"
 ]
+classifiers = [
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering"
+]
+
+[project.optional-dependencies]
+dev = [
+  "build>=1.2",
+  "pytest>=8.0"
+]
+
+[project.urls]
+Repository = "https://github.com/wolfchil345/lyapunov-nn-control-lab"
+Issues = "https://github.com/wolfchil345/lyapunov-nn-control-lab/issues"
+Documentation = "https://github.com/wolfchil345/lyapunov-nn-control-lab/tree/main/docs"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
