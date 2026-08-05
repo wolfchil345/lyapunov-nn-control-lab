@@ -2,9 +2,9 @@ import math
 
 import numpy as np
 
-from src.metrics import calculate_metrics
-from src.simulation import simulate
-from src.system import lqr_controller
+from lyapunov_nn_control_lab.metrics import calculate_metrics
+from lyapunov_nn_control_lab.simulation import simulate
+from lyapunov_nn_control_lab.system import lqr_controller
 
 
 def test_lqr_performance_metrics_are_valid():

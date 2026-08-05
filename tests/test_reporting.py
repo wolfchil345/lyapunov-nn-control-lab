@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from src.reporting import (
+from lyapunov_nn_control_lab.reporting import (
     format_markdown_table,
     generate_experiment_report,
     read_csv_rows,

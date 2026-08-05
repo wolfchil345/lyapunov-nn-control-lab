@@ -1,6 +1,6 @@
 import numpy as np
 
-from src.plotting import save_region_of_attraction_comparison_plot
+from lyapunov_nn_control_lab.plotting import save_region_of_attraction_comparison_plot
 
 
 def test_save_region_of_attraction_comparison_plot_creates_file(tmp_path):

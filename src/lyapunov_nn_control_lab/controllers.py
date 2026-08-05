@@ -4,7 +4,7 @@ import numpy as np
 import torch
 from torch import nn
 
-from src.system import A, B, K, P
+from .system import A, B, K, P
 
 SEED = 7
 

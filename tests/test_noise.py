@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from src.noise import (
+from lyapunov_nn_control_lab.noise import (
     add_measurement_noise,
     make_noisy_measurement_controller,
 )

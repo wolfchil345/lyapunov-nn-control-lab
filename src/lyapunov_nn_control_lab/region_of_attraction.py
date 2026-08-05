@@ -2,7 +2,7 @@ from collections.abc import Callable
 
 import numpy as np
 
-from src.simulation import simulate
+from .simulation import simulate
 
 
 def evaluate_region_of_attraction(

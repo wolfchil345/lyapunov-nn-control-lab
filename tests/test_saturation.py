@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from src.controllers import (
+from lyapunov_nn_control_lab.controllers import (
     make_saturated_controller,
     saturate_control,
 )
