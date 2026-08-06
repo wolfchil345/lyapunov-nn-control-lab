@@ -35,7 +35,7 @@ The repository includes `.vscode/settings.json` so VS Code can discover pytest t
 In Codespaces, open the terminal and run the same commands used locally:
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -e ".[dev]"
 python scripts/run_checks.py
 ```
 

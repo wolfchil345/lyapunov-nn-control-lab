@@ -5,11 +5,11 @@ import sys
 
 
 COMMANDS = [
-    ["python", "scripts/project_status.py"],
-    ["python", "scripts/check_workflow_badges.py"],
-    ["python", "scripts/check_environment.py"],
-    ["python", "scripts/list_results.py"],
-    ["python", "scripts/run_checks.py"],
+    [sys.executable, "scripts/project_status.py"],
+    [sys.executable, "scripts/check_workflow_badges.py"],
+    [sys.executable, "scripts/check_environment.py"],
+    [sys.executable, "scripts/list_results.py"],
+    [sys.executable, "scripts/run_checks.py"],
 ]
 
 

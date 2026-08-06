@@ -154,11 +154,17 @@ python -m venv .venv
 source .venv/bin/activate
 ```
 
-Install the dependencies:
+Install the project for normal use:
 
 ```bash
 python -m pip install --upgrade pip
-pip install -r requirements.txt
+python -m pip install -e .
+```
+
+For development, tests, and package builds, install the development extra:
+
+```bash
+python -m pip install -e ".[dev]"
 ```
 
 ## Run the experiment
@@ -545,11 +551,11 @@ See the [Codespaces setup guide](docs/codespaces.md) for the dev container, auto
 
 ## Environment checker
 
-Run `python scripts/check_environment.py` to diagnose Python, Git LFS, project files, and PyTorch import status.
+Run `python scripts/check_environment.py` to diagnose Python, required project files, the installed package, and its runtime dependencies.
 
 ## Dependency troubleshooting
 
-See the [dependency troubleshooting guide](docs/dependency_troubleshooting.md) for Git LFS, PyTorch import errors, virtual environment resets, and Codespaces recovery.
+See the [dependency troubleshooting guide](docs/dependency_troubleshooting.md) for runtime import errors, virtual environment resets, and Codespaces recovery.
 
 ## Command shortcuts
 

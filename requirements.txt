@@ -1,6 +1,3 @@
-numpy
-scipy
-matplotlib
-torch
-control
-pytest
+# Compatibility wrapper for development environments.
+# pyproject.toml is the authoritative dependency source.
+-e .[dev]

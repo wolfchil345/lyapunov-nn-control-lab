@@ -9,7 +9,7 @@ The repository includes `.devcontainer/devcontainer.json` so Codespaces can prep
 ## What the dev container does
 
 - Uses Python 3.11.
-- Installs dependencies from `requirements.txt` after the Codespace is created.
+- Installs the package and its development dependencies from `pyproject.toml` after the Codespace is created.
 - Recommends Python, Pylance, and GitHub Actions extensions.
 - Enables pytest discovery from the `tests/` folder.
 
@@ -34,7 +34,3 @@ git switch -c feature/my-change
 python scripts/run_checks.py
 git status
 ```
-
-## Git LFS note
-
-Git LFS is installed automatically by the dev container so push hooks can run correctly in Codespaces.

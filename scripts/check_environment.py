@@ -1,9 +1,26 @@
 from __future__ import annotations
 
-import shutil
-import subprocess
+import importlib
 import sys
 from pathlib import Path
+
+
+RUNTIME_IMPORTS = [
+    ("control", "python-control"),
+    ("matplotlib", "Matplotlib"),
+    ("numpy", "NumPy"),
+    ("scipy", "SciPy"),
+    ("torch", "PyTorch"),
+    ("lyapunov_nn_control_lab", "lyapunov-nn-control-lab"),
+]
+
+REQUIRED_PATHS = [
+    "README.md",
+    "pyproject.toml",
+    "src/lyapunov_nn_control_lab",
+    "tests",
+    "scripts/run_checks.py",
+]
 
 
 def show(ok: bool, message: str) -> bool:
@@ -17,43 +34,30 @@ def check_python() -> bool:
     return show(sys.version_info >= (3, 10), f"Python version is {version}")
 
 
-def check_command(command: str) -> bool:
-    return show(shutil.which(command) is not None, f"`{command}` command is available")
-
-
 def check_path(path: str) -> bool:
     return show(Path(path).exists(), f"`{path}` exists")
 
 
-def check_git_lfs() -> bool:
-    if shutil.which("git-lfs") is None:
-        return show(False, "`git-lfs` command is available")
-    result = subprocess.run(["git", "lfs", "version"], text=True, capture_output=True)
-    ok = result.returncode == 0
-    details = result.stdout.strip() or result.stderr.strip()
-    return show(ok, f"Git LFS works: {details}")
-
-
-def check_torch() -> bool:
+def check_import(module_name: str, label: str) -> bool:
     try:
-        import torch
+        module = importlib.import_module(module_name)
     except Exception as exc:
-        return show(False, f"PyTorch import failed: {exc}")
-    return show(True, f"PyTorch import works: {torch.__version__}")
+        return show(False, f"{label} import failed: {exc}")
+
+    version = getattr(module, "__version__", None)
+    details = f"{label} import works"
+    if version is not None:
+        details += f": {version}"
+    return show(True, details)
 
 
 def main() -> int:
-    checks = [
-        check_python(),
-        check_command("git"),
-        check_git_lfs(),
-        check_path("README.md"),
-        check_path("requirements.txt"),
-        check_path("src"),
-        check_path("tests"),
-        check_path("scripts/run_checks.py"),
-        check_torch(),
-    ]
+    checks = [check_python()]
+    checks.extend(check_path(path) for path in REQUIRED_PATHS)
+    checks.extend(
+        check_import(module_name, label)
+        for module_name, label in RUNTIME_IMPORTS
+    )
     if all(checks):
         print("Environment looks ready.")
         return 0
