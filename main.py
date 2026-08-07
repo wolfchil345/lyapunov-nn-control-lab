@@ -37,6 +37,7 @@ from lyapunov_nn_control_lab.plotting import (
 )
 from lyapunov_nn_control_lab.reporting import generate_experiment_report
 from lyapunov_nn_control_lab.simulation import simulate
+from lyapunov_nn_control_lab.state_coordinates import state_norm
 from lyapunov_nn_control_lab.system import (
     CLOSED_LOOP_EIGENVALUES,
     K,
@@ -70,8 +71,10 @@ def save_metrics_csv(
         "controller",
         "control_limit",
         "final_state_norm",
+        "settling_time",
         "settling_time_s",
         "quadratic_cost",
+        "integrated_squared_control_effort",
         "control_energy",
         "max_abs_control",
     ]
@@ -93,7 +96,7 @@ def main() -> None:
 
     print("LQR gain K:", K)
     print("Closed-loop eigenvalues:", CLOSED_LOOP_EIGENVALUES)
-    print(f"Actuator saturation limit: +/-{CONTROL_LIMIT}")
+    print(f"Normalized control-input saturation limit: +/-{CONTROL_LIMIT}")
 
     model = ZeroAtOriginController()
 
@@ -173,11 +176,12 @@ def main() -> None:
             print(
                 f"x0={initial_state}, "
                 f"{controller_name}: "
-                f"settling={metrics['settling_time_s']:.3f} s, "
+                f"settling={metrics['settling_time']:.3f} normalized time, "
                 f"cost={metrics['quadratic_cost']:.4f}, "
-                f"energy={metrics['control_energy']:.4f}, "
-                f"max |u|={metrics['max_abs_control']:.4f}, "
-                f"final norm={metrics['final_state_norm']:.3e}"
+                "integrated squared control effort="
+                f"{metrics['integrated_squared_control_effort']:.4f}, "
+                f"max normalized |u|={metrics['max_abs_control']:.4f}, "
+                f"final normalized-state norm={metrics['final_state_norm']:.3e}"
             )
 
     metrics_path = output_dir / "performance_metrics.csv"
@@ -235,12 +239,13 @@ def main() -> None:
         f"{convergence_result.converged_count}/"
         f"{convergence_result.tested_count} sampled initial states "
         f"({100.0 * convergence_result.convergence_fraction:.1f}%) "
-        "satisfied ||x(T)|| < tolerance with "
-        f"T={convergence_result.horizon:g} s and "
-        f"tolerance={convergence_result.convergence_tolerance:g} "
+        "satisfied ||x(T)||_2 < normalized-state tolerance with "
+        f"tau={convergence_result.horizon:g} and "
+        "normalized-state tolerance="
+        f"{convergence_result.convergence_tolerance:g} "
         f"on a {convergence_result.grid_resolution}x"
-        f"{convergence_result.grid_resolution} grid with position bounds "
-        f"{convergence_result.position_bounds} and velocity bounds "
+        f"{convergence_result.grid_resolution} grid with normalized-position bounds "
+        f"{convergence_result.position_bounds} and normalized-velocity bounds "
         f"{convergence_result.velocity_bounds}."
     )
 
@@ -278,10 +283,11 @@ def main() -> None:
             f"{controller_name}: {result.converged_count}/"
             f"{result.tested_count} sampled initial states "
             f"({100.0 * result.convergence_fraction:.1f}%) satisfied "
-            f"||x({result.horizon:g} s)|| < "
+            f"||x(tau={result.horizon:g})||_2 < "
             f"{result.convergence_tolerance:g} on a "
             f"{result.grid_resolution}x{result.grid_resolution} grid with "
-            f"position bounds {result.position_bounds} and velocity bounds "
+            f"normalized-position bounds {result.position_bounds} and "
+            "normalized-velocity bounds "
             f"{result.velocity_bounds}."
         )
 
@@ -321,8 +327,9 @@ def main() -> None:
             f"{row['derivative_violation_fraction']:.3f}, "
             f"margin violation (alpha={row['decay_margin']:g})="
             f"{row['decay_margin_violation_fraction']:.3f}, "
-            f"final norm={row['final_state_norm']:.3e}, "
-            f"energy={row['control_energy']:.3e}"
+            f"final normalized-state norm={row['final_state_norm']:.3e}, "
+            "integrated squared control effort="
+            f"{row['integrated_squared_control_effort']:.3e}"
         )
 
     first_initial_condition_solutions = {
@@ -355,10 +362,10 @@ def main() -> None:
     print("Noise robustness results:")
 
     for noise_std, solution in noise_solutions.items():
-        final_norm = np.linalg.norm(solution.y[:, -1])
+        final_norm = state_norm(solution.y[:, -1])
         print(
-            f"noise std={noise_std:g}: "
-            f"final norm={final_norm:.3e}"
+            f"normalized-coordinate noise std={noise_std:g}: "
+            f"final normalized-state norm={final_norm:.3e}"
         )
 
     save_noise_robustness_plot(
@@ -417,10 +424,10 @@ def main() -> None:
     print("Parameter robustness results:")
 
     for scenario_name, solution in parameter_solutions.items():
-        final_norm = np.linalg.norm(solution.y[:, -1])
+        final_norm = state_norm(solution.y[:, -1])
         print(
             f"{scenario_name}: "
-            f"final norm={final_norm:.3e}"
+            f"final normalized-state norm={final_norm:.3e}"
         )
 
     save_parameter_robustness_plot(

@@ -16,20 +16,29 @@ Good controller behavior usually means:
 
 ## Important metrics
 
-### `final_state_norm`
-Measures how close the final state is to the target equilibrium. Smaller is better.
+All state magnitudes below use `||x||_2 = sqrt(q^2 + v^2)` in normalized,
+dimensionless coordinates. Time and control input are normalized as well.
 
-### `settling_time_s`
-Measures how long the system takes to stay near the target. Smaller is usually better, but very aggressive control may increase energy usage.
+### `final_state_norm`
+Measures the Euclidean normalized-state distance from the target equilibrium. Smaller is better.
+
+### `settling_time`
+The canonical metric is `settling_time`: the first sampled normalized time after
+the last sample outside `||x||_2 <= 0.02`. Thus all later samples remain inside
+the closed tolerance set. `settling_time_s` is a historical compatibility alias
+and does not mean seconds.
 
 ### `quadratic_cost`
-Measures the overall state error and control effort. Smaller usually indicates better control performance.
+Integrates `x^T Q x + u^T R u` over normalized time. `Q` and `R` are
+dimensionless objective weights, so this is not physical energy.
 
-### `control_energy`
-Measures how much control effort is used over time. Smaller means the controller is less aggressive.
+### `integrated_squared_control_effort`
+Integrates `u^2` over normalized time. Smaller means the controller is less
+aggressive, but the value is not physical energy. `control_energy` is retained
+as a historical compatibility alias.
 
 ### `max_abs_control`
-Shows the largest absolute control input. This is useful for checking actuator saturation.
+Shows the largest absolute normalized control input. This is useful for checking saturation.
 
 ## Sampled Lyapunov checks
 
@@ -45,7 +54,7 @@ Two metrics answer different questions:
 - `derivative_violation_fraction` counts sampled nonzero states where `V-dot`
   exceeds the numerical tolerance.
 - `decay_margin_violation_fraction` counts sampled nonzero states where
-  `V-dot + alpha * ||x||^2` exceeds the numerical tolerance.
+  `V-dot + alpha * ||x||_2^2` exceeds the numerical tolerance.
 
 The second condition is stronger when `alpha > 0`. Training and evaluation use
 the same default `alpha = 0.05`. The default numerical tolerance is `1e-9`; it only handles
@@ -60,7 +69,8 @@ is a formal certificate over the continuous state space.
 
 For each initial state on a finite grid, the evaluator simulates to a stated
 horizon `T` and classifies the state only when the strict final-state criterion
-`||x(T)|| < epsilon` holds. Interpret a reported percentage together with `T`,
+`||x(T)||_2 < epsilon` holds. `T` is a normalized-time horizon and `epsilon`
+is a normalized-state Euclidean tolerance. Interpret a reported percentage together with `T`,
 `epsilon`, the state bounds, grid resolution, and tested/converged counts.
 
 A larger percentage means that more of the sampled states met that specific
@@ -74,13 +84,15 @@ is a formal continuous-state attraction-region certificate.
 ## Robustness experiments
 
 ### Measurement noise
-Noise robustness checks whether the controller still works when the measured state is imperfect.
+Noise robustness applies the same scalar Gaussian standard deviation
+independently to normalized `q` and `v` measurements.
 
 ### Parameter variation
-Parameter robustness checks whether the controller still works when mass, damping, or stiffness changes.
+Parameter robustness checks whether the controller still works when normalized
+mass, damping, or stiffness coefficients change.
 
 ### Actuator saturation
-Saturation experiments check whether the controller remains effective when control force is limited.
+Saturation experiments check whether the controller remains effective when normalized control input is limited.
 
 ## Ablation study
 

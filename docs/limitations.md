@@ -14,6 +14,12 @@ The main plant is a mass-spring-damper system.
 
 This is useful for control experiments, but it is much simpler than many real mechanical systems.
 
+## Normalized-coordinate limitation
+
+The model is dimensionless and does not define a mapping from `q`, `v`, `tau`,
+or `u` to SI units. Results therefore support normalized simulation comparisons,
+not direct claims about metres, seconds, newtons, or hardware energy.
+
 ## Grid-based stability checks
 
 The Lyapunov checks are evaluated on sampled grid points.
@@ -37,7 +43,8 @@ Small differences between machines are possible.
 ## Finite-horizon convergence limitation
 
 The convergence map tests only whether sampled states satisfy the strict
-criterion `||x(T)|| < epsilon` at one finite horizon. Results depend on the
+criterion `||x(T)||_2 < epsilon` at one normalized-time horizon. The tolerance
+is an Euclidean normalized-state tolerance. Results depend on the
 horizon, tolerance, grid bounds, and resolution. Failing this test does not
 show that a state lies outside the mathematical region of attraction, and
 passing it does not certify asymptotic convergence.

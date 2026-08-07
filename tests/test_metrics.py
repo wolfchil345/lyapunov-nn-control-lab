@@ -30,6 +30,11 @@ def test_lqr_performance_metrics_are_valid():
     assert math.isfinite(metrics["settling_time_s"])
     assert metrics["settling_time_s"] > 0.0
     assert metrics["quadratic_cost"] > 0.0
+    assert metrics["settling_time"] == metrics["settling_time_s"]
+    assert metrics["integrated_squared_control_effort"] > 0.0
+    assert metrics["integrated_squared_control_effort"] == metrics[
+        "control_energy"
+    ]
     assert metrics["control_energy"] > 0.0
     assert metrics["max_abs_control"] > 0.0
 

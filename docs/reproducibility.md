@@ -79,7 +79,7 @@ code results/experiment_report.md
 - The project uses empirical simulation and grid-based Lyapunov checks, not a full formal proof for the neural-network controller.
 - The generated plots are intended as practical stability and robustness diagnostics.
 - The finite-horizon convergence figures apply only the strict criterion
-  `||x(T)|| < epsilon` on the stated grid. They are not mathematical
+  `||x(T)||_2 < epsilon` on the stated normalized-coordinate grid. They are not mathematical
   attraction-region certificates.
 - The tracked files whose names begin with `region_of_attraction` are
   historical pre-migration artifacts and are intentionally not regenerated in

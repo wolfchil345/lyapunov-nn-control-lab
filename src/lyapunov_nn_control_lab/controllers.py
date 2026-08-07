@@ -7,6 +7,7 @@ import torch
 from torch import nn
 
 from .lyapunov import DEFAULT_DECAY_MARGIN
+from .state_coordinates import torch_squared_state_norm
 from .system import A, B, K, P
 from ._validation import (
     evaluate_controller,
@@ -71,7 +72,7 @@ def calculate_lyapunov_penalty(
     controls: torch.Tensor,
     margin: float = DEFAULT_DECAY_MARGIN,
 ) -> torch.Tensor:
-    """Penalize violations of V-dot <= -margin * ||x||^2."""
+    """Penalize violations of ``V-dot <= -margin * ||x||_2^2``."""
 
     residuals = calculate_lyapunov_decay_residuals(
         states,
@@ -86,7 +87,7 @@ def calculate_lyapunov_decay_residuals(
     controls: torch.Tensor,
     decay_margin: float = DEFAULT_DECAY_MARGIN,
 ) -> torch.Tensor:
-    """Return V-dot + decay_margin * ||x||^2 for training samples."""
+    """Return the normalized-coordinate Lyapunov residual for each sample."""
 
     decay_margin = validate_nonnegative_scalar(
         decay_margin,
@@ -132,7 +133,7 @@ def calculate_lyapunov_decay_residuals(
 
     required_decay = (
         decay_margin
-        * torch.sum(states**2, dim=1)
+        * torch_squared_state_norm(states)
     )
 
     return v_dot + required_decay

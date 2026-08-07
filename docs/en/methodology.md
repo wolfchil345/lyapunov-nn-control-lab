@@ -4,18 +4,27 @@
 
 This document explains the main control-engineering ideas used in the Lyapunov neural-network control lab.
 
+## Coordinate convention
+
+The repository uses a normalized, dimensionless second-order model. Normalized
+time is `tau`, normalized position-like coordinate is `q`, normalized velocity
+is `v = dq/dtau`, normalized control input is `u`, and `x = [q, v]`.
+Therefore `||x||_2 = sqrt(q^2 + v^2)` and `||x||_2^2 = q^2 + v^2` are
+Euclidean magnitudes in normalized state coordinates, not combinations of SI
+position and velocity measurements.
+
 ## 1. Mass-spring-damper system
 
 The project studies a second-order mass-spring-damper system.
 
 ```text
-x = [position, velocity]
+x = [q, v]
 ```
 
 The system is written in state-space form:
 
 ```text
-dx/dt = A x + B u
+dx/dtau = A x + B u
 ```
 
 Here, x is the state, u is the control input, A describes the plant dynamics, and B describes how the input affects the plant.
@@ -35,11 +44,13 @@ The Linear Quadratic Regulator is used as the classical optimal-control baseline
 u = -Kx
 ```
 
-LQR gives a strong reference controller for the neural network to imitate.
+`Q` and `R` are dimensionless objective weights. The resulting integral is a
+quadratic LQR-style cost, not physical energy. LQR gives a strong reference
+controller for the neural network to imitate.
 
 ## 3. Neural-network controller
 
-The neural-network controller receives position and velocity as input and outputs one scalar control input.
+The neural-network controller receives normalized `q` and `v` as input and outputs one normalized scalar control input.
 
 ```text
 NN(x) ≈ LQR(x)
@@ -65,7 +76,7 @@ The evaluator reports two distinct sampled conditions:
 
 ```text
 basic decrease: V-dot(x) <= 0
-decay margin:   V-dot(x) + alpha * ||x||^2 <= 0
+decay margin:   V-dot(x) + alpha * ||x||_2^2 <= 0
 ```
 
 The second condition is stronger when `alpha > 0`. The exact equilibrium is
@@ -86,13 +97,13 @@ With `alpha = 0.05`, training minimizes the positive part of the same decay
 residual used by evaluation:
 
 ```text
-decay residual = V-dot(x) + alpha * ||x||^2
+decay residual = V-dot(x) + alpha * ||x||_2^2
 stability penalty = mean(ReLU(decay residual))
 ```
 
 ## 6. Actuator saturation
 
-Real actuators cannot apply unlimited force, so the project also tests saturated control.
+The project also tests a limit on the normalized control input.
 
 ```text
 u = clip(u, -u_max, u_max)
@@ -110,11 +121,15 @@ The noise robustness experiment adds measurement noise:
 x_measured = x + noise
 ```
 
-The parameter robustness experiment changes mass, damping, and stiffness to simulate modelling error.
+The same scalar Gaussian standard deviation is applied independently to `q`
+and `v` in normalized coordinates.
+
+The parameter robustness experiment changes normalized mass, damping, and
+stiffness coefficients to simulate modelling error.
 
 ## 8. Phase portrait and Lyapunov contours
 
-The phase portrait plots position against velocity and shows whether trajectories move toward the origin.
+The phase portrait plots normalized position against normalized velocity and shows whether trajectories move toward the origin.
 
 The Lyapunov contour plot overlays trajectories on level sets of the Lyapunov function.
 
@@ -126,13 +141,14 @@ For every sampled initial state `x0`, the experiment simulates
 `x(t; x0)` over `0 <= t <= T` and applies exactly this strict criterion:
 
 ```text
-||x(T)|| < epsilon
+||x(T)||_2 < epsilon
 ```
 
 The evaluator requires a successful simulation that reaches `T` with finite
 time and state values. Failure or nonfinite output raises an error rather than
 being silently classified as nonconverged.
 
+`T` is normalized time and `epsilon` is a normalized-state Euclidean tolerance.
 The result records the horizon `T`, tolerance `epsilon`, grid bounds and
 resolution, number tested, number converged, and convergence fraction. It is
 a sampled finite-horizon convergence map. A slowly converging state can fail
@@ -161,8 +177,9 @@ certificate.
 The ablation study trains controllers with different Lyapunov penalty weights.
 
 It reports the basic derivative violation fraction and the stronger decay-margin
-violation fraction separately, together with final state norm, settling time,
-quadratic cost, and control energy.
+violation fraction separately, together with final normalized-state norm,
+normalized settling time, quadratic LQR-style cost, and integrated squared
+control effort. The latter is `integral u^2 dtau`, not physical energy.
 
 ## 11. Summary
 

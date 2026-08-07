@@ -26,8 +26,10 @@ def sample_rows():
             "derivative_violation_fraction": 0.4,
             "decay_margin_violation_fraction": 0.5,
             "final_state_norm": 0.1,
+            "settling_time": 3.0,
             "settling_time_s": 3.0,
             "quadratic_cost": 5.0,
+            "integrated_squared_control_effort": 2.0,
             "control_energy": 2.0,
             "max_abs_control": 1.0,
         },
@@ -43,8 +45,10 @@ def sample_rows():
             "derivative_violation_fraction": 0.0,
             "decay_margin_violation_fraction": 0.05,
             "final_state_norm": 0.01,
+            "settling_time": 2.0,
             "settling_time_s": 2.0,
             "quadratic_cost": 4.0,
+            "integrated_squared_control_effort": 1.5,
             "control_energy": 1.5,
             "max_abs_control": 0.8,
         },
@@ -72,6 +76,18 @@ def test_save_stability_weight_ablation_plot_creates_file(tmp_path):
         sample_rows(),
         tmp_path,
     )
+
+    assert (tmp_path / "stability_weight_ablation.png").exists()
+
+
+def test_ablation_plot_accepts_precise_control_effort_name_without_alias(
+    tmp_path,
+):
+    rows = sample_rows()
+    for row in rows:
+        row.pop("control_energy")
+
+    save_stability_weight_ablation_plot(rows, tmp_path)
 
     assert (tmp_path / "stability_weight_ablation.png").exists()
 
@@ -115,8 +131,10 @@ def test_ablation_reports_both_lyapunov_conditions(monkeypatch):
         "calculate_metrics",
         lambda *_args, **_kwargs: {
             "final_state_norm": 0.1,
+            "settling_time": 1.0,
             "settling_time_s": 1.0,
             "quadratic_cost": 2.0,
+            "integrated_squared_control_effort": 3.0,
             "control_energy": 3.0,
             "max_abs_control": 4.0,
         },

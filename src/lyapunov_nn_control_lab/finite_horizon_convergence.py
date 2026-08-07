@@ -10,6 +10,7 @@ import numpy as np
 
 from ._validation import validate_controller, validate_positive_scalar
 from .simulation import simulate
+from .state_coordinates import state_norm
 
 
 MAX_GRID_INITIAL_STATES = 100_000
@@ -37,7 +38,7 @@ class FiniteHorizonConvergenceResult:
     def criterion(self) -> str:
         """Return the exact strict final-state criterion used by the evaluator."""
 
-        return "||x(horizon)|| < convergence_tolerance"
+        return "||x(horizon)||_2 < convergence_tolerance"
 
 
 def _validate_bounds(
@@ -134,7 +135,7 @@ def evaluate_finite_horizon_convergence(
     *,
     controller_label: str | None = None,
 ) -> FiniteHorizonConvergenceResult:
-    """Classify sampled states using ``||x(horizon)|| < tolerance``.
+    """Classify states using a strict normalized Euclidean final-state norm.
 
     This finite-time simulation test is not a region-of-attraction
     computation and does not establish asymptotic convergence.
@@ -173,9 +174,7 @@ def evaluate_finite_horizon_convergence(
             initial_state = np.array([position, velocity], dtype=float)
             solution = simulate(controller, initial_state, duration=horizon)
             final_state = _final_state_from_solution(solution, horizon=horizon)
-            final_norm = float(np.linalg.norm(final_state))
-            if not np.isfinite(final_norm):
-                raise ValueError("final state norm must be finite.")
+            final_norm = state_norm(final_state)
             final_norm_map[velocity_index, position_index] = final_norm
             convergence_map[velocity_index, position_index] = (
                 final_norm < convergence_tolerance

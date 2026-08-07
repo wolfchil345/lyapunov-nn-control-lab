@@ -31,7 +31,7 @@ The input would still be the system state:
 
 The output would still be the control input:
 
-- scalar force
+- normalized scalar control input
 
 ## Files that may need changes
 
@@ -59,11 +59,11 @@ Use the same initial states, metrics, and Lyapunov checks for all controllers.
 
 ## Suggested metrics
 
-- final state norm
-- settling time
-- quadratic cost
-- control energy
-- maximum absolute control input
+- final normalized-state norm
+- normalized settling time
+- quadratic LQR-style cost
+- integrated squared control effort
+- maximum absolute normalized control input
 - Lyapunov derivative violation fraction
 - finite-horizon convergence count and fraction
 

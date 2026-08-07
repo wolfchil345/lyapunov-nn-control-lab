@@ -8,9 +8,17 @@ Neural network control experiments can change when training settings, random see
 
 ## Main parameter groups
 
+## Coordinate convention
+
+The experiment is normalized and dimensionless: `tau` is normalized time,
+`x = [q, v]` contains normalized position and velocity, and `u` is normalized
+control input. Thresholds and noise levels therefore use normalized coordinates.
+
 ## 1. System parameters
 
-These define the mass-spring-damper model, such as mass, damping, stiffness, and state-space matrices.
+These define the normalized second-order model, including normalized mass,
+damping, and stiffness coefficients and the state-space matrices. The numerical
+coefficients are not SI quantities such as kilograms or newtons per metre.
 
 Important files:
 
@@ -52,8 +60,8 @@ These affect closed-loop evaluation.
 Examples:
 
 - Initial condition.
-- Simulation time.
-- Time step.
+- Normalized simulation time.
+- Normalized time step.
 - Controller saturation limit.
 
 Important files:
@@ -82,7 +90,7 @@ These affect noise and model variation experiments.
 
 Examples:
 
-- Noise level.
+- Scalar noise standard deviation applied independently to both normalized state coordinates.
 - Parameter variation range.
 - Number of tested cases.
 

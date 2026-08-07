@@ -48,7 +48,7 @@ def test_corrected_api_returns_explicit_metadata_and_counts():
         result.converged_count / result.tested_count
     )
     assert result.controller_label == "LQR"
-    assert result.criterion == "||x(horizon)|| < convergence_tolerance"
+    assert result.criterion == "||x(horizon)||_2 < convergence_tolerance"
 
 
 def test_grid_and_classification_are_deterministic():

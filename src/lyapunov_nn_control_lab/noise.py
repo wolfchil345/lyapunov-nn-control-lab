@@ -19,7 +19,11 @@ def add_measurement_noise(
     noise_std: float,
     rng: np.random.Generator,
 ) -> np.ndarray:
-    """Add Gaussian measurement noise to the measured state."""
+    """Add independent Gaussian noise to both normalized state coordinates.
+
+    The same scalar standard deviation is used independently for normalized
+    position ``q`` and normalized velocity ``v``.
+    """
 
     state = validate_state(state, name="state")
     noise_std = validate_nonnegative_scalar(
@@ -43,7 +47,7 @@ def make_noisy_measurement_controller(
     noise_std: float,
     seed: int = 7,
 ) -> Callable[[np.ndarray], float]:
-    """Wrap a controller so it receives noisy state measurements."""
+    """Wrap a controller with normalized-coordinate measurement noise."""
 
     controller = validate_controller(controller)
     noise_std = validate_nonnegative_scalar(
@@ -73,7 +77,7 @@ def simulate_with_measurement_noise(
     duration: float = 10.0,
     dt: float = 0.01,
 ):
-    """Simulate closed-loop dynamics with noisy state measurements."""
+    """Simulate with independent normalized-coordinate measurement noise."""
 
     controller = validate_controller(controller)
     initial_state = validate_state(initial_state, name="initial state")

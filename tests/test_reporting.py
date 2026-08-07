@@ -151,6 +151,9 @@ def test_generate_experiment_report_creates_file(tmp_path):
     assert "decay_margin_violation_fraction" in text
     assert "not a formal continuous-state certificate" in text
     assert "Finite-horizon convergence sampling" in text
+    assert "Horizon (normalized time)" in text
+    assert "integrated_squared_control_effort" in text
+    assert "||x(T)||_2 < tolerance" in text
     assert (
         "8 | 0.1 | (-1.0, 1.0) | (-1.0, 1.0) | 3 x 3 | "
         "9 / 9 | 100.0%"

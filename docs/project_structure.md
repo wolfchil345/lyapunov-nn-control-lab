@@ -22,7 +22,10 @@ Defines the license for using and sharing the project.
 ## Source code
 
 ### `src/lyapunov_nn_control_lab/system.py`
-Defines the mass-spring-damper system, state-space matrices, LQR controller, and Lyapunov matrix.
+Defines normalized second-order model coefficients, state-space matrices, LQR controller, and Lyapunov matrix.
+
+### `src/lyapunov_nn_control_lab/state_coordinates.py`
+Defines the normalized coordinate convention and shared NumPy/Torch state-norm helpers.
 
 ### `src/lyapunov_nn_control_lab/controllers.py`
 Defines the neural-network controller, dataset generation, stability-aware training, and actuator saturation utilities.
@@ -34,7 +37,7 @@ Simulates closed-loop system trajectories.
 Computes Lyapunov values, Lyapunov derivatives, and grid-based stability checks.
 
 ### `src/lyapunov_nn_control_lab/metrics.py`
-Computes performance metrics such as final state norm, settling time, cost, and control energy.
+Computes normalized-state and normalized-time performance metrics, LQR-style cost, and integrated squared control effort.
 
 ### `src/lyapunov_nn_control_lab/plotting.py`
 Creates plots for simulations, robustness experiments, Lyapunov contours,
@@ -47,7 +50,7 @@ Generates the automatic experiment report.
 Runs measurement-noise robustness simulations.
 
 ### `src/lyapunov_nn_control_lab/parameter_variation.py`
-Runs robustness simulations under changed physical parameters.
+Runs robustness simulations under changed normalized model coefficients.
 
 ### `src/lyapunov_nn_control_lab/finite_horizon_convergence.py`
 Evaluates a strict final-state tolerance on a bounded grid at an explicit
