@@ -47,7 +47,12 @@ finite-horizon convergence maps, and model architecture.
 Generates the automatic experiment report.
 
 ### `src/lyapunov_nn_control_lab/noise.py`
-Runs measurement-noise robustness simulations.
+Runs paired measurement-noise robustness simulations with common random-number
+realizations and raw/aggregate result writers.
+
+### `src/lyapunov_nn_control_lab/experimental_seeds.py`
+Defines explicit seed plans, central project RNG seeding, pairing checks, and
+sample-variability aggregation helpers.
 
 ### `src/lyapunov_nn_control_lab/parameter_variation.py`
 Runs robustness simulations under changed normalized model coefficients.
@@ -61,7 +66,8 @@ Provides only the deprecated legacy API wrapper for the former misleading
 name.
 
 ### `src/lyapunov_nn_control_lab/stability_ablation.py`
-Runs experiments with different stability penalty weights.
+Runs the Cartesian product of stability weights and shared repeat seeds, then
+separates raw trials from aggregate statistics.
 
 ## Tests
 

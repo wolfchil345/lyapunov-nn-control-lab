@@ -87,6 +87,12 @@ is a formal continuous-state attraction-region certificate.
 Noise robustness applies the same scalar Gaussian standard deviation
 independently to normalized `q` and `v` measurements.
 
+Future runs pair every noise amplitude by seed using common random numbers.
+For a fixed seed, the same standardized Gaussian sequence is scaled by each
+amplitude. Interpret the raw `noise_std x seed` rows before the aggregate mean,
+sample standard deviation, and standard error. This pairing reduces one source
+of random-realization confounding; it does not remove all uncertainty.
+
 ### Parameter variation
 Parameter robustness checks whether the controller still works when normalized
 mass, damping, or stiffness coefficients change.
@@ -99,11 +105,17 @@ Saturation experiments check whether the controller remains effective when norma
 The stability-weight ablation changes the multiplier applied to the Lyapunov
 penalty during training while keeping the reported decay margin explicit.
 
+Future runs use the same repeated seed set for every weight. The raw table has
+one row per `stability_weight x seed`; the aggregate table reports `n`, mean,
+sample standard deviation, and standard error by weight. Mean plus or minus
+sample standard deviation is a variability summary, not a confidence interval.
+
 A useful stability weight should balance imitation accuracy, convergence, and
 both sampled Lyapunov metrics. The committed
 `results/stability_weight_ablation.csv` uses the historical ambiguous violation
 column and is intentionally not overwritten here. Its regenerated schema will
-include both violation fractions in the later result-provenance operation.
+not be retroactively relabelled. New paired files use the corrected sampled
+derivative and sampled decay-margin violation names.
 
 ## Practical reading order
 

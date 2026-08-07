@@ -4,9 +4,8 @@ This roadmap lists possible future improvements for the Lyapunov Neural-Network 
 
 ## Near-term improvements
 
-- Add multiple random-seed experiments for neural-network training.
-- Save averaged metrics across repeated training runs.
-- Add confidence intervals for performance and stability metrics.
+- Extend paired multi-seed experiments to additional learned-controller studies.
+- Evaluate justified confidence-interval methods for larger repeat counts.
 - Add a command-line interface for selecting experiments.
 - Split heavy experiments into separate scripts for faster development.
 

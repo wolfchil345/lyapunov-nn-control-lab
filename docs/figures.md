@@ -46,7 +46,10 @@ two corrected filenames above.
 Compares controller behavior when control input limits are applied.
 
 ### `noise_robustness.png`
-Shows controller behavior under measurement noise.
+Historical single-seed figure retained unchanged. Future paired experiments
+write `noise_robustness_paired.png` for aggregate final-state statistics and
+`noise_robustness_paired_trajectories.png` for representative matched-seed
+trajectories.
 
 ### `parameter_robustness.png`
 Shows how the controller behaves when normalized model coefficients are changed.
@@ -57,7 +60,9 @@ Shows how the controller behaves when normalized model coefficients are changed.
 Shows the project workflow from plant model to controller, simulation, stability checks, and reports.
 
 ### `stability_weight_ablation.png`
-Shows how different stability penalty weights affect controller performance and stability metrics.
+Historical figure retained unchanged. Future paired experiments write
+`stability_weight_ablation_paired.png`, showing faint per-seed observations,
+mean trends, and sample variability where multiple repeats are available.
 
 ## Data files
 
@@ -65,7 +70,10 @@ Shows how different stability penalty weights affect controller performance and 
 Stores numerical performance metrics for the controllers.
 
 ### `stability_weight_ablation.csv`
-Stores numerical results from the stability-weight ablation experiment.
+Historical results from the earlier confounded seed design. Future paired runs
+write separate `stability_weight_ablation_trials_paired.csv` and
+`stability_weight_ablation_summary_paired.csv` files. Noise trials and summaries
+follow the corresponding `noise_robustness_*_paired.csv` naming convention.
 
 ### `experiment_report.md`
 Automatically summarizes the generated plots, metrics, and experiments.
