@@ -4,6 +4,14 @@ from types import SimpleNamespace
 import numpy as np
 
 from .system import A, B
+from ._validation import (
+    build_time_grid,
+    evaluate_controller,
+    validate_controller,
+    validate_nonnegative_scalar,
+    validate_seed,
+    validate_state,
+)
 
 
 def add_measurement_noise(
@@ -13,8 +21,13 @@ def add_measurement_noise(
 ) -> np.ndarray:
     """Add Gaussian measurement noise to the measured state."""
 
-    if noise_std < 0.0:
-        raise ValueError("Noise standard deviation must be nonnegative.")
+    state = validate_state(state, name="state")
+    noise_std = validate_nonnegative_scalar(
+        noise_std,
+        name="noise standard deviation",
+    )
+    if not isinstance(rng, np.random.Generator):
+        raise TypeError("rng must be a numpy.random.Generator.")
 
     noise = rng.normal(
         loc=0.0,
@@ -32,6 +45,12 @@ def make_noisy_measurement_controller(
 ) -> Callable[[np.ndarray], float]:
     """Wrap a controller so it receives noisy state measurements."""
 
+    controller = validate_controller(controller)
+    noise_std = validate_nonnegative_scalar(
+        noise_std,
+        name="noise standard deviation",
+    )
+    seed = validate_seed(seed)
     rng = np.random.default_rng(seed)
 
     def noisy_controller(true_state: np.ndarray) -> float:
@@ -41,7 +60,7 @@ def make_noisy_measurement_controller(
             rng,
         )
 
-        return controller(measured_state)
+        return evaluate_controller(controller, measured_state)
 
     return noisy_controller
 
@@ -56,12 +75,16 @@ def simulate_with_measurement_noise(
 ):
     """Simulate closed-loop dynamics with noisy state measurements."""
 
-    if noise_std < 0.0:
-        raise ValueError("Noise standard deviation must be nonnegative.")
-
+    controller = validate_controller(controller)
+    initial_state = validate_state(initial_state, name="initial state")
+    noise_std = validate_nonnegative_scalar(
+        noise_std,
+        name="noise standard deviation",
+    )
+    seed = validate_seed(seed)
     rng = np.random.default_rng(seed)
 
-    time = np.arange(0.0, duration + dt, dt)
+    time = build_time_grid(duration, dt)
     states = np.zeros((2, len(time)), dtype=float)
     states[:, 0] = initial_state
 
@@ -74,10 +97,11 @@ def simulate_with_measurement_noise(
             rng,
         )
 
-        control = controller(measured_state)
+        control = evaluate_controller(controller, measured_state)
         state_dot = A @ true_state + B[:, 0] * control
 
-        states[:, index + 1] = true_state + dt * state_dot
+        step = time[index + 1] - time[index]
+        states[:, index + 1] = true_state + step * state_dot
 
         if not np.all(np.isfinite(states[:, index + 1])):
             return SimpleNamespace(

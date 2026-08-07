@@ -24,6 +24,18 @@ def test_saturate_control_rejects_nonpositive_limit():
         saturate_control(1.0, limit=0.0)
 
 
+@pytest.mark.parametrize("limit", [np.nan, np.inf, -np.inf])
+def test_saturate_control_rejects_nonfinite_limit(limit):
+    with pytest.raises(ValueError, match="control limit must be finite"):
+        saturate_control(1.0, limit=limit)
+
+
+@pytest.mark.parametrize("control", [np.nan, np.inf, -np.inf])
+def test_saturate_control_rejects_nonfinite_control(control):
+    with pytest.raises(ValueError, match="control must be finite"):
+        saturate_control(control, limit=5.0)
+
+
 def test_make_saturated_controller_wraps_controller():
     def raw_controller(x: np.ndarray) -> float:
         return 100.0

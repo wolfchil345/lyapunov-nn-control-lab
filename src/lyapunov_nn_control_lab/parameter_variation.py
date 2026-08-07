@@ -3,6 +3,14 @@ from collections.abc import Callable
 import numpy as np
 from scipy.integrate import solve_ivp
 
+from ._validation import (
+    evaluate_controller,
+    validate_controller,
+    validate_nonnegative_scalar,
+    validate_positive_scalar,
+    validate_state,
+)
+
 
 def make_state_space_matrices(
     mass: float,
@@ -11,14 +19,9 @@ def make_state_space_matrices(
 ) -> tuple[np.ndarray, np.ndarray]:
     """Create state-space matrices for a mass-spring-damper system."""
 
-    if mass <= 0.0:
-        raise ValueError("Mass must be positive.")
-
-    if damping < 0.0:
-        raise ValueError("Damping must be nonnegative.")
-
-    if stiffness <= 0.0:
-        raise ValueError("Stiffness must be positive.")
+    mass = validate_positive_scalar(mass, name="mass")
+    damping = validate_nonnegative_scalar(damping, name="damping")
+    stiffness = validate_positive_scalar(stiffness, name="stiffness")
 
     a_matrix = np.array(
         [
@@ -46,6 +49,10 @@ def simulate_parameter_variation(
 ):
     """Simulate closed-loop dynamics under changed plant parameters."""
 
+    controller = validate_controller(controller)
+    initial_state = validate_state(initial_state, name="initial state")
+    duration = validate_positive_scalar(duration, name="duration")
+
     a_matrix, b_matrix = make_state_space_matrices(
         mass=mass,
         damping=damping,
@@ -53,8 +60,9 @@ def simulate_parameter_variation(
     )
 
     def closed_loop_rhs(_time: float, state: np.ndarray) -> np.ndarray:
-        control = controller(state)
-        return a_matrix @ state + b_matrix[:, 0] * control
+        valid_state = validate_state(state, name="simulation state")
+        control = evaluate_controller(controller, valid_state)
+        return a_matrix @ valid_state + b_matrix[:, 0] * control
 
     time_points = np.linspace(0.0, duration, 1001)
 

@@ -1,6 +1,8 @@
 import numpy as np
 import control as ct
 
+from ._validation import validate_state
+
 MASS = 1.0
 DAMPING = 0.4
 STIFFNESS = 2.0
@@ -25,4 +27,5 @@ P = np.asarray(P, dtype=float)
 
 def lqr_controller(x: np.ndarray) -> float:
     """Return the LQR control input u = -Kx."""
-    return float((-K @ x.reshape(-1, 1)).item())
+    state = validate_state(x, name="controller state")
+    return float((-K @ state.reshape(2, 1)).item())
