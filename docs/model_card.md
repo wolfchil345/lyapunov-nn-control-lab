@@ -12,14 +12,14 @@ It is trained to imitate an LQR controller while using a stability-aware trainin
 
 The model input is a two-dimensional state:
 
-- position
-- velocity
+- normalized position `q`
+- normalized velocity `v = dq/dtau`
 
 ## Model output
 
 The model output is one scalar control input:
 
-- force applied to the mass-spring-damper system
+- normalized scalar control input `u` applied to the model
 
 ## Training target
 
@@ -50,11 +50,11 @@ It has not been verified for hardware deployment, dangerous systems, or safety-c
 The controller is evaluated using:
 
 - closed-loop simulation
-- final state norm
-- settling time
-- quadratic cost
-- control energy
-- maximum absolute control input
+- final normalized-state norm
+- normalized settling time
+- quadratic LQR-style cost
+- integrated squared normalized control effort
+- maximum absolute normalized control input
 - Lyapunov derivative grid checks
 - robustness experiments
 - finite-horizon final-state tolerance mapping

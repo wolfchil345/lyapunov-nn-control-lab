@@ -4,6 +4,7 @@ from dataclasses import dataclass
 import numpy as np
 
 from .system import A, B, P
+from .state_coordinates import squared_state_norm
 from ._validation import (
     evaluate_controller,
     validate_controller,
@@ -50,7 +51,7 @@ def lyapunov_decay_residual(
     vdot: float,
     decay_margin: float = DEFAULT_DECAY_MARGIN,
 ) -> float:
-    """Return V-dot + decay_margin * ||x||^2 for one state."""
+    """Return ``V-dot + alpha * (q**2 + v**2)`` in normalized coordinates."""
 
     state = validate_state(x)
     vdot = validate_finite_scalar(vdot, name="vdot")
@@ -58,7 +59,7 @@ def lyapunov_decay_residual(
         decay_margin,
         name="decay_margin",
     )
-    return float(vdot + decay_margin * np.dot(state, state))
+    return float(vdot + decay_margin * squared_state_norm(state))
 
 
 def evaluate_lyapunov_sample(

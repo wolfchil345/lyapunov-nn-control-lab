@@ -62,6 +62,17 @@ def format_markdown_table(
     return lines
 
 
+def canonicalize_metric_aliases(rows: list[dict[str, str]]) -> None:
+    """Add precise metric names when reading historical compatible CSVs."""
+
+    for row in rows:
+        row.setdefault("settling_time", row.get("settling_time_s", ""))
+        row.setdefault(
+            "integrated_squared_control_effort",
+            row.get("control_energy", ""),
+        )
+
+
 def generate_experiment_report(
     results_dir: Path,
     output_path: Path,
@@ -80,6 +91,8 @@ def generate_experiment_report(
         results_dir / "stability_weight_ablation.csv",
         max_rows=8,
     )
+    canonicalize_metric_aliases(performance_rows)
+    canonicalize_metric_aliases(ablation_rows)
     uses_legacy_ablation_schema = any(
         "lyapunov_violation_fraction" in row
         and "decay_margin_violation_fraction" not in row
@@ -154,7 +167,8 @@ def generate_experiment_report(
             "## Finite-horizon convergence sampling",
             "",
             "A sampled state is classified as converged only when the strict "
-            "final-state criterion `||x(T)|| < tolerance` holds. This "
+            "final-state criterion `||x(T)||_2 < tolerance` holds in "
+            "normalized coordinates. This "
             "finite-time result depends on the horizon, tolerance, and grid; "
             "it is not an asymptotic attraction-region certificate.",
             "",
@@ -164,8 +178,9 @@ def generate_experiment_report(
     if finite_horizon_results:
         lines.extend(
             [
-                "| Controller | Horizon [s] | Tolerance | Position bounds | "
-                "Velocity bounds | Grid | Converged / tested | Fraction |",
+                "| Controller | Horizon (normalized time) | Normalized-state "
+                "tolerance | Normalized-position bounds | Normalized-velocity "
+                "bounds | Grid | Converged / tested | Fraction |",
                 "|---|---:|---:|---|---|---:|---:|---:|",
             ]
         )
@@ -199,9 +214,9 @@ def generate_experiment_report(
                 "initial_position",
                 "initial_velocity",
                 "final_state_norm",
-                "settling_time_s",
+                "settling_time",
                 "quadratic_cost",
-                "control_energy",
+                "integrated_squared_control_effort",
                 "max_abs_control",
             ],
         ),
@@ -226,9 +241,9 @@ def generate_experiment_report(
                 "max_vdot",
                 "max_decay_residual",
                 "final_state_norm",
-                "settling_time_s",
+                "settling_time",
                 "quadratic_cost",
-                "control_energy",
+                "integrated_squared_control_effort",
             ],
         ),
     )
@@ -248,15 +263,15 @@ def generate_experiment_report(
             "",
             "## Interpretation guide",
             "",
-            "- Lower final state norm means the controller drives the state closer to the equilibrium.",
-            "- Lower settling time means the controller stabilizes faster.",
-            "- Lower control energy means the controller uses less actuation effort.",
+            "- The final normalized-state norm is the Euclidean norm of normalized position and velocity.",
+            "- Settling time is measured in normalized time and requires all later samples to remain inside the tolerance.",
+            "- Integrated squared control effort is the integral of normalized control squared; it is not physical energy.",
             "- The derivative violation fraction counts sampled states with V-dot above numerical tolerance.",
-            "- The decay-margin violation fraction counts sampled states where V-dot + alpha ||x||^2 exceeds numerical tolerance.",
+            "- The decay-margin violation fraction counts sampled states where V-dot + alpha ||x||_2^2 exceeds numerical tolerance.",
             "- Both Lyapunov metrics cover only the finite sampled grid and are not a formal continuous-state certificate.",
             "- Finite-horizon convergence percentages report only the sampled "
-            "states that meet the stated final-state tolerance after the stated "
-            "horizon.",
+            "states that meet the stated normalized Euclidean final-state "
+            "tolerance after the stated normalized-time horizon.",
             "",
         ],
     )

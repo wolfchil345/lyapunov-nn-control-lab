@@ -9,8 +9,8 @@ Can a neural-network controller imitate an LQR controller while maintaining usef
 ## Controller performance
 
 - How close is the neural-network controller performance to the LQR baseline?
-- Does the neural-network controller reduce the final state norm reliably?
-- How do settling time, quadratic cost, and control energy compare between controllers?
+- Does the neural-network controller reduce the final normalized-state norm reliably?
+- How do normalized settling time, quadratic LQR-style cost, and integrated squared control effort compare between controllers?
 
 ## Stability behavior
 
@@ -24,7 +24,7 @@ Can a neural-network controller imitate an LQR controller while maintaining usef
 
 - How does measurement noise affect the neural-network controller?
 - How does actuator saturation affect convergence?
-- How sensitive is the controller to changes in mass, damping, and stiffness?
+- How sensitive is the controller to changes in normalized mass, damping, and stiffness coefficients?
 
 ## Training design
 

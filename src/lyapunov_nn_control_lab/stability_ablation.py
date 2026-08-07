@@ -109,8 +109,10 @@ def save_ablation_results_csv(
         "derivative_violation_fraction",
         "decay_margin_violation_fraction",
         "final_state_norm",
+        "settling_time",
         "settling_time_s",
         "quadratic_cost",
+        "integrated_squared_control_effort",
         "control_energy",
         "max_abs_control",
     ]

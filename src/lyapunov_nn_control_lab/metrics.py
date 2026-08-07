@@ -3,6 +3,7 @@ from collections.abc import Callable
 import numpy as np
 from scipy.integrate import trapezoid
 
+from .state_coordinates import state_norm
 from .system import Q, R
 from ._validation import (
     evaluate_controller,
@@ -16,7 +17,13 @@ def calculate_metrics(
     controller: Callable[[np.ndarray], float],
     settling_threshold: float = 0.02,
 ) -> dict[str, float]:
-    """Calculate quantitative closed-loop performance metrics."""
+    """Calculate metrics in the normalized coordinate and time convention.
+
+    Settling time is the first sample after the last sample outside the closed
+    tolerance set ``||x||_2 <= settling_threshold``. Consequently, every later
+    sampled state remains inside the set. ``settling_time_s`` and
+    ``control_energy`` are retained as compatibility aliases only.
+    """
 
     if not solution.success:
         raise ValueError("Cannot calculate metrics for a failed simulation.")
@@ -44,10 +51,10 @@ def calculate_metrics(
         dtype=float,
     )
 
-    state_norms = np.linalg.norm(states, axis=1)
+    state_norms = np.array([state_norm(state) for state in states])
 
-    # Settling time:
-    # first time after which the state norm remains below the threshold.
+    # Settling time: first normalized time after which the normalized-state
+    # norm remains inside the closed tolerance set.
     outside_threshold = np.flatnonzero(
         state_norms > settling_threshold
     )
@@ -61,8 +68,8 @@ def calculate_metrics(
             time[outside_threshold[-1] + 1]
         )
 
-    # Quadratic LQR-style cost:
-    # integral of x^T Q x + u^T R u.
+    # Dimensionless LQR-style objective: integral of x^T Q x + u^T R u
+    # over normalized time. Q and R are objective weights, not physical units.
     state_penalty = np.einsum(
         "ni,ij,nj->n",
         states,
@@ -77,16 +84,22 @@ def calculate_metrics(
         time,
     )
 
-    control_energy = trapezoid(
+    integrated_squared_control_effort = trapezoid(
         controls**2,
         time,
     )
 
     return {
         "final_state_norm": float(state_norms[-1]),
+        "settling_time": settling_time,
+        # Compatibility alias: historical files used an SI-looking suffix.
         "settling_time_s": settling_time,
         "quadratic_cost": float(quadratic_cost),
-        "control_energy": float(control_energy),
+        "integrated_squared_control_effort": float(
+            integrated_squared_control_effort
+        ),
+        # Compatibility alias: this integral is not physical energy.
+        "control_energy": float(integrated_squared_control_effort),
         "max_abs_control": float(
             np.max(np.abs(controls))
         ),

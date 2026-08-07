@@ -51,7 +51,7 @@ This document lists possible questions and answer points for presenting or defen
 
 ### Which metric is most important?
 - No single metric is enough.
-- Final state norm, settling time, cost, control energy, Lyapunov behavior, and robustness should be interpreted together.
+- Final normalized-state norm, normalized settling time, LQR-style cost, integrated squared control effort, Lyapunov behavior, and robustness should be interpreted together.
 
 ### What result would be considered successful?
 - The neural controller should converge near the origin.

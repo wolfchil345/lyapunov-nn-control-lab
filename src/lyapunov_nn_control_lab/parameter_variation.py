@@ -17,7 +17,7 @@ def make_state_space_matrices(
     damping: float,
     stiffness: float,
 ) -> tuple[np.ndarray, np.ndarray]:
-    """Create state-space matrices for a mass-spring-damper system."""
+    """Create matrices from normalized mass, damping, and stiffness coefficients."""
 
     mass = validate_positive_scalar(mass, name="mass")
     damping = validate_nonnegative_scalar(damping, name="damping")
@@ -47,7 +47,7 @@ def simulate_parameter_variation(
     stiffness: float,
     duration: float = 10.0,
 ):
-    """Simulate closed-loop dynamics under changed plant parameters."""
+    """Simulate closed-loop dynamics under changed normalized coefficients."""
 
     controller = validate_controller(controller)
     initial_state = validate_state(initial_state, name="initial state")

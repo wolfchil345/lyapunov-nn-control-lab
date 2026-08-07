@@ -17,7 +17,7 @@ def simulate(
     x0: np.ndarray,
     duration: float = 10.0,
 ):
-    """Simulate closed-loop dynamics."""
+    """Simulate closed-loop dynamics over normalized time."""
 
     controller = validate_controller(controller)
     initial_state = validate_state(x0, name="initial state")

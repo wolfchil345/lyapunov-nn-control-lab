@@ -30,11 +30,11 @@ The objective is to evaluate whether a neural-network controller can imitate LQR
 
 ## Evaluation items
 
-- final state norm
-- settling time
-- quadratic cost
-- control energy
-- maximum absolute control input
+- final normalized-state norm
+- normalized settling time
+- quadratic LQR-style cost
+- integrated squared control effort
+- maximum absolute normalized control input
 - Lyapunov derivative behavior
 - robustness under noise
 - robustness under parameter variation

@@ -17,10 +17,10 @@ A Python and PyTorch experiment that trains a neural-network controller to imita
 | Sampled Lyapunov evaluation | Separately reports basic V-dot and decay-margin conditions | Printed terminal results |
 | Stability-aware training | Adds a Lyapunov penalty during NN training | `results/training_loss.png` |
 | Multiple initial conditions | Tests convergence from several starting states | `results/multiple_initial_conditions.png` |
-| Quantitative metrics | Compares final norm, settling time, cost, energy, and max control | `results/performance_metrics.csv` |
-| Actuator saturation | Tests controllers with limited control force | `results/saturation_comparison.png` |
+| Quantitative metrics | Compares normalized-state norm, settling time, LQR-style cost, control effort, and max control | `results/performance_metrics.csv` |
+| Actuator saturation | Tests controllers with limited normalized control input | `results/saturation_comparison.png` |
 | Noise robustness | Tests the controller under noisy state measurements | `results/noise_robustness.png` |
-| Parameter robustness | Tests mass, damping, and stiffness variations | `results/parameter_robustness.png` |
+| Parameter robustness | Tests normalized mass, damping, and stiffness coefficient variations | `results/parameter_robustness.png` |
 | Phase portrait | Visualizes closed-loop trajectories in state space | `results/phase_portrait.png` |
 | Lyapunov contours | Visualizes quadratic Lyapunov level sets with trajectories | `results/lyapunov_contours.png` |
 | Finite-horizon convergence map | Tests a final-state tolerance on a sampled grid at an explicit horizon | `finite_horizon_convergence.png` on the next run; historical artifact retained below |
@@ -29,6 +29,11 @@ A Python and PyTorch experiment that trains a neural-network controller to imita
 | Automatic experiment report | Summarizes generated plots, metrics, and ablation results | `results/experiment_report.md` |
 
 ## Results gallery
+
+The committed plots are historical release artifacts and retain their original
+English labels, including older `Time [s]` wording. Plot generators now use
+normalized-coordinate labels; these tracked figures are intentionally not
+regenerated in this semantics-only change.
 
 ### Model architecture
 
@@ -105,9 +110,23 @@ trade-off rather than stabilizing an open-loop unstable nominal plant. The
 project studies controller imitation, transient performance, robustness, and
 preservation of stable behavior.
 
+### Normalized coordinate convention
+
+This repository uses a normalized, dimensionless second-order model. Unless a
+document explicitly says otherwise, `tau` is normalized time, `q` is a
+normalized position-like coordinate, `v = dq/dtau` is normalized velocity, and
+`u` is normalized control input. The state is `x = [q, v]`.
+
+Consequently, `||x||_2 = sqrt(q^2 + v^2)` is an Euclidean norm in normalized
+state coordinates. Settling and finite-horizon tolerances, Gaussian noise
+standard deviations, and the `||x||_2^2` term in the Lyapunov decay condition
+all use these normalized coordinates. `Q` and `R` are weights in a normalized
+LQR objective; neither the quadratic cost nor the integral of `u^2` is a
+physical energy measurement.
+
 ## System model
 
-The physical system is:
+The normalized model is:
 
 ```text
 m q'' + c q' + k q = u
@@ -116,13 +135,13 @@ m q'' + c q' + k q = u
 The state vector is:
 
 ```text
-x = [position, velocity]
+x = [q, v] = [normalized position, normalized velocity]
 ```
 
 The state-space model is:
 
 ```text
-x_dot = A x + B u
+dx/dtau = A x + B u
 ```
 
 ## Method
@@ -166,7 +185,7 @@ The current evaluator also reports the stronger condition used during
 stability-aware training:
 
 ```text
-V-dot(x) + alpha * ||x||^2 <= 0
+V-dot(x) + alpha * ||x||_2^2 <= 0
 ```
 
 The two violation fractions are named separately. The exact equilibrium is
@@ -227,7 +246,7 @@ The trained model file is ignored by Git, while the two result figures are inclu
 - Compare LQR, PID, and neural controllers.
 - Test multiple initial conditions.
 - Add actuator saturation and measurement noise.
-- Study robustness to changes in mass, damping, and stiffness.
+- Study robustness to changes in normalized mass, damping, and stiffness coefficients.
 - Extend the project to an inverted pendulum.
 - Investigate formal neural-network verification.
 
@@ -253,11 +272,16 @@ This project is released under the MIT License. See `LICENSE` for details.
 
 The experiment compares the LQR and neural-network controllers using:
 
-- final state norm;
-- settling time;
-- quadratic control cost;
-- control energy;
-- maximum absolute control input.
+- final normalized-state norm;
+- settling time in normalized time;
+- quadratic LQR-style cost;
+- integrated squared control effort;
+- maximum absolute normalized control input.
+
+The historical CSV field names `settling_time_s` and `control_energy` are kept
+as compatibility aliases. They mean normalized settling time and integrated
+squared normalized control effort, respectively; they do not denote seconds or
+physical energy.
 
 The full results for all tested initial conditions are stored in [`results/performance_metrics.csv`](results/performance_metrics.csv).
 
@@ -274,7 +298,7 @@ law. The Lyapunov term uses `alpha = 0.05` and penalizes positive sampled decay
 residuals:
 
 ```text
-decay residual = V-dot(x) + alpha * ||x||^2
+decay residual = V-dot(x) + alpha * ||x||_2^2
 Lyapunov penalty = mean(ReLU(decay residual))
 ```
 
@@ -289,7 +313,7 @@ The project also compares saturated and unsaturated controllers using a fixed ac
 u = clip(u, -u_max, u_max)
 ```
 
-This models the fact that real actuators cannot apply unlimited control force.
+This models a limit on the normalized control input.
 
 The comparison includes:
 
@@ -310,7 +334,9 @@ x_measured = x + noise
 
 This simulates sensor noise, which is common in real control systems.
 
-The experiment compares several Gaussian noise levels and checks whether the closed-loop state still converges toward the equilibrium.
+One scalar standard deviation is applied independently to both normalized state
+coordinates. The experiment compares several Gaussian noise levels and checks
+whether the closed-loop state still converges toward the equilibrium.
 
 The noise robustness figure is stored in [`results/noise_robustness.png`](results/noise_robustness.png).
 
@@ -320,9 +346,9 @@ The project tests whether the saturated neural-network controller remains stable
 
 The tested variations include:
 
-- increased and decreased mass;
-- reduced damping;
-- increased stiffness;
+- increased and decreased normalized mass coefficient;
+- reduced normalized damping coefficient;
+- increased normalized stiffness coefficient;
 - combined parameter variation.
 
 This evaluates robustness to modelling error, which is important because real mechanical systems rarely match their mathematical model exactly.
@@ -333,7 +359,7 @@ The parameter robustness figure is stored in [`results/parameter_robustness.png`
 
 The project includes a phase portrait of the neural-network controller.
 
-The plot shows position on the horizontal axis and velocity on the vertical axis.
+The plot shows normalized position on the horizontal axis and normalized velocity on the vertical axis.
 
 Multiple closed-loop trajectories are drawn from different initial conditions to show whether the controller drives the state toward the equilibrium at the origin.
 
@@ -353,14 +379,15 @@ For each sampled initial state `x0`, the project simulates `x(t; x0)` over
 `0 <= t <= T` and applies the strict final-state tolerance criterion:
 
 ```text
-||x(T)|| < epsilon
+||x(T)||_2 < epsilon
 ```
 
 The evaluator requires the solver to succeed, reach `T`, and return a finite
 trajectory. A failed or nonfinite simulation raises an error instead of being
 silently labelled nonconverged.
 
-The output records `T`, `epsilon`, grid bounds and resolution, tested and
+Here, `T` is a normalized-time horizon and `epsilon` is a strict Euclidean
+tolerance in normalized state coordinates. The output records `T`, `epsilon`, grid bounds and resolution, tested and
 converged counts, and the resulting fraction. A state that misses this
 finite-time tolerance may still converge asymptotically after `T`; therefore
 the map is not a mathematical region of attraction or a stability
@@ -374,7 +401,7 @@ is a historical artifact with the old filename and is intentionally unchanged.
 
 The project includes an ablation study for the Lyapunov penalty weight used during neural-controller training.
 
-Several controllers are trained with different stability weights, then compared using Lyapunov violation fraction, final state norm, settling time, quadratic cost, and control energy.
+Several controllers are trained with different stability weights, then compared using Lyapunov violation fraction, final normalized-state norm, normalized settling time, quadratic LQR-style cost, and integrated squared control effort.
 
 This checks whether the Lyapunov-aware training term improves closed-loop stability behavior instead of acting as a decorative loss term.
 

@@ -5,6 +5,13 @@ import numpy as np
 
 from ._validation import require_matching_lengths, require_nonempty
 from .finite_horizon_convergence import FiniteHorizonConvergenceResult
+from .state_coordinates import (
+    NORMALIZED_POSITION_LABEL,
+    NORMALIZED_STATE_NORM_LABEL,
+    NORMALIZED_TIME_LABEL,
+    NORMALIZED_VELOCITY_LABEL,
+    state_norm,
+)
 
 
 def _prepare_output_dir(output_dir: Path) -> Path:
@@ -73,6 +80,12 @@ def _validate_finite_horizon_convergence_data(
             f"received {final_norm_map.shape}."
         )
 
+
+def _solution_state_norms(solution: object) -> np.ndarray:
+    """Return shared normalized-state norms for every solution sample."""
+
+    return np.array([state_norm(state) for state in np.asarray(solution.y).T])
+
 def save_plots(
     training_history: dict[str, list[float]],
     lqr_solution,
@@ -93,8 +106,8 @@ def save_plots(
     plt.figure(figsize=(8, 5))
     plt.plot(lqr_solution.t, lqr_solution.y[0], label="LQR position")
     plt.plot(nn_solution.t, nn_solution.y[0], "--", label="NN position")
-    plt.xlabel("Time [s]")
-    plt.ylabel("Position")
+    plt.xlabel(NORMALIZED_TIME_LABEL)
+    plt.ylabel(NORMALIZED_POSITION_LABEL)
     plt.title("LQR and neural-controller comparison")
     plt.legend()
     plt.grid(True)
@@ -145,14 +158,14 @@ def save_multiple_initial_conditions_plot(
     plt.figure(figsize=(9, 6))
 
     for initial_state, solution in zip(initial_states, nn_solutions, strict=True):
-        state_norm = np.linalg.norm(solution.y, axis=0)
+        state_norm = _solution_state_norms(solution)
         state_norm = np.maximum(state_norm, 1e-12)
 
         label = f"x0 = [{initial_state[0]:.1f}, {initial_state[1]:.1f}]"
         plt.semilogy(solution.t, state_norm, label=label)
 
-    plt.xlabel("Time [s]")
-    plt.ylabel("State norm ||x||")
+    plt.xlabel(NORMALIZED_TIME_LABEL)
+    plt.ylabel(NORMALIZED_STATE_NORM_LABEL)
     plt.title("NN controller from multiple initial conditions")
     plt.grid(True)
     plt.legend()
@@ -176,7 +189,7 @@ def save_saturation_comparison_plot(
     plt.figure(figsize=(9, 6))
 
     for controller_name, solution in solutions_by_controller.items():
-        state_norm = np.linalg.norm(solution.y, axis=0)
+        state_norm = _solution_state_norms(solution)
         state_norm = np.maximum(state_norm, 1e-12)
 
         plt.semilogy(
@@ -185,8 +198,8 @@ def save_saturation_comparison_plot(
             label=controller_name,
         )
 
-    plt.xlabel("Time [s]")
-    plt.ylabel("State norm ||x||")
+    plt.xlabel(NORMALIZED_TIME_LABEL)
+    plt.ylabel(NORMALIZED_STATE_NORM_LABEL)
     plt.title("Effect of actuator saturation")
     plt.grid(True)
     plt.legend()
@@ -210,17 +223,17 @@ def save_noise_robustness_plot(
     plt.figure(figsize=(9, 6))
 
     for noise_std, solution in noise_solutions_by_std.items():
-        state_norm = np.linalg.norm(solution.y, axis=0)
+        state_norm = _solution_state_norms(solution)
         state_norm = np.maximum(state_norm, 1e-12)
 
         plt.semilogy(
             solution.t,
             state_norm,
-            label=f"noise std = {noise_std:g}",
+            label=f"normalized-coordinate noise std = {noise_std:g}",
         )
 
-    plt.xlabel("Time [s]")
-    plt.ylabel("State norm ||x||")
+    plt.xlabel(NORMALIZED_TIME_LABEL)
+    plt.ylabel(NORMALIZED_STATE_NORM_LABEL)
     plt.title("Noise robustness of saturated NN controller")
     plt.grid(True)
     plt.legend()
@@ -241,7 +254,7 @@ def save_parameter_robustness_plot(
     plt.figure(figsize=(9, 6))
 
     for scenario_name, solution in parameter_solutions.items():
-        state_norm = np.linalg.norm(solution.y, axis=0)
+        state_norm = _solution_state_norms(solution)
         state_norm = np.maximum(state_norm, 1e-12)
 
         plt.semilogy(
@@ -250,8 +263,8 @@ def save_parameter_robustness_plot(
             label=scenario_name,
         )
 
-    plt.xlabel("Time [s]")
-    plt.ylabel("State norm ||x||")
+    plt.xlabel(NORMALIZED_TIME_LABEL)
+    plt.ylabel(NORMALIZED_STATE_NORM_LABEL)
     plt.title("Parameter robustness of saturated NN controller")
     plt.grid(True)
     plt.legend()
@@ -300,8 +313,8 @@ def save_phase_portrait_plot(
         label="equilibrium",
     )
 
-    plt.xlabel("Position")
-    plt.ylabel("Velocity")
+    plt.xlabel(NORMALIZED_POSITION_LABEL)
+    plt.ylabel(NORMALIZED_VELOCITY_LABEL)
     plt.title("Phase portrait of NN closed-loop trajectories")
     plt.grid(True)
     plt.legend()
@@ -381,8 +394,8 @@ def save_lyapunov_contour_plot(
         label="equilibrium",
     )
 
-    plt.xlabel("Position")
-    plt.ylabel("Velocity")
+    plt.xlabel(NORMALIZED_POSITION_LABEL)
+    plt.ylabel(NORMALIZED_VELOCITY_LABEL)
     plt.title("Lyapunov contours and NN closed-loop trajectories")
     plt.grid(True)
     plt.legend()
@@ -449,11 +462,11 @@ def save_finite_horizon_convergence_plot(
         label="equilibrium",
     )
 
-    plt.xlabel("Initial position")
-    plt.ylabel("Initial velocity")
+    plt.xlabel(f"Initial {NORMALIZED_POSITION_LABEL.lower()}")
+    plt.ylabel(f"Initial {NORMALIZED_VELOCITY_LABEL.lower()}")
     plt.title(
         "Finite-horizon convergence map\n"
-        f"||x({result.horizon:g} s)|| < "
+        f"||x(tau={result.horizon:g})||_2 < "
         f"{result.convergence_tolerance:g}"
     )
     plt.grid(True)
@@ -486,8 +499,13 @@ def save_stability_weight_ablation_plot(
         [row["final_state_norm"] for row in rows],
         1e-12,
     )
-    control_energy = np.maximum(
-        [row["control_energy"] for row in rows],
+    integrated_squared_control_effort = np.maximum(
+        [
+            row["integrated_squared_control_effort"]
+            if "integrated_squared_control_effort" in row
+            else row["control_energy"]
+            for row in rows
+        ],
         1e-12,
     )
 
@@ -502,13 +520,13 @@ def save_stability_weight_ablation_plot(
         x_values,
         final_state_norm,
         marker="s",
-        label="Final state norm",
+        label="Final normalized-state norm",
     )
     plt.semilogy(
         x_values,
-        control_energy,
+        integrated_squared_control_effort,
         marker="^",
-        label="Control energy",
+        label="Integrated squared control effort",
     )
 
     plt.xticks(x_values, labels)
@@ -604,8 +622,8 @@ def save_finite_horizon_convergence_comparison_plot(
             f"{result.converged_count}/{result.tested_count} "
             f"({100.0 * result.convergence_fraction:.1f}%)"
         )
-        axis.set_xlabel("Initial position")
-        axis.set_ylabel("Initial velocity")
+        axis.set_xlabel(f"Initial {NORMALIZED_POSITION_LABEL.lower()}")
+        axis.set_ylabel(f"Initial {NORMALIZED_VELOCITY_LABEL.lower()}")
         axis.grid(True)
         axis.legend()
 
@@ -624,7 +642,7 @@ def save_finite_horizon_convergence_comparison_plot(
 
     fig.suptitle(
         "Finite-horizon convergence comparison\n"
-        f"||x({reference_result.horizon:g} s)|| < "
+        f"||x(tau={reference_result.horizon:g})||_2 < "
         f"{reference_result.convergence_tolerance:g}"
     )
     fig.subplots_adjust(wspace=0.35, top=0.82, right=0.90)
@@ -644,11 +662,11 @@ def save_model_architecture_diagram(output_dir: Path) -> None:
     axis.axis("off")
 
     nodes = [
-        ("State\nx = [position, velocity]", 0.10, 0.55),
+        ("Normalized state\nx = [q, v]", 0.10, 0.55),
         ("Neural-network\ncontroller", 0.34, 0.55),
-        ("Control input\nu", 0.55, 0.55),
-        ("Mass-spring-damper\nplant", 0.76, 0.55),
-        ("Next state\nx(t + dt)", 0.95, 0.55),
+        ("Normalized control\nu", 0.55, 0.55),
+        ("Normalized second-order\nplant", 0.76, 0.55),
+        ("Next state\nx(tau + delta tau)", 0.95, 0.55),
     ]
 
     for label, x_position, y_position in nodes:

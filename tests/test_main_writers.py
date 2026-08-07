@@ -35,6 +35,9 @@ def test_save_metrics_csv_creates_parent_directory(tmp_path):
     project_main.save_metrics_csv(rows, output_path)
 
     assert output_path.exists()
+    header = output_path.read_text(encoding="utf-8").splitlines()[0]
+    assert "settling_time" in header
+    assert "integrated_squared_control_effort" in header
 
 
 def test_save_metrics_csv_rejects_empty_rows(tmp_path):

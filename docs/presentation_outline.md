@@ -11,8 +11,8 @@ This outline can be used to present the Lyapunov Neural-Network Control Lab in a
 ## 2. System model
 
 - The plant is a mass-spring-damper system.
-- The state contains position and velocity.
-- The control input is a scalar force.
+- The state contains normalized position `q` and normalized velocity `v`.
+- The control input is a normalized scalar; no physical force unit is defined.
 
 ## 3. Baseline controller
 
@@ -30,14 +30,15 @@ This outline can be used to present the Lyapunov Neural-Network Control Lab in a
 - A Lyapunov-style function is used to check stability behavior.
 - Grid-based checks estimate where the Lyapunov derivative is negative.
 - A finite-horizon convergence map reports which sampled initial states satisfy
-  `||x(T)|| < epsilon` for the stated horizon and tolerance.
+  `||x(T)||_2 < epsilon` for the stated normalized-time horizon and
+  normalized-state tolerance.
 - This map is not a mathematical region of attraction.
 
 ## 6. Robustness experiments
 
 - Actuator saturation checks input limits.
 - Measurement-noise experiments check noisy state feedback.
-- Parameter-variation experiments check changed mass, damping, and stiffness.
+- Parameter-variation experiments check changed normalized mass, damping, and stiffness coefficients.
 
 ## 7. Main outputs
 

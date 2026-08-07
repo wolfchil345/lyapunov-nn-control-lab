@@ -28,10 +28,20 @@ def print_performance_metrics() -> None:
     for row in rows:
         controller = row.get("controller", "unknown")
         final_norm = row.get("final_state_norm", "n/a")
-        settling_time = row.get("settling_time_s", "n/a")
+        settling_time = row.get(
+            "settling_time",
+            row.get("settling_time_s", "n/a"),
+        )
         cost = row.get("quadratic_cost", "n/a")
-        energy = row.get("control_energy", "n/a")
-        print(f"- {controller}: final_norm={final_norm}, settling_time_s={settling_time}, cost={cost}, control_energy={energy}")
+        effort = row.get(
+            "integrated_squared_control_effort",
+            row.get("control_energy", "n/a"),
+        )
+        print(
+            f"- {controller}: final_normalized_state_norm={final_norm}, "
+            f"settling_time={settling_time}, quadratic_cost={cost}, "
+            f"integrated_squared_control_effort={effort}"
+        )
 
 
 def print_ablation_metrics() -> None:

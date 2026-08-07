@@ -5,10 +5,15 @@ This glossary explains important terms used in the Lyapunov Neural-Network Contr
 ## Control engineering terms
 
 ### State
-The variables that describe the current condition of the system. In this project, the state is position and velocity.
+The normalized, dimensionless coordinates `x = [q, v]`, where `q` is a
+position-like coordinate and `v = dq/dtau` is velocity in normalized time.
+
+### State norm
+The Euclidean normalized-state magnitude
+`||x||_2 = sqrt(q^2 + v^2)`. It is not a physical displacement or velocity.
 
 ### Control input
-The input applied to the plant. For the mass-spring-damper system, this is a scalar force.
+The normalized scalar input `u` applied to the model. No physical force unit is defined.
 
 ### Plant
 The system being controlled. In this project, the plant is a mass-spring-damper system.
@@ -20,7 +25,7 @@ A system where the controller uses feedback from the current state to choose the
 Linear Quadratic Regulator. A classical optimal controller that minimizes a quadratic cost involving state error and control effort.
 
 ### Actuator saturation
-A limit on how large the control input can be. Real actuators cannot apply infinite force.
+A limit on the magnitude of the normalized control input.
 
 ## Stability terms
 
@@ -40,9 +45,13 @@ a Lyapunov sublevel set does not by itself certify this set.
 
 ### Finite-horizon convergence map
 A sampled map that classifies an initial state when the strict final-state
-criterion `||x(T)|| < epsilon` holds for an explicit finite horizon `T` and
-tolerance `epsilon`. It depends on those settings and is not a region of
+criterion `||x(T)||_2 < epsilon` holds for a normalized-time horizon `T` and
+normalized-state Euclidean tolerance `epsilon`. It depends on those settings and is not a region of
 attraction.
+
+### Integrated squared control effort
+The integral of normalized `u^2` over normalized time. The historical field
+name `control_energy` refers to the same number, but it is not physical energy.
 
 ## Machine-learning terms
 
