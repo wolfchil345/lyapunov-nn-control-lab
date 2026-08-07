@@ -24,9 +24,10 @@ Before running long experiments, check that tests and examples pass:
 python scripts/run_checks.py
 ```
 
-## 4. Clean old results
+## 4. Clean incomplete staging directories
 
-Clean old generated files if you want a fresh experiment run:
+This optional command removes only abandoned staging directories. It never
+deletes completed runs or historical artifacts:
 
 ```bash
 python scripts/clean_results.py
@@ -50,7 +51,8 @@ python scripts/summarize_results.py
 
 ## 7. Inspect generated outputs
 
-Important outputs are saved in the `results/` directory.
+Each successful run is isolated under `results/runs/<run_id>/`. Inspect
+`manifest.json`, `report.md`, and `SHA256SUMS` before using its results.
 
 Recommended files to check first:
 
@@ -59,7 +61,9 @@ Recommended files to check first:
 - `phase_portrait.png`
 - `lyapunov_contours.png`
 - `finite_horizon_convergence_comparison.png`
-- `experiment_report.md`
+- `report.md`
+- `manifest.json`
+- `SHA256SUMS`
 
 ## 8. Interpret the results
 
@@ -82,8 +86,10 @@ git status
 
 ```bash
 python scripts/run_checks.py
-python scripts/clean_results.py
 python main.py
-python scripts/summarize_results.py
+python scripts/list_results.py
 python scripts/run_checks.py
 ```
+
+Official runs require a clean Git tree. The manifest records exact paired seed
+sets for the ablation and common-random-number noise experiments.

@@ -44,7 +44,13 @@ python main.py
 python scripts/summarize_results.py
 ```
 
-## Clean generated results
+## Verify a provenance-aware run
+
+```bash
+python scripts/verify_run.py results/runs/<run_id>
+```
+
+## Clean incomplete staging directories
 
 ```bash
 python scripts/clean_results.py
@@ -95,6 +101,7 @@ make quickstart
 make experiment
 make clean
 make summarize
+make verify-run RUN_DIR=results/runs/<run_id>
 ```
 
 ## CI command

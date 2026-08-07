@@ -33,7 +33,12 @@ Examples include:
 - Important scripts.
 - Test files.
 - GitHub Actions workflow files.
-- Result and artifact folders.
+- Legacy result files and manifest-verified provenance-aware runs.
+
+For each provenance-aware run, the checker reports the run count and how many
+manifests pass complete artifact/checksum verification. Root-level historical
+files are classified separately as legacy/unverified rather than treated as
+current manifest-backed runs.
 
 ## When to run it
 

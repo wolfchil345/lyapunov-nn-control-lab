@@ -22,28 +22,29 @@ If one test fails, read the first error message carefully and check the file men
 
 ## Results are old or confusing
 
-Clean generated result files, then rerun the main experiment:
+Create a new isolated run, then select it by run ID. Do not delete an older
+completed run merely because a newer experiment is needed:
 
 ```bash
-python scripts/clean_results.py
 python main.py
+python scripts/list_results.py
 ```
 
 ## No CSV summary appears
 
-The summary script needs generated CSV files. Run:
+Use the report inside the selected run directory. Verify it with:
 
 ```bash
-python main.py
-python scripts/summarize_results.py
+python scripts/verify_run.py results/runs/<run_id>
 ```
 
 ## Plots do not appear
 
-Generated plots are saved in the `results/` directory. Open the PNG files from the file explorer or run:
+Generated plots are saved in `results/runs/<run_id>/`. Open that directory from
+the file explorer or run:
 
 ```bash
-ls results
+find results/runs/<run_id> -maxdepth 1 -type f
 ```
 
 ## Training takes a long time

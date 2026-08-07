@@ -42,37 +42,29 @@ All tests should pass before regenerating results.
 python main.py
 ```
 
-This regenerates the main plots, CSV files, trained controller file, and automatic experiment report.
+This publishes an isolated run under `results/runs/<run_id>/` only after its
+artifacts have been generated, hashed, manifested, and verified.
 
-Important outputs include:
+Important run-local outputs include:
 
-- `results/model_architecture.png`
-- `results/position_comparison.png`
-- `results/training_loss.png`
-- `results/saturation_comparison.png`
-- `results/noise_robustness_paired.png`
-- `results/noise_robustness_trials_paired.csv`
-- `results/noise_robustness_summary_paired.csv`
-- `results/parameter_robustness.png`
-- `results/phase_portrait.png`
-- `results/lyapunov_contours.png`
-- `results/finite_horizon_convergence.png`
-- `results/finite_horizon_convergence_comparison.png`
-- `results/stability_weight_ablation_paired.png`
-- `results/performance_metrics.csv`
-- `results/stability_weight_ablation_trials_paired.csv`
-- `results/stability_weight_ablation_summary_paired.csv`
-- `results/experiment_report.md`
+- `manifest.json`
+- `SHA256SUMS`
+- `report.md`
+- `model_architecture.png`
+- `performance_metrics.csv`
+- paired raw and aggregate ablation/noise CSV files
+- normalized-coordinate figures
+- `nn_controller.pt`
 
 ## 6. Open generated plots
 
-In GitHub Codespaces or VS Code, open files from the `results/` folder.
+In GitHub Codespaces or VS Code, open files from one selected run directory.
 
 Example:
 
 ```bash
-code results/model_architecture.png
-code results/experiment_report.md
+code results/runs/<run_id>/model_architecture.png
+code results/runs/<run_id>/report.md
 ```
 
 ## 7. Reproducibility notes
@@ -97,6 +89,11 @@ code results/experiment_report.md
 - The tracked files whose names begin with `region_of_attraction` are
   historical pre-migration artifacts and are intentionally not regenerated in
   this terminology-only operation.
+- Official runs require a clean Git tree. `--allow-dirty` creates an explicitly
+  exploratory run whose manifest records `git_dirty: true`.
+- `configuration_sha256` hashes canonical sorted scientific configuration JSON;
+  timestamps and platform metadata do not affect configuration identity.
+- Verify a run with `python scripts/verify_run.py results/runs/<run_id>`.
 
 ## 8. Recommended verification workflow
 
@@ -105,7 +102,8 @@ Before trusting a new experiment result, run:
 ```bash
 python -m pytest
 python main.py
+python scripts/verify_run.py results/runs/<run_id>
 python -m pytest
 ```
 
-This checks that the code works before and after regenerating results.
+This checks the code before generation and validates the exact published files.

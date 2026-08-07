@@ -24,14 +24,16 @@ The project generates plots, reports, and summary files to evaluate neural netwo
 | Path | Purpose |
 | --- | --- |
 | `scripts/run_checks.py` | Runs documentation link checks, unit tests, and the quick start example. |
-| `scripts/run_full_experiment.py` | Runs the full experiment workflow. |
+| `scripts/run_full_experiment.py` | Runs the non-destructive full experiment workflow. |
+| `scripts/verify_run.py` | Verifies a completed manifest and its recorded SHA-256 checksums. |
 | `scripts/summarize_results.py` | Summarizes generated experiment outputs. |
 | `scripts/clean_results.py` | Removes generated result artifacts when a fresh run is needed. |
 | `scripts/check_docs_links.py` | Checks internal documentation links. |
 
 ## Result artifacts
 
-Generated result files are usually stored in `results/`.
+Historical files remain directly under `results/`. New outputs are isolated in
+`results/runs/<run_id>/` and are never mixed across runs.
 
 | Artifact type | Meaning |
 | --- | --- |
@@ -45,13 +47,19 @@ Generated result files are usually stored in `results/`.
 
 ## Reproducibility note
 
-Before creating final thesis figures, run local checks and regenerate results from a clean state when possible.
+Before creating final thesis figures, run local checks and create an official
+run from a clean Git state.
 
 ```bash
 python scripts/run_checks.py
-python scripts/clean_results.py
 python main.py
+python scripts/verify_run.py results/runs/<run_id>
 ```
+
+`manifest.json` records schema version, Git provenance, runtime versions,
+effective configuration, exact seeds, pairing methodology, inventory, sizes,
+and hashes. See [`../results/README.md`](../results/README.md) for the
+legacy-artifact policy.
 
 ## How to use this document
 

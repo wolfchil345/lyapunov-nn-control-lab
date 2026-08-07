@@ -4,6 +4,9 @@ dist/
 __pycache__/
 .pytest_cache/
 results/*
+!results/README.md
+!results/runs/
+!results/runs/**
 !results/position_comparison.png
 !results/training_loss.png
 *.pt
