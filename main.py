@@ -1,5 +1,7 @@
+import argparse
 import csv
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 import torch
@@ -17,7 +19,11 @@ from lyapunov_nn_control_lab.experimental_seeds import (
     ExperimentSeedPlan,
     seed_random_generators,
 )
-from lyapunov_nn_control_lab.lyapunov import DEFAULT_DECAY_MARGIN, grid_check
+from lyapunov_nn_control_lab.lyapunov import (
+    DEFAULT_DECAY_MARGIN,
+    DEFAULT_NUMERICAL_TOLERANCE,
+    grid_check,
+)
 from lyapunov_nn_control_lab.metrics import calculate_metrics
 from lyapunov_nn_control_lab.noise import (
     NOISE_PAIRING_STRATEGY,
@@ -49,18 +55,64 @@ from lyapunov_nn_control_lab.stability_ablation import (
     save_ablation_results_csv,
 )
 from lyapunov_nn_control_lab.reporting import generate_experiment_report
+from lyapunov_nn_control_lab.result_provenance import RunContext, publish_run
 from lyapunov_nn_control_lab.simulation import simulate
-from lyapunov_nn_control_lab.state_coordinates import state_norm
+from lyapunov_nn_control_lab.state_coordinates import (
+    NORMALIZED_STATE_CONVENTION,
+    state_norm,
+)
 from lyapunov_nn_control_lab.system import (
+    A,
+    B,
     CLOSED_LOOP_EIGENVALUES,
+    DAMPING,
     K,
+    MASS,
     P,
+    Q,
+    R,
+    STIFFNESS,
     lqr_controller,
 )
 
 SEED = 7
 CONTROL_LIMIT = 2.0
 DECAY_MARGIN = DEFAULT_DECAY_MARGIN
+TRAINING_EPOCHS = 1000
+TRAINING_STABILITY_WEIGHT = 10.0
+INITIAL_STATES = (
+    (1.5, 0.0),
+    (-1.5, 0.0),
+    (1.0, 1.5),
+    (-1.0, -1.5),
+    (0.5, -2.0),
+)
+CONVERGENCE_BOUNDS = (-2.5, 2.5)
+CONVERGENCE_TOLERANCE = 0.1
+CONVERGENCE_HORIZON = 8.0
+CONVERGENCE_GRID_RESOLUTION = 15
+CONVERGENCE_COMPARISON_GRID_RESOLUTION = 11
+ABLATION_WEIGHTS = (0.0, 1.0, 10.0, 50.0)
+ABLATION_EPOCHS = 300
+ABLATION_BASE_SEED = 700
+ABLATION_REPEAT_COUNT = 3
+ABLATION_SEEDS = tuple(
+    range(ABLATION_BASE_SEED, ABLATION_BASE_SEED + ABLATION_REPEAT_COUNT)
+)
+NOISE_LEVELS = (0.0, 0.01, 0.05, 0.1)
+NOISE_BASE_SEED = SEED
+NOISE_REPEAT_COUNT = 3
+NOISE_SEEDS = tuple(
+    range(NOISE_BASE_SEED, NOISE_BASE_SEED + NOISE_REPEAT_COUNT)
+)
+PARAMETER_SCENARIOS = {
+    "nominal": {"mass": 1.0, "damping": 0.4, "stiffness": 2.0},
+    "mass +20%": {"mass": 1.2, "damping": 0.4, "stiffness": 2.0},
+    "mass -20%": {"mass": 0.8, "damping": 0.4, "stiffness": 2.0},
+    "damping -30%": {"mass": 1.0, "damping": 0.28, "stiffness": 2.0},
+    "stiffness +20%": {"mass": 1.0, "damping": 0.4, "stiffness": 2.4},
+    "combined variation": {"mass": 1.2, "damping": 0.28, "stiffness": 2.4},
+}
 
 
 def set_seed() -> None:
@@ -99,10 +151,93 @@ def save_metrics_csv(
         writer.writerows(rows)
 
 
-def main() -> None:
+def scientific_configuration_snapshot() -> dict[str, Any]:
+    """Return the effective default scientific configuration used below."""
+
+    model = ZeroAtOriginController()
+    architecture = []
+    for layer in model.net:
+        record: dict[str, Any] = {"type": type(layer).__name__}
+        if hasattr(layer, "in_features"):
+            record["in_features"] = int(layer.in_features)
+            record["out_features"] = int(layer.out_features)
+        architecture.append(record)
+    return {
+        "normalized_coordinate_convention": {
+            "identifier": NORMALIZED_STATE_CONVENTION.name,
+            "time_symbol": NORMALIZED_STATE_CONVENTION.time_symbol,
+            "state": [
+                NORMALIZED_STATE_CONVENTION.position_symbol,
+                NORMALIZED_STATE_CONVENTION.velocity_symbol,
+            ],
+            "control_symbol": NORMALIZED_STATE_CONVENTION.control_symbol,
+            "dimensionless": NORMALIZED_STATE_CONVENTION.dimensionless,
+        },
+        "plant": {
+            "mass": MASS,
+            "damping": DAMPING,
+            "stiffness": STIFFNESS,
+            "A": A.tolist(),
+            "B": B.tolist(),
+        },
+        "lqr": {"Q": Q.tolist(), "R": R.tolist(), "K": K.tolist()},
+        "controller": {
+            "neural_architecture": architecture,
+            "zero_at_origin": True,
+            "normalized_control_limit": CONTROL_LIMIT,
+        },
+        "training": {
+            "seed": SEED,
+            "epochs": TRAINING_EPOCHS,
+            "stability_weight": TRAINING_STABILITY_WEIGHT,
+            "decay_margin": DECAY_MARGIN,
+        },
+        "lyapunov_evaluation": {
+            "P": P.tolist(),
+            "decay_margin": DECAY_MARGIN,
+            "numerical_tolerance": DEFAULT_NUMERICAL_TOLERANCE,
+            "position_bounds": [-2.0, 2.0],
+            "velocity_bounds": [-3.0, 3.0],
+            "grid_resolution": [81, 81],
+        },
+        "finite_horizon_convergence": {
+            "position_bounds": list(CONVERGENCE_BOUNDS),
+            "velocity_bounds": list(CONVERGENCE_BOUNDS),
+            "horizon": CONVERGENCE_HORIZON,
+            "convergence_tolerance": CONVERGENCE_TOLERANCE,
+            "single_grid_resolution": CONVERGENCE_GRID_RESOLUTION,
+            "comparison_grid_resolution": CONVERGENCE_COMPARISON_GRID_RESOLUTION,
+        },
+        "stability_weight_ablation": {
+            "weights": list(ABLATION_WEIGHTS),
+            "epochs": ABLATION_EPOCHS,
+            "base_seed": ABLATION_BASE_SEED,
+            "seeds": list(ABLATION_SEEDS),
+            "repeat_count": len(ABLATION_SEEDS),
+            "pairing_strategy": ABLATION_PAIRING_STRATEGY,
+        },
+        "measurement_noise": {
+            "noise_levels": list(NOISE_LEVELS),
+            "base_seed": NOISE_BASE_SEED,
+            "seeds": list(NOISE_SEEDS),
+            "repeat_count": len(NOISE_SEEDS),
+            "pairing_strategy": NOISE_PAIRING_STRATEGY,
+        },
+        "initial_states": [list(state) for state in INITIAL_STATES],
+        "parameter_scenarios": PARAMETER_SCENARIOS,
+    }
+
+
+def run_experiment(
+    output_dir: Path,
+    *,
+    report_provenance: dict[str, Any] | None = None,
+) -> None:
+    """Generate one complete experiment only inside ``output_dir``."""
+
     set_seed()
 
-    output_dir = Path("results")
+    output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
     print("LQR gain K:", K)
@@ -113,7 +248,8 @@ def main() -> None:
 
     training_history = train_controller(
         model,
-        stability_weight=10.0,
+        epochs=TRAINING_EPOCHS,
+        stability_weight=TRAINING_STABILITY_WEIGHT,
         stability_margin=DECAY_MARGIN,
     )
 
@@ -136,13 +272,7 @@ def main() -> None:
         "Saturated neural network": (saturated_nn_controller, CONTROL_LIMIT),
     }
 
-    initial_states = [
-        np.array([1.5, 0.0]),
-        np.array([-1.5, 0.0]),
-        np.array([1.0, 1.5]),
-        np.array([-1.0, -1.5]),
-        np.array([0.5, -2.0]),
-    ]
+    initial_states = [np.array(state) for state in INITIAL_STATES]
 
     solutions: dict[str, list] = {
         controller_name: [
@@ -236,11 +366,11 @@ def main() -> None:
     )
     convergence_result = evaluate_finite_horizon_convergence(
         saturated_nn_controller,
-        position_bounds=(-2.5, 2.5),
-        velocity_bounds=(-2.5, 2.5),
-        grid_resolution=15,
-        convergence_tolerance=0.1,
-        horizon=8.0,
+        position_bounds=CONVERGENCE_BOUNDS,
+        velocity_bounds=CONVERGENCE_BOUNDS,
+        grid_resolution=CONVERGENCE_GRID_RESOLUTION,
+        convergence_tolerance=CONVERGENCE_TOLERANCE,
+        horizon=CONVERGENCE_HORIZON,
         controller_label="Saturated NN",
     )
 
@@ -274,11 +404,11 @@ def main() -> None:
     convergence_comparison_results = {
         controller_name: evaluate_finite_horizon_convergence(
             controller,
-            position_bounds=(-2.5, 2.5),
-            velocity_bounds=(-2.5, 2.5),
-            grid_resolution=11,
-            convergence_tolerance=0.1,
-            horizon=8.0,
+            position_bounds=CONVERGENCE_BOUNDS,
+            velocity_bounds=CONVERGENCE_BOUNDS,
+            grid_resolution=CONVERGENCE_COMPARISON_GRID_RESOLUTION,
+            convergence_tolerance=CONVERGENCE_TOLERANCE,
+            horizon=CONVERGENCE_HORIZON,
             controller_label=controller_name,
         )
         for controller_name, controller in (
@@ -307,17 +437,17 @@ def main() -> None:
         output_dir,
     )
 
-    ablation_weights = [0.0, 1.0, 10.0, 50.0]
+    ablation_weights = list(ABLATION_WEIGHTS)
     ablation_initial_state = np.array([1.5, 0.0])
     ablation_seed_plan = ExperimentSeedPlan.consecutive(
-        base_seed=700,
-        num_repeats=3,
+        ABLATION_BASE_SEED,
+        ABLATION_REPEAT_COUNT,
     )
 
     ablation_rows = run_stability_weight_ablation(
         stability_weights=ablation_weights,
         initial_state=ablation_initial_state,
-        epochs=300,
+        epochs=ABLATION_EPOCHS,
         stability_margin=DECAY_MARGIN,
         seed_plan=ablation_seed_plan,
     )
@@ -365,11 +495,11 @@ def main() -> None:
         output_dir,
     )
 
-    noise_levels = [0.0, 0.01, 0.05, 0.1]
+    noise_levels = list(NOISE_LEVELS)
     noise_initial_state = np.array([1.5, 0.0])
     noise_seed_plan = ExperimentSeedPlan.consecutive(
-        base_seed=SEED,
-        num_repeats=3,
+        NOISE_BASE_SEED,
+        NOISE_REPEAT_COUNT,
     )
     noise_rows, noise_solutions_by_trial = run_measurement_noise_trials(
         saturated_nn_controller,
@@ -414,38 +544,7 @@ def main() -> None:
 
     parameter_initial_state = np.array([1.5, 0.0])
 
-    parameter_scenarios = {
-        "nominal": {
-            "mass": 1.0,
-            "damping": 0.4,
-            "stiffness": 2.0,
-        },
-        "mass +20%": {
-            "mass": 1.2,
-            "damping": 0.4,
-            "stiffness": 2.0,
-        },
-        "mass -20%": {
-            "mass": 0.8,
-            "damping": 0.4,
-            "stiffness": 2.0,
-        },
-        "damping -30%": {
-            "mass": 1.0,
-            "damping": 0.28,
-            "stiffness": 2.0,
-        },
-        "stiffness +20%": {
-            "mass": 1.0,
-            "damping": 0.4,
-            "stiffness": 2.4,
-        },
-        "combined variation": {
-            "mass": 1.2,
-            "damping": 0.28,
-            "stiffness": 2.4,
-        },
-    }
+    parameter_scenarios = PARAMETER_SCENARIOS
 
     parameter_solutions = {
         scenario_name: simulate_parameter_variation(
@@ -474,7 +573,7 @@ def main() -> None:
         output_dir,
     )
 
-    report_path = output_dir / "experiment_report.md"
+    report_path = output_dir / "report.md"
     generate_experiment_report(
         output_dir,
         report_path,
@@ -487,12 +586,69 @@ def main() -> None:
                 pairing_strategy=NOISE_PAIRING_STRATEGY,
             ),
         },
+        provenance=report_provenance,
     )
 
     print()
     print(f"Metrics saved to: {metrics_path.resolve()}")
     print(f"Experiment report saved to: {report_path.resolve()}")
     print(f"Model and figures saved in: {output_dir.resolve()}")
+
+
+def _report_provenance(context: RunContext) -> dict[str, Any]:
+    return {
+        "run_id": context.run_id,
+        "source_commit": context.git.commit_sha,
+        "git_dirty": context.git.dirty,
+        "generated_at_utc": context.generated_at_utc,
+        "package_version": context.package_version,
+        "manifest": "manifest.json",
+        "configuration_sha256": context.configuration_sha256,
+        "ablation_seeds": list(ABLATION_SEEDS),
+        "noise_seeds": list(NOISE_SEEDS),
+        "repeat_count": len(ABLATION_SEEDS),
+        "pairing_strategies": [
+            ABLATION_PAIRING_STRATEGY,
+            NOISE_PAIRING_STRATEGY,
+        ],
+        "decay_margin": DECAY_MARGIN,
+        "finite_horizon": context.scientific_configuration[
+            "finite_horizon_convergence"
+        ],
+    }
+
+
+def main(argv: list[str] | None = None) -> Path:
+    """Publish one provenance-aware run without touching legacy artifacts."""
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--run-id")
+    parser.add_argument("--allow-dirty", action="store_true")
+    parser.add_argument("--results-dir", type=Path, default=Path("results"))
+    args = parser.parse_args(argv)
+    command = "python main.py"
+    if args.run_id:
+        command += f" --run-id {args.run_id}"
+    if args.allow_dirty:
+        command += " --allow-dirty"
+
+    def producer(context: RunContext) -> None:
+        run_experiment(
+            context.staging_dir,
+            report_provenance=_report_provenance(context),
+        )
+
+    run_dir = publish_run(
+        producer,
+        scientific_configuration_snapshot(),
+        results_dir=args.results_dir,
+        repo_root=Path(__file__).resolve().parent,
+        run_id=args.run_id,
+        allow_dirty=args.allow_dirty,
+        generation_command=command,
+    )
+    print(f"Published verified run: {run_dir.as_posix()}")
+    return run_dir
 
 
 if __name__ == "__main__":
