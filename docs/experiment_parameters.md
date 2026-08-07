@@ -104,6 +104,17 @@ Important files:
 
 When comparing two experiment results, change only one parameter group at a time when possible.
 
+The stability-weight ablation treats random seed as a repeated nuisance
+factor: every weight is trained with the same explicit seed list. The default
+research workflow uses three consecutive seeds, and callers can provide an
+explicit `ExperimentSeedPlan` or configure the base seed and repeat count.
+
+The measurement-noise experiment also uses the same seed list for every noise
+amplitude. For a given seed, one standardized Gaussian sequence is multiplied
+by each requested standard deviation. This common-random-number design makes
+comparisons paired by seed without claiming that all stochastic uncertainty
+has been removed.
+
 ## Before saving final results
 
 Run:

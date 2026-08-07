@@ -220,11 +220,13 @@ def test_system_matrices_and_quick_start_metrics_are_numerically_unchanged():
     np.testing.assert_array_equal(B, [[0.0], [1.0]])
     np.testing.assert_array_equal(Q, [[10.0, 0.0], [0.0, 1.0]])
     np.testing.assert_array_equal(R, [[0.5]])
+    # Numerical Riccati solvers and BLAS implementations may differ in the
+    # last few floating-point bits across platforms.
     np.testing.assert_allclose(
         K,
         [[2.898979485566353, 2.4209854609927888]],
-        rtol=0.0,
-        atol=1e-14,
+        rtol=1e-12,
+        atol=1e-12,
     )
     np.testing.assert_allclose(
         P,
@@ -232,8 +234,8 @@ def test_system_matrices_and_quick_start_metrics_are_numerically_unchanged():
             [6.509974951242312, 1.4494897427831765],
             [1.4494897427831765, 1.2104927304963944],
         ],
-        rtol=0.0,
-        atol=1e-14,
+        rtol=1e-12,
+        atol=1e-12,
     )
 
     solution = simulate(lqr_controller, np.array([1.0, 0.0]), duration=5.0)

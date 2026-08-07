@@ -211,6 +211,8 @@ def save_saturation_comparison_plot(
 def save_noise_robustness_plot(
     noise_solutions_by_std: dict[float, object],
     output_dir: Path,
+    *,
+    filename: str = "noise_robustness.png",
 ) -> None:
     """Compare trajectories under different measurement-noise levels."""
 
@@ -238,7 +240,65 @@ def save_noise_robustness_plot(
     plt.grid(True)
     plt.legend()
     plt.tight_layout()
-    plt.savefig(output_dir / "noise_robustness.png", dpi=180)
+    plt.savefig(output_dir / filename, dpi=180)
+    plt.close()
+
+
+def save_noise_robustness_statistics_plot(
+    trial_rows: list[dict[str, float | int | str]],
+    aggregate_rows: list[dict[str, float | int | str]],
+    output_dir: Path,
+    *,
+    filename: str = "noise_robustness_paired.png",
+) -> None:
+    """Plot paired raw trials and aggregate final-state statistics."""
+
+    output_dir = _prepare_output_dir(output_dir)
+    require_nonempty(trial_rows, name="noise trial rows")
+    require_nonempty(aggregate_rows, name="noise aggregate rows")
+
+    levels = np.asarray(
+        [float(row["noise_std"]) for row in aggregate_rows],
+        dtype=float,
+    )
+    means = np.asarray(
+        [float(row["final_state_norm_mean"]) for row in aggregate_rows],
+        dtype=float,
+    )
+    stds = np.asarray(
+        [float(row["final_state_norm_sample_std"]) for row in aggregate_rows],
+        dtype=float,
+    )
+
+    plt.figure(figsize=(9, 6))
+    for row in trial_rows:
+        plt.scatter(
+            float(row["noise_std"]),
+            max(float(row["final_state_norm"]), 1e-12),
+            color="tab:blue",
+            alpha=0.25,
+            s=30,
+        )
+
+    yerr = stds if np.all(np.isfinite(stds)) else None
+    plt.errorbar(
+        levels,
+        np.maximum(means, 1e-12),
+        yerr=yerr,
+        marker="o",
+        linewidth=2,
+        capsize=4,
+        color="tab:blue",
+        label="mean +/- sample standard deviation",
+    )
+    plt.yscale("log")
+    plt.xlabel("Normalized-coordinate measurement-noise standard deviation")
+    plt.ylabel("Final normalized-state norm")
+    plt.title("Paired measurement-noise robustness")
+    plt.grid(True)
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(output_dir / filename, dpi=180)
     plt.close()
 
 
@@ -477,67 +537,124 @@ def save_finite_horizon_convergence_plot(
 
 
 def save_stability_weight_ablation_plot(
-    rows: list[dict[str, float]],
+    rows: list[dict[str, float | int | str]],
     output_dir: Path,
+    *,
+    aggregate_rows: list[dict[str, float | int | str]] | None = None,
+    filename: str = "stability_weight_ablation.png",
 ) -> None:
-    """Plot stability metrics for different Lyapunov penalty weights."""
+    """Plot raw paired trials and aggregate ablation trends."""
 
     output_dir = _prepare_output_dir(output_dir)
     require_nonempty(rows, name="ablation rows")
 
-    x_values = np.arange(len(rows))
-    labels = [
-        f"{float(row['stability_weight']):g}"
-        for row in rows
-    ]
+    if aggregate_rows is None:
+        aggregate_rows = []
+        for row in rows:
+            aggregate_rows.append(
+                {
+                    "stability_weight": row["stability_weight"],
+                    "derivative_violation_fraction_mean": row[
+                        "derivative_violation_fraction"
+                    ],
+                    "derivative_violation_fraction_sample_std": float("nan"),
+                    "decay_margin_violation_fraction_mean": row[
+                        "decay_margin_violation_fraction"
+                    ],
+                    "decay_margin_violation_fraction_sample_std": float("nan"),
+                    "final_state_norm_mean": row["final_state_norm"],
+                    "final_state_norm_sample_std": float("nan"),
+                }
+            )
 
-    decay_margin_violation_fraction = np.maximum(
-        [row["decay_margin_violation_fraction"] for row in rows],
-        1e-12,
-    )
-    final_state_norm = np.maximum(
-        [row["final_state_norm"] for row in rows],
-        1e-12,
-    )
-    integrated_squared_control_effort = np.maximum(
-        [
-            row["integrated_squared_control_effort"]
-            if "integrated_squared_control_effort" in row
-            else row["control_energy"]
-            for row in rows
-        ],
-        1e-12,
+    require_nonempty(aggregate_rows, name="ablation aggregate rows")
+    weights = np.asarray(
+        [float(row["stability_weight"]) for row in aggregate_rows],
+        dtype=float,
     )
 
-    plt.figure(figsize=(9, 6))
-    plt.semilogy(
-        x_values,
-        decay_margin_violation_fraction,
-        marker="o",
-        label="Decay-margin violation fraction",
+    figure, axes = plt.subplots(2, 1, figsize=(9, 9), sharex=True)
+    violation_specs = (
+        (
+            "derivative_violation_fraction",
+            "Sampled derivative violation fraction",
+            "tab:blue",
+            "o",
+        ),
+        (
+            "decay_margin_violation_fraction",
+            "Sampled decay-margin violation fraction",
+            "tab:orange",
+            "s",
+        ),
     )
-    plt.semilogy(
-        x_values,
-        final_state_norm,
-        marker="s",
+    for metric, label, color, marker in violation_specs:
+        for row in rows:
+            axes[0].scatter(
+                float(row["stability_weight"]),
+                float(row[metric]),
+                color=color,
+                alpha=0.25,
+                s=30,
+            )
+        means = np.asarray(
+            [float(row[f"{metric}_mean"]) for row in aggregate_rows],
+            dtype=float,
+        )
+        stds = np.asarray(
+            [float(row[f"{metric}_sample_std"]) for row in aggregate_rows],
+            dtype=float,
+        )
+        axes[0].errorbar(
+            weights,
+            means,
+            yerr=stds if np.all(np.isfinite(stds)) else None,
+            marker=marker,
+            linewidth=2,
+            capsize=4,
+            color=color,
+            label=label,
+        )
+
+    for row in rows:
+        axes[1].scatter(
+            float(row["stability_weight"]),
+            max(float(row["final_state_norm"]), 1e-12),
+            color="tab:green",
+            alpha=0.25,
+            s=30,
+        )
+    norm_means = np.asarray(
+        [float(row["final_state_norm_mean"]) for row in aggregate_rows],
+        dtype=float,
+    )
+    norm_stds = np.asarray(
+        [float(row["final_state_norm_sample_std"]) for row in aggregate_rows],
+        dtype=float,
+    )
+    axes[1].errorbar(
+        weights,
+        np.maximum(norm_means, 1e-12),
+        yerr=norm_stds if np.all(np.isfinite(norm_stds)) else None,
+        marker="^",
+        linewidth=2,
+        capsize=4,
+        color="tab:green",
         label="Final normalized-state norm",
     )
-    plt.semilogy(
-        x_values,
-        integrated_squared_control_effort,
-        marker="^",
-        label="Integrated squared control effort",
-    )
+    axes[1].set_yscale("log")
 
-    plt.xticks(x_values, labels)
-    plt.xlabel("Stability weight")
-    plt.ylabel("Metric value")
-    plt.title("Stability-weight ablation study")
-    plt.grid(True)
-    plt.legend()
-    plt.tight_layout()
-    plt.savefig(output_dir / "stability_weight_ablation.png", dpi=180)
-    plt.close()
+    axes[0].set_ylabel("Sampled violation fraction")
+    axes[0].set_title("Paired stability-weight ablation")
+    axes[0].grid(True)
+    axes[0].legend()
+    axes[1].set_xlabel("Stability weight")
+    axes[1].set_ylabel("Final normalized-state norm")
+    axes[1].grid(True)
+    axes[1].legend()
+    figure.tight_layout()
+    figure.savefig(output_dir / filename, dpi=180)
+    plt.close(figure)
 
 
 def save_finite_horizon_convergence_comparison_plot(

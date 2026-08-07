@@ -338,7 +338,17 @@ One scalar standard deviation is applied independently to both normalized state
 coordinates. The experiment compares several Gaussian noise levels and checks
 whether the closed-loop state still converges toward the equilibrium.
 
-The noise robustness figure is stored in [`results/noise_robustness.png`](results/noise_robustness.png).
+Future runs compare every noise amplitude with the same repeated seed set. For
+each seed, one standardized Gaussian realization is scaled by each amplitude
+(common random numbers), so amplitude is not confounded with an unrelated
+noise draw. Raw `noise_std x seed` trials and aggregate means, sample standard
+deviations, and standard errors are saved separately. Fixed seeds support
+repeatable comparisons; they do not eliminate all numerical or platform
+uncertainty.
+
+The tracked [`results/noise_robustness.png`](results/noise_robustness.png) is a
+historical artifact from the earlier single-seed design and is intentionally
+unchanged. Future paired runs use `noise_robustness_*_paired` result files.
 
 ## Parameter robustness experiment
 
@@ -403,11 +413,20 @@ The project includes an ablation study for the Lyapunov penalty weight used duri
 
 Several controllers are trained with different stability weights, then compared using Lyapunov violation fraction, final normalized-state norm, normalized settling time, quadratic LQR-style cost, and integrated squared control effort.
 
+Future runs evaluate the Cartesian product of stability weights and a shared
+seed list. Every weight therefore uses identical model-initialization seeds.
+The raw table contains one `stability_weight x seed` trial; a separate summary
+reports the mean, sample standard deviation, and standard error for each
+weight. A single-repeat summary reports unavailable variability as `NaN`, not
+as a false zero.
+
 This checks whether the Lyapunov-aware training term improves closed-loop stability behavior instead of acting as a decorative loss term.
 
-The ablation results are stored in [`results/stability_weight_ablation.csv`](results/stability_weight_ablation.csv).
-
-The ablation figure is stored in [`results/stability_weight_ablation.png`](results/stability_weight_ablation.png).
+The tracked [`results/stability_weight_ablation.csv`](results/stability_weight_ablation.csv)
+and [`results/stability_weight_ablation.png`](results/stability_weight_ablation.png)
+are historical artifacts from the earlier confounded seed design. They remain
+unchanged; future paired runs use `stability_weight_ablation_*_paired` files and
+do not relabel the historical results.
 
 ## Automatic experiment report
 

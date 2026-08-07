@@ -124,6 +124,16 @@ x_measured = x + noise
 The same scalar Gaussian standard deviation is applied independently to `q`
 and `v` in normalized coordinates.
 
+Every requested amplitude is evaluated with the same repeated seed list. For a
+given seed, the simulation generates one standardized Gaussian sequence and
+scales it by each amplitude (common random numbers). This creates paired
+amplitude comparisons without claiming that all stochastic or platform
+uncertainty has been eliminated.
+
+The stability-weight ablation follows the same paired principle: every weight
+uses the same explicit model-initialization seeds. Per-seed trial rows are kept
+separate from aggregate means, sample standard deviations, and standard errors.
+
 The parameter robustness experiment changes normalized mass, damping, and
 stiffness coefficients to simulate modelling error.
 

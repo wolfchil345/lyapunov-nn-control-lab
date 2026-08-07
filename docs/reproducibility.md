@@ -50,15 +50,18 @@ Important outputs include:
 - `results/position_comparison.png`
 - `results/training_loss.png`
 - `results/saturation_comparison.png`
-- `results/noise_robustness.png`
+- `results/noise_robustness_paired.png`
+- `results/noise_robustness_trials_paired.csv`
+- `results/noise_robustness_summary_paired.csv`
 - `results/parameter_robustness.png`
 - `results/phase_portrait.png`
 - `results/lyapunov_contours.png`
 - `results/finite_horizon_convergence.png`
 - `results/finite_horizon_convergence_comparison.png`
-- `results/stability_weight_ablation.png`
+- `results/stability_weight_ablation_paired.png`
 - `results/performance_metrics.csv`
-- `results/stability_weight_ablation.csv`
+- `results/stability_weight_ablation_trials_paired.csv`
+- `results/stability_weight_ablation_summary_paired.csv`
 - `results/experiment_report.md`
 
 ## 6. Open generated plots
@@ -74,7 +77,17 @@ code results/experiment_report.md
 
 ## 7. Reproducibility notes
 
-- Random seeds are set in the code to make results more stable across runs.
+- Python, NumPy, PyTorch CPU, and available PyTorch CUDA generators are seeded
+  through one project utility. Fixed seeds support repeatable CPU comparisons
+  in the same environment; they are not a universal guarantee of bitwise
+  deterministic CUDA or cross-platform execution.
+- Stability weights are compared with paired seeds across all weights. Raw
+  per-seed trials are kept separate from aggregate means, sample standard
+  deviations, and standard errors.
+- Measurement-noise amplitudes use common random-number realizations: the same
+  standardized sequence for a seed is scaled by each amplitude. Repeated
+  matched seeds reduce noise-realization confounding but do not eliminate all
+  experimental uncertainty.
 - Small numerical differences may still happen across operating systems, Python versions, or dependency versions.
 - The project uses empirical simulation and grid-based Lyapunov checks, not a full formal proof for the neural-network controller.
 - The generated plots are intended as practical stability and robustness diagnostics.
