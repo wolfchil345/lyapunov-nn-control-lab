@@ -139,6 +139,22 @@ def test_generate_experiment_report_creates_file(tmp_path):
         results_dir,
         output_path,
         finite_horizon_results={"LQR": convergence_result},
+        experiment_seed_metadata={
+            "Stability-weight ablation": {
+                "base_seed": 700,
+                "seed_list": "700;701;702",
+                "repeat_count": 3,
+                "pairing_strategy": "paired seeds across all stability weights",
+            },
+            "Measurement-noise robustness": {
+                "base_seed": 7,
+                "seed_list": "7;8;9",
+                "repeat_count": 3,
+                "pairing_strategy": (
+                    "common random-number realizations across noise amplitudes"
+                ),
+            },
+        },
     )
 
     text = output_path.read_text(encoding="utf-8")
@@ -160,6 +176,11 @@ def test_generate_experiment_report_creates_file(tmp_path):
     ) in text
     assert "Region of attraction" not in text
     assert "ROA" not in text
+    assert "Experimental seed design" in text
+    assert "700;701;702" in text
+    assert "paired seeds across all stability weights" in text
+    assert "common random-number realizations across noise amplitudes" in text
+    assert "do not guarantee fully deterministic execution" in text
 
 
 def test_report_marks_legacy_ablation_schema_as_ambiguous(tmp_path):

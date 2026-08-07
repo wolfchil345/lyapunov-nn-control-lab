@@ -45,11 +45,57 @@ def calculate_metrics(
     if not np.all(np.isfinite(time)) or not np.all(np.isfinite(raw_states)):
         raise ValueError("solution data must contain only finite values.")
     states = raw_states.T
-
     controls = np.array(
         [evaluate_controller(controller, state) for state in states],
         dtype=float,
     )
+
+    return calculate_metrics_from_control_samples(
+        solution,
+        controls,
+        settling_threshold=settling_threshold,
+    )
+
+
+def calculate_metrics_from_control_samples(
+    solution,
+    controls: np.ndarray,
+    settling_threshold: float = 0.02,
+) -> dict[str, float]:
+    """Calculate metrics using control samples recorded during simulation.
+
+    This is used by stochastic measurement-noise simulations so the reported
+    control quantities reflect the noisy measurements actually supplied to the
+    controller rather than a later noise-free replay.
+    """
+
+    if not solution.success:
+        raise ValueError("Cannot calculate metrics for a failed simulation.")
+    settling_threshold = validate_positive_scalar(
+        settling_threshold,
+        name="settling_threshold",
+    )
+
+    time = np.asarray(solution.t, dtype=float)
+    raw_states = np.asarray(solution.y, dtype=float)
+    controls = np.asarray(controls, dtype=float)
+    if time.ndim != 1 or time.size == 0:
+        raise ValueError("solution.t must be a nonempty one-dimensional array.")
+    if raw_states.ndim != 2 or raw_states.shape[0] != 2:
+        raise ValueError("solution.y must have shape (2, number_of_samples).")
+    if raw_states.shape[1] != time.size:
+        raise ValueError("solution.t and solution.y must contain the same samples.")
+    if controls.ndim != 1 or controls.size != time.size:
+        raise ValueError(
+            "controls must be one-dimensional with one value per solution sample."
+        )
+    if (
+        not np.all(np.isfinite(time))
+        or not np.all(np.isfinite(raw_states))
+        or not np.all(np.isfinite(controls))
+    ):
+        raise ValueError("solution data and controls must contain only finite values.")
+    states = raw_states.T
 
     state_norms = np.array([state_norm(state) for state in states])
 

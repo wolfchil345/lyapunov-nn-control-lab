@@ -1,6 +1,5 @@
-from pathlib import Path
 import csv
-import random
+from pathlib import Path
 
 import numpy as np
 import torch
@@ -14,26 +13,40 @@ from lyapunov_nn_control_lab.controllers import (
 from lyapunov_nn_control_lab.finite_horizon_convergence import (
     evaluate_finite_horizon_convergence,
 )
+from lyapunov_nn_control_lab.experimental_seeds import (
+    ExperimentSeedPlan,
+    seed_random_generators,
+)
 from lyapunov_nn_control_lab.lyapunov import DEFAULT_DECAY_MARGIN, grid_check
 from lyapunov_nn_control_lab.metrics import calculate_metrics
-from lyapunov_nn_control_lab.noise import simulate_with_measurement_noise
-from lyapunov_nn_control_lab.parameter_variation import simulate_parameter_variation
-from lyapunov_nn_control_lab.stability_ablation import (
-    run_stability_weight_ablation,
-    save_ablation_results_csv,
+from lyapunov_nn_control_lab.noise import (
+    NOISE_PAIRING_STRATEGY,
+    aggregate_noise_results,
+    run_measurement_noise_trials,
+    save_noise_aggregate_csv,
+    save_noise_trial_results_csv,
 )
+from lyapunov_nn_control_lab.parameter_variation import simulate_parameter_variation
 from lyapunov_nn_control_lab.plotting import (
     save_finite_horizon_convergence_comparison_plot,
     save_finite_horizon_convergence_plot,
-    save_multiple_initial_conditions_plot,
-    save_stability_weight_ablation_plot,
-    save_plots,
-    save_saturation_comparison_plot,
-    save_noise_robustness_plot,
-    save_parameter_robustness_plot,    save_phase_portrait_plot,
     save_lyapunov_contour_plot,
     save_model_architecture_diagram,
-
+    save_multiple_initial_conditions_plot,
+    save_noise_robustness_plot,
+    save_noise_robustness_statistics_plot,
+    save_parameter_robustness_plot,
+    save_phase_portrait_plot,
+    save_plots,
+    save_saturation_comparison_plot,
+    save_stability_weight_ablation_plot,
+)
+from lyapunov_nn_control_lab.stability_ablation import (
+    ABLATION_PAIRING_STRATEGY,
+    aggregate_ablation_results,
+    run_stability_weight_ablation,
+    save_ablation_aggregate_csv,
+    save_ablation_results_csv,
 )
 from lyapunov_nn_control_lab.reporting import generate_experiment_report
 from lyapunov_nn_control_lab.simulation import simulate
@@ -51,11 +64,9 @@ DECAY_MARGIN = DEFAULT_DECAY_MARGIN
 
 
 def set_seed() -> None:
-    """Set deterministic random seeds."""
+    """Set fixed project seeds without claiming universal determinism."""
 
-    random.seed(SEED)
-    np.random.seed(SEED)
-    torch.manual_seed(SEED)
+    seed_random_generators(SEED)
     torch.set_num_threads(1)
 
 
@@ -298,38 +309,50 @@ def main() -> None:
 
     ablation_weights = [0.0, 1.0, 10.0, 50.0]
     ablation_initial_state = np.array([1.5, 0.0])
+    ablation_seed_plan = ExperimentSeedPlan.consecutive(
+        base_seed=700,
+        num_repeats=3,
+    )
 
     ablation_rows = run_stability_weight_ablation(
         stability_weights=ablation_weights,
         initial_state=ablation_initial_state,
         epochs=300,
         stability_margin=DECAY_MARGIN,
+        seed_plan=ablation_seed_plan,
     )
+    ablation_aggregates = aggregate_ablation_results(ablation_rows)
 
-    ablation_csv_path = output_dir / "stability_weight_ablation.csv"
+    ablation_csv_path = output_dir / "stability_weight_ablation_trials_paired.csv"
     save_ablation_results_csv(
         ablation_rows,
         ablation_csv_path,
+    )
+    save_ablation_aggregate_csv(
+        ablation_aggregates,
+        output_dir / "stability_weight_ablation_summary_paired.csv",
     )
 
     save_stability_weight_ablation_plot(
         ablation_rows,
         output_dir,
+        aggregate_rows=ablation_aggregates,
+        filename="stability_weight_ablation_paired.png",
     )
 
     print()
     print("Stability-weight ablation results:")
 
-    for row in ablation_rows:
+    for row in ablation_aggregates:
         print(
             f"weight={row['stability_weight']:g}: "
-            "derivative violation="
-            f"{row['derivative_violation_fraction']:.3f}, "
-            f"margin violation (alpha={row['decay_margin']:g})="
-            f"{row['decay_margin_violation_fraction']:.3f}, "
-            f"final normalized-state norm={row['final_state_norm']:.3e}, "
-            "integrated squared control effort="
-            f"{row['integrated_squared_control_effort']:.3e}"
+            f"n={row['n']}, "
+            "mean sampled derivative violation="
+            f"{row['derivative_violation_fraction_mean']:.3f}, "
+            "mean sampled decay-margin violation="
+            f"{row['decay_margin_violation_fraction_mean']:.3f}, "
+            "mean final normalized-state norm="
+            f"{row['final_state_norm_mean']:.3e}"
         )
 
     first_initial_condition_solutions = {
@@ -344,32 +367,48 @@ def main() -> None:
 
     noise_levels = [0.0, 0.01, 0.05, 0.1]
     noise_initial_state = np.array([1.5, 0.0])
-
-    noise_solutions = {
-        noise_std: simulate_with_measurement_noise(
-            saturated_nn_controller,
-            noise_initial_state,
-            noise_std=noise_std,
-            seed=SEED + int(noise_std * 1000),
-        )
-        for noise_std in noise_levels
-    }
-
-    if not all(solution.success for solution in noise_solutions.values()):
-        raise RuntimeError("At least one noisy simulation failed.")
+    noise_seed_plan = ExperimentSeedPlan.consecutive(
+        base_seed=SEED,
+        num_repeats=3,
+    )
+    noise_rows, noise_solutions_by_trial = run_measurement_noise_trials(
+        saturated_nn_controller,
+        noise_initial_state,
+        noise_levels,
+        seed_plan=noise_seed_plan,
+    )
+    noise_aggregates = aggregate_noise_results(noise_rows)
+    save_noise_trial_results_csv(
+        noise_rows,
+        output_dir / "noise_robustness_trials_paired.csv",
+    )
+    save_noise_aggregate_csv(
+        noise_aggregates,
+        output_dir / "noise_robustness_summary_paired.csv",
+    )
 
     print()
     print("Noise robustness results:")
 
-    for noise_std, solution in noise_solutions.items():
-        final_norm = state_norm(solution.y[:, -1])
+    for row in noise_aggregates:
         print(
-            f"normalized-coordinate noise std={noise_std:g}: "
-            f"final normalized-state norm={final_norm:.3e}"
+            f"normalized-coordinate noise std={row['noise_std']:g}: "
+            f"n={row['n']}, mean final normalized-state norm="
+            f"{row['final_state_norm_mean']:.3e}"
         )
 
+    representative_noise_solutions = {
+        noise_std: noise_solutions_by_trial[(noise_std, noise_seed_plan.seeds[0])]
+        for noise_std in noise_levels
+    }
     save_noise_robustness_plot(
-        noise_solutions,
+        representative_noise_solutions,
+        output_dir,
+        filename="noise_robustness_paired_trajectories.png",
+    )
+    save_noise_robustness_statistics_plot(
+        noise_rows,
+        noise_aggregates,
         output_dir,
     )
 
@@ -440,6 +479,14 @@ def main() -> None:
         output_dir,
         report_path,
         finite_horizon_results=convergence_comparison_results,
+        experiment_seed_metadata={
+            "Stability-weight ablation": ablation_seed_plan.metadata(
+                pairing_strategy=ABLATION_PAIRING_STRATEGY,
+            ),
+            "Measurement-noise robustness": noise_seed_plan.metadata(
+                pairing_strategy=NOISE_PAIRING_STRATEGY,
+            ),
+        },
     )
 
     print()

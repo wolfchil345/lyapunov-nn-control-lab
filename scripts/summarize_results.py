@@ -46,6 +46,27 @@ def print_performance_metrics() -> None:
 
 def print_ablation_metrics() -> None:
     """Print stability-weight ablation metrics if available."""
+    aggregate_rows = read_csv_rows(
+        RESULTS_DIR / "stability_weight_ablation_summary_paired.csv"
+    )
+    if aggregate_rows:
+        print()
+        print("Paired stability-weight ablation aggregates")
+        for row in aggregate_rows:
+            print(
+                f"- weight={row.get('stability_weight', 'n/a')}: "
+                f"n={row.get('n', 'n/a')}, "
+                "final_norm_mean="
+                f"{row.get('final_state_norm_mean', 'n/a')}, "
+                "final_norm_sample_std="
+                f"{row.get('final_state_norm_sample_std', 'n/a')}, "
+                "derivative_violation_mean="
+                f"{row.get('derivative_violation_fraction_mean', 'n/a')}, "
+                "decay_margin_violation_mean="
+                f"{row.get('decay_margin_violation_fraction_mean', 'n/a')}"
+            )
+        return
+
     rows = read_csv_rows(RESULTS_DIR / "stability_weight_ablation.csv")
     if not rows:
         print("No stability_weight_ablation.csv found.")
@@ -77,10 +98,30 @@ def print_ablation_metrics() -> None:
         )
 
 
+def print_noise_metrics() -> None:
+    """Print paired measurement-noise aggregates if available."""
+
+    rows = read_csv_rows(RESULTS_DIR / "noise_robustness_summary_paired.csv")
+    if not rows:
+        return
+
+    print()
+    print("Paired measurement-noise aggregates")
+    for row in rows:
+        print(
+            f"- noise_std={row.get('noise_std', 'n/a')}: "
+            f"n={row.get('n', 'n/a')}, "
+            f"final_norm_mean={row.get('final_state_norm_mean', 'n/a')}, "
+            "final_norm_sample_std="
+            f"{row.get('final_state_norm_sample_std', 'n/a')}"
+        )
+
+
 def main() -> None:
     """Print all available result summaries."""
     print_performance_metrics()
     print_ablation_metrics()
+    print_noise_metrics()
 
 
 if __name__ == "__main__":

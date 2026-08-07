@@ -2,7 +2,7 @@ import csv
 from itertools import islice
 from numbers import Integral
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from .finite_horizon_convergence import FiniteHorizonConvergenceResult
@@ -80,6 +80,7 @@ def generate_experiment_report(
     finite_horizon_results: (
         dict[str, "FiniteHorizonConvergenceResult"] | None
     ) = None,
+    experiment_seed_metadata: dict[str, dict[str, Any]] | None = None,
 ) -> None:
     """Generate a Markdown report summarizing all experiment outputs."""
 
@@ -87,8 +88,13 @@ def generate_experiment_report(
         results_dir / "performance_metrics.csv",
         max_rows=8,
     )
+    paired_ablation_path = (
+        results_dir / "stability_weight_ablation_trials_paired.csv"
+    )
     ablation_rows = read_csv_rows(
-        results_dir / "stability_weight_ablation.csv",
+        paired_ablation_path
+        if paired_ablation_path.exists()
+        else results_dir / "stability_weight_ablation.csv",
         max_rows=8,
     )
     canonicalize_metric_aliases(performance_rows)
@@ -98,6 +104,16 @@ def generate_experiment_report(
         and "decay_margin_violation_fraction" not in row
         for row in ablation_rows
     )
+    noise_plot = (
+        "noise_robustness_paired.png"
+        if (results_dir / "noise_robustness_paired.png").exists()
+        else "noise_robustness.png"
+    )
+    ablation_plot = (
+        "stability_weight_ablation_paired.png"
+        if (results_dir / "stability_weight_ablation_paired.png").exists()
+        else "stability_weight_ablation.png"
+    )
 
     plot_files = [
         "model_architecture.png",
@@ -106,6 +122,8 @@ def generate_experiment_report(
         "multiple_initial_conditions.png",
         "saturation_comparison.png",
         "noise_robustness.png",
+        "noise_robustness_paired.png",
+        "noise_robustness_paired_trajectories.png",
         "parameter_robustness.png",
         "phase_portrait.png",
         "lyapunov_contours.png",
@@ -115,6 +133,7 @@ def generate_experiment_report(
         "region_of_attraction.png",
         "region_of_attraction_comparison.png",
         "stability_weight_ablation.png",
+        "stability_weight_ablation_paired.png",
     ]
 
     available_plots = [
@@ -137,13 +156,13 @@ def generate_experiment_report(
         "| Stability-aware training loss | `training_loss.png` |",
         "| Multiple initial conditions | `multiple_initial_conditions.png` |",
         "| Actuator saturation comparison | `saturation_comparison.png` |",
-        "| Measurement-noise robustness | `noise_robustness.png` |",
+        f"| Measurement-noise robustness | `{noise_plot}` |",
         "| Parameter robustness | `parameter_robustness.png` |",
         "| Phase portrait | `phase_portrait.png` |",
         "| Lyapunov contour plot | `lyapunov_contours.png` |",
         "| Finite-horizon convergence map | `finite_horizon_convergence.png` |",
         "| Finite-horizon convergence comparison | `finite_horizon_convergence_comparison.png` |",
-        "| Stability-weight ablation study | `stability_weight_ablation.png` |",
+        f"| Stability-weight ablation study | `{ablation_plot}` |",
         "",
         "## Available plots",
         "",
@@ -160,6 +179,39 @@ def generate_experiment_report(
                 lines.append(f"- [`{plot_file}`]({plot_file})")
     else:
         lines.append("No plot files were found.")
+
+    lines.extend(
+        [
+            "",
+            "## Experimental seed design",
+            "",
+        ]
+    )
+    if experiment_seed_metadata:
+        lines.extend(
+            [
+                "| Experiment | Base seed | Explicit seeds | Repeats | Pairing strategy |",
+                "|---|---:|---|---:|---|",
+            ]
+        )
+        for experiment_name, metadata in experiment_seed_metadata.items():
+            lines.append(
+                f"| {escape_markdown_table_cell(experiment_name)} | "
+                f"{escape_markdown_table_cell(metadata.get('base_seed', ''))} | "
+                f"{escape_markdown_table_cell(metadata.get('seed_list', ''))} | "
+                f"{escape_markdown_table_cell(metadata.get('repeat_count', ''))} | "
+                f"{escape_markdown_table_cell(metadata.get('pairing_strategy', ''))} |"
+            )
+        lines.extend(
+            [
+                "",
+                "Fixed seeds support repeatable paired CPU comparisons under "
+                "the same environment; they do not guarantee fully "
+                "deterministic execution on every accelerator or platform.",
+            ]
+        )
+    else:
+        lines.append("No experimental seed metadata were supplied.")
 
     lines.extend(
         [
