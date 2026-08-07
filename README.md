@@ -23,8 +23,8 @@ A Python and PyTorch experiment that trains a neural-network controller to imita
 | Parameter robustness | Tests mass, damping, and stiffness variations | `results/parameter_robustness.png` |
 | Phase portrait | Visualizes closed-loop trajectories in state space | `results/phase_portrait.png` |
 | Lyapunov contours | Visualizes quadratic Lyapunov level sets with trajectories | `results/lyapunov_contours.png` |
-| Region of attraction | Tests convergence from a grid of initial states | `results/region_of_attraction.png` |
-| Region of attraction comparison | Compares stabilizable initial states for LQR, NN, and saturated NN | `results/region_of_attraction_comparison.png` |
+| Finite-horizon convergence map | Tests a final-state tolerance on a sampled grid at an explicit horizon | `finite_horizon_convergence.png` on the next run; historical artifact retained below |
+| Finite-horizon convergence comparison | Compares the same finite-time criterion across LQR, NN, and saturated NN | `finite_horizon_convergence_comparison.png` on the next run; historical artifact retained below |
 | Stability-weight ablation | Tests whether stronger Lyapunov penalties improve stability metrics | `results/stability_weight_ablation.png`, `results/stability_weight_ablation.csv` |
 | Automatic experiment report | Summarizes generated plots, metrics, and ablation results | `results/experiment_report.md` |
 
@@ -66,13 +66,20 @@ A Python and PyTorch experiment that trains a neural-network controller to imita
 
 ![Lyapunov contours](results/lyapunov_contours.png)
 
-### Region of attraction
+### Historical finite-horizon convergence map
 
-![Region of attraction](results/region_of_attraction.png)
+![Historical finite-horizon convergence map](results/region_of_attraction.png)
 
-### Region of attraction comparison
+The filename above predates the terminology correction. It is retained
+unchanged for release reproducibility; future runs write
+`finite_horizon_convergence.png`.
 
-![Region of attraction comparison](results/region_of_attraction_comparison.png)
+### Historical finite-horizon convergence comparison
+
+![Historical finite-horizon convergence comparison](results/region_of_attraction_comparison.png)
+
+The filename above is also historical. Future runs write
+`finite_horizon_convergence_comparison.png`.
 
 ### Stability-weight ablation
 
@@ -90,6 +97,13 @@ This project combines:
 - sampled Lyapunov stability analysis.
 
 The first controlled system is a mass-spring-damper model.
+
+The nominal uncontrolled plant is already asymptotically stable: the
+eigenvalues of `A` are `-0.2 + 1.4j` and `-0.2 - 1.4j`, both with negative
+real part. LQR therefore changes the transient response and optimal-control
+trade-off rather than stabilizing an open-loop unstable nominal plant. The
+project studies controller imitation, transient performance, robustness, and
+preservation of stable behavior.
 
 ## System model
 
@@ -333,15 +347,28 @@ The contour lines represent values of the quadratic Lyapunov function, while the
 
 The Lyapunov contour figure is stored in [`results/lyapunov_contours.png`](results/lyapunov_contours.png).
 
-## Region of attraction map
+## Finite-horizon convergence map
 
-The project estimates the region of attraction of the saturated neural-network controller.
+For each sampled initial state `x0`, the project simulates `x(t; x0)` over
+`0 <= t <= T` and applies the strict final-state tolerance criterion:
 
-A grid of initial position and velocity values is simulated, and each initial state is classified as converged or not converged.
+```text
+||x(T)|| < epsilon
+```
 
-This helps identify which initial conditions are successfully stabilized by the learned controller.
+The evaluator requires the solver to succeed, reach `T`, and return a finite
+trajectory. A failed or nonfinite simulation raises an error instead of being
+silently labelled nonconverged.
 
-The region of attraction figure is stored in [`results/region_of_attraction.png`](results/region_of_attraction.png).
+The output records `T`, `epsilon`, grid bounds and resolution, tested and
+converged counts, and the resulting fraction. A state that misses this
+finite-time tolerance may still converge asymptotically after `T`; therefore
+the map is not a mathematical region of attraction or a stability
+certificate.
+
+Future runs store the map as `results/finite_horizon_convergence.png`. The
+tracked [`results/region_of_attraction.png`](results/region_of_attraction.png)
+is a historical artifact with the old filename and is intentionally unchanged.
 
 ## Stability-weight ablation study
 
@@ -363,15 +390,33 @@ The report summarizes available plots, performance metrics, and stability-weight
 
 The generated report is stored in [`results/experiment_report.md`](results/experiment_report.md).
 
-## Region of attraction controller comparison
+## Finite-horizon convergence comparison
 
-The project compares estimated regions of attraction for the LQR controller, the neural-network controller, and the saturated neural-network controller.
+The project applies the same horizon, strict final-state tolerance, bounds,
+and grid resolution to the LQR, neural-network, and saturated neural-network
+controllers. The comparison reports sampled counts and percentages; it does
+not compare certified attraction basins.
 
-Each controller is tested over a grid of initial position and velocity values.
+Future runs store the comparison as
+`results/finite_horizon_convergence_comparison.png`. The tracked
+[`results/region_of_attraction_comparison.png`](results/region_of_attraction_comparison.png)
+is retained only as a historical artifact.
 
-This shows how controller design and actuator limits affect the set of initial states that can be stabilized.
+## Mathematical region of attraction
 
-The comparison figure is stored in [`results/region_of_attraction_comparison.png`](results/region_of_attraction_comparison.png).
+For an equilibrium at the origin, the region of attraction is conceptually
+
+```text
+R = {x0 : x(t; x0) -> 0 as t -> infinity}.
+```
+
+A defensible estimate may require invariant Lyapunov sublevel sets with
+verified decrease, sum-of-squares methods where applicable,
+reachability/invariance analysis, formal verification, or analytic linear
+results. A plotted sublevel set `{x : V(x) <= c}` is not automatically a
+certified attraction region. Neither this project's sampled finite-horizon
+map nor its separate sampled Lyapunov checks provide a formal continuous-state
+certificate.
 
 ## Model architecture diagram
 
@@ -383,7 +428,7 @@ The architecture diagram is stored in [`results/model_architecture.png`](results
 
 ## Methodology documentation
 
-For a paper-style explanation of the control theory, neural-network controller, Lyapunov stability checks, robustness experiments, and region-of-attraction analysis, see [`docs/en/methodology.md`](docs/en/methodology.md).
+For a paper-style explanation of the control theory, neural-network controller, Lyapunov stability checks, robustness experiments, finite-horizon convergence analysis, and the distinction from a mathematical attraction region, see [`docs/en/methodology.md`](docs/en/methodology.md).
 
 ## Citation
 

@@ -16,7 +16,8 @@ This roadmap lists possible future improvements for the Lyapunov Neural-Network 
 - Add nonlinear plant dynamics.
 - Add external disturbance rejection experiments.
 - Add model-predictive control as another baseline.
-- Test larger regions of attraction.
+- Test finite-horizon convergence on broader documented grids and study its
+  sensitivity to horizon and tolerance.
 
 ## Stability-analysis extensions
 
@@ -37,7 +38,10 @@ This roadmap lists possible future improvements for the Lyapunov Neural-Network 
 
 - Add a short technical blog-style explanation.
 - Add a poster-style project summary.
-- Add diagrams explaining Lyapunov decrease and region of attraction.
+- Add diagrams distinguishing sampled finite-horizon convergence, sampled
+  Lyapunov decrease, and a mathematically certified region of attraction.
+- Investigate defensible attraction-region methods such as invariant Lyapunov
+  sublevel sets, reachability/invariance analysis, or formal verification.
 - Add links to related papers and textbooks.
 
 ## Long-term research direction

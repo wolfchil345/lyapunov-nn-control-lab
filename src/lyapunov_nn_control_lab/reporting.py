@@ -2,6 +2,10 @@ import csv
 from itertools import islice
 from numbers import Integral
 from pathlib import Path
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .finite_horizon_convergence import FiniteHorizonConvergenceResult
 
 
 def read_csv_rows(
@@ -61,6 +65,10 @@ def format_markdown_table(
 def generate_experiment_report(
     results_dir: Path,
     output_path: Path,
+    *,
+    finite_horizon_results: (
+        dict[str, "FiniteHorizonConvergenceResult"] | None
+    ) = None,
 ) -> None:
     """Generate a Markdown report summarizing all experiment outputs."""
 
@@ -88,6 +96,9 @@ def generate_experiment_report(
         "parameter_robustness.png",
         "phase_portrait.png",
         "lyapunov_contours.png",
+        "finite_horizon_convergence.png",
+        "finite_horizon_convergence_comparison.png",
+        # Retained only so reports can link historical pre-migration files.
         "region_of_attraction.png",
         "region_of_attraction_comparison.png",
         "stability_weight_ablation.png",
@@ -117,8 +128,8 @@ def generate_experiment_report(
         "| Parameter robustness | `parameter_robustness.png` |",
         "| Phase portrait | `phase_portrait.png` |",
         "| Lyapunov contour plot | `lyapunov_contours.png` |",
-        "| Region of attraction map | `region_of_attraction.png` |",
-        "| Region of attraction controller comparison | `region_of_attraction_comparison.png` |",
+        "| Finite-horizon convergence map | `finite_horizon_convergence.png` |",
+        "| Finite-horizon convergence comparison | `finite_horizon_convergence_comparison.png` |",
         "| Stability-weight ablation study | `stability_weight_ablation.png` |",
         "",
         "## Available plots",
@@ -127,9 +138,50 @@ def generate_experiment_report(
 
     if available_plots:
         for plot_file in available_plots:
-            lines.append(f"- [`{plot_file}`]({plot_file})")
+            if plot_file.startswith("region_of_attraction"):
+                lines.append(
+                    f"- [`{plot_file}`]({plot_file}) (historical filename for "
+                    "a finite-horizon convergence figure)"
+                )
+            else:
+                lines.append(f"- [`{plot_file}`]({plot_file})")
     else:
         lines.append("No plot files were found.")
+
+    lines.extend(
+        [
+            "",
+            "## Finite-horizon convergence sampling",
+            "",
+            "A sampled state is classified as converged only when the strict "
+            "final-state criterion `||x(T)|| < tolerance` holds. This "
+            "finite-time result depends on the horizon, tolerance, and grid; "
+            "it is not an asymptotic attraction-region certificate.",
+            "",
+        ]
+    )
+
+    if finite_horizon_results:
+        lines.extend(
+            [
+                "| Controller | Horizon [s] | Tolerance | Position bounds | "
+                "Velocity bounds | Grid | Converged / tested | Fraction |",
+                "|---|---:|---:|---|---|---:|---:|---:|",
+            ]
+        )
+        for controller_name, result in finite_horizon_results.items():
+            lines.append(
+                f"| {escape_markdown_table_cell(controller_name)} | "
+                f"{result.horizon:g} | "
+                f"{result.convergence_tolerance:g} | "
+                f"{result.position_bounds} | "
+                f"{result.velocity_bounds} | "
+                f"{result.grid_resolution} x {result.grid_resolution} | "
+                f"{result.converged_count} / {result.tested_count} | "
+                f"{100.0 * result.convergence_fraction:.1f}% |"
+            )
+    else:
+        lines.append("No finite-horizon convergence metadata were supplied.")
 
     lines.extend(
         [
@@ -202,7 +254,9 @@ def generate_experiment_report(
             "- The derivative violation fraction counts sampled states with V-dot above numerical tolerance.",
             "- The decay-margin violation fraction counts sampled states where V-dot + alpha ||x||^2 exceeds numerical tolerance.",
             "- Both Lyapunov metrics cover only the finite sampled grid and are not a formal continuous-state certificate.",
-            "- Region of attraction results estimate which initial states converge successfully.",
+            "- Finite-horizon convergence percentages report only the sampled "
+            "states that meet the stated final-state tolerance after the stated "
+            "horizon.",
             "",
         ],
     )

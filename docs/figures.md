@@ -21,11 +21,19 @@ Shows trajectories in the position-velocity state space.
 ### `lyapunov_contours.png`
 Shows Lyapunov function contours together with closed-loop trajectories.
 
-### `region_of_attraction.png`
-Shows which initial states converge toward the target equilibrium.
+### `finite_horizon_convergence.png`
+Shows which sampled initial states satisfy `||x(T)|| < epsilon` for the stated
+horizon, tolerance, bounds, and grid. It is not an asymptotic attraction-region
+calculation.
 
-### `region_of_attraction_comparison.png`
-Compares the region of attraction for different controllers.
+### `finite_horizon_convergence_comparison.png`
+Compares the same finite-time final-state criterion across controllers and
+reports converged/tested counts and percentages.
+
+The tracked `region_of_attraction.png` and
+`region_of_attraction_comparison.png` files are historical artifacts generated
+before the terminology correction. They remain unchanged; future runs use the
+two corrected filenames above.
 
 ## Robustness plots
 

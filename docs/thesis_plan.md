@@ -39,7 +39,8 @@ The objective is to evaluate whether a neural-network controller can imitate LQR
 - robustness under noise
 - robustness under parameter variation
 - actuator saturation behavior
-- estimated region of attraction
+- finite-horizon convergence counts and fractions with explicit sampling
+  metadata
 
 ## Expected contribution
 
@@ -49,7 +50,8 @@ The expected contribution is a reproducible Python research workflow for compari
 
 After the standard neural-network controller is working, the same pipeline can be extended to compare a KAN-based controller.
 
-The comparison can investigate whether KAN improves imitation accuracy, smoothness, robustness, or region-of-attraction behavior.
+The comparison can investigate whether KAN improves imitation accuracy,
+smoothness, robustness, or finite-horizon convergence under identical settings.
 
 ## Risks and limitations
 
@@ -66,6 +68,6 @@ The comparison can investigate whether KAN improves imitation accuracy, smoothne
 4. Neural-network controller design
 5. Stability-aware training method
 6. Simulation experiments
-7. Robustness and region-of-attraction analysis
+7. Robustness and finite-horizon convergence analysis
 8. Discussion and limitations
 9. Conclusion and future work

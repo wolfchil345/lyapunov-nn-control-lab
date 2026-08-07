@@ -29,7 +29,9 @@ This outline can be used to present the Lyapunov Neural-Network Control Lab in a
 
 - A Lyapunov-style function is used to check stability behavior.
 - Grid-based checks estimate where the Lyapunov derivative is negative.
-- The region of attraction is estimated through simulations from many initial states.
+- A finite-horizon convergence map reports which sampled initial states satisfy
+  `||x(T)|| < epsilon` for the stated horizon and tolerance.
+- This map is not a mathematical region of attraction.
 
 ## 6. Robustness experiments
 
@@ -43,7 +45,7 @@ This outline can be used to present the Lyapunov Neural-Network Control Lab in a
 - `position_comparison.png`
 - `phase_portrait.png`
 - `lyapunov_contours.png`
-- `region_of_attraction_comparison.png`
+- `finite_horizon_convergence_comparison.png`
 - `experiment_report.md`
 
 ## 8. Key contribution

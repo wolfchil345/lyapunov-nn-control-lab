@@ -37,7 +37,8 @@ Computes Lyapunov values, Lyapunov derivatives, and grid-based stability checks.
 Computes performance metrics such as final state norm, settling time, cost, and control energy.
 
 ### `src/lyapunov_nn_control_lab/plotting.py`
-Creates plots for simulations, robustness experiments, Lyapunov contours, region of attraction, and model architecture.
+Creates plots for simulations, robustness experiments, Lyapunov contours,
+finite-horizon convergence maps, and model architecture.
 
 ### `src/lyapunov_nn_control_lab/reporting.py`
 Generates the automatic experiment report.
@@ -48,8 +49,13 @@ Runs measurement-noise robustness simulations.
 ### `src/lyapunov_nn_control_lab/parameter_variation.py`
 Runs robustness simulations under changed physical parameters.
 
+### `src/lyapunov_nn_control_lab/finite_horizon_convergence.py`
+Evaluates a strict final-state tolerance on a bounded grid at an explicit
+finite horizon and returns the sampling metadata.
+
 ### `src/lyapunov_nn_control_lab/region_of_attraction.py`
-Evaluates convergence over a grid of initial states.
+Provides only the deprecated legacy API wrapper for the former misleading
+name.
 
 ### `src/lyapunov_nn_control_lab/stability_ablation.py`
 Runs experiments with different stability penalty weights.

@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from ._validation import require_matching_lengths, require_nonempty
+from .finite_horizon_convergence import FiniteHorizonConvergenceResult
 
 
 def _prepare_output_dir(output_dir: Path) -> Path:
@@ -42,7 +43,7 @@ def _validate_solution_mapping(
         _validate_solution(solution, name=f"{name}[{key!r}]")
 
 
-def _validate_roa_data(
+def _validate_finite_horizon_convergence_data(
     positions: np.ndarray,
     velocities: np.ndarray,
     convergence_map: np.ndarray,
@@ -50,7 +51,7 @@ def _validate_roa_data(
     *,
     name: str,
 ) -> None:
-    """Require nonempty, shape-consistent region-of-attraction arrays."""
+    """Require nonempty, shape-consistent convergence arrays."""
 
     positions = np.asarray(positions)
     velocities = np.asarray(velocities)
@@ -391,34 +392,35 @@ def save_lyapunov_contour_plot(
     plt.close()
 
 
-def save_region_of_attraction_plot(
-    positions: np.ndarray,
-    velocities: np.ndarray,
-    convergence_map: np.ndarray,
-    final_norm_map: np.ndarray,
+def save_finite_horizon_convergence_plot(
+    result: FiniteHorizonConvergenceResult,
     output_dir: Path,
 ) -> None:
-    """Plot estimated region of attraction for a controller."""
+    """Plot a sampled finite-horizon final-state tolerance result."""
 
     output_dir = _prepare_output_dir(output_dir)
-    _validate_roa_data(
-        positions,
-        velocities,
-        convergence_map,
-        final_norm_map,
-        name="region-of-attraction data",
+    if not isinstance(result, FiniteHorizonConvergenceResult):
+        raise TypeError(
+            "result must be a FiniteHorizonConvergenceResult instance."
+        )
+    _validate_finite_horizon_convergence_data(
+        result.positions,
+        result.velocities,
+        result.convergence_map,
+        result.final_norm_map,
+        name="finite-horizon convergence data",
     )
 
     plt.figure(figsize=(8, 7))
 
     image = plt.imshow(
-        convergence_map.astype(float),
+        result.convergence_map.astype(float),
         origin="lower",
         extent=[
-            positions[0],
-            positions[-1],
-            velocities[0],
-            velocities[-1],
+            result.positions[0],
+            result.positions[-1],
+            result.velocities[0],
+            result.velocities[-1],
         ],
         aspect="auto",
         interpolation="nearest",
@@ -433,9 +435,9 @@ def save_region_of_attraction_plot(
     )
 
     plt.contour(
-        positions,
-        velocities,
-        final_norm_map,
+        result.positions,
+        result.velocities,
+        result.final_norm_map,
         levels=8,
     )
 
@@ -449,11 +451,15 @@ def save_region_of_attraction_plot(
 
     plt.xlabel("Initial position")
     plt.ylabel("Initial velocity")
-    plt.title("Estimated region of attraction")
+    plt.title(
+        "Finite-horizon convergence map\n"
+        f"||x({result.horizon:g} s)|| < "
+        f"{result.convergence_tolerance:g}"
+    )
     plt.grid(True)
     plt.legend()
     plt.tight_layout()
-    plt.savefig(output_dir / "region_of_attraction.png", dpi=180)
+    plt.savefig(output_dir / "finite_horizon_convergence.png", dpi=180)
     plt.close()
 
 
@@ -516,24 +522,40 @@ def save_stability_weight_ablation_plot(
     plt.close()
 
 
-def save_region_of_attraction_comparison_plot(
-    comparison_results: dict[str, tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]],
+def save_finite_horizon_convergence_comparison_plot(
+    comparison_results: dict[str, FiniteHorizonConvergenceResult],
     output_dir: Path,
 ) -> None:
-    """Compare estimated regions of attraction for multiple controllers."""
+    """Compare sampled finite-horizon results for multiple controllers."""
 
     output_dir = _prepare_output_dir(output_dir)
     require_nonempty(comparison_results, name="comparison_results")
+    reference_result = next(iter(comparison_results.values()))
     for controller_name, result in comparison_results.items():
-        if len(result) != 4:
-            raise ValueError(
-                f"comparison_results[{controller_name!r}] must contain "
-                "positions, velocities, convergence map, and final-norm map."
+        if not isinstance(result, FiniteHorizonConvergenceResult):
+            raise TypeError(
+                f"comparison_results[{controller_name!r}] must be a "
+                "FiniteHorizonConvergenceResult instance."
             )
-        _validate_roa_data(
-            *result,
+        _validate_finite_horizon_convergence_data(
+            result.positions,
+            result.velocities,
+            result.convergence_map,
+            result.final_norm_map,
             name=f"comparison_results[{controller_name!r}]",
         )
+        if (
+            result.horizon != reference_result.horizon
+            or result.convergence_tolerance
+            != reference_result.convergence_tolerance
+            or result.position_bounds != reference_result.position_bounds
+            or result.velocity_bounds != reference_result.velocity_bounds
+            or result.grid_resolution != reference_result.grid_resolution
+        ):
+            raise ValueError(
+                "comparison results must use the same horizon, tolerance, "
+                "bounds, and grid resolution."
+            )
 
     num_controllers = len(comparison_results)
 
@@ -549,25 +571,23 @@ def save_region_of_attraction_comparison_plot(
         comparison_results.items(),
         strict=True,
     ):
-        positions, velocities, convergence_map, final_norm_map = result
-
         image = axis.imshow(
-            convergence_map.astype(float),
+            result.convergence_map.astype(float),
             origin="lower",
             extent=[
-                positions[0],
-                positions[-1],
-                velocities[0],
-                velocities[-1],
+                result.positions[0],
+                result.positions[-1],
+                result.velocities[0],
+                result.velocities[-1],
             ],
             aspect="auto",
             interpolation="nearest",
         )
 
         axis.contour(
-            positions,
-            velocities,
-            final_norm_map,
+            result.positions,
+            result.velocities,
+            result.final_norm_map,
             levels=8,
         )
 
@@ -579,10 +599,10 @@ def save_region_of_attraction_comparison_plot(
             label="equilibrium",
         )
 
-        convergence_rate = 100.0 * np.mean(convergence_map)
-
         axis.set_title(
-            f"{controller_name}\nconverged: {convergence_rate:.1f}%"
+            f"{controller_name}\n"
+            f"{result.converged_count}/{result.tested_count} "
+            f"({100.0 * result.convergence_fraction:.1f}%)"
         )
         axis.set_xlabel("Initial position")
         axis.set_ylabel("Initial velocity")
@@ -602,9 +622,16 @@ def save_region_of_attraction_comparison_plot(
         ],
     )
 
-    fig.suptitle("Region of attraction comparison")
+    fig.suptitle(
+        "Finite-horizon convergence comparison\n"
+        f"||x({reference_result.horizon:g} s)|| < "
+        f"{reference_result.convergence_tolerance:g}"
+    )
     fig.subplots_adjust(wspace=0.35, top=0.82, right=0.90)
-    fig.savefig(output_dir / "region_of_attraction_comparison.png", dpi=180)
+    fig.savefig(
+        output_dir / "finite_horizon_convergence_comparison.png",
+        dpi=180,
+    )
     plt.close(fig)
 
 

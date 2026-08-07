@@ -1,33 +1,16 @@
+"""Deprecated compatibility interface for finite-horizon convergence."""
+
+from __future__ import annotations
+
 from collections.abc import Callable
-from numbers import Integral
+import warnings
 
 import numpy as np
 
-from .simulation import simulate
-from ._validation import (
-    validate_controller,
-    validate_positive_scalar,
+from .finite_horizon_convergence import (
+    FiniteHorizonConvergenceResult,
+    evaluate_finite_horizon_convergence,
 )
-
-
-def _validate_range(
-    value: tuple[float, float],
-    *,
-    name: str,
-) -> tuple[float, float]:
-    """Validate a finite increasing two-value range."""
-
-    values = np.asarray(value)
-    if values.dtype.kind not in "fiu":
-        raise TypeError(f"{name} must contain real numeric values.")
-    if values.shape != (2,):
-        raise ValueError(f"{name} must contain exactly two values.")
-    values = values.astype(float, copy=False)
-    if not np.all(np.isfinite(values)):
-        raise ValueError(f"{name} must contain only finite values.")
-    if values[0] >= values[1]:
-        raise ValueError(f"{name} must be strictly increasing.")
-    return float(values[0]), float(values[1])
 
 
 def evaluate_region_of_attraction(
@@ -38,57 +21,29 @@ def evaluate_region_of_attraction(
     convergence_threshold: float = 0.1,
     duration: float = 8.0,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-    """Evaluate convergence over a grid of initial states."""
+    """Return the legacy tuple after a deprecated finite-horizon evaluation."""
 
-    controller = validate_controller(controller)
-    position_range = _validate_range(position_range, name="position_range")
-    velocity_range = _validate_range(velocity_range, name="velocity_range")
-    if isinstance(num_points, bool) or not isinstance(num_points, Integral):
-        raise TypeError("num_points must be an integer of at least 2.")
-    if num_points < 2:
-        raise ValueError("num_points must be at least 2.")
-    convergence_threshold = validate_positive_scalar(
-        convergence_threshold,
-        name="convergence_threshold",
+    warnings.warn(
+        "evaluate_region_of_attraction() is deprecated because its name was "
+        "mathematically misleading for a finite-horizon final-state tolerance "
+        "test; use "
+        "evaluate_finite_horizon_convergence() instead.",
+        DeprecationWarning,
+        stacklevel=2,
     )
-    duration = validate_positive_scalar(duration, name="duration")
-
-    positions = np.linspace(
-        position_range[0],
-        position_range[1],
-        num_points,
+    result: FiniteHorizonConvergenceResult = (
+        evaluate_finite_horizon_convergence(
+            controller,
+            position_bounds=position_range,
+            velocity_bounds=velocity_range,
+            grid_resolution=num_points,
+            convergence_tolerance=convergence_threshold,
+            horizon=duration,
+        )
     )
-    velocities = np.linspace(
-        velocity_range[0],
-        velocity_range[1],
-        num_points,
+    return (
+        result.positions,
+        result.velocities,
+        result.convergence_map,
+        result.final_norm_map,
     )
-
-    convergence_map = np.zeros(
-        (num_points, num_points),
-        dtype=bool,
-    )
-    final_norm_map = np.zeros(
-        (num_points, num_points),
-        dtype=float,
-    )
-
-    for velocity_index, velocity in enumerate(velocities):
-        for position_index, position in enumerate(positions):
-            initial_state = np.array([position, velocity])
-
-            solution = simulate(
-                controller,
-                initial_state,
-                duration=duration,
-            )
-
-            final_norm = np.linalg.norm(solution.y[:, -1])
-            final_norm_map[velocity_index, position_index] = final_norm
-
-            convergence_map[velocity_index, position_index] = (
-                solution.success
-                and final_norm < convergence_threshold
-            )
-
-    return positions, velocities, convergence_map, final_norm_map

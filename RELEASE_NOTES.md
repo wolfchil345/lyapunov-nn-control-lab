@@ -21,7 +21,9 @@ This patch release improves installation reliability, multilingual documentation
 - experiment results regenerate successfully with fixed random seeds
 - regenerated result figures are pixel-identical to the previous tracked figures
 - Lyapunov grid checks report zero violations
-- region-of-attraction checks report 100% convergence for the tested controllers
+- the historical finite-horizon checks report 100% final-state tolerance
+  satisfaction for the tested controllers and settings; they are not a
+  mathematical attraction-region certificate
 
 ## Compatibility
 
@@ -44,8 +46,10 @@ This is the first complete release of the Lyapunov Neural-Network Control Lab.
 - parameter robustness experiment
 - phase portrait visualization
 - Lyapunov contour visualization
-- region-of-attraction estimation
-- region-of-attraction controller comparison
+- sampled finite-horizon convergence mapping (described with legacy
+  terminology in the original release)
+- finite-horizon controller comparison (described with legacy terminology in
+  the original release)
 - stability-weight ablation study
 - automatic experiment report generation
 - model architecture diagram
@@ -70,4 +74,7 @@ This is the first complete release of the Lyapunov Neural-Network Control Lab.
 
 ## Research focus
 
-This project studies whether a neural-network controller can imitate a stabilizing classical controller while being evaluated using Lyapunov-based stability tools.
+This project studies whether a neural-network controller can imitate an LQR
+reference while being evaluated using transient, robustness, and sampled
+Lyapunov diagnostics. The nominal uncontrolled plant is already asymptotically
+stable.

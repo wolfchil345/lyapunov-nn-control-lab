@@ -20,6 +20,13 @@ dx/dt = A x + B u
 
 Here, x is the state, u is the control input, A describes the plant dynamics, and B describes how the input affects the plant.
 
+For the nominal parameters, `A` has eigenvalues `-0.2 + 1.4j` and
+`-0.2 - 1.4j`. Both have negative real part, so the uncontrolled nominal
+linear plant is already asymptotically stable. LQR changes the transient
+response and control trade-off; this project studies imitation, performance,
+robustness, and preservation of stable behavior rather than stabilization of
+an open-loop unstable nominal plant.
+
 ## 2. LQR baseline controller
 
 The Linear Quadratic Regulator is used as the classical optimal-control baseline.
@@ -113,17 +120,41 @@ The Lyapunov contour plot overlays trajectories on level sets of the Lyapunov fu
 
 These plots visually explain closed-loop stability behavior.
 
-## 9. Region of attraction analysis
+## 9. Finite-horizon convergence analysis
 
-The region of attraction experiment simulates many initial states and classifies each one as converged or not converged.
-
-This answers the question:
+For every sampled initial state `x0`, the experiment simulates
+`x(t; x0)` over `0 <= t <= T` and applies exactly this strict criterion:
 
 ```text
-From which initial states can the controller stabilize the system?
+||x(T)|| < epsilon
 ```
 
-The project also compares regions of attraction for LQR, neural-network control, and saturated neural-network control.
+The evaluator requires a successful simulation that reaches `T` with finite
+time and state values. Failure or nonfinite output raises an error rather than
+being silently classified as nonconverged.
+
+The result records the horizon `T`, tolerance `epsilon`, grid bounds and
+resolution, number tested, number converged, and convergence fraction. It is
+a sampled finite-horizon convergence map. A slowly converging state can fail
+at `T` even when it converges as `t -> infinity`, so failure does not place
+that state outside a mathematical attraction region.
+
+For the equilibrium at the origin, a true region of attraction is
+conceptually
+
+```text
+R = {x0 : x(t; x0) -> 0 as t -> infinity}.
+```
+
+Finite simulation does not verify this definition. Defensible estimation may
+require invariant Lyapunov sublevel sets with verified decrease, applicable
+sum-of-squares methods, reachability/invariance analysis, formal verification,
+or analytic results for suitable linear systems. A plotted set
+`{x : V(x) <= c}` is not automatically a certified attraction region.
+
+The finite-horizon map and the separate sampled Lyapunov checks answer
+different questions; neither is a formal continuous-state attraction-region
+certificate.
 
 ## 10. Stability-weight ablation study
 
@@ -135,10 +166,12 @@ quadratic cost, and control energy.
 
 ## 11. Summary
 
-The project combines classical control, neural-network imitation learning, Lyapunov analysis, robustness testing, and empirical region-of-attraction estimation.
+The project combines classical control, neural-network imitation learning,
+Lyapunov analysis, robustness testing, and sampled finite-horizon convergence
+analysis.
 
 The main research question is:
 
 ```text
-Can a neural-network controller imitate a stabilizing classical controller while being evaluated with Lyapunov-based stability tools?
+Can a neural-network controller imitate an LQR reference while preserving useful transient, robustness, and sampled Lyapunov behavior?
 ```

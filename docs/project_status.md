@@ -29,6 +29,7 @@ The checker reports whether important project files exist.
 Examples include:
 
 - Core documentation files.
+- The finite-horizon convergence evaluator and its regression tests.
 - Important scripts.
 - Test files.
 - GitHub Actions workflow files.

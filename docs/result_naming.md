@@ -21,7 +21,7 @@ YYYYMMDD_controller_experiment_setting.ext
 20260719_lqr_metrics_baseline.csv
 20260719_nn_lyapunov_grid21.csv
 20260719_nn_robustness_noise005.png
-20260719_roa_comparison_grid31.png
+20260719_nn_finite_horizon_convergence_t8_tol01_grid31.png
 20260719_experiment_report_seed0.md
 ```
 
@@ -29,7 +29,8 @@ YYYYMMDD_controller_experiment_setting.ext
 
 - Date: `YYYYMMDD`.
 - Controller: `lqr`, `nn`, `kan`, or `comparison`.
-- Experiment type: `trajectory`, `metrics`, `lyapunov`, `robustness`, `roa`, or `report`.
+- Experiment type: `trajectory`, `metrics`, `lyapunov`, `robustness`,
+  `finite_horizon_convergence`, or `report`.
 - Setting: seed, grid size, noise level, epoch count, or parameter variation.
 
 ## Good file names

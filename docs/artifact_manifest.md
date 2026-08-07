@@ -17,6 +17,7 @@ The project generates plots, reports, and summary files to evaluate neural netwo
 | `src/lyapunov.py` | Computes Lyapunov values and Lyapunov derivative grid checks. |
 | `src/metrics.py` | Computes performance metrics such as state error, control effort, and cost. |
 | `src/plotting.py` | Creates figures for trajectories, phase portraits, robustness, and stability analysis. |
+| `src/lyapunov_nn_control_lab/finite_horizon_convergence.py` | Tests a strict final-state tolerance on a bounded grid at an explicit finite horizon and records the sampling metadata. |
 
 ## Main scripts
 
@@ -37,6 +38,7 @@ Generated result files are usually stored in `results/`.
 | Trajectory plots | Compare system state responses under different controllers. |
 | Control plots | Compare control input behavior and saturation effects. |
 | Lyapunov plots | Visualize Lyapunov function behavior and derivative regions. |
+| Finite-horizon convergence plots | Report sampled final-state tolerance results with explicit horizon, tolerance, bounds, grid, and counts; they are not attraction-region certificates. |
 | Robustness plots | Show controller behavior under noise or parameter variation. |
 | CSV summaries | Store numerical metrics for comparison and later reporting. |
 | Experiment reports | Explain the main numerical and visual findings. |

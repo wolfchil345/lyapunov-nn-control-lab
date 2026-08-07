@@ -54,8 +54,8 @@ Important outputs include:
 - `results/parameter_robustness.png`
 - `results/phase_portrait.png`
 - `results/lyapunov_contours.png`
-- `results/region_of_attraction.png`
-- `results/region_of_attraction_comparison.png`
+- `results/finite_horizon_convergence.png`
+- `results/finite_horizon_convergence_comparison.png`
 - `results/stability_weight_ablation.png`
 - `results/performance_metrics.csv`
 - `results/stability_weight_ablation.csv`
@@ -78,6 +78,12 @@ code results/experiment_report.md
 - Small numerical differences may still happen across operating systems, Python versions, or dependency versions.
 - The project uses empirical simulation and grid-based Lyapunov checks, not a full formal proof for the neural-network controller.
 - The generated plots are intended as practical stability and robustness diagnostics.
+- The finite-horizon convergence figures apply only the strict criterion
+  `||x(T)|| < epsilon` on the stated grid. They are not mathematical
+  attraction-region certificates.
+- The tracked files whose names begin with `region_of_attraction` are
+  historical pre-migration artifacts and are intentionally not regenerated in
+  this terminology-only operation.
 
 ## 8. Recommended verification workflow
 

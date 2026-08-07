@@ -15,8 +15,10 @@ Can a neural-network controller imitate an LQR controller while maintaining usef
 ## Stability behavior
 
 - Does the Lyapunov derivative remain mostly negative in the checked region?
-- Which initial states produce stable convergence?
-- How large is the estimated region of attraction?
+- Which sampled initial states meet a stated final-state tolerance after a
+  stated finite horizon?
+- How sensitive is that finite-horizon percentage to the horizon, tolerance,
+  bounds, and grid resolution?
 
 ## Robustness behavior
 
@@ -34,7 +36,8 @@ Can a neural-network controller imitate an LQR controller while maintaining usef
 
 - Can a KAN controller imitate LQR as well as or better than a standard neural network?
 - Does a KAN controller produce smoother or more interpretable control behavior?
-- Does a KAN controller improve robustness or region-of-attraction results?
+- Does a KAN controller improve robustness or finite-horizon convergence
+  results under identical sampling settings?
 
 ## Possible thesis direction
 
@@ -47,5 +50,5 @@ For each controller, report:
 - performance metrics
 - Lyapunov grid-check results
 - robustness results
-- region-of-attraction results
+- finite-horizon convergence counts, percentages, and sampling metadata
 - limitations and failure cases

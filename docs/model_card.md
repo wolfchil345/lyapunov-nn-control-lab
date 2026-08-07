@@ -57,7 +57,7 @@ The controller is evaluated using:
 - maximum absolute control input
 - Lyapunov derivative grid checks
 - robustness experiments
-- region-of-attraction estimation
+- finite-horizon final-state tolerance mapping
 
 ## Known limitations
 
@@ -78,7 +78,8 @@ When reporting results, include:
 - evaluation metrics
 - Lyapunov check results
 - robustness settings
-- region-of-attraction settings
+- finite-horizon convergence settings: horizon, tolerance, bounds, grid,
+  tested count, and converged count
 
 ## Future improvements
 

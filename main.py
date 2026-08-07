@@ -11,19 +11,21 @@ from lyapunov_nn_control_lab.controllers import (
     make_saturated_controller,
     train_controller,
 )
+from lyapunov_nn_control_lab.finite_horizon_convergence import (
+    evaluate_finite_horizon_convergence,
+)
 from lyapunov_nn_control_lab.lyapunov import DEFAULT_DECAY_MARGIN, grid_check
 from lyapunov_nn_control_lab.metrics import calculate_metrics
 from lyapunov_nn_control_lab.noise import simulate_with_measurement_noise
 from lyapunov_nn_control_lab.parameter_variation import simulate_parameter_variation
-from lyapunov_nn_control_lab.region_of_attraction import evaluate_region_of_attraction
 from lyapunov_nn_control_lab.stability_ablation import (
     run_stability_weight_ablation,
     save_ablation_results_csv,
 )
 from lyapunov_nn_control_lab.plotting import (
+    save_finite_horizon_convergence_comparison_plot,
+    save_finite_horizon_convergence_plot,
     save_multiple_initial_conditions_plot,
-    save_region_of_attraction_plot,
-    save_region_of_attraction_comparison_plot,
     save_stability_weight_ablation_plot,
     save_plots,
     save_saturation_comparison_plot,
@@ -217,59 +219,74 @@ def main() -> None:
         P,
         output_dir,
     )
-    roa_positions, roa_velocities, roa_convergence_map, roa_final_norm_map = evaluate_region_of_attraction(
+    convergence_result = evaluate_finite_horizon_convergence(
         saturated_nn_controller,
-        position_range=(-2.5, 2.5),
-        velocity_range=(-2.5, 2.5),
-        num_points=15,
-        convergence_threshold=0.1,
-        duration=8.0,
+        position_bounds=(-2.5, 2.5),
+        velocity_bounds=(-2.5, 2.5),
+        grid_resolution=15,
+        convergence_tolerance=0.1,
+        horizon=8.0,
+        controller_label="Saturated NN",
     )
-
-    convergence_fraction = np.mean(roa_convergence_map)
 
     print()
     print(
-        "Region of attraction convergence rate: "
-        f"{100.0 * convergence_fraction:.1f}%"
+        "Finite-horizon convergence (Saturated NN): "
+        f"{convergence_result.converged_count}/"
+        f"{convergence_result.tested_count} sampled initial states "
+        f"({100.0 * convergence_result.convergence_fraction:.1f}%) "
+        "satisfied ||x(T)|| < tolerance with "
+        f"T={convergence_result.horizon:g} s and "
+        f"tolerance={convergence_result.convergence_tolerance:g} "
+        f"on a {convergence_result.grid_resolution}x"
+        f"{convergence_result.grid_resolution} grid with position bounds "
+        f"{convergence_result.position_bounds} and velocity bounds "
+        f"{convergence_result.velocity_bounds}."
     )
 
-    save_region_of_attraction_plot(
-        roa_positions,
-        roa_velocities,
-        roa_convergence_map,
-        roa_final_norm_map,
+    save_finite_horizon_convergence_plot(
+        convergence_result,
         output_dir,
     )
 
-    roa_comparison_controllers = {
+    convergence_comparison_controllers = {
         "LQR": lqr_controller,
         "Neural network": nn_controller,
         "Saturated NN": saturated_nn_controller,
     }
 
-    roa_comparison_results = {
-        controller_name: evaluate_region_of_attraction(
+    convergence_comparison_results = {
+        controller_name: evaluate_finite_horizon_convergence(
             controller,
-            position_range=(-2.5, 2.5),
-            velocity_range=(-2.5, 2.5),
-            num_points=11,
-            convergence_threshold=0.1,
-            duration=8.0,
+            position_bounds=(-2.5, 2.5),
+            velocity_bounds=(-2.5, 2.5),
+            grid_resolution=11,
+            convergence_tolerance=0.1,
+            horizon=8.0,
+            controller_label=controller_name,
         )
-        for controller_name, controller in roa_comparison_controllers.items()
+        for controller_name, controller in (
+            convergence_comparison_controllers.items()
+        )
     }
 
     print()
-    print("Region of attraction comparison:")
+    print("Finite-horizon convergence comparison:")
 
-    for controller_name, result in roa_comparison_results.items():
-        _positions, _velocities, convergence_map, _final_norm_map = result
-        convergence_rate = 100.0 * np.mean(convergence_map)
-        print(f"{controller_name}: convergence rate={convergence_rate:.1f}%")
+    for controller_name, result in convergence_comparison_results.items():
+        print(
+            f"{controller_name}: {result.converged_count}/"
+            f"{result.tested_count} sampled initial states "
+            f"({100.0 * result.convergence_fraction:.1f}%) satisfied "
+            f"||x({result.horizon:g} s)|| < "
+            f"{result.convergence_tolerance:g} on a "
+            f"{result.grid_resolution}x{result.grid_resolution} grid with "
+            f"position bounds {result.position_bounds} and velocity bounds "
+            f"{result.velocity_bounds}."
+        )
 
-    save_region_of_attraction_comparison_plot(
-        roa_comparison_results,
+    save_finite_horizon_convergence_comparison_plot(
+        convergence_comparison_results,
         output_dir,
     )
 
@@ -415,6 +432,7 @@ def main() -> None:
     generate_experiment_report(
         output_dir,
         report_path,
+        finite_horizon_results=convergence_comparison_results,
     )
 
     print()
