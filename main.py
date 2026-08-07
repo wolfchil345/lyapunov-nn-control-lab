@@ -73,6 +73,9 @@ def save_metrics_csv(
         "max_abs_control",
     ]
 
+    if not rows:
+        raise ValueError("metric rows must not be empty.")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     with output_path.open("w", newline="", encoding="utf-8") as csv_file:
         writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
         writer.writeheader()
@@ -83,7 +86,7 @@ def main() -> None:
     set_seed()
 
     output_dir = Path("results")
-    output_dir.mkdir(exist_ok=True)
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     print("LQR gain K:", K)
     print("Closed-loop eigenvalues:", CLOSED_LOOP_EIGENVALUES)
@@ -150,6 +153,7 @@ def main() -> None:
         for initial_state, solution in zip(
             initial_states,
             solutions[controller_name],
+            strict=True,
         ):
             metrics = calculate_metrics(solution, controller)
 

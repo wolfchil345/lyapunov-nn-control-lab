@@ -3,6 +3,74 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
+from ._validation import require_matching_lengths, require_nonempty
+
+
+def _prepare_output_dir(output_dir: Path) -> Path:
+    """Create and return a user-facing figure output directory."""
+
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    return output_dir
+
+
+def _validate_solution(solution: object, *, name: str) -> None:
+    """Require nonempty two-state solution data with matching samples."""
+
+    if not hasattr(solution, "t") or not hasattr(solution, "y"):
+        raise TypeError(f"{name} must provide t and y arrays.")
+    time = np.asarray(solution.t)
+    states = np.asarray(solution.y)
+    if time.ndim != 1 or time.size == 0:
+        raise ValueError(f"{name}.t must be a nonempty one-dimensional array.")
+    if states.ndim != 2 or states.shape != (2, time.size):
+        raise ValueError(
+            f"{name}.y must have shape (2, {time.size}); "
+            f"received {states.shape}."
+        )
+
+
+def _validate_solution_mapping(
+    solutions: dict[object, object],
+    *,
+    name: str,
+) -> None:
+    """Require a nonempty mapping of valid two-state solutions."""
+
+    require_nonempty(solutions, name=name)
+    for key, solution in solutions.items():
+        _validate_solution(solution, name=f"{name}[{key!r}]")
+
+
+def _validate_roa_data(
+    positions: np.ndarray,
+    velocities: np.ndarray,
+    convergence_map: np.ndarray,
+    final_norm_map: np.ndarray,
+    *,
+    name: str,
+) -> None:
+    """Require nonempty, shape-consistent region-of-attraction arrays."""
+
+    positions = np.asarray(positions)
+    velocities = np.asarray(velocities)
+    convergence_map = np.asarray(convergence_map)
+    final_norm_map = np.asarray(final_norm_map)
+    if positions.ndim != 1 or positions.size == 0:
+        raise ValueError(f"{name} positions must be a nonempty 1D array.")
+    if velocities.ndim != 1 or velocities.size == 0:
+        raise ValueError(f"{name} velocities must be a nonempty 1D array.")
+    expected_shape = (velocities.size, positions.size)
+    if convergence_map.shape != expected_shape:
+        raise ValueError(
+            f"{name} convergence map must have shape {expected_shape}; "
+            f"received {convergence_map.shape}."
+        )
+    if final_norm_map.shape != expected_shape:
+        raise ValueError(
+            f"{name} final-norm map must have shape {expected_shape}; "
+            f"received {final_norm_map.shape}."
+        )
 
 def save_plots(
     training_history: dict[str, list[float]],
@@ -11,6 +79,15 @@ def save_plots(
     output_dir: Path,
 ) -> None:
     """Save trajectory and training-loss figures."""
+
+    output_dir = _prepare_output_dir(output_dir)
+    _validate_solution(lqr_solution, name="lqr_solution")
+    _validate_solution(nn_solution, name="nn_solution")
+    required_history = ("total", "imitation", "stability")
+    for key in required_history:
+        if key not in training_history:
+            raise ValueError(f"training_history is missing required key {key!r}.")
+        require_nonempty(training_history[key], name=f"training_history[{key!r}]")
 
     plt.figure(figsize=(8, 5))
     plt.plot(lqr_solution.t, lqr_solution.y[0], label="LQR position")
@@ -54,9 +131,19 @@ def save_multiple_initial_conditions_plot(
 ) -> None:
     """Plot NN state norms for multiple initial conditions."""
 
+    output_dir = _prepare_output_dir(output_dir)
+    require_matching_lengths(
+        initial_states,
+        nn_solutions,
+        first_name="initial_states",
+        second_name="nn_solutions",
+    )
+    for index, solution in enumerate(nn_solutions):
+        _validate_solution(solution, name=f"nn_solutions[{index}]")
+
     plt.figure(figsize=(9, 6))
 
-    for initial_state, solution in zip(initial_states, nn_solutions):
+    for initial_state, solution in zip(initial_states, nn_solutions, strict=True):
         state_norm = np.linalg.norm(solution.y, axis=0)
         state_norm = np.maximum(state_norm, 1e-12)
 
@@ -78,6 +165,12 @@ def save_saturation_comparison_plot(
     output_dir: Path,
 ) -> None:
     """Compare state norms for saturated and unsaturated controllers."""
+
+    output_dir = _prepare_output_dir(output_dir)
+    _validate_solution_mapping(
+        solutions_by_controller,
+        name="solutions_by_controller",
+    )
 
     plt.figure(figsize=(9, 6))
 
@@ -107,6 +200,12 @@ def save_noise_robustness_plot(
 ) -> None:
     """Compare trajectories under different measurement-noise levels."""
 
+    output_dir = _prepare_output_dir(output_dir)
+    _validate_solution_mapping(
+        noise_solutions_by_std,
+        name="noise_solutions_by_std",
+    )
+
     plt.figure(figsize=(9, 6))
 
     for noise_std, solution in noise_solutions_by_std.items():
@@ -134,6 +233,9 @@ def save_parameter_robustness_plot(
     output_dir: Path,
 ) -> None:
     """Compare trajectories under plant-parameter variations."""
+
+    output_dir = _prepare_output_dir(output_dir)
+    _validate_solution_mapping(parameter_solutions, name="parameter_solutions")
 
     plt.figure(figsize=(9, 6))
 
@@ -164,9 +266,19 @@ def save_phase_portrait_plot(
 ) -> None:
     """Plot NN closed-loop trajectories in phase space."""
 
+    output_dir = _prepare_output_dir(output_dir)
+    require_matching_lengths(
+        initial_states,
+        nn_solutions,
+        first_name="initial_states",
+        second_name="nn_solutions",
+    )
+    for index, solution in enumerate(nn_solutions):
+        _validate_solution(solution, name=f"nn_solutions[{index}]")
+
     plt.figure(figsize=(7, 7))
 
-    for initial_state, solution in zip(initial_states, nn_solutions):
+    for initial_state, solution in zip(initial_states, nn_solutions, strict=True):
         plt.plot(
             solution.y[0],
             solution.y[1],
@@ -206,6 +318,21 @@ def save_lyapunov_contour_plot(
 ) -> None:
     """Plot Lyapunov level sets with NN closed-loop trajectories."""
 
+    output_dir = _prepare_output_dir(output_dir)
+    require_matching_lengths(
+        initial_states,
+        nn_solutions,
+        first_name="initial_states",
+        second_name="nn_solutions",
+    )
+    for index, solution in enumerate(nn_solutions):
+        _validate_solution(solution, name=f"nn_solutions[{index}]")
+    lyapunov_matrix = np.asarray(lyapunov_matrix, dtype=float)
+    if lyapunov_matrix.shape != (2, 2):
+        raise ValueError("lyapunov_matrix must have shape (2, 2).")
+    if not np.all(np.isfinite(lyapunov_matrix)):
+        raise ValueError("lyapunov_matrix must contain only finite values.")
+
     position_values = np.linspace(-2.5, 2.5, 200)
     velocity_values = np.linspace(-2.5, 2.5, 200)
 
@@ -232,7 +359,7 @@ def save_lyapunov_contour_plot(
     )
     plt.clabel(contour, inline=True, fontsize=8)
 
-    for initial_state, solution in zip(initial_states, nn_solutions):
+    for initial_state, solution in zip(initial_states, nn_solutions, strict=True):
         plt.plot(
             solution.y[0],
             solution.y[1],
@@ -272,6 +399,15 @@ def save_region_of_attraction_plot(
     output_dir: Path,
 ) -> None:
     """Plot estimated region of attraction for a controller."""
+
+    output_dir = _prepare_output_dir(output_dir)
+    _validate_roa_data(
+        positions,
+        velocities,
+        convergence_map,
+        final_norm_map,
+        name="region-of-attraction data",
+    )
 
     plt.figure(figsize=(8, 7))
 
@@ -326,6 +462,9 @@ def save_stability_weight_ablation_plot(
     output_dir: Path,
 ) -> None:
     """Plot stability metrics for different Lyapunov penalty weights."""
+
+    output_dir = _prepare_output_dir(output_dir)
+    require_nonempty(rows, name="ablation rows")
 
     x_values = np.arange(len(rows))
     labels = [
@@ -383,6 +522,19 @@ def save_region_of_attraction_comparison_plot(
 ) -> None:
     """Compare estimated regions of attraction for multiple controllers."""
 
+    output_dir = _prepare_output_dir(output_dir)
+    require_nonempty(comparison_results, name="comparison_results")
+    for controller_name, result in comparison_results.items():
+        if len(result) != 4:
+            raise ValueError(
+                f"comparison_results[{controller_name!r}] must contain "
+                "positions, velocities, convergence map, and final-norm map."
+            )
+        _validate_roa_data(
+            *result,
+            name=f"comparison_results[{controller_name!r}]",
+        )
+
     num_controllers = len(comparison_results)
 
     fig, axes = plt.subplots(
@@ -395,6 +547,7 @@ def save_region_of_attraction_comparison_plot(
     for axis, (controller_name, result) in zip(
         axes[0],
         comparison_results.items(),
+        strict=True,
     ):
         positions, velocities, convergence_map, final_norm_map = result
 
@@ -457,6 +610,8 @@ def save_region_of_attraction_comparison_plot(
 
 def save_model_architecture_diagram(output_dir: Path) -> None:
     """Save a simple block diagram of the neural-network control loop."""
+
+    output_dir = _prepare_output_dir(output_dir)
 
     fig, axis = plt.subplots(figsize=(11, 4))
     axis.axis("off")
