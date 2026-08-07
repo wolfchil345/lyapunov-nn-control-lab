@@ -19,11 +19,28 @@ def create_log(title: str = "experiment") -> Path:
     output_dir = Path("results/experiment_logs")
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    output_path = output_dir / f"{timestamp}_{slugify(title)}.md"
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+    stem = f"{timestamp}_{slugify(title)}"
     content = template_path.read_text(encoding="utf-8")
-    output_path.write_text(content, encoding="utf-8")
-    return output_path
+
+    for collision_index in range(10_000):
+        suffix = "" if collision_index == 0 else f"_{collision_index}"
+        output_path = output_dir / f"{stem}{suffix}.md"
+        try:
+            with output_path.open("x", encoding="utf-8") as output_file:
+                output_file.write(content)
+        except FileExistsError:
+            continue
+        except OSError as exc:
+            output_path.unlink(missing_ok=True)
+            raise OSError(
+                f"Could not create experiment log at {output_path}."
+            ) from exc
+        return output_path
+
+    raise FileExistsError(
+        f"Could not find a unique experiment-log filename for {stem}."
+    )
 
 
 def main() -> int:

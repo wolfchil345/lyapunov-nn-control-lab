@@ -4,6 +4,11 @@ import numpy as np
 from scipy.integrate import trapezoid
 
 from .system import Q, R
+from ._validation import (
+    evaluate_controller,
+    validate_controller,
+    validate_positive_scalar,
+)
 
 
 def calculate_metrics(
@@ -16,11 +21,26 @@ def calculate_metrics(
     if not solution.success:
         raise ValueError("Cannot calculate metrics for a failed simulation.")
 
+    controller = validate_controller(controller)
+    settling_threshold = validate_positive_scalar(
+        settling_threshold,
+        name="settling_threshold",
+    )
+
     time = np.asarray(solution.t, dtype=float)
-    states = np.asarray(solution.y, dtype=float).T
+    raw_states = np.asarray(solution.y, dtype=float)
+    if time.ndim != 1 or time.size == 0:
+        raise ValueError("solution.t must be a nonempty one-dimensional array.")
+    if raw_states.ndim != 2 or raw_states.shape[0] != 2:
+        raise ValueError("solution.y must have shape (2, number_of_samples).")
+    if raw_states.shape[1] != time.size:
+        raise ValueError("solution.t and solution.y must contain the same samples.")
+    if not np.all(np.isfinite(time)) or not np.all(np.isfinite(raw_states)):
+        raise ValueError("solution data must contain only finite values.")
+    states = raw_states.T
 
     controls = np.array(
-        [controller(state) for state in states],
+        [evaluate_controller(controller, state) for state in states],
         dtype=float,
     )
 

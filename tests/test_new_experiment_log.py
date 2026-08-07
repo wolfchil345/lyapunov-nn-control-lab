@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+from datetime import datetime
 from pathlib import Path
 
 
@@ -35,3 +36,35 @@ def test_create_log_from_template(tmp_path, monkeypatch):
     assert output_path.parent == Path("results") / "experiment_logs"
     assert output_path.name.endswith("_baseline_seed_0.md")
     assert output_path.read_text(encoding="utf-8") == "# Template\n\n- Seed:\n"
+
+
+def test_create_log_never_overwrites_same_timestamp_and_title(
+    tmp_path,
+    monkeypatch,
+):
+    monkeypatch.chdir(tmp_path)
+    docs_dir = Path("docs")
+    docs_dir.mkdir()
+    (docs_dir / "experiment_log_template.md").write_text(
+        "# Template\n",
+        encoding="utf-8",
+    )
+
+    fixed_time = datetime(2026, 8, 7, 12, 34, 56, 123456)
+
+    class FixedDatetime:
+        @classmethod
+        def now(cls):
+            return fixed_time
+
+    monkeypatch.setattr(new_experiment_log, "datetime", FixedDatetime)
+
+    paths = [new_experiment_log.create_log("Same title") for _ in range(3)]
+
+    assert len(set(paths)) == 3
+    assert [path.name for path in paths] == [
+        "20260807_123456_123456_same_title.md",
+        "20260807_123456_123456_same_title_1.md",
+        "20260807_123456_123456_same_title_2.md",
+    ]
+    assert all(path.read_text(encoding="utf-8") == "# Template\n" for path in paths)

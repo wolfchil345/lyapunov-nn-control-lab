@@ -1,4 +1,6 @@
 import csv
+from itertools import islice
+from numbers import Integral
 from pathlib import Path
 
 
@@ -8,12 +10,26 @@ def read_csv_rows(
 ) -> list[dict[str, str]]:
     """Read a small number of rows from a CSV file."""
 
+    if isinstance(max_rows, bool) or not isinstance(max_rows, Integral):
+        raise TypeError("max_rows must be a nonnegative integer.")
+    if max_rows < 0:
+        raise ValueError("max_rows must be a nonnegative integer.")
     if not csv_path.exists():
         return []
 
     with csv_path.open(newline="", encoding="utf-8") as csv_file:
         reader = csv.DictReader(csv_file)
-        return list(reader)[:max_rows]
+        return list(islice(reader, max_rows))
+
+
+def escape_markdown_table_cell(value: object) -> str:
+    """Escape content that would otherwise break a Markdown table cell."""
+
+    if value is None:
+        return ""
+
+    text = str(value).replace("\r\n", "\n").replace("\r", "\n")
+    return text.replace("|", r"\|").replace("\n", "<br>")
 
 
 def format_markdown_table(
@@ -26,13 +42,15 @@ def format_markdown_table(
         return ["No data available."]
 
     lines = [
-        "| " + " | ".join(columns) + " |",
+        "| "
+        + " | ".join(escape_markdown_table_cell(column) for column in columns)
+        + " |",
         "| " + " | ".join(["---"] * len(columns)) + " |",
     ]
 
     for row in rows:
         values = [
-            row.get(column, "")
+            escape_markdown_table_cell(row.get(column, ""))
             for column in columns
         ]
         lines.append("| " + " | ".join(values) + " |")
@@ -168,6 +186,7 @@ def generate_experiment_report(
         ],
     )
 
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(
         "\n".join(lines),
         encoding="utf-8",

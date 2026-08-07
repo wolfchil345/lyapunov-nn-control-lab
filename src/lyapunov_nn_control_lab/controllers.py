@@ -1,10 +1,19 @@
 from collections.abc import Callable
+from itertools import chain
+from numbers import Integral
 
 import numpy as np
 import torch
 from torch import nn
 
 from .system import A, B, K, P
+from ._validation import (
+    evaluate_controller,
+    validate_finite_scalar,
+    validate_nonnegative_scalar,
+    validate_positive_scalar,
+    validate_state,
+)
 
 SEED = 7
 
@@ -34,6 +43,11 @@ def make_dataset(
     n_samples: int = 3000,
 ) -> tuple[torch.Tensor, torch.Tensor]:
     """Generate states and corresponding LQR control targets."""
+
+    if isinstance(n_samples, bool) or not isinstance(n_samples, Integral):
+        raise TypeError("n_samples must be a positive integer.")
+    if n_samples <= 0:
+        raise ValueError("n_samples must be a positive integer.")
 
     rng = np.random.default_rng(SEED)
 
@@ -115,6 +129,19 @@ def train_controller(
 ) -> dict[str, list[float]]:
     """Train using LQR imitation and a Lyapunov penalty."""
 
+    if isinstance(epochs, bool) or not isinstance(epochs, Integral):
+        raise TypeError("epochs must be a positive integer.")
+    if epochs <= 0:
+        raise ValueError("epochs must be a positive integer.")
+    stability_weight = validate_nonnegative_scalar(
+        stability_weight,
+        name="stability_weight",
+    )
+    stability_margin = validate_nonnegative_scalar(
+        stability_margin,
+        name="stability_margin",
+    )
+
     x_train, u_train = make_dataset()
 
     optimizer = torch.optim.Adam(
@@ -189,9 +216,8 @@ def saturate_control(
 ) -> float:
     """Clip the control input to actuator limits."""
 
-    if limit <= 0.0:
-        raise ValueError("Control limit must be positive.")
-
+    control = validate_finite_scalar(control, name="control")
+    limit = validate_positive_scalar(limit, name="control limit")
     return float(np.clip(control, -limit, limit))
 
 
@@ -201,26 +227,65 @@ def make_saturated_controller(
 ) -> Callable[[np.ndarray], float]:
     """Wrap a controller with actuator saturation."""
 
+    if not callable(controller):
+        raise TypeError("controller must be callable.")
+    limit = validate_positive_scalar(limit, name="control limit")
+
     def saturated_controller(x: np.ndarray) -> float:
-        raw_control = controller(x)
+        state = validate_state(x, name="controller state")
+        raw_control = evaluate_controller(controller, state)
         return saturate_control(raw_control, limit)
 
     return saturated_controller
+
+def _model_dtype_and_device(model: nn.Module) -> tuple[torch.dtype, torch.device]:
+    """Infer floating dtype and device from model parameters or buffers."""
+
+    first_device: torch.device | None = None
+    for tensor in chain(model.parameters(), model.buffers()):
+        if first_device is None:
+            first_device = tensor.device
+        if tensor.is_floating_point():
+            return tensor.dtype, tensor.device
+
+    return torch.get_default_dtype(), first_device or torch.device("cpu")
+
 
 def make_nn_controller(
     model: nn.Module,
 ) -> Callable[[np.ndarray], float]:
     """Convert a PyTorch model into a simulation controller."""
 
-    model.eval()
+    if not isinstance(model, nn.Module):
+        raise TypeError("model must be a torch.nn.Module.")
 
     def controller(x: np.ndarray) -> float:
-        x_tensor = torch.tensor(
-            x,
-            dtype=torch.float32,
+        state = validate_state(x, name="controller state")
+        dtype, device = _model_dtype_and_device(model)
+        x_tensor = torch.as_tensor(
+            state,
+            dtype=dtype,
+            device=device,
         ).reshape(1, 2)
 
-        with torch.no_grad():
-            return float(model(x_tensor).item())
+        module_modes = [(module, module.training) for module in model.modules()]
+        try:
+            model.eval()
+            with torch.inference_mode():
+                output = model(x_tensor)
+        finally:
+            for module, was_training in module_modes:
+                module.training = was_training
+
+        if not isinstance(output, torch.Tensor):
+            raise TypeError("Neural controller output must be a tensor.")
+        if output.numel() != 1:
+            raise ValueError(
+                "Neural controller output must contain exactly one value; "
+                f"received shape {tuple(output.shape)}."
+            )
+        if not bool(torch.isfinite(output).all().item()):
+            raise ValueError("Neural controller output must be finite.")
+        return float(output.item())
 
     return controller

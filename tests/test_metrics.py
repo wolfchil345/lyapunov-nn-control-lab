@@ -1,6 +1,8 @@
 import math
+from types import SimpleNamespace
 
 import numpy as np
+import pytest
 
 from lyapunov_nn_control_lab.metrics import calculate_metrics
 from lyapunov_nn_control_lab.simulation import simulate
@@ -30,3 +32,14 @@ def test_lqr_performance_metrics_are_valid():
     assert metrics["quadratic_cost"] > 0.0
     assert metrics["control_energy"] > 0.0
     assert metrics["max_abs_control"] > 0.0
+
+
+def test_metrics_reject_empty_solution_data():
+    solution = SimpleNamespace(
+        success=True,
+        t=np.array([]),
+        y=np.empty((2, 0)),
+    )
+
+    with pytest.raises(ValueError, match="nonempty"):
+        calculate_metrics(solution, lqr_controller)

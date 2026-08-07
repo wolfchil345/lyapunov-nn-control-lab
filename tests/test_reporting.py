@@ -1,6 +1,10 @@
 from pathlib import Path
 
+import pytest
+
+import lyapunov_nn_control_lab.reporting as reporting
 from lyapunov_nn_control_lab.reporting import (
+    escape_markdown_table_cell,
     format_markdown_table,
     generate_experiment_report,
     read_csv_rows,
@@ -25,6 +29,45 @@ def test_read_csv_rows_reads_limited_rows(tmp_path):
     assert rows[0]["name"] == "a"
 
 
+def test_read_csv_rows_streams_only_requested_rows(tmp_path, monkeypatch):
+    csv_path = tmp_path / "data.csv"
+    csv_path.write_text("name\na\nb\nc\n", encoding="utf-8")
+
+    class GuardedRows:
+        def __init__(self):
+            self.index = 0
+
+        def __iter__(self):
+            return self
+
+        def __next__(self):
+            if self.index >= 2:
+                raise AssertionError("CSV reader consumed beyond max_rows")
+            self.index += 1
+            return {"name": str(self.index)}
+
+    monkeypatch.setattr(reporting.csv, "DictReader", lambda _file: GuardedRows())
+
+    assert read_csv_rows(csv_path, max_rows=2) == [
+        {"name": "1"},
+        {"name": "2"},
+    ]
+
+
+def test_read_csv_rows_defines_zero_negative_and_empty_behavior(tmp_path):
+    csv_path = tmp_path / "data.csv"
+    csv_path.write_text("name\na\n", encoding="utf-8")
+    empty_path = tmp_path / "empty.csv"
+    empty_path.write_text("", encoding="utf-8")
+
+    assert read_csv_rows(csv_path, max_rows=0) == []
+    assert read_csv_rows(empty_path, max_rows=8) == []
+    with pytest.raises(ValueError, match="nonnegative integer"):
+        read_csv_rows(csv_path, max_rows=-1)
+    with pytest.raises(TypeError, match="nonnegative integer"):
+        read_csv_rows(csv_path, max_rows=1.5)
+
+
 def test_format_markdown_table_handles_rows():
     rows = [
         {
@@ -42,9 +85,23 @@ def test_format_markdown_table_handles_rows():
     assert "| controller | stable |" in table
 
 
+def test_markdown_table_cells_escape_pipes_and_line_breaks():
+    assert escape_markdown_table_cell("alpha|beta") == r"alpha\|beta"
+    assert escape_markdown_table_cell("first\r\nsecond\rthird") == (
+        "first<br>second<br>third"
+    )
+
+    table = format_markdown_table(
+        [{"name": "alpha|beta", "value": "first\nsecond"}],
+        ["name", "value"],
+    )
+    assert table[-1] == r"| alpha\|beta | first<br>second |"
+
+
 def test_generate_experiment_report_creates_file(tmp_path):
-    results_dir = tmp_path
-    output_path = results_dir / "experiment_report.md"
+    results_dir = tmp_path / "results"
+    results_dir.mkdir()
+    output_path = tmp_path / "nested" / "reports" / "experiment_report.md"
 
     (results_dir / "performance_metrics.csv").write_text(
         "controller,initial_position,initial_velocity,final_state_norm,settling_time_s,quadratic_cost,control_energy,max_abs_control\n"

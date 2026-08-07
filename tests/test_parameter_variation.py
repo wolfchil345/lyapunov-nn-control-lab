@@ -50,3 +50,16 @@ def test_lqr_converges_under_mild_parameter_variation():
 
     assert solution.success
     assert final_norm < 1e-2
+
+
+@pytest.mark.parametrize(
+    ("name", "parameters"),
+    [
+        ("mass", {"mass": np.nan, "damping": 0.4, "stiffness": 2.0}),
+        ("damping", {"mass": 1.0, "damping": np.inf, "stiffness": 2.0}),
+        ("stiffness", {"mass": 1.0, "damping": 0.4, "stiffness": np.nan}),
+    ],
+)
+def test_parameter_variation_rejects_nonfinite_parameters(name, parameters):
+    with pytest.raises(ValueError, match=name):
+        make_state_space_matrices(**parameters)

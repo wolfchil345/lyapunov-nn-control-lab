@@ -1,7 +1,13 @@
 from pathlib import Path
 
+import numpy as np
+import pytest
+
 from lyapunov_nn_control_lab.plotting import save_stability_weight_ablation_plot
-from lyapunov_nn_control_lab.stability_ablation import save_ablation_results_csv
+from lyapunov_nn_control_lab.stability_ablation import (
+    run_stability_weight_ablation,
+    save_ablation_results_csv,
+)
 
 
 def sample_rows():
@@ -38,7 +44,7 @@ def sample_rows():
 
 
 def test_save_ablation_results_csv_creates_file(tmp_path):
-    output_path = tmp_path / "ablation.csv"
+    output_path = tmp_path / "nested" / "ablation.csv"
 
     save_ablation_results_csv(
         sample_rows(),
@@ -56,3 +62,15 @@ def test_save_stability_weight_ablation_plot_creates_file(tmp_path):
     )
 
     assert (tmp_path / "stability_weight_ablation.png").exists()
+
+
+def test_ablation_writers_reject_empty_required_rows(tmp_path):
+    with pytest.raises(ValueError, match="must not be empty"):
+        save_ablation_results_csv([], tmp_path / "ablation.csv")
+    with pytest.raises(ValueError, match="must not be empty"):
+        save_stability_weight_ablation_plot([], tmp_path)
+
+
+def test_ablation_runner_rejects_empty_weights():
+    with pytest.raises(ValueError, match="must not be empty"):
+        run_stability_weight_ablation([], np.array([1.0, 0.0]))

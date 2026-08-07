@@ -14,11 +14,13 @@ from .controllers import (
 from .lyapunov import grid_check
 from .metrics import calculate_metrics
 from .simulation import simulate
+from ._validation import require_nonempty, validate_seed, validate_state
 
 
 def set_ablation_seed(seed: int) -> None:
     """Set random seeds for repeatable ablation runs."""
 
+    seed = validate_seed(seed)
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -50,6 +52,9 @@ def run_stability_weight_ablation(
 ) -> list[dict[str, float]]:
     """Train controllers with different Lyapunov penalty weights."""
 
+    require_nonempty(stability_weights, name="stability_weights")
+    initial_state = validate_state(initial_state, name="initial_state")
+    base_seed = validate_seed(base_seed)
     rows: list[dict[str, float]] = []
 
     for index, stability_weight in enumerate(stability_weights):
@@ -118,6 +123,7 @@ def save_ablation_results_csv(
 ) -> None:
     """Save stability-weight ablation results as CSV."""
 
+    require_nonempty(rows, name="ablation rows")
     fieldnames = [
         "stability_weight",
         "epochs",
@@ -133,6 +139,7 @@ def save_ablation_results_csv(
         "max_abs_control",
     ]
 
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     with output_path.open("w", newline="", encoding="utf-8") as csv_file:
         writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
         writer.writeheader()
