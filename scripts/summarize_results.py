@@ -46,11 +46,25 @@ def print_ablation_metrics() -> None:
     for row in rows:
         weight = row.get("stability_weight", "n/a")
         final_norm = row.get("final_state_norm", "n/a")
-        violation = row.get(
+        derivative_violation = row.get("derivative_violation_fraction")
+        margin_violation = row.get("decay_margin_violation_fraction")
+        decay_margin = row.get("decay_margin", "n/a")
+        if derivative_violation is not None and margin_violation is not None:
+            print(
+                f"- weight={weight}: final_norm={final_norm}, "
+                f"derivative_violation={derivative_violation}, "
+                f"margin_violation(alpha={decay_margin})={margin_violation}"
+            )
+            continue
+
+        legacy_violation = row.get(
             "lyapunov_violation_fraction",
             row.get("violation_fraction", row.get("violation_ratio", "n/a")),
         )
-        print(f"- weight={weight}: final_norm={final_norm}, violation={violation}")
+        print(
+            f"- weight={weight}: final_norm={final_norm}, "
+            f"legacy_ambiguous_violation={legacy_violation}"
+        )
 
 
 def main() -> None:

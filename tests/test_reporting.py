@@ -110,8 +110,8 @@ def test_generate_experiment_report_creates_file(tmp_path):
     )
 
     (results_dir / "stability_weight_ablation.csv").write_text(
-        "stability_weight,lyapunov_violation_fraction,final_state_norm,settling_time_s,quadratic_cost,control_energy\n"
-        "10.0,0.01,0.001,2.0,4.0,1.0\n",
+        "stability_weight,decay_margin,derivative_violation_fraction,decay_margin_violation_fraction,max_vdot,max_decay_residual,final_state_norm,settling_time_s,quadratic_cost,control_energy\n"
+        "10.0,0.05,0.0,0.01,-0.01,0.02,0.001,2.0,4.0,1.0\n",
         encoding="utf-8",
     )
 
@@ -126,3 +126,22 @@ def test_generate_experiment_report_creates_file(tmp_path):
     assert "# Experiment Report" in text
     assert "Performance metrics preview" in text
     assert "Stability-weight ablation preview" in text
+    assert "derivative_violation_fraction" in text
+    assert "decay_margin_violation_fraction" in text
+    assert "not a formal continuous-state certificate" in text
+
+
+def test_report_marks_legacy_ablation_schema_as_ambiguous(tmp_path):
+    results_dir = tmp_path / "results"
+    results_dir.mkdir()
+    (results_dir / "stability_weight_ablation.csv").write_text(
+        "stability_weight,lyapunov_violation_fraction\n10.0,0.0\n",
+        encoding="utf-8",
+    )
+    output_path = tmp_path / "report.md"
+
+    generate_experiment_report(results_dir, output_path)
+
+    assert "legacy ambiguous violation column" in output_path.read_text(
+        encoding="utf-8"
+    )

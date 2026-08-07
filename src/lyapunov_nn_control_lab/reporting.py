@@ -72,6 +72,11 @@ def generate_experiment_report(
         results_dir / "stability_weight_ablation.csv",
         max_rows=8,
     )
+    uses_legacy_ablation_schema = any(
+        "lyapunov_violation_fraction" in row
+        and "decay_margin_violation_fraction" not in row
+        for row in ablation_rows
+    )
 
     plot_files = [
         "model_architecture.png",
@@ -163,7 +168,11 @@ def generate_experiment_report(
             ablation_rows,
             [
                 "stability_weight",
-                "lyapunov_violation_fraction",
+                "decay_margin",
+                "derivative_violation_fraction",
+                "decay_margin_violation_fraction",
+                "max_vdot",
+                "max_decay_residual",
                 "final_state_norm",
                 "settling_time_s",
                 "quadratic_cost",
@@ -171,6 +180,16 @@ def generate_experiment_report(
             ],
         ),
     )
+
+    if uses_legacy_ablation_schema:
+        lines.extend(
+            [
+                "",
+                "The available ablation CSV uses the legacy ambiguous violation "
+                "column. Regenerate it in the planned result-provenance operation "
+                "before interpreting derivative and decay-margin violations.",
+            ]
+        )
 
     lines.extend(
         [
@@ -180,7 +199,9 @@ def generate_experiment_report(
             "- Lower final state norm means the controller drives the state closer to the equilibrium.",
             "- Lower settling time means the controller stabilizes faster.",
             "- Lower control energy means the controller uses less actuation effort.",
-            "- Lower Lyapunov violation fraction means fewer sampled states violate the Lyapunov decrease condition.",
+            "- The derivative violation fraction counts sampled states with V-dot above numerical tolerance.",
+            "- The decay-margin violation fraction counts sampled states where V-dot + alpha ||x||^2 exceeds numerical tolerance.",
+            "- Both Lyapunov metrics cover only the finite sampled grid and are not a formal continuous-state certificate.",
             "- Region of attraction results estimate which initial states converge successfully.",
             "",
         ],

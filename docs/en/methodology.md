@@ -48,13 +48,24 @@ A Lyapunov function is an energy-like function used to reason about stability.
 V(x) = x^T P x
 ```
 
-For a stable closed-loop system, the Lyapunov value should decrease along trajectories.
+Along the closed-loop dynamics, the derivative is:
 
 ```text
-dV/dt < 0
+V-dot(x) = 2 x^T P (A x + B pi(x))
 ```
 
-The project checks this condition on a grid of sampled states.
+The evaluator reports two distinct sampled conditions:
+
+```text
+basic decrease: V-dot(x) <= 0
+decay margin:   V-dot(x) + alpha * ||x||^2 <= 0
+```
+
+The second condition is stronger when `alpha > 0`. The exact equilibrium is
+excluded because `V(0) = V-dot(0) = 0`; no surrounding neighborhood is hidden.
+A small default numerical tolerance of `1e-9` handles floating-point noise separately from
+`alpha`. Grid results cover only the finite sampled region and are not a formal
+continuous-state stability certificate.
 
 ## 5. Stability-aware training
 
@@ -64,7 +75,13 @@ The neural network is trained using both imitation loss and a Lyapunov stability
 total loss = imitation loss + stability penalty
 ```
 
-The stability penalty discourages controller outputs that make the Lyapunov derivative positive.
+With `alpha = 0.05`, training minimizes the positive part of the same decay
+residual used by evaluation:
+
+```text
+decay residual = V-dot(x) + alpha * ||x||^2
+stability penalty = mean(ReLU(decay residual))
+```
 
 ## 6. Actuator saturation
 
@@ -112,7 +129,9 @@ The project also compares regions of attraction for LQR, neural-network control,
 
 The ablation study trains controllers with different Lyapunov penalty weights.
 
-It tests whether stronger stability-aware training improves metrics such as Lyapunov violation fraction, final state norm, settling time, quadratic cost, and control energy.
+It reports the basic derivative violation fraction and the stronger decay-margin
+violation fraction separately, together with final state norm, settling time,
+quadratic cost, and control energy.
 
 ## 11. Summary
 
