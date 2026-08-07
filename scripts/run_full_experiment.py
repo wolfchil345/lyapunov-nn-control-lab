@@ -16,13 +16,11 @@ def run_command(command: list[str]) -> None:
 
 
 def main() -> None:
-    """Run cleanup, main experiment, and result summary."""
-    print("Running full experiment pipeline...")
-    run_command([sys.executable, "scripts/clean_results.py"])
+    """Run the non-destructive provenance-aware experiment pipeline."""
+    print("Running provenance-aware full experiment pipeline...")
     run_command([sys.executable, "main.py"])
-    run_command([sys.executable, "scripts/summarize_results.py"])
     print()
-    print("Full experiment pipeline completed.")
+    print("Full experiment pipeline completed without deleting prior runs.")
 
 
 if __name__ == "__main__":

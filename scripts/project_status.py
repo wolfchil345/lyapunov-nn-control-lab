@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from lyapunov_nn_control_lab.result_provenance import discover_runs
+
 
 KEY_FILES = [
     "README.md",
@@ -24,6 +26,7 @@ KEY_FILES = [
     "src/lyapunov_nn_control_lab/noise.py",
     "src/lyapunov_nn_control_lab/stability_ablation.py",
     "src/lyapunov_nn_control_lab/state_coordinates.py",
+    "src/lyapunov_nn_control_lab/result_provenance.py",
     "tests/test_experimental_seeds.py",
     "tests/test_finite_horizon_convergence.py",
     "tests/test_state_coordinates.py",
@@ -33,6 +36,7 @@ KEY_FILES = [
     "scripts/new_experiment_log.py",
     "scripts/quality_gate.py",
     "scripts/check_workflow_badges.py",
+    "scripts/verify_run.py",
     ".github/workflows/local-checks.yml",
     ".github/workflows/quality-gate.yml",
 ]
@@ -75,6 +79,15 @@ def main() -> int:
     print(f"- Test files: {tests_count}")
     print(f"- Workflow files: {workflows_count}")
     print(f"- Result files: {results_count}")
+    legacy_count = sum(
+        1
+        for path in Path("results").glob("*")
+        if path.is_file() and path.name != "README.md"
+    )
+    runs = discover_runs(Path("results"))
+    verified_runs = sum(bool(run["verified"]) for run in runs)
+    print(f"- Legacy/unverified historical result files: {legacy_count}")
+    print(f"- Provenance-aware runs: {len(runs)} ({verified_runs} verified)")
 
     print("")
     if missing:

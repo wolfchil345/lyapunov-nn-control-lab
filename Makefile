@@ -1,4 +1,4 @@
-.PHONY: check-env checks test quickstart experiment clean summarize
+.PHONY: check-env checks test quickstart experiment clean summarize verify-run
 
 check-env:
 	python scripts/check_environment.py
@@ -14,6 +14,9 @@ quickstart:
 
 experiment:
 	python main.py
+
+verify-run:
+	python scripts/verify_run.py $(RUN_DIR)
 
 clean:
 	python scripts/clean_results.py
