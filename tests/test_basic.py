@@ -36,8 +36,10 @@ def test_neural_controller_is_zero_at_origin():
 def test_lqr_grid_check_has_no_violations():
     result = grid_check(lqr_controller)
 
-    assert result["violation_fraction"] == 0.0
-    assert result["maximum_vdot"] < 0.0
+    assert result["derivative_violation_fraction"] == 0.0
+    assert result["decay_margin_violation_fraction"] == 0.0
+    assert result["max_vdot"] < 0.0
+    assert result["max_decay_residual"] < 0.0
 
 
 @pytest.mark.parametrize(

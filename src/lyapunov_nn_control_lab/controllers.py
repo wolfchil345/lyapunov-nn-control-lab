@@ -6,6 +6,7 @@ import numpy as np
 import torch
 from torch import nn
 
+from .lyapunov import DEFAULT_DECAY_MARGIN
 from .system import A, B, K, P
 from ._validation import (
     evaluate_controller,
@@ -68,9 +69,29 @@ def make_dataset(
 def calculate_lyapunov_penalty(
     states: torch.Tensor,
     controls: torch.Tensor,
-    margin: float = 0.05,
+    margin: float = DEFAULT_DECAY_MARGIN,
 ) -> torch.Tensor:
     """Penalize violations of V-dot <= -margin * ||x||^2."""
+
+    residuals = calculate_lyapunov_decay_residuals(
+        states,
+        controls,
+        decay_margin=margin,
+    )
+    return torch.relu(residuals).mean()
+
+
+def calculate_lyapunov_decay_residuals(
+    states: torch.Tensor,
+    controls: torch.Tensor,
+    decay_margin: float = DEFAULT_DECAY_MARGIN,
+) -> torch.Tensor:
+    """Return V-dot + decay_margin * ||x||^2 for training samples."""
+
+    decay_margin = validate_nonnegative_scalar(
+        decay_margin,
+        name="decay_margin",
+    )
 
     dtype = states.dtype
     device = states.device
@@ -110,22 +131,18 @@ def calculate_lyapunov_penalty(
     )
 
     required_decay = (
-        margin
+        decay_margin
         * torch.sum(states**2, dim=1)
     )
 
-    violations = torch.relu(
-        v_dot + required_decay
-    )
-
-    return violations.mean()
+    return v_dot + required_decay
 
 
 def train_controller(
     model: nn.Module,
     epochs: int = 1000,
     stability_weight: float = 10.0,
-    stability_margin: float = 0.05,
+    stability_margin: float = DEFAULT_DECAY_MARGIN,
 ) -> dict[str, list[float]]:
     """Train using LQR imitation and a Lyapunov penalty."""
 

@@ -472,8 +472,8 @@ def save_stability_weight_ablation_plot(
         for row in rows
     ]
 
-    violation_fraction = np.maximum(
-        [row["lyapunov_violation_fraction"] for row in rows],
+    decay_margin_violation_fraction = np.maximum(
+        [row["decay_margin_violation_fraction"] for row in rows],
         1e-12,
     )
     final_state_norm = np.maximum(
@@ -488,9 +488,9 @@ def save_stability_weight_ablation_plot(
     plt.figure(figsize=(9, 6))
     plt.semilogy(
         x_values,
-        violation_fraction,
+        decay_margin_violation_fraction,
         marker="o",
-        label="Lyapunov violation fraction",
+        label="Decay-margin violation fraction",
     )
     plt.semilogy(
         x_values,

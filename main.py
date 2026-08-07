@@ -11,7 +11,7 @@ from lyapunov_nn_control_lab.controllers import (
     make_saturated_controller,
     train_controller,
 )
-from lyapunov_nn_control_lab.lyapunov import grid_check
+from lyapunov_nn_control_lab.lyapunov import DEFAULT_DECAY_MARGIN, grid_check
 from lyapunov_nn_control_lab.metrics import calculate_metrics
 from lyapunov_nn_control_lab.noise import simulate_with_measurement_noise
 from lyapunov_nn_control_lab.parameter_variation import simulate_parameter_variation
@@ -44,6 +44,7 @@ from lyapunov_nn_control_lab.system import (
 
 SEED = 7
 CONTROL_LIMIT = 2.0
+DECAY_MARGIN = DEFAULT_DECAY_MARGIN
 
 
 def set_seed() -> None:
@@ -97,7 +98,7 @@ def main() -> None:
     training_history = train_controller(
         model,
         stability_weight=10.0,
-        stability_margin=0.05,
+        stability_margin=DECAY_MARGIN,
     )
 
     nn_controller = make_nn_controller(model)
@@ -181,8 +182,14 @@ def main() -> None:
     save_metrics_csv(metric_rows, metrics_path)
 
     print()
-    print("LQR grid check:", grid_check(lqr_controller))
-    print("NN grid check:", grid_check(nn_controller))
+    print(
+        "LQR sampled Lyapunov check:",
+        grid_check(lqr_controller, decay_margin=DECAY_MARGIN),
+    )
+    print(
+        "NN sampled Lyapunov check:",
+        grid_check(nn_controller, decay_margin=DECAY_MARGIN),
+    )
 
     torch.save(model.state_dict(), output_dir / "nn_controller.pt")
 
@@ -273,7 +280,7 @@ def main() -> None:
         stability_weights=ablation_weights,
         initial_state=ablation_initial_state,
         epochs=300,
-        stability_margin=0.05,
+        stability_margin=DECAY_MARGIN,
     )
 
     ablation_csv_path = output_dir / "stability_weight_ablation.csv"
@@ -293,7 +300,10 @@ def main() -> None:
     for row in ablation_rows:
         print(
             f"weight={row['stability_weight']:g}: "
-            f"violation={row['lyapunov_violation_fraction']:.3f}, "
+            "derivative violation="
+            f"{row['derivative_violation_fraction']:.3f}, "
+            f"margin violation (alpha={row['decay_margin']:g})="
+            f"{row['decay_margin_violation_fraction']:.3f}, "
             f"final norm={row['final_state_norm']:.3e}, "
             f"energy={row['control_energy']:.3e}"
         )

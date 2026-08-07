@@ -14,7 +14,7 @@ A Python and PyTorch experiment that trains a neural-network controller to imita
 | Model architecture | Explains the closed-loop NN control structure | `results/model_architecture.png` |
 | LQR baseline | Creates a classical optimal-control reference controller | `results/position_comparison.png` |
 | Neural-network controller | Trains a neural controller to imitate the LQR law | `results/training_loss.png` |
-| Lyapunov grid check | Empirically checks whether V-dot is negative on sampled states | Printed terminal results |
+| Sampled Lyapunov evaluation | Separately reports basic V-dot and decay-margin conditions | Printed terminal results |
 | Stability-aware training | Adds a Lyapunov penalty during NN training | `results/training_loss.png` |
 | Multiple initial conditions | Tests convergence from several starting states | `results/multiple_initial_conditions.png` |
 | Quantitative metrics | Compares final norm, settling time, cost, energy, and max control | `results/performance_metrics.csv` |
@@ -134,16 +134,32 @@ The neural-network controller produces a response close to the LQR baseline and 
 
 The decreasing mean-squared error indicates that the neural network progressively learns the LQR control law.
 
-## Lyapunov grid check
+## Sampled Lyapunov evaluation
 
-| Controller | Maximum V-dot | Violation fraction |
+| Controller | Maximum V-dot | Sampled V-dot positivity violation fraction |
 |---|---:|---:|
 | LQR | -0.0221 | 0.0 |
 | Neural network | -0.0192 | 0.0 |
 
-All tested nonzero grid points produced a negative Lyapunov derivative.
+These historical results show that every tested nonzero grid point had a
+negative Lyapunov derivative. They report the basic condition only:
 
-This is empirical evidence within the sampled region. It is not a formal stability proof over the entire continuous state space.
+```text
+V-dot(x) <= 0
+```
+
+The current evaluator also reports the stronger condition used during
+stability-aware training:
+
+```text
+V-dot(x) + alpha * ||x||^2 <= 0
+```
+
+The two violation fractions are named separately. The exact equilibrium is
+excluded, and all other points on the finite grid are evaluated. These checks
+provide empirical sampled evidence only; they are not a formal certificate over
+the continuous state space. The tracked historical CSV and figures will be
+regenerated later in the dedicated result-provenance operation.
 
 ## Installation
 
@@ -239,13 +255,17 @@ The neural controller is trained using a combined objective:
 total loss = imitation loss + lambda * Lyapunov penalty
 ```
 
-The imitation term encourages the neural network to reproduce the LQR control law. The Lyapunov term penalizes sampled states that violate the desired decay condition:
+The imitation term encourages the neural network to reproduce the LQR control
+law. The Lyapunov term uses `alpha = 0.05` and penalizes positive sampled decay
+residuals:
 
 ```text
-V-dot(x) <= -alpha * ||x||^2
+decay residual = V-dot(x) + alpha * ||x||^2
+Lyapunov penalty = mean(ReLU(decay residual))
 ```
 
-This encourages stability-related behaviour during training. The sampled Lyapunov evaluation remains empirical and does not constitute formal verification over the full continuous state space.
+The numerical tolerance used to classify evaluation violations is separate from
+`alpha`; it does not weaken or redefine the training objective.
 
 ## Actuator saturation comparison
 
