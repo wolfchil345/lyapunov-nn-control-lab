@@ -10,7 +10,10 @@ The target system is a mass-spring-damper plant. The project compares a classica
 
 ## Main goal
 
-The main goal is to study whether a neural-network controller can imitate a stabilizing classical controller while being evaluated with Lyapunov-based stability tools.
+The main goal is to study whether a neural-network controller can imitate an
+LQR reference while preserving useful transient, robustness, and sampled
+Lyapunov behavior. The nominal uncontrolled linear plant is already
+asymptotically stable; the controller changes its closed-loop performance.
 
 ## Main features
 
@@ -23,8 +26,8 @@ The main goal is to study whether a neural-network controller can imitate a stab
 - parameter robustness experiment
 - phase portrait visualization
 - Lyapunov contour visualization
-- region-of-attraction estimation
-- controller comparison for region of attraction
+- finite-horizon convergence mapping with explicit sampling metadata
+- controller comparison using an explicit finite-horizon final-state tolerance
 - stability-weight ablation study
 - automatic experiment report generation
 
@@ -38,8 +41,8 @@ The main goal is to study whether a neural-network controller can imitate a stab
 - `results/parameter_robustness.png`
 - `results/phase_portrait.png`
 - `results/lyapunov_contours.png`
-- `results/region_of_attraction.png`
-- `results/region_of_attraction_comparison.png`
+- `results/region_of_attraction.png` (historical filename for the finite-horizon map)
+- `results/region_of_attraction_comparison.png` (historical filename for the finite-horizon comparison)
 - `results/stability_weight_ablation.png`
 - `results/experiment_report.md`
 

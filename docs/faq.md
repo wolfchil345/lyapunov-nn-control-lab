@@ -4,7 +4,10 @@ This page answers common questions about the project.
 
 ## What is this project about?
 
-This project trains and evaluates a neural network controller for a mass-spring-damper system. The controller learns from an LQR reference controller and is evaluated with simulation metrics, Lyapunov-style checks, robustness tests, and region-of-attraction style analysis.
+This project trains and evaluates a neural network controller for a
+mass-spring-damper system. The controller learns from an LQR reference and is
+evaluated with simulation metrics, Lyapunov-style checks, robustness tests,
+and sampled finite-horizon convergence maps.
 
 ## Why use LQR as the reference controller?
 

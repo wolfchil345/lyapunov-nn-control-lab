@@ -7,7 +7,9 @@ Use this checklist before using generated result files in a report, presentation
 - The controller type is clear.
 - The random seed is recorded.
 - The number of epochs is recorded.
-- The grid size for Lyapunov or region-of-attraction checks is recorded.
+- The Lyapunov grid size is recorded.
+- Finite-horizon convergence results record the horizon, strict final-state
+  tolerance, bounds, resolution, tested count, and converged count.
 - Noise or parameter variation settings are recorded.
 
 ## 2. Confirm the generated files
@@ -39,13 +41,21 @@ Check that important files have clear names and are connected to the correct exp
 - The report does not claim global proof unless a formal proof is actually provided.
 - Problem cases are kept and explained, not silently ignored.
 
-## 6. Review robustness outputs
+## 6. Review finite-horizon convergence outputs
+
+- Percentages are reported with their horizon, tolerance, and sampled grid.
+- A finite-time pass is not called a formal attraction region.
+- A finite-time failure is not treated as evidence of asymptotic divergence.
+- The convergence map and sampled Lyapunov checks are kept conceptually
+  separate.
+
+## 7. Review robustness outputs
 
 - Noise level or parameter variation is written clearly.
 - Failed cases are recorded.
 - Robustness results are not mixed with baseline results without labels.
 
-## 7. Before committing results
+## 8. Before committing results
 
 Run:
 

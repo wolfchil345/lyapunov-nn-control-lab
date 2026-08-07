@@ -49,7 +49,9 @@ python scripts/summarize_results.py
 - Control signal plot:
 - Lyapunov plot or table:
 - Robustness output:
-- Region-of-attraction output:
+- Finite-horizon convergence output:
+- Horizon and final-state tolerance:
+- State bounds, grid resolution, tested count, and converged count:
 
 ## Observations
 

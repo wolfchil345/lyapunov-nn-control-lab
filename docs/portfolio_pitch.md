@@ -4,11 +4,19 @@ Use this page when explaining the project in a CV, interview, professor meeting,
 
 ## One sentence summary
 
-A reproducible Python research prototype that trains and evaluates a neural network controller for a mass-spring-damper system using LQR imitation, Lyapunov-aware analysis, robustness tests, and region-of-attraction style checks.
+A reproducible Python research prototype that trains and evaluates a neural
+network controller for a mass-spring-damper system using LQR imitation,
+Lyapunov-aware analysis, robustness tests, and explicit finite-horizon
+convergence maps.
 
 ## 30 second pitch
 
-This project studies whether a neural network controller can imitate an LQR controller while still being evaluated with control-oriented safety tools. The repository includes simulation, metrics, Lyapunov grid checks, robustness experiments, region-of-attraction style analysis, automated tests, and reproducible documentation.
+This project studies whether a neural network controller can imitate an LQR
+controller while being evaluated with control-oriented diagnostic tools. The
+nominal uncontrolled plant is already asymptotically stable. The repository
+therefore focuses on imitation, transient performance, robustness, sampled
+Lyapunov checks, and finite-horizon final-state tolerance maps, with automated
+tests and reproducible documentation.
 
 ## Technical keywords
 
@@ -17,7 +25,7 @@ This project studies whether a neural network controller can imitate an LQR cont
 - Lyapunov analysis
 - Closed-loop simulation
 - Robustness evaluation
-- Region of attraction
+- Finite-horizon convergence mapping with horizon and tolerance metadata
 - Reproducible research code
 - Python and PyTorch
 

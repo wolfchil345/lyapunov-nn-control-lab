@@ -58,7 +58,7 @@ Recommended files to check first:
 - `position_comparison.png`
 - `phase_portrait.png`
 - `lyapunov_contours.png`
-- `region_of_attraction_comparison.png`
+- `finite_horizon_convergence_comparison.png`
 - `experiment_report.md`
 
 ## 8. Interpret the results

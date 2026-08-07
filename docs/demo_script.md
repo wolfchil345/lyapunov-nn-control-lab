@@ -8,7 +8,10 @@ Show that this repository is a reproducible research prototype for neural networ
 
 ## 1. Opening, 30 seconds
 
-This project studies a neural network controller for a mass-spring-damper system. The controller is trained to imitate an LQR controller, then evaluated using simulation metrics, Lyapunov analysis, robustness tests, and region-of-attraction style checks.
+This project studies a neural network controller for a mass-spring-damper
+system. The controller is trained to imitate an LQR controller, then evaluated
+using simulation metrics, Lyapunov analysis, robustness tests, and sampled
+finite-horizon convergence maps.
 
 ## 2. Repository tour, 60 seconds
 
@@ -34,7 +37,11 @@ The baseline controller is LQR, which provides a stable reference controller for
 
 ## 5. Show outputs, 60 seconds
 
-Show generated plots and summary files from `results/`. Focus on trajectory behavior, control signal behavior, performance metrics, Lyapunov checks, robustness results, and region-of-attraction comparisons.
+Show generated plots and summary files from `results/`. Focus on trajectory
+behavior, control signal behavior, performance metrics, Lyapunov checks,
+robustness results, and finite-horizon convergence comparisons. State the
+horizon and tolerance and explain that this is not a mathematical attraction
+region.
 
 ## 6. Closing, 30 seconds
 

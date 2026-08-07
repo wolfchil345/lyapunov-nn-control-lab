@@ -34,7 +34,15 @@ An energy-like function used to study stability. If it decreases along trajector
 The rate of change of the Lyapunov function along the system trajectory.
 
 ### Region of attraction
-The set of initial states from which the controller can drive the system toward the equilibrium.
+For an equilibrium at the origin, the set
+`R = {x0 : x(t; x0) -> 0 as t -> infinity}`. A finite simulation or a plot of
+a Lyapunov sublevel set does not by itself certify this set.
+
+### Finite-horizon convergence map
+A sampled map that classifies an initial state when the strict final-state
+criterion `||x(T)|| < epsilon` holds for an explicit finite horizon `T` and
+tolerance `epsilon`. It depends on those settings and is not a region of
+attraction.
 
 ## Machine-learning terms
 

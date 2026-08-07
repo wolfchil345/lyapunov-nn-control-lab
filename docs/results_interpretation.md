@@ -56,11 +56,20 @@ The exact origin is excluded because `V(0) = V-dot(0) = 0`; every other grid
 point is included. Both fractions describe only the finite sampled grid. Neither
 is a formal certificate over the continuous state space.
 
-## Region of attraction
+## Finite-horizon convergence map
 
-The region of attraction shows which initial states converge to the target equilibrium.
+For each initial state on a finite grid, the evaluator simulates to a stated
+horizon `T` and classifies the state only when the strict final-state criterion
+`||x(T)|| < epsilon` holds. Interpret a reported percentage together with `T`,
+`epsilon`, the state bounds, grid resolution, and tested/converged counts.
 
-A larger convergent region usually means the controller is more reliable from different starting conditions.
+A larger percentage means that more of the sampled states met that specific
+finite-time criterion. It does not establish asymptotic convergence, a stable
+region, or a mathematical attraction basin. A slowly converging state may fail
+at `T` even if it converges later.
+
+This map is also distinct from the sampled Lyapunov checks above. Neither test
+is a formal continuous-state attraction-region certificate.
 
 ## Robustness experiments
 
@@ -90,5 +99,7 @@ include both violation fractions in the later result-provenance operation.
 2. Open `position_comparison.png`.
 3. Open `phase_portrait.png`.
 4. Open `lyapunov_contours.png`.
-5. Open `region_of_attraction_comparison.png`.
+5. Open `finite_horizon_convergence_comparison.png` after a new run. The
+   tracked `region_of_attraction_comparison.png` is the historical pre-migration
+   artifact.
 6. Read `experiment_report.md`.

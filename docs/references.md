@@ -15,8 +15,10 @@ This page lists useful topics and references for understanding the Lyapunov Neur
 - Lyapunov direct method
 - Quadratic Lyapunov functions
 - Lyapunov derivative conditions
-- Region of attraction estimation
-- Empirical stability verification
+- Rigorous region-of-attraction estimation using invariant Lyapunov sublevel
+  sets, verified decrease conditions, sum-of-squares methods, or
+  reachability/invariance analysis
+- Sampled finite-horizon convergence testing and its limitations
 
 ## Machine learning for control
 
@@ -46,4 +48,5 @@ This page lists useful topics and references for understanding the Lyapunov Neur
 - Neural-network Lyapunov function learning.
 - Safe reinforcement learning for control systems.
 - Formal verification of neural-network controllers.
+- Analytic attraction and stability results for linear systems.
 - Kolmogorov-Arnold Networks for control-oriented function approximation.

@@ -19,6 +19,8 @@ KEY_FILES = [
     "docs/maintenance.md",
     "docs/git_workflow.md",
     "docs/onboarding.md",
+    "src/lyapunov_nn_control_lab/finite_horizon_convergence.py",
+    "tests/test_finite_horizon_convergence.py",
     "scripts/run_checks.py",
     "scripts/check_environment.py",
     "scripts/list_results.py",

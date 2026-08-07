@@ -18,7 +18,7 @@ The current workflow is:
 4. Simulate closed-loop behavior.
 5. Compute performance metrics.
 6. Check Lyapunov-style stability behavior.
-7. Run robustness and region-of-attraction experiments.
+7. Run robustness and finite-horizon convergence experiments.
 
 ## KAN controller idea
 
@@ -65,7 +65,7 @@ Use the same initial states, metrics, and Lyapunov checks for all controllers.
 - control energy
 - maximum absolute control input
 - Lyapunov derivative violation fraction
-- region-of-attraction convergence rate
+- finite-horizon convergence count and fraction
 
 ## Suggested plots
 
@@ -73,7 +73,7 @@ Use the same initial states, metrics, and Lyapunov checks for all controllers.
 - control input comparison
 - phase portrait comparison
 - Lyapunov contour comparison
-- region-of-attraction comparison
+- finite-horizon convergence comparison
 - robustness comparison under noise and parameter variation
 
 ## Research questions
@@ -81,11 +81,14 @@ Use the same initial states, metrics, and Lyapunov checks for all controllers.
 - Does the KAN controller imitate LQR better than the standard neural network?
 - Does the KAN controller produce smoother control inputs?
 - Does the KAN controller improve Lyapunov derivative behavior?
-- Does the KAN controller increase the estimated region of attraction?
+- Does the KAN controller improve the finite-horizon convergence fraction
+  under the same horizon, tolerance, bounds, and grid?
 - Does the KAN controller remain robust under noise, saturation, and parameter changes?
 
 ## Important caution
 
 Replacing the model architecture does not automatically guarantee stability.
 
-KAN results should still be checked with simulations, Lyapunov-style grid checks, robustness experiments, and region-of-attraction analysis.
+KAN results should still be checked with simulations, Lyapunov-style grid
+checks, robustness experiments, and finite-horizon convergence analysis. None
+of these sampled checks alone establishes a mathematical attraction region.

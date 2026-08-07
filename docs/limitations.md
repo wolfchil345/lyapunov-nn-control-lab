@@ -34,6 +34,18 @@ Simulation results can depend on solver settings, time step choices, package ver
 
 Small differences between machines are possible.
 
+## Finite-horizon convergence limitation
+
+The convergence map tests only whether sampled states satisfy the strict
+criterion `||x(T)|| < epsilon` at one finite horizon. Results depend on the
+horizon, tolerance, grid bounds, and resolution. Failing this test does not
+show that a state lies outside the mathematical region of attraction, and
+passing it does not certify asymptotic convergence.
+
+The separate sampled Lyapunov checks also do not create a formal
+continuous-state attraction-region certificate. A Lyapunov sublevel set is
+not certified merely because it is plotted.
+
 ## Robustness experiment limitations
 
 Noise, saturation, and parameter variation experiments test selected cases only.

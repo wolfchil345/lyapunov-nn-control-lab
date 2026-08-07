@@ -1,8 +1,12 @@
 from pathlib import Path
 
+import numpy as np
 import pytest
 
 import lyapunov_nn_control_lab.reporting as reporting
+from lyapunov_nn_control_lab.finite_horizon_convergence import (
+    FiniteHorizonConvergenceResult,
+)
 from lyapunov_nn_control_lab.reporting import (
     escape_markdown_table_cell,
     format_markdown_table,
@@ -115,9 +119,26 @@ def test_generate_experiment_report_creates_file(tmp_path):
         encoding="utf-8",
     )
 
+    convergence_result = FiniteHorizonConvergenceResult(
+        positions=np.array([-1.0, 0.0, 1.0]),
+        velocities=np.array([-1.0, 0.0, 1.0]),
+        convergence_map=np.ones((3, 3), dtype=bool),
+        final_norm_map=np.zeros((3, 3)),
+        horizon=8.0,
+        convergence_tolerance=0.1,
+        position_bounds=(-1.0, 1.0),
+        velocity_bounds=(-1.0, 1.0),
+        grid_resolution=3,
+        tested_count=9,
+        converged_count=9,
+        convergence_fraction=1.0,
+        controller_label="LQR",
+    )
+
     generate_experiment_report(
         results_dir,
         output_path,
+        finite_horizon_results={"LQR": convergence_result},
     )
 
     text = output_path.read_text(encoding="utf-8")
@@ -129,6 +150,13 @@ def test_generate_experiment_report_creates_file(tmp_path):
     assert "derivative_violation_fraction" in text
     assert "decay_margin_violation_fraction" in text
     assert "not a formal continuous-state certificate" in text
+    assert "Finite-horizon convergence sampling" in text
+    assert (
+        "8 | 0.1 | (-1.0, 1.0) | (-1.0, 1.0) | 3 x 3 | "
+        "9 / 9 | 100.0%"
+    ) in text
+    assert "Region of attraction" not in text
+    assert "ROA" not in text
 
 
 def test_report_marks_legacy_ablation_schema_as_ambiguous(tmp_path):

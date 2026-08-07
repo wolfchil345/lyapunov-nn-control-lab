@@ -4,9 +4,9 @@ import numpy as np
 import pytest
 
 from lyapunov_nn_control_lab.plotting import (
+    save_finite_horizon_convergence_comparison_plot,
     save_model_architecture_diagram,
     save_phase_portrait_plot,
-    save_region_of_attraction_comparison_plot,
     save_saturation_comparison_plot,
 )
 
@@ -48,7 +48,7 @@ def test_plotting_rejects_mismatched_or_empty_required_collections(tmp_path):
     with pytest.raises(ValueError, match="must not be empty"):
         save_saturation_comparison_plot({}, tmp_path)
     with pytest.raises(ValueError, match="must not be empty"):
-        save_region_of_attraction_comparison_plot({}, tmp_path)
+        save_finite_horizon_convergence_comparison_plot({}, tmp_path)
 
 
 def test_plot_writer_creates_nested_output_directory(tmp_path):
