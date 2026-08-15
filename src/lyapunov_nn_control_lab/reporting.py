@@ -81,6 +81,7 @@ def generate_experiment_report(
         dict[str, "FiniteHorizonConvergenceResult"] | None
     ) = None,
     experiment_seed_metadata: dict[str, dict[str, Any]] | None = None,
+    provenance: dict[str, Any] | None = None,
 ) -> None:
     """Generate a Markdown report summarizing all experiment outputs."""
 
@@ -147,8 +148,34 @@ def generate_experiment_report(
         "",
         "This report summarizes the generated results for the Lyapunov neural-network control lab.",
         "",
-        "## Main experiments",
-        "",
+    ]
+
+    if provenance:
+        lines.extend(
+            [
+                "## Run provenance",
+                "",
+                f"- Run ID: `{escape_markdown_table_cell(provenance.get('run_id', ''))}`",
+                f"- Source commit: `{escape_markdown_table_cell(provenance.get('source_commit', ''))}`",
+                f"- Git working tree dirty: `{str(provenance.get('git_dirty')).lower()}`",
+                f"- Generated at (UTC): `{escape_markdown_table_cell(provenance.get('generated_at_utc', ''))}`",
+                f"- Package version: `{escape_markdown_table_cell(provenance.get('package_version', ''))}`",
+                f"- Configuration SHA-256: `{escape_markdown_table_cell(provenance.get('configuration_sha256', ''))}`",
+                f"- Manifest: [`{escape_markdown_table_cell(provenance.get('manifest', 'manifest.json'))}`]({escape_markdown_table_cell(provenance.get('manifest', 'manifest.json'))})",
+                f"- Stability-weight seeds: `{provenance.get('ablation_seeds', [])}`",
+                f"- Measurement-noise seeds: `{provenance.get('noise_seeds', [])}`",
+                f"- Repeat count: `{provenance.get('repeat_count', '')}`",
+                f"- Pairing strategies: `{provenance.get('pairing_strategies', [])}`",
+                f"- Lyapunov decay margin: `{provenance.get('decay_margin', '')}`",
+                f"- Finite-horizon settings: `{provenance.get('finite_horizon', {})}`",
+                "",
+            ]
+        )
+
+    lines.extend(
+        [
+            "## Main experiments",
+            "",
         "| Experiment | Output |",
         "|---|---|",
         "| Model architecture | `model_architecture.png` |",
@@ -163,10 +190,11 @@ def generate_experiment_report(
         "| Finite-horizon convergence map | `finite_horizon_convergence.png` |",
         "| Finite-horizon convergence comparison | `finite_horizon_convergence_comparison.png` |",
         f"| Stability-weight ablation study | `{ablation_plot}` |",
-        "",
-        "## Available plots",
-        "",
-    ]
+            "",
+            "## Available plots",
+            "",
+        ]
+    )
 
     if available_plots:
         for plot_file in available_plots:

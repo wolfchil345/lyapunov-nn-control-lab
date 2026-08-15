@@ -222,16 +222,25 @@ python -m pip install -e ".[dev]"
 python main.py
 ```
 
-The program trains the controller and creates:
+The command refuses an official run when the Git working tree is dirty. A
+successful run is generated in staging, verified, and then published without
+deleting previous runs:
 
 ```text
-results/
-├── nn_controller.pt
-├── position_comparison.png
-└── training_loss.png
+results/runs/<run_id>/
+├── manifest.json
+├── SHA256SUMS
+├── report.md
+├── raw and aggregate CSV files
+├── figures
+└── nn_controller.pt
 ```
 
-The trained model file is ignored by Git, while the two result figures are included in the repository.
+The manifest records source code, environment, effective configuration, exact
+seed sets, pairing methods, inventory, sizes, and SHA-256 checksums. Verify it
+with `python scripts/verify_run.py results/runs/<run_id>`. Use
+`python main.py --allow-dirty` only for an exploratory run; its manifest records
+that the working tree was dirty.
 
 ## Current limitations
 
@@ -540,11 +549,13 @@ python scripts/run_checks.py
 
 ## Cleaning results
 
-Remove generated files from `results/` with:
+Remove only abandoned `.staging-*` directories with:
 
 ```bash
 python scripts/clean_results.py
 ```
+
+Completed runs and historical root-level artifacts are preserved.
 
 ## Summarizing results
 
@@ -576,7 +587,7 @@ A recommended experiment workflow is available in [`docs/experiment_workflow.md`
 
 ## Full experiment pipeline
 
-Clean old results, run the main experiment, and summarize outputs with:
+Run the non-destructive provenance-aware experiment pipeline with:
 
 ```bash
 python scripts/run_full_experiment.py

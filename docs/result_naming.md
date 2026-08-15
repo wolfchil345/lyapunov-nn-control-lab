@@ -1,5 +1,10 @@
 # Result File Naming Guide
 
+Current outputs keep their descriptive filenames inside an isolated
+`results/runs/<run_id>/` directory. The run ID supplies time/commit identity;
+filenames therefore do not need timestamps. `manifest.json` records each
+actual file, role, size, and SHA-256 digest.
+
 Use this guide to keep experiment outputs organized and easy to compare.
 
 ## Why naming matters

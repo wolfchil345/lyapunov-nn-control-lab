@@ -22,12 +22,12 @@ python scripts/check_environment.py
 make checks
 ```
 
-## 4. Clean and regenerate important results
+## 4. Generate and verify important results
 
 ```bash
-python scripts/clean_results.py
 python main.py
-python scripts/summarize_results.py
+python scripts/list_results.py
+python scripts/verify_run.py results/runs/<run_id>
 ```
 
 ## 5. Review documentation

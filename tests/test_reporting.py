@@ -155,6 +155,21 @@ def test_generate_experiment_report_creates_file(tmp_path):
                 ),
             },
         },
+        provenance={
+            "run_id": "controlled-run",
+            "source_commit": "a" * 40,
+            "git_dirty": False,
+            "generated_at_utc": "2026-08-08T01:02:03Z",
+            "package_version": "1.0.1",
+            "manifest": "manifest.json",
+            "configuration_sha256": "b" * 64,
+            "ablation_seeds": [700, 701, 702],
+            "noise_seeds": [7, 8, 9],
+            "repeat_count": 3,
+            "pairing_strategies": ["paired", "common random numbers"],
+            "decay_margin": 0.05,
+            "finite_horizon": {"horizon": 8.0},
+        },
     )
 
     text = output_path.read_text(encoding="utf-8")
@@ -181,6 +196,10 @@ def test_generate_experiment_report_creates_file(tmp_path):
     assert "paired seeds across all stability weights" in text
     assert "common random-number realizations across noise amplitudes" in text
     assert "do not guarantee fully deterministic execution" in text
+    assert "## Run provenance" in text
+    assert "controlled-run" in text
+    assert "manifest.json" in text
+    assert "/Users/" not in text
 
 
 def test_report_marks_legacy_ablation_schema_as_ambiguous(tmp_path):
@@ -197,3 +216,20 @@ def test_report_marks_legacy_ablation_schema_as_ambiguous(tmp_path):
     assert "legacy ambiguous violation column" in output_path.read_text(
         encoding="utf-8"
     )
+
+
+def test_report_reads_only_the_explicit_run_directory(tmp_path):
+    first = tmp_path / "run-one"
+    second = tmp_path / "run-two"
+    first.mkdir()
+    second.mkdir()
+    for directory, value in ((first, "0.111"), (second, "9.999")):
+        (directory / "performance_metrics.csv").write_text(
+            "controller,final_state_norm\n" f"LQR,{value}\n",
+            encoding="utf-8",
+        )
+
+    generate_experiment_report(first, first / "report.md")
+    text = (first / "report.md").read_text(encoding="utf-8")
+    assert "0.111" in text
+    assert "9.999" not in text

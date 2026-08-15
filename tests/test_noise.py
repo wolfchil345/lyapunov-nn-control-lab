@@ -198,6 +198,8 @@ def test_noise_raw_and_aggregate_schemas(tmp_path):
     save_noise_trial_results_csv(rows, raw_path)
     save_noise_aggregate_csv(aggregates, aggregate_path)
 
+    assert b"\r\n" not in raw_path.read_bytes()
+    assert b"\r\n" not in aggregate_path.read_bytes()
     raw_header = raw_path.read_text(encoding="utf-8").splitlines()[0]
     aggregate_header = aggregate_path.read_text(encoding="utf-8").splitlines()[0]
     assert "noise_std" in raw_header

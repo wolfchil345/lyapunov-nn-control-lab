@@ -72,6 +72,7 @@ def test_save_ablation_results_csv_creates_file(tmp_path):
     )
 
     assert output_path.exists()
+    assert b"\r\n" not in output_path.read_bytes()
     csv_text = output_path.read_text()
     assert "stability_weight" in csv_text
     assert "derivative_violation_fraction" in csv_text
@@ -319,6 +320,8 @@ def test_ablation_raw_and_aggregate_schemas(tmp_path, monkeypatch):
     save_ablation_results_csv(rows, raw_path)
     save_ablation_aggregate_csv(aggregates, aggregate_path)
 
+    assert b"\r\n" not in raw_path.read_bytes()
+    assert b"\r\n" not in aggregate_path.read_bytes()
     assert "seed,pairing_strategy" not in raw_path.read_text(encoding="utf-8")
     assert "seed" in raw_path.read_text(encoding="utf-8").splitlines()[0]
     assert "paired seeds across all stability weights" in raw_path.read_text(

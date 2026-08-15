@@ -3,6 +3,8 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+from lyapunov_nn_control_lab.result_provenance import discover_runs
+
 
 def format_size(num_bytes: int) -> str:
     if num_bytes < 1024:
@@ -34,6 +36,29 @@ def main() -> int:
     for path in files:
         size = format_size(path.stat().st_size)
         print(f"- {path.as_posix()} ({size})")
+
+    legacy_files = [
+        path
+        for path in files
+        if path.parent == results_dir and path.name != "README.md"
+    ]
+    print("")
+    print(
+        "Legacy/unverified historical artifacts: "
+        f"{len(legacy_files)} root-level files."
+    )
+    runs = discover_runs(results_dir)
+    if not runs:
+        print("Provenance-aware runs: none.")
+    else:
+        print("Provenance-aware runs:")
+        for run in runs:
+            print(
+                f"- {run['run_id']}: commit={run['commit_sha']}, "
+                f"timestamp={run['generated_at_utc']}, "
+                f"status={run['status']}, verified={run['verified']}, "
+                f"artifacts={run['artifact_count']}"
+            )
 
     return 0
 

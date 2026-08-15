@@ -82,7 +82,14 @@ Provides a small beginner-friendly example for running an LQR simulation.
 ## Results
 
 ### `results/`
-Stores generated plots, CSV files, trained model outputs, and the automatic experiment report.
+Stores 15 preserved legacy historical artifacts plus `results/runs/<run_id>/`
+directories for manifest-backed current runs. Each current run contains its own
+report, data, figures, model state, inventory, and checksums.
+
+### `src/lyapunov_nn_control_lab/result_provenance.py`
+Creates safe run IDs, captures Git/environment/configuration provenance,
+publishes through staging, inventories and hashes actual artifacts, and verifies
+completed runs.
 
 ## Documentation
 
