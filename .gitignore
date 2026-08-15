@@ -11,6 +11,8 @@ results/*
 !results/training_loss.png
 *.pt
 *.pth
+!results/runs/**/*.pt
+!results/runs/**/*.pth
 .DS_Store
 !results/multiple_initial_conditions.png
 !results/performance_metrics.csv

@@ -1,0 +1,415 @@
+{
+  "artifacts": [
+    {
+      "path": "finite_horizon_convergence.png",
+      "role": "scientific figure",
+      "sha256": "db0da8137c4c625771e7a1171e1fed32fe3aefe7f1442c703ec97439fd70a23e",
+      "size_bytes": 129844
+    },
+    {
+      "path": "finite_horizon_convergence_comparison.png",
+      "role": "scientific figure",
+      "sha256": "c7468e5764fa23f3e31634a7a81d0a18f35f1d5d633d56044cbb86174f39b16f",
+      "size_bytes": 270622
+    },
+    {
+      "path": "lyapunov_contours.png",
+      "role": "scientific figure",
+      "sha256": "a19e1b5967d433fb6ee309e29e74e54ff7a5a73dd417c170cb3673828441811a",
+      "size_bytes": 319646
+    },
+    {
+      "path": "model_architecture.png",
+      "role": "scientific figure",
+      "sha256": "423656108ab16f8ea1b9f1432157f241a8171b172b877d4a4f961dd05c12b9f1",
+      "size_bytes": 61514
+    },
+    {
+      "path": "multiple_initial_conditions.png",
+      "role": "scientific figure",
+      "sha256": "4ee56ce5ec989286bb8c1b56759398e26bde0bfd3865a0459b543c0fb15a7402",
+      "size_bytes": 140923
+    },
+    {
+      "path": "nn_controller.pt",
+      "role": "trained model state",
+      "sha256": "dc324b52020bc16c68fb6072fc10712af4535876abbfd760c3f608d6ae1a7e93",
+      "size_bytes": 7901
+    },
+    {
+      "path": "noise_robustness_paired.png",
+      "role": "scientific figure",
+      "sha256": "4162498aa03537d66d0b8a2fdb698bebb2564f216fb348bf969fb5f3ca80d427",
+      "size_bytes": 74269
+    },
+    {
+      "path": "noise_robustness_paired_trajectories.png",
+      "role": "scientific figure",
+      "sha256": "5ffbbddc49ee31d1b72a3b6e6c3f07220cfc2ea05f78d1c144e9f62e6dc09543",
+      "size_bytes": 200039
+    },
+    {
+      "path": "noise_robustness_summary_paired.csv",
+      "role": "aggregate data table",
+      "row_count": 4,
+      "sha256": "ce5a529d0ec7911c51ad211d45f22aaeff35a4ffa0df5e036f2fc6175e6583b6",
+      "size_bytes": 1662
+    },
+    {
+      "path": "noise_robustness_trials_paired.csv",
+      "role": "raw trial data table",
+      "row_count": 12,
+      "sha256": "e617b9d5fb49c904aa11181c8554940dbf2f94a55549ac890229652f7fb32c92",
+      "size_bytes": 2285
+    },
+    {
+      "path": "parameter_robustness.png",
+      "role": "scientific figure",
+      "sha256": "7d1dd6508c95c669dea048d94cba9a3430b19b1a1cad8e34bb9f994a681da970",
+      "size_bytes": 189772
+    },
+    {
+      "path": "performance_metrics.csv",
+      "role": "scientific data table",
+      "row_count": 20,
+      "sha256": "5439f1895464053192894f0ceddb210c04e9982bfe913a1e7673337e030b86f9",
+      "size_bytes": 2767
+    },
+    {
+      "path": "phase_portrait.png",
+      "role": "scientific figure",
+      "sha256": "6dd15b22f7076ea187361dfcfdf20446e43d32df4fa63eaf90751374b0d3d4fa",
+      "size_bytes": 122524
+    },
+    {
+      "path": "position_comparison.png",
+      "role": "scientific figure",
+      "sha256": "97dc447528d372ab90de601277f799ff306a51d1fc3d9cf1add682fc16559d1d",
+      "size_bytes": 63435
+    },
+    {
+      "path": "report.md",
+      "role": "human-readable experiment report",
+      "sha256": "d050da06d70c18afeadaebd06db32f049c459c46e88260c23e0ab499d8903d3b",
+      "size_bytes": 7407
+    },
+    {
+      "path": "saturation_comparison.png",
+      "role": "scientific figure",
+      "sha256": "7bbd9e618a17aa070c735a62c3ba92c87deea1eb75167a7a0476f1fa7f9ba7e6",
+      "size_bytes": 123732
+    },
+    {
+      "path": "stability_weight_ablation_paired.png",
+      "role": "scientific figure",
+      "sha256": "acbe8142eafcca79f549b16c11db2b3d39fd9167d96b11541eb12e60be08b65d",
+      "size_bytes": 102748
+    },
+    {
+      "path": "stability_weight_ablation_summary_paired.csv",
+      "role": "aggregate data table",
+      "row_count": 4,
+      "sha256": "3da4213cec5ba321f1ae06de933065cac98c98c8b9a700870539bb0cdb2f3658",
+      "size_bytes": 3777
+    },
+    {
+      "path": "stability_weight_ablation_trials_paired.csv",
+      "role": "raw trial data table",
+      "row_count": 12,
+      "sha256": "b9cb35fcc10bae7da121f0d4e1b2972827c298399f2c34843c7200b2eb1a797e",
+      "size_bytes": 3716
+    },
+    {
+      "path": "training_loss.png",
+      "role": "scientific figure",
+      "sha256": "676fd19196dc27de68e7e96292ffead1422305499c5c1f8b11f28729e4671a63",
+      "size_bytes": 57763
+    }
+  ],
+  "configuration_sha256": "644bc3677e599a5a98287c8bc27e0b46189ae919b1befe78d55f520d624b9e53",
+  "environment": {
+    "dependencies": {
+      "matplotlib": "3.11.1",
+      "numpy": "2.5.1",
+      "python-control": "0.10.2",
+      "scipy": "1.18.0",
+      "torch": "2.13.0"
+    },
+    "platform": {
+      "machine": "arm64",
+      "release": "25.5.0",
+      "system": "Darwin"
+    },
+    "python": {
+      "implementation": "CPython",
+      "version": "3.12.10"
+    }
+  },
+  "expected_artifact_paths": [
+    "finite_horizon_convergence.png",
+    "finite_horizon_convergence_comparison.png",
+    "lyapunov_contours.png",
+    "model_architecture.png",
+    "multiple_initial_conditions.png",
+    "nn_controller.pt",
+    "noise_robustness_paired.png",
+    "noise_robustness_paired_trajectories.png",
+    "noise_robustness_summary_paired.csv",
+    "noise_robustness_trials_paired.csv",
+    "parameter_robustness.png",
+    "performance_metrics.csv",
+    "phase_portrait.png",
+    "position_comparison.png",
+    "report.md",
+    "saturation_comparison.png",
+    "stability_weight_ablation_paired.png",
+    "stability_weight_ablation_summary_paired.csv",
+    "stability_weight_ablation_trials_paired.csv",
+    "training_loss.png"
+  ],
+  "generated_at_utc": "2026-08-07T18:27:45Z",
+  "generation_command": "python main.py",
+  "git": {
+    "available": true,
+    "branch": "fix/result-provenance",
+    "commit_sha": "864ab09f3310b56b0d9993696d9a1cb4d361861d",
+    "dirty": false,
+    "short_commit_sha": "864ab09f"
+  },
+  "normalized_coordinate_convention": {
+    "control_symbol": "u",
+    "dimensionless": true,
+    "identifier": "normalized dimensionless second-order coordinates",
+    "state": [
+      "q",
+      "v = dq/dtau"
+    ],
+    "time_symbol": "tau"
+  },
+  "package": {
+    "name": "lyapunov-nn-control-lab",
+    "version": "1.0.1"
+  },
+  "run_id": "20260807T182745Z_864ab09f",
+  "run_kind": "official",
+  "schema_version": 1,
+  "scientific_configuration": {
+    "controller": {
+      "neural_architecture": [
+        {
+          "in_features": 2,
+          "out_features": 32,
+          "type": "Linear"
+        },
+        {
+          "type": "Tanh"
+        },
+        {
+          "in_features": 32,
+          "out_features": 32,
+          "type": "Linear"
+        },
+        {
+          "type": "Tanh"
+        },
+        {
+          "in_features": 32,
+          "out_features": 1,
+          "type": "Linear"
+        }
+      ],
+      "normalized_control_limit": 2.0,
+      "zero_at_origin": true
+    },
+    "finite_horizon_convergence": {
+      "comparison_grid_resolution": 11,
+      "convergence_tolerance": 0.1,
+      "horizon": 8.0,
+      "position_bounds": [
+        -2.5,
+        2.5
+      ],
+      "single_grid_resolution": 15,
+      "velocity_bounds": [
+        -2.5,
+        2.5
+      ]
+    },
+    "initial_states": [
+      [
+        1.5,
+        0.0
+      ],
+      [
+        -1.5,
+        0.0
+      ],
+      [
+        1.0,
+        1.5
+      ],
+      [
+        -1.0,
+        -1.5
+      ],
+      [
+        0.5,
+        -2.0
+      ]
+    ],
+    "lqr": {
+      "K": [
+        [
+          2.898979485566353,
+          2.4209854609927888
+        ]
+      ],
+      "Q": [
+        [
+          10.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ],
+      "R": [
+        [
+          0.5
+        ]
+      ]
+    },
+    "lyapunov_evaluation": {
+      "P": [
+        [
+          6.509974951242312,
+          1.4494897427831765
+        ],
+        [
+          1.4494897427831765,
+          1.2104927304963944
+        ]
+      ],
+      "decay_margin": 0.05,
+      "grid_resolution": [
+        81,
+        81
+      ],
+      "numerical_tolerance": 1e-09,
+      "position_bounds": [
+        -2.0,
+        2.0
+      ],
+      "velocity_bounds": [
+        -3.0,
+        3.0
+      ]
+    },
+    "measurement_noise": {
+      "base_seed": 7,
+      "noise_levels": [
+        0.0,
+        0.01,
+        0.05,
+        0.1
+      ],
+      "pairing_strategy": "common random-number realizations across noise amplitudes",
+      "repeat_count": 3,
+      "seeds": [
+        7,
+        8,
+        9
+      ]
+    },
+    "normalized_coordinate_convention": {
+      "control_symbol": "u",
+      "dimensionless": true,
+      "identifier": "normalized dimensionless second-order coordinates",
+      "state": [
+        "q",
+        "v = dq/dtau"
+      ],
+      "time_symbol": "tau"
+    },
+    "parameter_scenarios": {
+      "combined variation": {
+        "damping": 0.28,
+        "mass": 1.2,
+        "stiffness": 2.4
+      },
+      "damping -30%": {
+        "damping": 0.28,
+        "mass": 1.0,
+        "stiffness": 2.0
+      },
+      "mass +20%": {
+        "damping": 0.4,
+        "mass": 1.2,
+        "stiffness": 2.0
+      },
+      "mass -20%": {
+        "damping": 0.4,
+        "mass": 0.8,
+        "stiffness": 2.0
+      },
+      "nominal": {
+        "damping": 0.4,
+        "mass": 1.0,
+        "stiffness": 2.0
+      },
+      "stiffness +20%": {
+        "damping": 0.4,
+        "mass": 1.0,
+        "stiffness": 2.4
+      }
+    },
+    "plant": {
+      "A": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          -2.0,
+          -0.4
+        ]
+      ],
+      "B": [
+        [
+          0.0
+        ],
+        [
+          1.0
+        ]
+      ],
+      "damping": 0.4,
+      "mass": 1.0,
+      "stiffness": 2.0
+    },
+    "stability_weight_ablation": {
+      "base_seed": 700,
+      "epochs": 300,
+      "pairing_strategy": "paired seeds across all stability weights",
+      "repeat_count": 3,
+      "seeds": [
+        700,
+        701,
+        702
+      ],
+      "weights": [
+        0.0,
+        1.0,
+        10.0,
+        50.0
+      ]
+    },
+    "training": {
+      "decay_margin": 0.05,
+      "epochs": 1000,
+      "seed": 7,
+      "stability_weight": 10.0
+    }
+  },
+  "status": "complete"
+}
