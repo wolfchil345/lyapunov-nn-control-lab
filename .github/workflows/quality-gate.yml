@@ -1,6 +1,12 @@
 name: Quality gate
 
 on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
   quality-gate:
     name: quality-gate
     runs-on: ubuntu-latest
@@ -33,22 +39,4 @@ on:
       - name: Isolated PEP517 build (CI)
         run: python -m build
       - name: Make quality-gate
-        run: make quality-gate
-
-      - name: Run pip check
-        run: python -m pip check
-
-      - name: Verify legacy artifact checksums
-        run: python scripts/verify_legacy_checksums.py
-
-      - name: Verify committed provenance-aware runs
-        run: python scripts/verify_all_runs.py
-
-      - name: Build sdist and wheel (no-isolation local check)
-        run: python -m build --no-isolation
-
-      - name: Build sdist and wheel (isolated build)
-        run: python -m build
-
-      - name: Run quality gate
         run: make quality-gate

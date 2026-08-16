@@ -37,7 +37,6 @@ KEY_FILES = [
     "scripts/quality_gate.py",
     "scripts/check_workflow_badges.py",
     "scripts/verify_run.py",
-    ".github/workflows/local-checks.yml",
     ".github/workflows/quality-gate.yml",
 ]
 
