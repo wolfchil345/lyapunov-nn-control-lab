@@ -30,6 +30,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install build==0.10.0 wheel==0.48.0 setuptools==84.0.0
+      - name: Install project
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+          python -m pip check
       - name: Verify legacy checksums
         run: python scripts/verify_legacy_checksums.py
       - name: Verify all runs
