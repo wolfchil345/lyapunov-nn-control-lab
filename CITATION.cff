@@ -13,4 +13,4 @@ keywords:
   - "mass-spring-damper"
   - "control systems"
   - "robustness"
-abstract: "A Python research lab for training and evaluating neural-network controllers with Lyapunov-inspired stability checks, LQR baselines, actuator saturation, noise robustness, parameter robustness, region-of-attraction analysis, and automatic experiment reports."
+abstract: "A Python research lab for training and evaluating neural-network controllers with Lyapunov-inspired stability checks, LQR baselines, actuator saturation, noise robustness, parameter robustness, finite-horizon convergence analysis, and automatic experiment reports."
