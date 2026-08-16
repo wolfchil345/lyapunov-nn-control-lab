@@ -14,24 +14,23 @@ jobs:
       group: quality-gate-${{ github.ref }}
       cancel-in-progress: false
 
-    strategy:
-      matrix:
-        python-version: ["3.10", "3.12"]
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
 
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
       - name: Cache pip
         uses: actions/cache@v4
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('**/pyproject.toml', '**/requirements.txt') }}
-
-      - name: Set up Python
-        uses: actions/setup-python@v7
-        with:
-          python-version: ${{ matrix.python-version }}
+          key: ${{ runner.os }}-pip-3.12-${{ hashFiles('**/pyproject.toml', '**/requirements.txt') }}
 
       - name: Install package (editable .[dev])
         run: |
@@ -40,6 +39,12 @@ jobs:
 
       - name: Run pip check
         run: python -m pip check
+
+      - name: Verify legacy artifact checksums
+        run: python scripts/verify_legacy_checksums.py
+
+      - name: Verify committed provenance-aware runs
+        run: python scripts/verify_all_runs.py
 
       - name: Build sdist and wheel (no-isolation local check)
         run: python -m build --no-isolation
