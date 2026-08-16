@@ -1,41 +1,39 @@
 name: Quality gate
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
-jobs:
   quality-gate:
     name: quality-gate
     runs-on: ubuntu-latest
-    concurrency:
-      group: quality-gate-${{ github.ref }}
-      cancel-in-progress: false
-
     permissions:
       contents: read
-
+    timeout-minutes: 90
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
-
-      - name: Set up Python
-        uses: actions/setup-python@v7
+      - uses: actions/checkout@v7
         with:
-          python-version: "3.12"
-
-      - name: Cache pip
-        uses: actions/cache@v4
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
         with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-3.12-${{ hashFiles('**/pyproject.toml', '**/requirements.txt') }}
-
-      - name: Install package (editable .[dev])
+          python-version: 3.12
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.cache/pypoetry
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/pyproject.toml') }}
+      - name: Install build deps
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -e ".[dev]"
+          pip install build==0.10.0 wheel==0.48.0 setuptools==84.0.0
+      - name: Verify legacy checksums
+        run: python scripts/verify_legacy_checksums.py
+      - name: Verify all runs
+        run: python scripts/verify_all_runs.py
+      - name: Local offline wheel build (no isolation)
+        run: python -m pip wheel --no-deps --no-build-isolation --wheel-dir dist .
+      - name: Isolated PEP517 build (CI)
+        run: python -m build
+      - name: Make quality-gate
+        run: make quality-gate
 
       - name: Run pip check
         run: python -m pip check
