@@ -245,19 +245,27 @@ that the working tree was dirty.
 ## Current limitations
 
 - The neural network imitates an existing LQR controller.
-- Stability is evaluated on a finite grid.
-- Only one initial condition is shown in the main comparison.
-- The plant currently has no actuator saturation, measurement noise, or parameter uncertainty.
+- Stability checks are empirical and based on finite-grid sampling; they are
+	not formal continuous-state certificates.
+- Only one initial condition is shown in the main comparison figure by
+	default; additional experiments and paired ablations are available in
+	`results/` and described elsewhere in the docs.
+- The repository includes experiments and historical results for actuator
+	saturation, measurement-noise robustness, and parameter-variation
+	robustness. Some earlier result files were generated from single-seed or
+	confounded designs; planned paired-seed experiments (see the Stability-
+	weight ablation and Noise robustness sections) improve comparability.
 
 ## Future work
 
-- Add a Lyapunov penalty to the training loss.
-- Compare LQR, PID, and neural controllers.
-- Test multiple initial conditions.
-- Add actuator saturation and measurement noise.
-- Study robustness to changes in normalized mass, damping, and stiffness coefficients.
-- Extend the project to an inverted pendulum.
-- Investigate formal neural-network verification.
+- Expand paired-seed and paired-trial methodology for ablations and noise
+	robustness so comparisons report means and standard errors rather than
+	single-repeat summaries.
+- Compare LQR, PID, and other classical controllers in additional tasks.
+- Extend experiments to new benchmark plants (for example, an inverted
+	pendulum) and increase coverage of parameter sensitivity studies.
+- Investigate formal verification and certified invariance approaches as a
+	longer-term research direction.
 
 ## Technologies
 
@@ -641,7 +649,11 @@ GitHub Actions runs local checks automatically on pushes and pull requests using
 
 ## Build status
 
-[![Local checks](https://github.com/wolfchil345/lyapunov-nn-control-lab/actions/workflows/local-checks.yml/badge.svg)](https://github.com/wolfchil345/lyapunov-nn-control-lab/actions/workflows/local-checks.yml)
+The repository exposes status badges for the main reproducibility and
+quality checks at the top of this README (Tests and Quality gate). A
+previously-used `local-checks` GitHub workflow was removed; the current
+quality workflow is `.github/workflows/quality-gate.yml` and the test matrix
+is defined in `.github/workflows/tests.yml`.
 
 ## Editor configuration
 
