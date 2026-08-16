@@ -29,13 +29,40 @@ def clean_target(target: str) -> str:
 def markdown_files() -> list[Path]:
     """Return Markdown files that should be checked."""
     files = []
+    # Root README
     readme = ROOT / "README.md"
     if readme.exists():
         files.append(readme)
+
+    # results README
+    results_readme = ROOT / "results" / "README.md"
+    if results_readme.exists():
+        files.append(results_readme)
+
+    # All markdown under docs/ recursively and localized subdirectories
     docs_dir = ROOT / "docs"
     if docs_dir.exists():
-        files.extend(sorted(docs_dir.glob("*.md")))
-    return files
+        files.extend(sorted(p for p in docs_dir.rglob("*.md") if p.is_file()))
+
+    # Workflow and repo-level markdown (e.g., .github/*.md)
+    workflows_md = ROOT / ".github"
+    if workflows_md.exists():
+        files.extend(sorted(p for p in workflows_md.rglob("*.md") if p.is_file()))
+
+    # Deduplicate while preserving order
+    seen = set()
+    out: list[Path] = []
+    for p in files:
+        rp = p.resolve()
+        if rp in seen:
+            continue
+        seen.add(rp)
+        # Exclude vendor, build, virtualenv, and git directories
+        parts = set(p.parts)
+        if {".git", ".venv", "venv", "build", "dist", "tmp", "__pycache__"} & parts:
+            continue
+        out.append(p)
+    return out
 
 
 def check_file(path: Path) -> list[str]:

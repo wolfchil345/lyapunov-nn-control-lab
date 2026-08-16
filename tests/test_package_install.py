@@ -18,6 +18,9 @@ def test_wheel_install_imports_from_outside_repository(tmp_path: Path) -> None:
     wheel_dir = tmp_path / "wheelhouse"
     wheel_dir.mkdir()
 
+    # Build the wheel using the validated development environment.
+    # Use --no-build-isolation so this step does not require network access
+    # to fetch build-system dependencies (diagnostic/offline-safe).
     subprocess.run(
         [
             sys.executable,
@@ -25,13 +28,12 @@ def test_wheel_install_imports_from_outside_repository(tmp_path: Path) -> None:
             "pip",
             "wheel",
             "--no-deps",
+            "--no-build-isolation",
             "--wheel-dir",
             str(wheel_dir),
             str(PROJECT_ROOT),
         ],
         cwd=PROJECT_ROOT,
-        capture_output=True,
-        text=True,
         check=True,
     )
 
@@ -77,6 +79,8 @@ def test_wheel_install_imports_from_outside_repository(tmp_path: Path) -> None:
     dependency_path_file = Path(child_site) / "package-test-dependencies.pth"
     dependency_path_file.write_text(f"{dependency_site}\n", encoding="utf-8")
 
+    # Install the freshly-built wheel into the child venv. Keep output
+    # visible so failures expose stdout/stderr in CI logs.
     subprocess.run(
         [
             str(venv_python),
@@ -87,8 +91,6 @@ def test_wheel_install_imports_from_outside_repository(tmp_path: Path) -> None:
             "--ignore-installed",
             str(wheel),
         ],
-        capture_output=True,
-        text=True,
         check=True,
     )
 
@@ -117,11 +119,11 @@ def test_wheel_install_imports_from_outside_repository(tmp_path: Path) -> None:
     environment["MPLCONFIGDIR"] = str(tmp_path / "matplotlib")
     environment["PYTHONNOUSERSITE"] = "1"
 
+    # Run the import/location assertions in the isolated venv. Keep
+    # output visible for diagnostics.
     subprocess.run(
         [str(venv_python), "-c", import_check],
         cwd=outside_dir,
         env=environment,
-        capture_output=True,
-        text=True,
         check=True,
     )
