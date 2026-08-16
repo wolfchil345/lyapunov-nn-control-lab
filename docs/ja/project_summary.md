@@ -26,3 +26,22 @@ Lyapunov NN Control Lab は、制御工学と機械学習を組み合わせた�
 ## ポートフォリオとしての価値
 
 このリポジトリは、制御工学、機械学習、安定解析、研究ソフトウェア管理を一つの流れで示すためのプロジェクトです。
+
+## 公称プラント（補足）
+
+このプロジェクトでの公称正規化パラメータは次の通りです：MASS = 1.0, DAMPING = 0.4, STIFFNESS = 2.0。これらの値に対する状態行列 `A` の固有値はおおむね `-0.2 + 1.4j` と `-0.2 - 1.4j` であり，どちらも実部が負であるため公称の無制御線形プラントは既に漸近安定です。LQRは不安定プラントの安定化を目的とするのではなく，過渡応答と制御トレードオフを変える基準器として用います。
+
+## Key outputs
+
+- `results/model_architecture.png`
+- `results/position_comparison.png`
+- `results/training_loss.png`
+- `results/saturation_comparison.png`
+- `results/noise_robustness.png`
+- `results/parameter_robustness.png`
+- `results/phase_portrait.png`
+- `results/lyapunov_contours.png`
+- `results/region_of_attraction.png` (歴史的ファイル名、有限時間収束マップに由来)
+- `results/region_of_attraction_comparison.png` (歴史的ファイル名、比較図)
+- `results/stability_weight_ablation.png`
+- `results/experiment_report.md`
