@@ -18,18 +18,15 @@ Purpose:
 - Confirms core modules and scripts still work.
 - Protects the project from accidental code breakage.
 
-### Local checks
+### Local checks (historical)
 
-File:
+Note: an earlier `local-checks` GitHub Actions workflow was removed from
+the active workflows. Local pre-push checks remain documented through the
+`quality_gate` command and `scripts/run_checks.py` for local validation.
 
-```text
-.github/workflows/local-checks.yml
-```
-
-Purpose:
-
-- Runs the same checks used during local development.
-- Helps confirm that the repository works outside one machine.
+If you maintain a local, machine-specific workflow, keep it out of the
+shared `.github/workflows/` directory or document it clearly as a personal
+utility to avoid confusing contributors.
 
 ### Quality gate
 
