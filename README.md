@@ -503,7 +503,7 @@ A concise portfolio-style summary is available in [`docs/en/project_summary.md`]
 
 ## Reproducibility
 
-Instructions for reproducing the experiments are available in [`docs/reproducibility.md`](docs/reproducibility.md).
+Instructions for reproducing the experiments are available in [`docs/reproducibility.md`](docs/en/reproducibility.md).
 
 ## Quick-start example
 
@@ -533,19 +533,19 @@ Community guidelines are available in [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)
 
 ## Glossary
 
-Important control and machine-learning terms are explained in [`docs/glossary.md`](docs/glossary.md).
+Important control and machine-learning terms are explained in [`docs/glossary.md`](docs/en/glossary.md).
 
 ## References
 
-Suggested topics and further reading are listed in [`docs/references.md`](docs/references.md).
+Suggested topics and further reading are listed in [`docs/references.md`](docs/en/references.md).
 
 ## Figures guide
 
-Generated plots and result files are explained in [`docs/figures.md`](docs/figures.md).
+Generated plots and result files are explained in [`docs/figures.md`](docs/en/figures.md).
 
 ## Project structure
 
-The repository layout is explained in [`docs/project_structure.md`](docs/project_structure.md).
+The repository layout is explained in [`docs/project_structure.md`](docs/en/project_structure.md).
 
 ## Local checks
 
@@ -575,23 +575,23 @@ python scripts/summarize_results.py
 
 ## Troubleshooting
 
-Common setup and runtime issues are explained in [`docs/troubleshooting.md`](docs/troubleshooting.md).
+Common setup and runtime issues are explained in [`docs/troubleshooting.md`](docs/en/troubleshooting.md).
 
 ## Command cheat sheet
 
-Useful setup, testing, experiment, and Git commands are listed in [`docs/commands.md`](docs/commands.md).
+Useful setup, testing, experiment, and Git commands are listed in [`docs/commands.md`](docs/en/commands.md).
 
 ## Results interpretation
 
-Guidance for reading metrics, plots, Lyapunov checks, and robustness results is available in [`docs/results_interpretation.md`](docs/results_interpretation.md).
+Guidance for reading metrics, plots, Lyapunov checks, and robustness results is available in [`docs/results_interpretation.md`](docs/en/results_interpretation.md).
 
 ## Limitations
 
-Important assumptions and limitations are described in [`docs/limitations.md`](docs/limitations.md).
+Important assumptions and limitations are described in [`docs/limitations.md`](docs/en/limitations.md).
 
 ## Experiment workflow
 
-A recommended experiment workflow is available in [`docs/experiment_workflow.md`](docs/experiment_workflow.md).
+A recommended experiment workflow is available in [`docs/experiment_workflow.md`](docs/en/experiment_workflow.md).
 
 ## Full experiment pipeline
 
@@ -603,27 +603,27 @@ python scripts/run_full_experiment.py
 
 ## Presentation outline
 
-A ready-to-use presentation structure is available in [`docs/presentation_outline.md`](docs/presentation_outline.md).
+A ready-to-use presentation structure is available in [`docs/presentation_outline.md`](docs/en/presentation_outline.md).
 
 ## KAN extension
 
-Ideas for extending the project toward KAN-based controller experiments are described in [`docs/kan_extension.md`](docs/kan_extension.md).
+Ideas for extending the project toward KAN-based controller experiments are described in [`docs/kan_extension.md`](docs/en/kan_extension.md).
 
 ## Model card
 
-A model card for the neural-network controller is available in [`docs/model_card.md`](docs/model_card.md).
+A model card for the neural-network controller is available in [`docs/model_card.md`](docs/en/model_card.md).
 
 ## Research questions
 
-Possible research questions and thesis directions are listed in [`docs/research_questions.md`](docs/research_questions.md).
+Possible research questions and thesis directions are listed in [`docs/research_questions.md`](docs/en/research_questions.md).
 
 ## Thesis plan
 
-A possible graduation thesis plan based on this repository is available in [`docs/thesis_plan.md`](docs/thesis_plan.md).
+A possible graduation thesis plan based on this repository is available in [`docs/thesis_plan.md`](docs/en/thesis_plan.md).
 
 ## Defense questions
 
-Possible presentation and thesis-defense questions are collected in [`docs/defense_questions.md`](docs/defense_questions.md).
+Possible presentation and thesis-defense questions are collected in [`docs/defense_questions.md`](docs/en/defense_questions.md).
 
 ## Documentation index
 
@@ -669,19 +669,19 @@ The repository includes `pyproject.toml` with basic project metadata and pytest 
 
 ## Environment setup
 
-See the [environment setup guide](docs/environment.md) for Python version, virtual environment, dependency installation, and local checks.
+See the [environment setup guide](docs/en/environment.md) for Python version, virtual environment, dependency installation, and local checks.
 
 ## Artifact manifest
 
-See the [artifact manifest](docs/artifact_manifest.md) for an overview of source files, scripts, generated plots, reports, and result summaries.
+See the [artifact manifest](docs/en/artifact_manifest.md) for an overview of source files, scripts, generated plots, reports, and result summaries.
 
 ## VS Code setup
 
-See the [VS Code setup guide](docs/vscode.md) for recommended extensions, pytest settings, Codespaces notes, and common terminal workflow.
+See the [VS Code setup guide](docs/en/vscode.md) for recommended extensions, pytest settings, Codespaces notes, and common terminal workflow.
 
 ## Codespaces setup
 
-See the [Codespaces setup guide](docs/codespaces.md) for the dev container, automatic dependency installation, extensions, and workflow notes.
+See the [Codespaces setup guide](docs/en/codespaces.md) for the dev container, automatic dependency installation, extensions, and workflow notes.
 
 ## Environment checker
 
@@ -689,7 +689,7 @@ Run `python scripts/check_environment.py` to diagnose Python, required project f
 
 ## Dependency troubleshooting
 
-See the [dependency troubleshooting guide](docs/dependency_troubleshooting.md) for runtime import errors, virtual environment resets, and Codespaces recovery.
+See the [dependency troubleshooting guide](docs/en/dependency_troubleshooting.md) for runtime import errors, virtual environment resets, and Codespaces recovery.
 
 ## Command shortcuts
 
@@ -697,47 +697,47 @@ The repository includes a `Makefile` for common shortcuts such as `make check-en
 
 ## Dependency updates
 
-See the [dependency updates guide](docs/dependency_updates.md) for Dependabot behavior and the update review checklist.
+See the [dependency updates guide](docs/en/dependency_updates.md) for Dependabot behavior and the update review checklist.
 
 ## Security scanning
 
-See the [security scanning guide](docs/security_scanning.md) for CodeQL workflow behavior and review notes.
+See the [security scanning guide](docs/en/security_scanning.md) for CodeQL workflow behavior and review notes.
 
 ## Branch protection
 
-See the [branch protection guide](docs/branch_protection.md) for recommended `main` branch rules and required checks.
+See the [branch protection guide](docs/en/branch_protection.md) for recommended `main` branch rules and required checks.
 
 ## Pull request review
 
-See the [pull request review guide](docs/pull_request_review.md) for the recommended checklist before merging feature branches.
+See the [pull request review guide](docs/en/pull_request_review.md) for the recommended checklist before merging feature branches.
 
 ## Release checklist
 
-See the [release checklist](docs/release_checklist.md) before tagging a release or submitting the project for review.
+See the [release checklist](docs/en/release_checklist.md) before tagging a release or submitting the project for review.
 
 ## Demo guide
 
-See the [five minute demo script](docs/demo_script.md) for a quick explanation flow for professors, reviewers, interviews, and lab discussions.
+See the [five minute demo script](docs/en/demo_script.md) for a quick explanation flow for professors, reviewers, interviews, and lab discussions.
 
 ## Portfolio pitch
 
-See the [portfolio pitch](docs/portfolio_pitch.md) for a concise explanation for CVs, interviews, professor visits, and graduate applications.
+See the [portfolio pitch](docs/en/portfolio_pitch.md) for a concise explanation for CVs, interviews, professor visits, and graduate applications.
 
 ## FAQ
 
-See the [FAQ](docs/faq.md) for quick answers about the project goal, LQR reference controller, Lyapunov-style checks, and limitations.
+See the [FAQ](docs/en/faq.md) for quick answers about the project goal, LQR reference controller, Lyapunov-style checks, and limitations.
 
 ## Experiment parameters
 
-See the [experiment parameters guide](docs/experiment_parameters.md) for the main settings that affect training, simulation, Lyapunov checks, robustness tests, and results.
+See the [experiment parameters guide](docs/en/experiment_parameters.md) for the main settings that affect training, simulation, Lyapunov checks, robustness tests, and results.
 
 ## Experiment log template
 
-See the [experiment log template](docs/experiment_log_template.md) for recording experiment settings, results, comparisons, and observations.
+See the [experiment log template](docs/en/experiment_log_template.md) for recording experiment settings, results, comparisons, and observations.
 
 ## Result file naming
 
-See the [result file naming guide](docs/result_naming.md) for organizing plots, metrics, reports, robustness outputs, and experiment comparisons.
+See the [result file naming guide](docs/en/result_naming.md) for organizing plots, metrics, reports, robustness outputs, and experiment comparisons.
 
 ## Experiment log generator
 
@@ -757,7 +757,7 @@ python scripts/list_results.py
 
 ## Result review checklist
 
-See the [result review checklist](docs/result_review_checklist.md) before using generated plots, metrics, Lyapunov outputs, robustness outputs, or reports.
+See the [result review checklist](docs/en/result_review_checklist.md) before using generated plots, metrics, Lyapunov outputs, robustness outputs, or reports.
 
 ## Project status
 
@@ -793,27 +793,27 @@ GitHub Actions runs the quality gate automatically with `.github/workflows/quali
 
 ## Quality gate guide
 
-See the [quality gate guide](docs/quality_gate.md) for how to run the full readiness check and fix common failures.
+See the [quality gate guide](docs/en/quality_gate.md) for how to run the full readiness check and fix common failures.
 
 ## CI workflows guide
 
-See the [CI workflows guide](docs/ci_workflows.md) for how GitHub Actions, badges, and quality checks are organized.
+See the [CI workflows guide](docs/en/ci_workflows.md) for how GitHub Actions, badges, and quality checks are organized.
 
 ## Project status guide
 
-See the [project status guide](docs/project_status.md) for how repository health is checked.
+See the [project status guide](docs/en/project_status.md) for how repository health is checked.
 
 ## Maintenance guide
 
-See the [maintenance guide](docs/maintenance.md) for routine checks before merges, demos, and repository updates.
+See the [maintenance guide](docs/en/maintenance.md) for routine checks before merges, demos, and repository updates.
 
 ## Git workflow guide
 
-See the [Git workflow guide](docs/git_workflow.md) for the project branch, commit, merge, and cleanup process.
+See the [Git workflow guide](docs/en/git_workflow.md) for the project branch, commit, merge, and cleanup process.
 
 ## Onboarding guide
 
-See the [onboarding guide](docs/onboarding.md) for the first steps to run, test, and understand this project.
+See the [onboarding guide](docs/en/onboarding.md) for the first steps to run, test, and understand this project.
 
 ## Multilingual documentation
 

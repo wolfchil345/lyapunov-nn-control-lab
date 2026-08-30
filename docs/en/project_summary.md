@@ -15,6 +15,19 @@ LQR reference while preserving useful transient, robustness, and sampled
 Lyapunov behavior. The nominal uncontrolled linear plant is already
 asymptotically stable; the controller changes its closed-loop performance.
 
+## Nominal plant (canonical)
+
+The canonical normalized plant parameters used across the repository are:
+
+- MASS = 1.0
+- DAMPING = 0.4
+- STIFFNESS = 2.0
+
+For these parameters the state matrix `A` has eigenvalues approximately
+`-0.2 + 1.4j` and `-0.2 - 1.4j`, which have negative real parts. These values
+are part of the canonical baseline and must be preserved verbatim in all
+language variants of this file.
+
 ## Main features
 
 - LQR baseline controller

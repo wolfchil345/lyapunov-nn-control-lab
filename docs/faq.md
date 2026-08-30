@@ -1,45 +1,11 @@
-# Frequently Asked Questions
+# Documentation language / ドキュメント言語 / 문서 언어 / ภาษาเอกสาร
 
-This page answers common questions about the project.
+This documentation page is maintained in four languages.
+このドキュメントは4言語で提供されています。
+이 문서는 4개 언어로 제공됩니다.
+เอกสารหน้านี้มีให้ใช้งานใน 4 ภาษา
 
-## What is this project about?
-
-This project trains and evaluates a neural network controller for a
-mass-spring-damper system. The controller learns from an LQR reference and is
-evaluated with simulation metrics, Lyapunov-style checks, robustness tests,
-and sampled finite-horizon convergence maps.
-
-## Why use LQR as the reference controller?
-
-LQR is a standard control method for linear systems. It gives a stable and interpretable reference policy, which makes it useful for training and comparing a neural network controller.
-
-## Does this project prove global stability?
-
-No. The Lyapunov grid check is an empirical evaluation tool. It can provide useful evidence over sampled states, but it should not be described as a complete formal proof of global stability.
-
-## What makes this project different from a normal machine learning demo?
-
-The project does not only train a neural network. It also evaluates closed-loop behavior, control cost, robustness, Lyapunov-related quantities, reproducibility, and documentation quality.
-
-## What should I show first in a presentation?
-
-Start with the README, then show the five minute demo script, main experiment workflow, results plots, and Lyapunov or robustness documentation.
-
-## How do I check that the project is working?
-
-```bash
-python scripts/check_environment.py
-make checks
-```
-
-## Where are the main files?
-
-- `src/`: source code.
-- `tests/`: automated tests.
-- `scripts/`: repeatable command scripts.
-- `docs/`: explanations and guides.
-- `results/`: generated outputs.
-
-## What are the current limitations?
-
-This is a research prototype. Results depend on the chosen system, controller settings, training setup, random seed, sampled grid, and experiment conditions.
+- [English](en/faq.md)
+- [日本語](ja/faq.md)
+- [한국어](ko/faq.md)
+- [ไทย](th/faq.md)

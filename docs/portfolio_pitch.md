@@ -1,58 +1,11 @@
-# Portfolio Pitch
+# Documentation language / ドキュメント言語 / 문서 언어 / ภาษาเอกสาร
 
-Use this page when explaining the project in a CV, interview, professor meeting, research discussion, or graduate school application.
+This documentation page is maintained in four languages.
+このドキュメントは4言語で提供されています。
+이 문서는 4개 언어로 제공됩니다.
+เอกสารหน้านี้มีให้ใช้งานใน 4 ภาษา
 
-## One sentence summary
-
-A reproducible Python research prototype that trains and evaluates a neural
-network controller for a mass-spring-damper system using LQR imitation,
-Lyapunov-aware analysis, robustness tests, and explicit finite-horizon
-convergence maps.
-
-## 30 second pitch
-
-This project studies whether a neural network controller can imitate an LQR
-controller while being evaluated with control-oriented diagnostic tools. The
-nominal uncontrolled plant is already asymptotically stable. The repository
-therefore focuses on imitation, transient performance, robustness, sampled
-Lyapunov checks, and finite-horizon final-state tolerance maps, with automated
-tests and reproducible documentation.
-
-## Technical keywords
-
-- Neural network control
-- LQR imitation
-- Lyapunov analysis
-- Closed-loop simulation
-- Robustness evaluation
-- Finite-horizon convergence mapping with horizon and tolerance metadata
-- Reproducible research code
-- Python and PyTorch
-
-## What makes the project strong
-
-- It connects machine learning with control engineering.
-- It includes automated tests and local checks.
-- It documents methodology, limitations, reproducibility, and troubleshooting.
-- It separates source code, scripts, tests, documentation, and results.
-- It treats stability and robustness as evaluation topics, not afterthoughts.
-
-## What to show first
-
-1. README overview.
-2. Five minute demo script.
-3. Main experiment workflow.
-4. Results plots and summary report.
-5. Lyapunov and robustness documentation.
-
-## Interview talking points
-
-- Why LQR is used as a reference controller.
-- How the neural network controller is trained.
-- Why Lyapunov-style evaluation is useful.
-- How robustness tests make the evaluation more realistic.
-- Why reproducibility matters for research code.
-
-## Honest limitation statement
-
-This project is a research prototype. The Lyapunov grid check is an empirical evaluation tool and should not be described as a complete formal proof of global stability.
+- [English](en/portfolio_pitch.md)
+- [日本語](ja/portfolio_pitch.md)
+- [한국어](ko/portfolio_pitch.md)
+- [ไทย](th/portfolio_pitch.md)

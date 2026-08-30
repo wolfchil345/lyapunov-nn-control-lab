@@ -1,68 +1,11 @@
-# Presentation Outline
+# Documentation language / ドキュメント言語 / 문서 언어 / ภาษาเอกสาร
 
-This outline can be used to present the Lyapunov Neural-Network Control Lab in a class, lab meeting, or interview.
+This documentation page is maintained in four languages.
+このドキュメントは4言語で提供されています。
+이 문서는 4개 언어로 제공됩니다.
+เอกสารหน้านี้มีให้ใช้งานใน 4 ภาษา
 
-## 1. Project motivation
-
-- Neural-network controllers are flexible but can be difficult to trust.
-- Control engineering needs stability, robustness, and interpretability.
-- This project explores neural-network control with Lyapunov-style stability checks.
-
-## 2. System model
-
-- The plant is a mass-spring-damper system.
-- The state contains normalized position `q` and normalized velocity `v`.
-- The control input is a normalized scalar; no physical force unit is defined.
-
-## 3. Baseline controller
-
-- LQR is used as a classical control baseline.
-- The neural-network controller is trained to imitate LQR.
-
-## 4. Neural-network controller
-
-- The model maps state to control input.
-- Training uses imitation loss and a stability-aware penalty.
-- The origin is treated as the target equilibrium.
-
-## 5. Stability analysis
-
-- A Lyapunov-style function is used to check stability behavior.
-- Grid-based checks estimate where the Lyapunov derivative is negative.
-- A finite-horizon convergence map reports which sampled initial states satisfy
-  `||x(T)||_2 < epsilon` for the stated normalized-time horizon and
-  normalized-state tolerance.
-- This map is not a mathematical region of attraction.
-
-## 6. Robustness experiments
-
-- Actuator saturation checks input limits.
-- Measurement-noise experiments check noisy state feedback.
-- Parameter-variation experiments check changed normalized mass, damping, and stiffness coefficients.
-
-## 7. Main outputs
-
-- `performance_metrics.csv`
-- `position_comparison.png`
-- `phase_portrait.png`
-- `lyapunov_contours.png`
-- `finite_horizon_convergence_comparison.png`
-- `experiment_report.md`
-
-## 8. Key contribution
-
-- The project combines simulation, neural-network control, Lyapunov-style checks, robustness tests, automatic reports, and documentation in one reproducible repository.
-
-## 9. Limitations
-
-- The system is simple compared with real plants.
-- Grid checks provide empirical evidence, not a full global stability proof.
-- The neural-network controller may behave poorly outside the training region.
-
-## 10. Future work
-
-- Test more nonlinear systems.
-- Learn neural Lyapunov functions directly.
-- Add stronger formal verification.
-- Compare with more controller types.
-- Apply the workflow to KAN-based controllers.
+- [English](en/presentation_outline.md)
+- [日本語](ja/presentation_outline.md)
+- [한국어](ko/presentation_outline.md)
+- [ไทย](th/presentation_outline.md)
