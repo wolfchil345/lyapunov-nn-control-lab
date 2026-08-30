@@ -2,34 +2,41 @@
 
 # プロジェクト概要
 
-Lyapunov NN Control Lab は、制御工学と機械学習を組み合わせた研究用ポートフォリオプロジェクトです。
+## Overview
 
-このプロジェクトでは、質量ばねダンパ系を対象に、LQR制御器のふるまいをニューラルネットワーク制御器で近似します。さらに、Lyapunov関数に基づく考え方を使い、閉ループ系の安定性を意識した評価を行います。
+このプロジェクトは、Lyapunov に着想を得た安定性解析を伴う neural-network control の Python 研究ラボです。
 
-## 目的
+対象システムは質量ばねダンパプラントです。本プロジェクトは、古典的 LQR 制御器と、模倣学習で学習した neural-network 制御器を比較します。
 
-- ニューラルネットワーク制御器を学習する
-- LQR制御器との挙動を比較する
-- Lyapunov関数を使って安定性を確認する
-- シミュレーション結果を可視化する
-- 再現性のある研究ソフトウェアとして整理する
+## Main goal
 
-## 主な技術
+主目的は、neural-network 制御器が LQR 参照を模倣しつつ、有用な過渡特性、ロバスト性、サンプル Lyapunov 挙動を維持できるかを研究することです。公称の無制御線形プラントはすでに漸近安定であり、制御器は閉ループ性能を変えます。
 
-- Python
-- PyTorch
-- LQR制御
-- Lyapunov安定性
-- シミュレーション評価
-- GitHub Actions による自動チェック
+## Nominal plant (canonical)
 
-## ポートフォリオとしての価値
+リポジトリ全体で使用する canonical な normalized plant parameters は次のとおりです。
 
-このリポジトリは、制御工学、機械学習、安定解析、研究ソフトウェア管理を一つの流れで示すためのプロジェクトです。
+- MASS = 1.0
+- DAMPING = 0.4
+- STIFFNESS = 2.0
 
-## 公称プラント（補足）
+これらのパラメータに対して状態行列 `A` の固有値はおおむね `-0.2 + 1.4j` と `-0.2 - 1.4j` で、いずれも実部が負です。これらの値は canonical baseline の一部であり、このファイルの全言語版で逐語的に保持する必要があります。
 
-このプロジェクトでの公称正規化パラメータは次の通りです：MASS = 1.0, DAMPING = 0.4, STIFFNESS = 2.0。これらの値に対する状態行列 `A` の固有値はおおむね `-0.2 + 1.4j` と `-0.2 - 1.4j` であり，どちらも実部が負であるため公称の無制御線形プラントは既に漸近安定です。LQRは不安定プラントの安定化を目的とするのではなく，過渡応答と制御トレードオフを変える基準器として用います。
+## Main features
+
+- LQR baseline controller
+- neural-network controller
+- stability-aware training penalty
+- Lyapunov grid check
+- actuator saturation experiment
+- measurement-noise robustness experiment
+- parameter robustness experiment
+- phase portrait visualization
+- Lyapunov contour visualization
+- finite-horizon convergence mapping with explicit sampling metadata
+- controller comparison using an explicit finite-horizon final-state tolerance
+- stability-weight ablation study
+- automatic experiment report generation
 
 ## Key outputs
 
@@ -41,7 +48,17 @@ Lyapunov NN Control Lab は、制御工学と機械学習を組み合わせた�
 - `results/parameter_robustness.png`
 - `results/phase_portrait.png`
 - `results/lyapunov_contours.png`
-- `results/region_of_attraction.png` (歴史的ファイル名、有限時間収束マップに由来)
-- `results/region_of_attraction_comparison.png` (歴史的ファイル名、比較図)
+- `results/region_of_attraction.png` (finite-horizon map に対する historical filename)
+- `results/region_of_attraction_comparison.png` (finite-horizon comparison に対する historical filename)
 - `results/stability_weight_ablation.png`
 - `results/experiment_report.md`
+
+## Why this project matters
+
+neural-network 制御器は強力ですが、安定性は制御工学における主要な懸念です。
+
+このプロジェクトは、学習ベース制御と古典的安定解析の考え方を結び付けます。neural-network 制御器の完全な形式証明を与えることは主張しませんが、安定挙動を研究するための実用的な経験的ツールを提供します。
+
+## Portfolio value
+
+このリポジトリは、制御工学、Python、PyTorch、数値シミュレーション、テスト、可視化、GitHub Actions、ドキュメント作成、再現可能な研究ワークフローの技能を示します。

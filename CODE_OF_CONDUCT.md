@@ -1,3 +1,5 @@
+🌐 Language: [English](CODE_OF_CONDUCT.md) | [日本語](CODE_OF_CONDUCT.ja.md) | [한국어](CODE_OF_CONDUCT.ko.md) | [ไทย](CODE_OF_CONDUCT.th.md)
+
 # Code of Conduct
 
 ## Our pledge

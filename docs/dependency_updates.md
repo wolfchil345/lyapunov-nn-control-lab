@@ -1,30 +1,11 @@
-# Dependency Updates
+# Documentation language / ドキュメント言語 / 문서 언어 / ภาษาเอกสาร
 
-This project uses Dependabot to help monitor dependency updates.
+This documentation page is maintained in four languages.
+このドキュメントは4言語で提供されています。
+이 문서는 4개 언어로 제공됩니다.
+เอกสารหน้านี้มีให้ใช้งานใน 4 ภาษา
 
-## What Dependabot checks
-
-- Python packages from the root dependency files.
-- GitHub Actions used in workflow files.
-
-## Schedule
-
-Dependabot checks for updates weekly.
-
-## Review checklist
-
-When Dependabot opens an update pull request:
-
-1. Read the package or action being updated.
-2. Run local checks.
-3. Review the changed version carefully.
-4. Merge only if tests pass.
-
-```bash
-python scripts/check_environment.py
-make checks
-```
-
-## Safety note
-
-For research code, dependency updates should be tested before being used for final experiment results.
+- [English](en/dependency_updates.md)
+- [日本語](ja/dependency_updates.md)
+- [한국어](ko/dependency_updates.md)
+- [ไทย](th/dependency_updates.md)

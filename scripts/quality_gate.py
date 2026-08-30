@@ -9,6 +9,7 @@ COMMANDS = [
     [sys.executable, "scripts/check_workflow_badges.py"],
     [sys.executable, "scripts/check_environment.py"],
     [sys.executable, "scripts/list_results.py"],
+    [sys.executable, "scripts/check_docs_i18n_parity.py"],
     [sys.executable, "scripts/run_checks.py"],
 ]
 

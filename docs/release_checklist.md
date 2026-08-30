@@ -1,52 +1,11 @@
-# Release Checklist
+# Documentation language / ドキュメント言語 / 문서 언어 / ภาษาเอกสาร
 
-Use this checklist before creating a project release or submitting the repository for review.
+This documentation page is maintained in four languages.
+このドキュメントは4言語で提供されています。
+이 문서는 4개 언어로 제공됩니다.
+เอกสารหน้านี้มีให้ใช้งานใน 4 ภาษา
 
-## 1. Sync main
-
-```bash
-git switch main
-git pull origin main
-git status
-```
-
-## 2. Check environment
-
-```bash
-python scripts/check_environment.py
-```
-
-## 3. Run project checks
-
-```bash
-make checks
-```
-
-## 4. Generate and verify important results
-
-```bash
-python main.py
-python scripts/list_results.py
-python scripts/verify_run.py results/runs/<run_id>
-```
-
-## 5. Review documentation
-
-Check README, docs index, release notes, methodology, results interpretation, limitations, and troubleshooting guides.
-
-## 6. Review Git status
-
-```bash
-git status
-git log --oneline -10
-```
-
-## 7. Tag release only after checks pass
-
-```bash
-VERSION=vX.Y.Z
-git tag -a "$VERSION" -m "Release $VERSION"
-git push origin "$VERSION"
-```
-
-Update the version number when creating later releases.
+- [English](en/release_checklist.md)
+- [日本語](ja/release_checklist.md)
+- [한국어](ko/release_checklist.md)
+- [ไทย](th/release_checklist.md)

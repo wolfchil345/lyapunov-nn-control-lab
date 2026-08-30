@@ -1,73 +1,11 @@
-# Thesis Plan
+# Documentation language / ドキュメント言語 / 문서 언어 / ภาษาเอกสาร
 
-This document connects the Lyapunov Neural-Network Control Lab to a possible graduation research plan.
+This documentation page is maintained in four languages.
+このドキュメントは4言語で提供されています。
+이 문서는 4개 언어로 제공됩니다.
+เอกสารหน้านี้มีให้ใช้งานใน 4 ภาษา
 
-## Tentative title
-
-Lyapunov-style stability evaluation of neural-network controllers for a mass-spring-damper system
-
-## Background
-
-Neural-network controllers can approximate nonlinear control policies, but their stability behavior is difficult to guarantee.
-
-Classical control methods such as LQR provide reliable baselines for linear systems.
-
-This project studies a neural-network controller trained from an LQR teacher and evaluated with Lyapunov-style checks.
-
-## Research objective
-
-The objective is to evaluate whether a neural-network controller can imitate LQR while maintaining useful closed-loop stability behavior in simulation.
-
-## Proposed method
-
-1. Define a mass-spring-damper system.
-2. Design an LQR controller as a baseline.
-3. Generate training data from the LQR controller.
-4. Train a neural-network controller.
-5. Add a stability-aware training penalty.
-6. Simulate closed-loop responses.
-7. Evaluate performance, robustness, and Lyapunov-style stability behavior.
-
-## Evaluation items
-
-- final normalized-state norm
-- normalized settling time
-- quadratic LQR-style cost
-- integrated squared control effort
-- maximum absolute normalized control input
-- Lyapunov derivative behavior
-- robustness under noise
-- robustness under parameter variation
-- actuator saturation behavior
-- finite-horizon convergence counts and fractions with explicit sampling
-  metadata
-
-## Expected contribution
-
-The expected contribution is a reproducible Python research workflow for comparing classical and neural-network controllers using performance metrics, robustness tests, and Lyapunov-style stability checks.
-
-## Possible KAN extension
-
-After the standard neural-network controller is working, the same pipeline can be extended to compare a KAN-based controller.
-
-The comparison can investigate whether KAN improves imitation accuracy,
-smoothness, robustness, or finite-horizon convergence under identical settings.
-
-## Risks and limitations
-
-- The current plant is simple.
-- Grid-based checks do not prove global stability.
-- Neural-network behavior outside the training region may be unreliable.
-- Simulation results are not the same as hardware validation.
-
-## Possible final thesis structure
-
-1. Introduction
-2. Background on LQR, neural-network control, and Lyapunov stability
-3. System model and baseline controller
-4. Neural-network controller design
-5. Stability-aware training method
-6. Simulation experiments
-7. Robustness and finite-horizon convergence analysis
-8. Discussion and limitations
-9. Conclusion and future work
+- [English](en/thesis_plan.md)
+- [日本語](ja/thesis_plan.md)
+- [한국어](ko/thesis_plan.md)
+- [ไทย](th/thesis_plan.md)

@@ -1,3 +1,5 @@
+🌐 Language: [English](SECURITY.md) | [日本語](SECURITY.ja.md) | [한국어](SECURITY.ko.md) | [ไทย](SECURITY.th.md)
+
 # Security Policy
 
 ## Supported versions

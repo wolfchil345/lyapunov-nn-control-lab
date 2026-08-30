@@ -1,7 +1,7 @@
 🌐 언어: [English](README.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [ไทย](README.th.md)
 
-# ![Python tests](https://github.com/wolfchil345/lyapunov-nn-control-lab/actions/workflows/tests.yml/badge.svg)
-# ![Quality gate](https://github.com/wolfchil345/lyapunov-nn-control-lab/actions/workflows/quality-gate.yml/badge.svg)
+![Python tests](https://github.com/wolfchil345/lyapunov-nn-control-lab/actions/workflows/tests.yml/badge.svg)
+![Quality gate](https://github.com/wolfchil345/lyapunov-nn-control-lab/actions/workflows/quality-gate.yml/badge.svg)
 
 # Lyapunov NN Control Lab
 
@@ -36,10 +36,10 @@ python scripts/quality_gate.py
 - [문서 색인](docs/ko/index.md)
 - [Project summary](docs/ko/project_summary.md)
 - [Methodology](docs/ko/methodology.md)
-- [Experiment workflow](docs/experiment_workflow.md)
-- [Results interpretation](docs/results_interpretation.md)
-- [Onboarding guide](docs/onboarding.md)
-- [Maintenance guide](docs/maintenance.md)
+- [Experiment workflow](docs/ko/experiment_workflow.md)
+- [Results interpretation](docs/ko/results_interpretation.md)
+- [Onboarding guide](docs/ko/onboarding.md)
+- [Maintenance guide](docs/ko/maintenance.md)
 
 ## Lyapunov 평가 및 학습
 

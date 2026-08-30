@@ -1,3 +1,5 @@
+🌐 Language: [English](CONTRIBUTING.md) | [日本語](CONTRIBUTING.ja.md) | [한국어](CONTRIBUTING.ko.md) | [ไทย](CONTRIBUTING.th.md)
+
 # Contributing Guide
 
 Thank you for your interest in improving the Lyapunov Neural-Network Control Lab.
