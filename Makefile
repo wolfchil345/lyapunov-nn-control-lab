@@ -1,5 +1,7 @@
 .PHONY: check-env checks test quickstart experiment clean summarize verify-run
 
+PYTHON ?= $(if $(wildcard .venv/bin/python),.venv/bin/python,python3)
+
 check-env:
 	python scripts/check_environment.py
 
@@ -38,7 +40,7 @@ status:
 
 .PHONY: quality-gate
 quality-gate:
-	python scripts/quality_gate.py
+	$(PYTHON) scripts/quality_gate.py
 
 .PHONY: workflow-badges
 workflow-badges:
